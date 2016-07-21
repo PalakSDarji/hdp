@@ -1,0 +1,21 @@
+<resources>
+
+    <!--Show Card Fragment-->
+    <dimen name="card_padding_top">10dp</dimen>
+    <dimen name="card_padding_side">14dp</dimen>
+    <dimen name="card_title_textsize">15dp</dimen>
+    <dimen name="card_share_textsize">7dp</dimen>
+    <dimen name="card_event_margin_bottom">17dp</dimen>
+    <dimen name="card_bottom_layer_vertical_padding">8dp</dimen>
+    <dimen name="rounded_radius">51dp</dimen>
+    <dimen name="card_view_margin_vertical">11dp</dimen>
+    <dimen name="bottom_menu_side_margin">59dp</dimen>
+    <dimen name="card_bottom_text_size">10dp</dimen>
+    <dimen name="list_image_dimen">49dp</dimen>
+    <dimen name="card_bottom_drawer">40dp</dimen>
+    <dimen name="card_bottom_center">57dp</dimen>
+    <dimen name="card_bottom_drawer_radius">20dp</dimen>
+    <dimen name="card_bottom_center_radius">28.5dp</dimen>
+
+
+</resources>

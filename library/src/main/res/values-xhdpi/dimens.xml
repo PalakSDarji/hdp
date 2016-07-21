@@ -1,0 +1,11 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+
+    <dimen name="list_image_dimen">49dp</dimen>
+
+    <dimen name="card_bottom_drawer">40dp</dimen>
+    <dimen name="card_bottom_center">57dp</dimen>
+    <dimen name="card_bottom_drawer_radius">20dp</dimen>
+    <dimen name="card_bottom_center_radius">28.5dp</dimen>
+</resources>
