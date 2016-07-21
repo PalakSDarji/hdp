@@ -3,42 +3,47 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    >
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                                         xmlns:app="http://schemas.android.com/apk/res-auto"
                                         xmlns:card_view="http://schemas.android.com/apk/res-auto"
                                         xmlns:tools="http://schemas.android.com/tools"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:background="@drawable/card_edge"
+                                        android:layout_height="match_parent"
                                         android:orientation="vertical"
                                         app:cardCornerRadius="10dp"
+                                        android:background="@drawable/rounded_caard"
                                         app:cardElevation="0dp"
                                         card_view:cardPreventCornerOverlap="false">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:background="@drawable/rounded_caard"
-            android:orientation="vertical">
+            android:padding="1dp"
+            >
 
             <ImageView
                 android:id="@+id/coverImage"
                 android:layout_width="match_parent"
-                android:layout_height="303dp"
-                android:background="@drawable/card_top"
-
-                android:scaleType="centerCrop"
-                android:src="@drawable/deepu"/>
+                android:src="@drawable/deepu"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/llControls"
+                android:background="@drawable/rounded_caard"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"/>
             <!--
                     </com.github.captain_miao.optroundcardview.OptRoundCardView>
             -->
 
             <LinearLayout
+                android:id="@+id/llControls"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="35"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -155,7 +160,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="1dp"
                     android:layout_marginTop="@dimen/card_view_margin_vertical"
                     android:background="#d0d0d0"></View>
 
@@ -191,11 +196,12 @@
                 </RelativeLayout>
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/rounded_caard"/>
+        android:src="@drawable/rounded_caard"
+        />-->
 </FrameLayout>

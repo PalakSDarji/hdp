@@ -165,7 +165,7 @@ public class ShowCards extends Fragment {
         swipeLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardStack.swipeTopCardLeft(270);
+                cardStack.swipeTopCardLeft(5000);
             }
         });
 
@@ -277,7 +277,7 @@ public class ShowCards extends Fragment {
 
             LayoutInflater mInflater = getActivity().getLayoutInflater();
             if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.item,parent, false);
+                convertView = mInflater.inflate(R.layout.item_match_parent_sample,parent, false);
                 holder = new ViewHolder();
                // holder.txtDesc = (TextView) convertView.findViewById(R.id.desc);
                 holder.tvFollowling = (TextView) convertView.findViewById(R.id.tvFollowling);
