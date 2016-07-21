@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rsb="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pref_bg">
+
+    <RelativeLayout
+        android:background="#ffffff"   android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/imageBack"
+            android:layout_width="wrap_content"
+            android:padding="7.5dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/preference"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+    <android.support.v7.widget.CardView
+        android:layout_marginLeft="@dimen/pref_card_side_margin"
+        android:layout_marginRight="@dimen/pref_card_side_margin"
+        android:layout_marginTop="@dimen/pref_card_1_margin_top"
+        app:cardCornerRadius="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        >
+
+        <LinearLayout
+            android:paddingTop="@dimen/pref_card_padding_vertical"
+            android:paddingBottom="@dimen/pref_card_padding_vertical"
+            android:paddingLeft="@dimen/pref_card_padding_left"
+            android:paddingRight="@dimen/pref_card_padding_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/pref_card_title_size"
+                    android:textColor="@color/pink_text"
+                    android:text="@string/show_age"
+                    />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/tvAge"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/pref_card_title_size"
+                    android:textColor="@color/pref_sub_text"
+                    android:text="18 - 99"
+                    />
+
+            </RelativeLayout>
+
+            <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
+                android:id="@+id/ageRange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvAge"
+
+                rsb:absoluteMinValue="18"
+                rsb:absoluteMaxValue="99"
+                android:layout_marginTop="-20dp"
+
+                />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_marginLeft="@dimen/pref_card_side_margin"
+        android:layout_marginRight="@dimen/pref_card_side_margin"
+        android:layout_marginTop="@dimen/pref_card_1_margin_top"
+        app:cardCornerRadius="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        >
+
+        <LinearLayout
+            android:paddingTop="@dimen/pref_card_padding_vertical"
+            android:paddingBottom="@dimen/pref_card_padding_vertical"
+            android:paddingLeft="@dimen/pref_card_padding_left"
+            android:paddingRight="@dimen/pref_card_padding_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/pref_card_title_size"
+                android:textColor="@color/pink_text"
+                android:text="@string/show_me"
+                android:layout_marginBottom="@dimen/pref_card_title_size"
+                />
+
+            <Switch
+                android:checked="true"
+                android:backgroundTint="@color/pink"
+                android:layout_marginBottom="@dimen/pref_card_switch_margin"
+                android:buttonTint="@color/pink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Men"
+                android:textColor="@color/pref_sub_text"/>
+
+            <Switch
+                android:checked="false"
+                android:backgroundTint="@color/pink"
+                android:buttonTint="@color/pink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Women"
+                android:textColor="@color/pref_sub_text"/>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+
+        android:layout_marginBottom="@dimen/pref_card_bottom_margin"
+        android:layout_marginLeft="@dimen/pref_card_side_margin"
+        android:layout_marginRight="@dimen/pref_card_side_margin"
+        android:layout_marginTop="@dimen/pref_card_1_margin_top"
+        app:cardCornerRadius="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        >
+
+        <LinearLayout
+            android:paddingTop="@dimen/pref_card_padding_vertical"
+            android:paddingBottom="@dimen/pref_card_padding_vertical_bottom"
+            android:paddingLeft="@dimen/pref_card_padding_left"
+            android:paddingRight="@dimen/pref_card_padding_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/pref_card_title_size"
+                    android:textColor="@color/pink_text"
+                    android:text="@string/search_distance"
+                    />
+
+                <TextView
+                    android:id="@+id/tvDistance"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/pref_card_title_size"
+                    android:textColor="@color/pref_sub_text"
+                    android:text="1 km"
+                    />
+
+            </RelativeLayout>
+
+
+            <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                android:id="@+id/discreteBarkms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+              android:layout_marginTop="5dp"
+                app:dsb_indicatorColor="@color/pink_text"
+                app:dsb_max="100"
+                app:dsb_min="18"
+                app:dsb_progressColor="@color/pink_text"
+                 />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="@dimen/card_title_textsize"
+        android:paddingBottom="@dimen/card_title_textsize"
+        android:background="@drawable/rounded_done"
+        android:textSize="@dimen/pref_card_title_size"
+android:textStyle="bold"
+        android:paddingRight="@dimen/home_drawer_title1_padding_horizontal"
+        android:paddingLeft="@dimen/home_drawer_title1_padding_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="@string/done"/>
+</LinearLayout>

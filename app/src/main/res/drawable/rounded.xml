@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- background color -->
+
+    <stroke android:width="2dp" android:color="#d2d2d2"></stroke>
+    <!--border color,width -->
+    <!--  padding -->
+
+
+    <!-- corner radius -->
+
+    <size android:height="@dimen/card_bottom_center_radius" android:width="@dimen/card_bottom_center_radius"></size>
+
+    <!--  <corners
+          android:radius="5dp"   >
+      </corners>-->
+
+</shape>

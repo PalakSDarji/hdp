@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardPreventCornerOverlap="false"
+    app:cardElevation="0dp"
+android:background="@drawable/card_edge"
+    android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:background="@drawable/rounded_caard"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/coverImage"
+                android:layout_width="match_parent"
+                android:layout_height="303dp"
+                android:background="@drawable/card_top"
+
+                android:scaleType="centerCrop"
+                android:src="@drawable/deepu" />
+<!--
+        </com.github.captain_miao.optroundcardview.OptRoundCardView>
+-->
+
+    <LinearLayout
+       android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="35"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:background="@color/white"
+            android:id="@+id/layouttop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/layouttop1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/activityname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/landing_pages_movie_icon"
+                    android:drawablePadding="10dp"
+                    android:text="Sarabjit Movie"
+                    android:textColor="@color/pink_text"
+                    android:textSize="@dimen/card_title_textsize" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:drawableLeft="@drawable/landing_pages_share"
+                    android:drawablePadding="5dp"
+                    android:text="100"
+                    android:textColor="@color/subText"
+                    android:textSize="@dimen/card_share_textsize" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layouttop1"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/card_event_margin_bottom"
+                android:layout_marginTop="@dimen/login_button_margin_bottom"
+                android:drawableLeft="@drawable/landing_pages_address_icon"
+                android:drawablePadding="5dp"
+                android:text="PVR Cinemas, Lower Parel, Mumbai"
+                android:textColor="@color/subText"
+                android:textSize="@dimen/card_title1_textsize" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/landing_pages_r2_29"
+                android:gravity="center"
+                android:text="04 May"
+                android:textSize="@dimen/tab_search_textsize" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/landing_pages_time"
+                android:gravity="center"
+                android:text="12.15 pm"
+                android:textSize="@dimen/tab_search_textsize" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+
+                android:drawableTop="@drawable/landing_pages_distance"
+                android:gravity="center"
+                android:text="10 Km"
+                android:textSize="@dimen/tab_search_textsize" />
+
+
+            <TextView
+                android:id="@+id/tvFollowling"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/landing_pages_people"
+                android:gravity="center"
+                android:text="10 Going"
+                android:textSize="@dimen/tab_search_textsize" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/card_view_margin_vertical"
+            android:background="#d0d0d0"></View>
+
+        <RelativeLayout
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/card_bottom_layer_vertical_padding"
+>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Maria Sharopava, 29"
+                android:textStyle="bold"
+                android:textSize="@dimen/card_bottom_text_size">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="FOLLOWLING"
+
+                android:textSize="@dimen/tab_search_padding_vertical">
+
+            </TextView>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
+</android.support.v7.widget.CardView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/rounded_caard"/>
+</FrameLayout>

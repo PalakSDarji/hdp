@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="com.hadippa.activities.SignUp">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/signup_hlogo" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/about_you"
+            android:textColor="@color/pink_text"
+            android:textSize="@dimen/signup_title_textsize"  />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/top"
+        android:background="#d0d0d0"></View>
+
+    <RelativeLayout
+        android:id="@+id/imageLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view"
+        android:layout_centerHorizontal="true">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_profile"
+            android:padding="15dp"
+            android:layout_marginTop="@dimen/signup_cam_bottom_margin"
+            android:layout_marginBottom="@dimen/signup_cam_bottom_margin"
+
+            android:src="@drawable/signup1_profile" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+android:layout_marginTop="@dimen/signup_cam_top_margin"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_profile_cam"
+            android:padding="5dp"
+            android:src="@drawable/signup_camera" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageLayout"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <EditText
+            style="@style/App_EditTextStyle_SiginUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/signup1_name"
+
+            android:drawablePadding="15dp"
+            android:hint="@string/full_name"
+            android:imeOptions="actionNext" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:drawableLeft="@drawable/signup1_password"
+            android:drawablePadding="15dp"
+            android:hint="@string/password"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            style="@style/App_EditTextStyle_SiginUp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/signup1_repeat_password"
+            android:drawablePadding="15dp"
+            android:hint="@string/re_enter_password"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            style="@style/App_EditTextStyle_SiginUp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/signup1_email"
+            android:drawablePadding="15dp"
+            android:hint="@string/email_address"
+            android:imeOptions="actionDone"
+            android:inputType="textEmailAddress"
+            style="@style/App_EditTextStyle_SiginUp"
+            />
+
+        <TextView
+            android:id="@+id/tvNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/login_button_margin_bottom"
+            android:background="@drawable/rounded_edittext_signup_button"
+            android:paddingBottom="@dimen/signup_button_padding_vertical"
+            android:paddingLeft="@dimen/signup_button_padding_horizontal"
+            android:paddingRight="@dimen/signup_button_padding_horizontal"
+            android:paddingTop="@dimen/signup_button_padding_vertical"
+            android:text="@string/next"
+            android:textStyle="bold"
+            android:textColor="@color/purple"
+
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

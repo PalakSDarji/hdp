@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#f5f5f5"
+    android:layout_height="match_parent"
+   tools:context=".activities.CategoryTab"
+   >
+    <RelativeLayout
+        android:background="#ffffff"
+        android:id="@+id/top"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/imageBack"
+            android:layout_width="wrap_content"
+            android:paddingLeft="7.5dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+
+            android:drawablePadding="5dp"
+            android:textColor="@color/bel_grey_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_activity"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"/>
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+android:layout_alignParentRight="true"
+            android:id="@+id/icon"
+            android:src="@drawable/ic_bookmyshow" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_above="@+id/bottom"
+        android:layout_below="@+id/top"
+        android:background="@color/white"
+        android:id="@+id/linear_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <View
+            android:id="@+id/sep"
+            android:layout_marginBottom="@dimen/filter_seperator_margin"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/filter_seperator"></View>
+    <LinearLayout
+        android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/tvTabMovie"
+            android:gravity="center"
+            android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+            android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="20"
+            android:layout_height="wrap_content"
+            android:text="@string/movie"
+            android:textSize="@dimen/pref_card_sub_title_size"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_entertainment_selected"/>
+
+        <TextView
+            android:id="@+id/tvTabNightclub"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+            android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="31"
+            android:layout_height="wrap_content"
+            android:text="@string/night_club"
+            android:textSize="@dimen/pref_card_sub_title_size"
+            android:textColor="@color/filter_text"
+            android:background="@drawable/rounded_entertainment"/>
+
+        <TextView
+            android:id="@+id/tvTabLounge"
+            android:layout_marginRight="10dp"
+            android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+            android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="19"                android:layout_height="wrap_content"
+            android:text="@string/lounge"
+            android:gravity="center"
+            android:textSize="@dimen/pref_card_sub_title_size"
+            android:textColor="@color/filter_text"
+            android:background="@drawable/rounded_entertainment"/>
+
+        <TextView
+            android:id="@+id/tvTabCoffee"
+            android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+            android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="24"
+            android:layout_height="wrap_content"
+            android:text="@string/coffee"
+            android:textSize="@dimen/pref_card_sub_title_size"
+            android:textColor="@color/filter_text"
+            android:background="@drawable/rounded_coffee"/>
+
+
+    </LinearLayout>
+        <EditText
+
+            style="@style/App_EditTextStyle_Search"
+            android:layout_width="match_parent"
+            android:hint="@string/search_movies"
+            android:layout_height="30dp"
+
+            android:layout_centerInParent="true"
+            android:background="@drawable/rounded_edittext_search"
+            android:drawableLeft="@drawable/mysearch"
+            android:drawableRight="@drawable/ic_search"
+            android:id="@+id/edtSearch"
+            android:paddingBottom="@dimen/tab_search_padding_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="@dimen/tab_search_padding_vertical"
+            android:textColor="#b4b5b6"
+            android:textSize="@dimen/tab_search_textsize"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listLongue"
+                android:background="#f5f5f5"
+                android:paddingTop="@dimen/sign_up_padding"
+                android:paddingLeft="@dimen/sign_up_padding"
+                android:paddingRight="@dimen/sign_up_padding"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listCoffee"
+                android:background="#f5f5f5"
+                android:paddingTop="@dimen/sign_up_padding"
+                android:paddingLeft="@dimen/sign_up_padding"
+                android:paddingRight="@dimen/sign_up_padding"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listNightClub"
+                android:background="#f5f5f5"
+                android:paddingTop="@dimen/sign_up_padding"
+                android:paddingLeft="@dimen/sign_up_padding"
+                android:paddingRight="@dimen/sign_up_padding"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+            android:id="@+id/linearMovie"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#e3e3e3"></View>
+            <LinearLayout
+                android:id="@+id/linearTabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tabMovie"
+                    android:textSize="@dimen/textview_or_margin_top"
+                    android:textColor="@color/white"
+                    android:background="@color/tabs_movie_cinema_text"
+                    android:padding="@dimen/filter_seperator_margin"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/movie"/>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="@dimen/view_height"
+                    android:background="#e3e3e3"></View>
+                <TextView
+                    android:id="@+id/tabCinema"
+                    android:textSize="@dimen/textview_or_margin_top"
+                    android:textColor="@color/tabs_movie_cinema_text"
+                    android:background="@color/white"
+                    android:padding="@dimen/filter_seperator_margin"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/cimena"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#e3e3e3"></View>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/linearTabs"
+                >
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/listMovie"
+                    android:background="#f5f5f5"
+                    android:paddingTop="@dimen/sign_up_padding"
+                    android:paddingLeft="@dimen/sign_up_padding"
+                    android:paddingRight="@dimen/sign_up_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/listCinema"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="@dimen/tab_search_textsize"
+            android:layout_marginBottom="@dimen/tab_search_textsize"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/tvDone"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="@dimen/card_title_textsize"
+            android:paddingBottom="@dimen/card_title_textsize"
+            android:background="@drawable/rounded_done"
+            android:textSize="@dimen/pref_card_title_size"
+            android:textStyle="bold"
+            android:paddingRight="@dimen/home_drawer_title1_padding_horizontal"
+            android:paddingLeft="@dimen/home_drawer_title1_padding_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="@string/done"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

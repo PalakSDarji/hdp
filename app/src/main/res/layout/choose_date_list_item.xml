@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/home_drawer_menu_text_size"
+    android:paddingLeft="17dp"
+    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+   >
+
+
+    <LinearLayout
+        android:id="@+id/linearDate"
+        android:background="@drawable/rounded_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/card_share_textsize"
+        android:paddingBottom="@dimen/card_share_textsize"
+        android:paddingLeft="@dimen/card_bottom_text_size"
+        android:paddingRight="@dimen/card_bottom_text_size"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="14"
+            android:textSize="@dimen/card_title1_textsize"/>
+
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textSize="@dimen/home_drawer_title1_drawable_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="June"/>
+
+            <TextView
+                android:textSize="@dimen/home_drawer_title1_drawable_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mon"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+
+<HorizontalScrollView
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="@dimen/home_drawer_option5_margin_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    android:id="@+id/horizontalScroll">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_movies"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_movies"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_movies"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_movies"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_movies"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_movies"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_movies"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_movies"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_movies"/>
+
+
+    </LinearLayout>
+
+</HorizontalScrollView>
+</LinearLayout>

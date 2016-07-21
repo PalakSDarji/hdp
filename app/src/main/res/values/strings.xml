@@ -1,0 +1,105 @@
+<resources>
+    <string name="app_name">Hadippa</string>
+
+
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="button_login">LOG IN</string>
+    <string name="forgot_password">Forgot your login detail? Get help sign in</string>
+    <string name="connect_facebook">Connect with Facebook</string>
+    <string name="dont_have_acc">Don\'t have an account ?</string>
+    <string name="signup">SIGN UP</string>
+    <string name="about_you">ABOUT YOU</string>
+    <string name="search">SEARCH</string>
+
+    <string name="full_name">Full Name</string>
+    <string name="password">Password</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="email_address">Email Address</string>
+    <string name="next">NEXT</string>
+
+    <string name="mobile_number">MOBILE NUMBER</string>
+    <string name="whats_your_number">What\'s Your Number?</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="enter_otp">Enter OTP</string>
+
+    <string name="birth_date">BIRTH DATE</string>
+    <string name="whats_your_bdate">What\'s Your Birth Date ?</string>
+
+    <string name="tell_us_more">TELL US MORE</string>
+    <string name="pick_one">Pick One</string>
+    <string name="done">DONE</string>
+
+    <string name="post">POST</string>
+    <string name="home">Home</string>
+    <string name="notification">Notification</string>
+    <string name="preference">Preference</string>
+    <string name="followling">Followling</string>
+    <string name="feedback_suggestion">Feedback &amp; Suggestions</string>
+    <string name="logout">LOGOUT</string>
+
+    <integer name="transaction_time">500</integer>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="i_am_a_girl">I am a girl</string>
+    <string name="i_am_a_boy">I am a boy</string>
+
+    <string name="my_plan">MY PLAN</string>
+    <string name="followling_caps">FOLLOWLING</string>
+    <string name="today">TODAY</string>
+    <string name="near_by">NEAR BY</string>
+    <string name="close">CLOSE</string>
+
+    <string name="following_0">FOLLOWING</string>
+    <string name="followers">FOLLOW</string>
+
+    <string name="connections">CONNECTIONS</string>
+    <string name="choose_activity">CHOOSE ACTIVITY</string>
+    <string name="choose_date">Choose Date</string>
+    <string name="show_age">Show Ages</string>
+    <string name="show_me">Show Me</string>
+    <string name="search_distance">Search Distance</string>
+
+    <string name="movie">Movie</string>
+    <string name="theatre_play">Theatre Play</string>
+    <string name="event">Event</string>
+    <string name="festival">Festival</string>
+    <string name="night_club">Nightclub</string>
+    <string name="lounge">Lounge</string>
+    <string name="party">Party</string>
+    <string name="standup_comedy">Standup Comedy</string>
+    <string name="coffee">Coffee</string>
+    <string name="airplane">Airplane</string>
+    <string name="car">Car</string>
+    <string name="train">Train</string>
+    <string name="bus">Bus</string>
+    <string name="adventure">Adventure</string>
+    <string name="indoor_sports">Indoor Sports</string>
+    <string name="outdoor_sports">Outdoor Sports</string>
+    <string name="hobby_class">Hobby Class</string>
+    <string name="other_activity">Other Activity</string>
+
+
+    <string name="search_movies">Search for Movies</string>
+    <string name="search_club">Search Club or Area</string>
+    <string name="search_theatre">Search Theatre</string>
+    <string name="search_coffee">Search Coffee Bar</string>
+    <string name="search_longue">Search Longue</string>
+
+
+    <string name="C1">PVR Cinema : Juhu</string>
+    <string name="C2">PVR Cinema : Varsova</string>
+    <string name="C3">Fun Cinema : Juhu</string>
+    <string name="C5">Cinemax : Juhu</string>
+
+    <string name="star">2.5</string>
+
+    <string name="select_activity">Select Activity</string>
+    <string name="title_activity_category_tab">CategoryTab</string>
+
+    <string name="cimena">Cinema</string>
+
+    <string name="my_plan_">MY PLAN</string>
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="purple">#6c66d0</color>
+    <color name="purple_light">#af6c66d0</color>
+
+    <color name="white">#ffffff</color>
+    <color name="pink_text">#fb4c53</color>
+    <color name="black">#000000</color>
+    <color name="subText">#a6a7a8</color>
+
+    <color name="edittextborder">#d1cdce</color>
+    <color name="edittexthintcolorsignup">#9c9c9c</color>
+
+    <color name="my_plan">#fc636b</color>
+    <color name="followling">#0bc7b4</color>
+    <color name="today">#fec242</color>
+    <color name="near_by">#7471d1</color>
+    <color name="close">#fc636b</color>
+
+    <color name="view_sepe">#d1cdce</color>
+
+    <color name="tabIndicator">#000000</color>
+    <color name="follow_color">#Fd636B</color>
+    <color name="following_color">#6A67CD</color>
+
+    <color name="pref_sub_text">#727071</color>
+    <color name="pref_bg">#f5f5f5</color>
+    <color name="title_light">#a79e9f</color>
+
+    <color name="entertainment">#f51655</color>
+    <color name="hotels">#f55158</color>
+    <color name="coffee">#f8a116</color>
+    <color name="transport">#0cc7b4</color>
+    <color name="sports">#4b8926</color>
+    <color name="hobby">#1982ff</color>
+    <color name="filter_text">#999596</color>
+    <color name="filter_seperator">#d0d0d0</color>
+
+    <color name="tabs_movie_cinema_text">#727071</color>
+</resources>
+

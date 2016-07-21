@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:paddingTop="@dimen/sign_up_padding"
+    android:paddingLeft="@dimen/sign_up_padding"
+    android:paddingRight="@dimen/sign_up_padding"    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/connect_with_facebook_padding_top"
+
+    >
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/connect_with_facebook_padding_top"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="#ffffff"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="You are going with Tina Gupta for Sarabjit m  ovie"
+        android:paddingBottom="@dimen/connect_with_facebook_padding_top"
+        android:paddingTop="@dimen/connect_with_facebook_padding_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/connect_with_facebook_padding_top"
+        android:textSize="@dimen/login_button_margin_bottom"/>
+    <LinearLayout
+        android:paddingTop="@dimen/sign_up_padding"
+        android:paddingLeft="@dimen/sign_up_padding"
+        android:paddingRight="@dimen/sign_up_padding"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card"
+            android:layout_marginRight="@dimen/tab_search_textsize"
+            android:background="@drawable/rounded_caard"
+            android:layout_width="@dimen/my_plan_image"
+            android:layout_height="@dimen/my_plan_image"
+            card_view:cardCornerRadius="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_avatar1"
+                    android:id="@+id/profileImage"/>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:background="@color/white"
+            android:id="@+id/layouttop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/layouttop1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Maria Sharopava, 29"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/card_bottom_text_size">
+
+                </TextView>
+
+                <TextView
+                    android:layout_marginBottom="6dp"
+                    android:layout_below="@+id/name"
+                    android:textStyle="bold"
+                    android:id="@+id/activityname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/landing_pages_movie_icon"
+                    android:drawablePadding="10dp"
+                    android:text="Sarabjit Movie"
+                    android:textColor="@color/pink_text"
+                    android:textSize="@dimen/card_view_margin_vertical" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:drawableLeft="@drawable/landing_pages_share"
+                    android:drawablePadding="5dp"
+                    android:text="100"
+                    android:textColor="@color/subText"
+                    android:textSize="@dimen/card_share_textsize" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginBottom="@dimen/card_padding_side"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layouttop1"
+                android:layout_gravity="center_horizontal"
+                android:text="PVR Cinemas, Lower Parel, Mumbai"
+                android:textColor="@color/subText"
+                android:textSize="@dimen/tab_search_padding_vertical" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginRight="@dimen/card_share_textsize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/landing_pages_r2_29"
+                android:gravity="center"
+                android:text="04 May"
+                android:textSize="@dimen/tab_search_textsize" />
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/card_share_textsize"
+                android:layout_marginRight="@dimen/card_share_textsize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/landing_pages_time"
+                android:gravity="center"
+                android:text="12.15 pm"
+                android:textSize="@dimen/tab_search_textsize" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+android:visibility="gone"
+                android:drawableTop="@drawable/landing_pages_distance"
+                android:gravity="center"
+                android:text="10 Km"
+                android:textSize="@dimen/tab_search_textsize" />
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/card_share_textsize"
+                android:id="@+id/tvFollowling"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:drawableTop="@drawable/landing_pages_people"
+                android:gravity="center"
+                android:text="10 Going"
+                android:textSize="@dimen/tab_search_textsize" />
+
+
+        </LinearLayout>
+
+
+
+</LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/card_view_margin_vertical"
+            android:background="#d0d0d0"></View>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#d0d0d0"></View>
+
+    <TextView
+        android:paddingLeft="@dimen/sign_up_padding"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Approved People"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginLeft="@dimen/sign_up_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerView"
+        android:orientation="horizontal">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
+
+</android.support.v7.widget.CardView>
+    </LinearLayout>

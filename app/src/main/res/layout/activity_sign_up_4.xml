@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="com.hadippa.activities.SignUp">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/signup_hlogo" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/tell_us_more"
+            android:textColor="@color/pink_text"
+            android:textSize="@dimen/signup_title_textsize"  />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/top"
+        android:background="#d0d0d0"></View>
+
+
+    <TextView
+        android:id="@+id/pickone"
+        android:layout_below="@+id/view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/signup_edittext_margin_bottom"
+        android:textSize="@dimen/connect_with_facebook_padding_top"
+        android:layout_marginBottom="@dimen/whats_your_number_margin_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/purple"
+        android:text="@string/pick_one"
+        />
+    <LinearLayout
+android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+
+
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/button_margin_bottom"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/linearBoy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <ImageButton
+                    android:clickable="false"
+                    android:id="@+id/imageBoy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_profile_gender_deselect"
+                    android:padding="25dp"
+                    android:src="@drawable/signup4_boyicon" />
+
+                <ImageView
+                    android:id="@+id/imageBoyTick"
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/gender_selected"
+                    android:visibility="invisible" />
+                <TextView
+                    android:textColor="#6f6d6e"
+                    android:id="@+id/tvImBoy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/i_am_a_boy" />
+
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#d2d2d2"></View>
+
+            <LinearLayout
+                android:id="@+id/linearGirl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+
+
+                <ImageButton
+                android:clickable="false"    android:id="@+id/imageGirl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_profile_gender"
+                    android:padding="25dp"
+                    android:src="@drawable/signup4_girlicon_selected" />
+
+
+                <ImageView
+                    android:id="@+id/imageGirlTick"
+                    android:layout_width="wrap_content"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/gender_selected" />
+
+                <TextView
+                    android:id="@+id/tvImGirl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/i_am_a_girl"
+                    android:textColor="@color/pink_text" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginBottom="@dimen/card_bottom_drawer"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:id="@+id/tvNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/login_button_margin_bottom"
+        android:background="@drawable/rounded_edittext_signup_button"
+        android:paddingBottom="@dimen/signup_button_padding_vertical"
+        android:paddingLeft="@dimen/signup_button_padding_horizontal"
+        android:paddingRight="@dimen/signup_button_padding_horizontal"
+        android:paddingTop="@dimen/signup_button_padding_vertical"
+        android:text="@string/next"
+        android:textColor="@color/purple"
+
+        />
+</RelativeLayout>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/card_height_longue"
+    android:gravity="bottom"
+    android:paddingBottom="@dimen/connect_with_facebook_padding_top"
+
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardBackgroundColor="@null"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <FrameLayout
+            android:background="@drawable/foof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <RelativeLayout
+                android:gravity="bottom"
+                android:id="@+id/linearData"
+                android:paddingBottom="@dimen/sign_up_padding"
+                android:paddingRight="@dimen/card_title1_textsize"
+                android:paddingLeft="@dimen/card_title1_textsize"
+                android:paddingTop="@dimen/card_title1_textsize"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/tab_search_textsize"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name"
+
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/home_drawer_menu_text_size"
+                    android:text="Amigos Cafe"/>
+                <LinearLayout
+                    android:layout_below="@+id/name"
+                    android:layout_marginLeft="@dimen/tab_search_textsize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_marginTop="5dp"
+                        android:textSize="@dimen/tab_search_padding_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nightclub"/>
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_marginTop="3dp"
+                        android:textSize="@dimen/tab_search_padding_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bandra, Mumbai"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="end"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_marginTop="5dp"
+                        android:textSize="@dimen/tab_search_padding_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 Km"/>
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_marginTop="3dp"
+                        android:textSize="@dimen/tab_search_padding_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="8 Pm to 1 am"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginLeft="7dp"
+                    android:layout_toRightOf="@+id/name"
+                    android:textStyle="bold"
+                    android:id="@+id/tvFollowUnfollow"
+                    android:paddingRight="@dimen/tab_search_textsize"
+                    android:paddingLeft="@dimen/tab_search_textsize"
+                    android:background="@drawable/rounded_following_parrot"
+                    android:textSize="@dimen/tab_search_padding_vertical"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@string/star"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/frame"
+                android:src="@drawable/rounded_movie_deselect"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ImageView>
+        </FrameLayout>
+
+
+</android.support.v7.widget.CardView>
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvId"/>
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPickId"/>
+</LinearLayout>
+

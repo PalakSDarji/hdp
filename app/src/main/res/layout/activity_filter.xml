@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.hadippa.activities.FilterActivity">
+
+    <RelativeLayout
+        android:background="#ffffff"
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/imageBack"
+            android:layout_width="wrap_content"
+            android:padding="7.5dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back" />
+
+
+        <TextView
+
+            android:drawablePadding="5dp"
+            android:textColor="@color/title_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_activity"
+            android:drawableRight="@drawable/ic_info"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_below="@+id/top"
+        android:background="@color/white"
+        android:id="@+id/linear_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="17.5dp">
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvMovie"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+               android:layout_width="0dp"
+                android:layout_weight="20"
+                android:layout_height="wrap_content"
+                android:text="@string/movie"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_entertainment"/>
+
+            <TextView
+                android:id="@+id/tvTheatrePlay"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+               android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="31"
+                android:layout_height="wrap_content"
+                android:text="@string/theatre_play"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_entertainment"/>
+
+            <TextView
+                android:id="@+id/tvEvent"
+                android:layout_marginRight="10dp"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="19"                android:layout_height="wrap_content"
+                android:text="@string/event"
+                android:gravity="center"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_entertainment"/>
+
+            <TextView
+                android:id="@+id/tvFestival"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="24"
+                android:layout_height="wrap_content"
+                android:text="@string/festival"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_entertainment"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvNightClub"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="24"
+                android:layout_height="wrap_content"
+                android:text="@string/night_club"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_hotel"/>
+
+            <TextView
+                android:id="@+id/tvLongue"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"    android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="19"
+                android:layout_height="wrap_content"
+                android:text="@string/lounge"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_hotel"/>
+
+
+
+            <TextView
+                android:id="@+id/tvParty"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+            android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+            android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+            android:layout_width="0dp"
+            android:layout_weight="16"
+            android:layout_height="wrap_content"
+            android:text="@string/party"
+            android:textSize="@dimen/pref_card_sub_title_size"
+            android:textColor="@color/filter_text"
+            android:background="@drawable/rounded_hotel"/>
+
+            <TextView
+                android:id="@+id/tvStandUpComedy"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="35"
+                android:layout_height="wrap_content"
+                android:text="@string/standup_comedy"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_hotel"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvCoffee"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="21"
+                android:layout_height="wrap_content"
+                android:text="@string/coffee"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_coffee"/>
+
+            <TextView
+                android:id="@+id/tvAirplane"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="33"
+                android:layout_height="wrap_content"
+                android:text="@string/airplane"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_transport"/>
+
+
+
+            <TextView
+                android:id="@+id/tvCar"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="16"
+                android:layout_height="wrap_content"
+                android:text="@string/car"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_transport"/>
+
+            <TextView
+                android:id="@+id/tvTrain"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="24"
+                android:layout_height="wrap_content"
+                android:text="@string/train"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_transport"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvBus"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="13"
+                android:layout_height="wrap_content"
+                android:text="@string/bus"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_transport"/>
+
+            <TextView
+                android:id="@+id/tvAdventure"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="24"
+                android:layout_height="wrap_content"
+                android:text="@string/adventure"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_sports"/>
+
+
+
+
+            <TextView
+                android:id="@+id/tvIndoor"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="27"
+                android:layout_height="wrap_content"
+                android:text="@string/indoor_sports"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_sports"/>
+
+            <TextView
+                android:id="@+id/tvOutdoor"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="30"
+                android:layout_height="wrap_content"
+                android:text="@string/outdoor_sports"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_sports"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="100">
+
+        
+
+            <TextView
+                android:id="@+id/tvHobby"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="30"
+                android:layout_height="wrap_content"
+                android:text="@string/hobby_class"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_hobby"/>
+
+
+
+
+            <TextView
+                android:id="@+id/tvOtherActivity"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"   android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
+                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="35"
+                android:layout_height="wrap_content"
+                android:text="@string/other_activity"
+                android:textSize="@dimen/pref_card_sub_title_size"
+                android:textColor="@color/filter_text"
+                android:background="@drawable/rounded_other"/>
+
+        
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginBottom="7dp"
+        android:layout_below="@+id/linear_filter"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <View
+            android:id="@+id/sep"
+            android:layout_marginBottom="@dimen/filter_seperator_margin"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/filter_seperator"></View>
+
+        <TextView
+
+            android:layout_below="@+id/sep"
+            android:id="@+id/choo"
+            android:drawablePadding="5dp"
+            android:textColor="@color/title_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_date"
+            android:textSize="@dimen/signup_button_padding_vertical"
+            android:layout_marginBottom="@dimen/filter_seperator_margin"
+            android:drawableRight="@drawable/ic_info"
+android:layout_centerHorizontal="true"
+            android:textStyle="bold"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@+id/choo"
+                android:id="@+id/dateList"
+                android:layout_above="@+id/l"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                ></android.support.v7.widget.RecyclerView>
+
+
+
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/l"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvDone"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="@dimen/card_title_textsize"
+                android:paddingBottom="@dimen/card_title_textsize"
+                android:background="@drawable/rounded_done"
+                android:textSize="@dimen/pref_card_title_size"
+                android:textStyle="bold"
+                android:paddingRight="@dimen/home_drawer_title1_padding_horizontal"
+                android:paddingLeft="@dimen/home_drawer_title1_padding_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/done"/>
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+</RelativeLayout>

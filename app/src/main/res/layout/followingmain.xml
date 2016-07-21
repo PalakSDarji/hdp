@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/linearMain">
+
+    <RelativeLayout
+        android:background="#ffffff"   android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/imageBack"
+            android:layout_width="wrap_content"
+            android:padding="7.5dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back" />
+
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/connections"
+           android:layout_centerInParent="true"
+           android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+
+
+
+    <com.SlidingTab.SlidingTabLayout
+        android:layout_below="@+id/top"
+
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:elevation="2dp"
+        >
+
+    </com.SlidingTab.SlidingTabLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_below="@+id/tabs"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/loading_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/abc_input_method_navigation_guard"
+        android:indeterminateTintMode="src_atop" />
+
+  <!--  <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment">
+
+    </FrameLayout>
+   -->
+
+</RelativeLayout>

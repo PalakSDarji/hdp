@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+    <TextView
+        android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+        android:id="@+id/showMore"
+            android:text="SHOW MORE"
+            android:textColor="@color/dialogplus_black_overlay"
+            android:textSize="12dp"/>
+
+
+
+</RelativeLayout>
+
