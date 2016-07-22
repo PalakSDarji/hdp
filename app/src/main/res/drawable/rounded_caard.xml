@@ -4,7 +4,7 @@
 
     <!-- background color -->
 
-    <stroke android:width="2px" android:color="#aaa"></stroke>
+    <stroke android:width="2px" android:color="#d6d6d6"></stroke>
     <!--border color,width -->
     <!--  padding -->
 

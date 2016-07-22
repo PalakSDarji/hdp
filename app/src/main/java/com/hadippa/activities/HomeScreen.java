@@ -17,9 +17,10 @@ import android.widget.TextView;
 
 import com.hadippa.R;
 import com.hadippa.fragments.main_screen.ShowCards;
+import com.hadippa.fragments.main_screen.ShowCardsNew;
 
 public class HomeScreen extends AppCompatActivity implements View.OnClickListener
-        ,ShowCards.OnFragmentInteractionListener {
+        ,ShowCardsNew.OnFragmentInteractionListener {
 
 
     android.support.v4.app.Fragment fragment;
@@ -87,7 +88,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         linearFeedback.setOnClickListener(this);
 
         fm = getSupportFragmentManager();
-        fragment = new ShowCards();
+        fragment = new ShowCardsNew();
         fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.frame, fragment, "home_fragment");
         fragmentTransaction.commit();

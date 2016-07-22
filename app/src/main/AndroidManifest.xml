@@ -23,6 +23,7 @@
         <activity
             android:name=".activities.HomeScreen"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.SignUp"

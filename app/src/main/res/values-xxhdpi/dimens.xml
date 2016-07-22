@@ -70,7 +70,7 @@
     <dimen name="card_image_height">303dp</dimen>
     <dimen name="card_share_textsize">7dp</dimen>
     <dimen name="card_event_margin_bottom">12dp</dimen>
-    <dimen name="card_bottom_layer_vertical_padding">8dp</dimen>
+    <dimen name="card_bottom_layer_vertical_padding">9dp</dimen>
     <dimen name="rounded_radius">51dp</dimen>
     <dimen name="card_view_margin_vertical">11dp</dimen>
     <dimen name="bottom_menu_side_margin">59dp</dimen>

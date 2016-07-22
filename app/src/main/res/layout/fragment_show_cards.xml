@@ -1,63 +1,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.HomeScreen">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:fab="http://schemas.android.com/apk/res-auto"
-        xmlns:swipedeck="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.hadippa.fragments.main_screen.ShowCards">
-
-        <!-- TODO: Update blank fragment layout -->
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="88"
-            tools:context=".activities.HomeScreen">
-
-            <com.daprlabs.cardstack.SwipeDeck
-                android:id="@+id/swipe_deck"
+                xmlns:fab="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/card_padding_side"
-                android:paddingRight="@dimen/card_padding_side"
-                android:paddingTop="@dimen/card_padding_side"
-                android:paddingBottom="@dimen/card_padding_side"
-                swipedeck:card_spacing="10dp"
-                swipedeck:max_visible_="3"
-                swipedeck:card_gravity="center"
-                swipedeck:opacity_end="0.2"
-                swipedeck:render_above="false"
+                tools:context=".activities.HomeScreen">
 
-                swipedeck:rotation_degrees_="15" />
-
-
-        </RelativeLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:fab="http://schemas.android.com/apk/res-auto"
+                  xmlns:swipedeck="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  tools:context="com.hadippa.fragments.main_screen.ShowCards">
 
         <RelativeLayout
             android:id="@+id/relBottom"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="12">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true">
 
             <ImageButton
-                android:layout_marginRight="@dimen/logout_padding_vertical"
-
                 android:layout_width="@dimen/card_bottom_drawer"
+
                 android:layout_height="@dimen/card_bottom_drawer"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/bottom_menu_side_margin"
+                android:layout_marginRight="@dimen/logout_padding_vertical"
                 android:layout_toLeftOf="@+id/linearCenter"
                 android:background="@drawable/rounded_small"
-                android:src="@drawable/landing_pages_refresh" />
+                android:src="@drawable/landing_pages_refresh"/>
 
             <LinearLayout
                 android:id="@+id/linearCenter"
@@ -69,30 +44,30 @@
                 <ImageButton
                     android:id="@+id/imageLeft"
                     android:layout_width="@dimen/card_bottom_center"
-                    android:layout_marginRight="@dimen/home_drawer_title1_drawable_padding"
                     android:layout_height="@dimen/card_bottom_center"
+                    android:layout_marginRight="@dimen/home_drawer_title1_drawable_padding"
                     android:background="@drawable/rounded"
-                    android:src="@drawable/landing_pages_reject" />
+                    android:src="@drawable/landing_pages_reject"/>
 
                 <ImageButton
-                    android:layout_marginLeft="@dimen/home_drawer_title1_drawable_padding"
                     android:id="@+id/imageRight"
                     android:layout_width="@dimen/card_bottom_center"
                     android:layout_height="@dimen/card_bottom_center"
+                    android:layout_marginLeft="@dimen/home_drawer_title1_drawable_padding"
                     android:background="@drawable/rounded"
-                    android:src="@drawable/landing_pages_accept" />
+                    android:src="@drawable/landing_pages_accept"/>
 
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_marginLeft="@dimen/logout_padding_vertical"
-
                 android:layout_width="@dimen/card_bottom_drawer"
+
                 android:layout_height="@dimen/card_bottom_drawer"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/logout_padding_vertical"
                 android:layout_marginRight="@dimen/bottom_menu_side_margin"
                 android:layout_toRightOf="@+id/linearCenter"
-              >
+                >
 
                 <ImageButton
                     android:id="@+id/imageOptions"
@@ -101,18 +76,18 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/bottom_menu_side_margin"
                     android:background="@drawable/rounded_small"
-                    android:src="@drawable/landing_pages_events" />
+                    android:src="@drawable/landing_pages_events"/>
 
                 <com.getbase.floatingactionbutton.FloatingActionsMenu
+                    android:id="@+id/multiple_actions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:visibility="gone"
-                    android:id="@+id/multiple_actions"
-                    fab:fab_addButtonSize="mini"
                     fab:fab_addButtonColorNormal="@color/white"
                     fab:fab_addButtonColorPressed="@color/white_pressed"
                     fab:fab_addButtonPlusIconColor="@color/half_black"
+                    fab:fab_addButtonSize="mini"
                     fab:fab_labelStyle="@style/menu_labels_style"
                     >
 
@@ -121,30 +96,37 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         fab:fab_colorNormal="@color/white"
-                        fab:fab_title="Action A"
-                        fab:fab_colorPressed="@color/white_pressed"/>
+                        fab:fab_colorPressed="@color/white_pressed"
+                        fab:fab_title="Action A"/>
 
                     <com.getbase.floatingactionbutton.FloatingActionButton
                         android:id="@+id/action_b"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        fab:fab_title="Action B"
                         fab:fab_colorNormal="@color/white"
-                        fab:fab_colorPressed="@color/white_pressed"/>
+                        fab:fab_colorPressed="@color/white_pressed"
+                        fab:fab_title="Action B"/>
 
                 </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
 
 
             </RelativeLayout>
 
 
-
-
         </RelativeLayout>
 
-    </LinearLayout>
 
+        <com.hadippa.tindercard.SwipeFlingAdapterView
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/relBottom"
+            app:rotation_degrees="10.0"
+            tools:context=".HomeScreen"/>
+
+
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

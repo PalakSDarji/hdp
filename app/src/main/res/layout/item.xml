@@ -3,7 +3,8 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp">
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                                         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,7 +18,7 @@
                                         app:cardElevation="0dp"
                                         card_view:cardPreventCornerOverlap="false">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_caard"
@@ -26,19 +27,22 @@
             <ImageView
                 android:id="@+id/coverImage"
                 android:layout_width="match_parent"
-                android:layout_height="303dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/llControls"
                 android:background="@drawable/card_top"
-
+                android:layout_alignParentTop="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/deepu"/>
+                android:src="@drawable/customl"/>
             <!--
                     </com.github.captain_miao.optroundcardview.OptRoundCardView>
             -->
 
             <LinearLayout
+                android:id="@+id/llControls"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="35"
+                android:layout_alignParentBottom="true"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -191,11 +195,29 @@
                 </RelativeLayout>
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/rounded_caard"/>
+
+    <View
+        android:id="@+id/item_swipe_left_indicator"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:alpha="0"
+        android:background="@drawable/like"/>
+
+    <View
+        android:id="@+id/item_swipe_right_indicator"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="right"
+        android:alpha="0"
+        android:background="@drawable/nope"/>
+
+
+
 </FrameLayout>
