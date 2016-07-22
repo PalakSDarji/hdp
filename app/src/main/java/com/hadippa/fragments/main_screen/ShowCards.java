@@ -151,7 +151,7 @@ public class ShowCards extends Fragment {
         drawables.add(getResources().getDrawable(R.drawable.ic_avatar3));
 
 
-        imageOptions = (ImageButton)view.findViewById(R.id.imageOptions);
+         imageOptions = (ImageButton)view.findViewById(R.id.imageOptions);
 
         imageOptions.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,6 +2,7 @@
                 xmlns:fab="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_height="match_parent"
                 tools:context=".activities.HomeScreen">
 
@@ -25,7 +26,6 @@
 
             <ImageButton
                 android:layout_width="@dimen/card_bottom_drawer"
-
                 android:layout_height="@dimen/card_bottom_drawer"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/bottom_menu_side_margin"
@@ -59,9 +59,26 @@
 
             </LinearLayout>
 
+          <!--  <fabspeeddial.FabSpeedDial
+                android:id="@+id/fab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/logout_padding_vertical"
+                android:layout_marginRight="@dimen/bottom_menu_side_margin"
+
+                app:fabGravity="bottom_end"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                app:fabMenu="@menu/menu_fab"
+                app:fabBackgroundTint="@color/colorAccent"
+                app:miniFabBackgroundTint="@android:color/transparent"
+                app:miniFabDrawableTint="@android:color/white"
+                app:miniFabTitleTextColor="#0fe"
+                android:background="@drawable/rounded_small"
+                android:src="@drawable/landing_pages_events" />
+-->
             <RelativeLayout
                 android:layout_width="@dimen/card_bottom_drawer"
-
                 android:layout_height="@dimen/card_bottom_drawer"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/logout_padding_vertical"

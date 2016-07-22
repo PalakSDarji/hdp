@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/actionMyPlan"
+        android:icon="@drawable/ic_my_plan"
+        android:title="MY PLAN" />
+    <item
+        android:id="@+id/actionFollowing"
+        android:icon="@drawable/ic_following_bottom_drawer"
+        android:title="FOLLOWING"/>
+    <item
+        android:id="@+id/actionToday"
+        android:icon="@drawable/ic_today"
+        android:title="TODAY" />
+
+    <item
+        android:id="@+id/actionNearby"
+        android:icon="@drawable/ic_nearby"
+        android:title="NEARBY" />
+
+    <item
+        android:id="@+id/actionCLose"
+        android:icon="@drawable/ic_close"
+        android:title="CLOSE" />
+</menu>

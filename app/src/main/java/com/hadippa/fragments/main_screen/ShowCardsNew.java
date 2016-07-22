@@ -8,10 +8,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.internal.NavigationMenu;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daprlabs.cardstack.SwipeDeck;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.activities.MyPlan;
@@ -41,6 +44,9 @@ import com.orhanobut.dialogplus.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fabspeeddial.FabSpeedDial;
+import fabspeeddial.SimpleMenuListenerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +66,7 @@ public class ShowCardsNew extends Fragment{
     private String mParam1;
     private String mParam2;
 
+    private boolean menuOpened = false;
     public static MyAppAdapter myAppAdapter;
     public static ViewHolder viewHolder;
     private ArrayList<Data> al;
@@ -75,6 +82,8 @@ public class ShowCardsNew extends Fragment{
     Dialog dialog1;
     RelativeLayout relFab;
     ImageButton imageOptions;
+    FloatingActionsMenu multiple_actions;
+    private FabSpeedDial fabSpeedDial;
 
     int i = 0;
    // FloatingActionsMenu multiple_actions;
@@ -249,7 +258,7 @@ public class ShowCardsNew extends Fragment{
             public void onScroll(float scrollProgressPercent) {
 
                 View view = flingContainer.getSelectedView();
-               // view.findViewById(R.id.background).setAlpha(0);
+                // view.findViewById(R.id.background).setAlpha(0);
                 view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
                 view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
             }
@@ -284,6 +293,85 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
+        imageOptions = (ImageButton)view.findViewById(R.id.imageOptions);
+
+        imageOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOptionsDialog();
+            }
+        });
+
+        multiple_actions = (FloatingActionsMenu)view.findViewById(R.id.multiple_actions);
+
+        /*fabSpeedDial = (FabSpeedDial) view.findViewById(R.id.fab1);
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+
+            @Override
+            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
+
+                //Do something with yout menu items, or return false if you don't want to show them
+                //logv("On Prepare menu called");
+               // dumbView.setVisibility(View.VISIBLE);
+                menuOpened = true;
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+
+                if (menuItem.getItemId() == R.id.actionMyPlan) {
+                    *//*showCategoryCreationDialog();
+                    dumbView.setVisibility(View.INVISIBLE);*//*
+                    menuOpened = false;
+                    return true;
+                }
+
+                if (menuItem.getItemId() == R.id.actionFollowing) {
+
+                    //dumbView.setVisibility(View.INVISIBLE);
+                   //startActivity(new Intent(MainActivity.this, AddHashtagActivity.class));
+                    menuOpened = false;
+                    return true;
+                }
+
+                if (menuItem.getItemId() == R.id.actionToday) {
+
+                    *//*dumbView.setVisibility(View.INVISIBLE);
+                    Intent intent = new Intent(MainActivity.this, LinkContentActivity.class);
+                    intent.putExtra("comingFrom","thisApp");
+                    startActivity(intent);*//*
+                    menuOpened = false;
+                    return true;
+                }
+
+                if (menuItem.getItemId() == R.id.actionNearby) {
+
+                    //dumbView.setVisibility(View.INVISIBLE);
+                    //startActivity(new Intent(MainActivity.this, AddHashtagActivity.class));
+                    menuOpened = false;
+                    return true;
+                }
+
+                if (menuItem.getItemId() == R.id.actionCLose) {
+
+                    //dumbView.setVisibility(View.INVISIBLE);
+                    //startActivity(new Intent(MainActivity.this, AddHashtagActivity.class));
+                    menuOpened = false;
+                    return true;
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onMenuClosed() {
+
+                *//*logv("On menu closed called");
+                dumbView.setVisibility(View.INVISIBLE);*//*
+            }
+        });
+*/
         /*cardStack = (SwipeDeck) view.findViewById(R.id.swipe_deck);
 
         namesArray.add("Sahil");
