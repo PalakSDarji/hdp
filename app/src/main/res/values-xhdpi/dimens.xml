@@ -44,7 +44,7 @@
     <dimen name="home_drawer_profile_image_margin_bottom">12dp</dimen>
     <dimen name="home_drawer_profile_image_height">73dp</dimen>
     <dimen name="home_drawer_profile_image_width">73dp</dimen>
-    <dimen name="home_drawer_username_textsize">9dp</dimen>
+    <dimen name="home_drawer_username_textsize">13dp</dimen>
     <dimen name="home_drawer_username_margin_bottom">16dp</dimen>
     <dimen name="home_drawer_post_margin_top">32dp</dimen>
     <dimen name="home_drawer_side_margins">60dp</dimen>

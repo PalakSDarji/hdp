@@ -4,12 +4,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenu;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -68,14 +72,13 @@ public class ShowCardsNew extends Fragment{
 
     private boolean menuOpened = false;
     public static MyAppAdapter myAppAdapter;
-    public static ViewHolder viewHolder;
     private ArrayList<Data> al;
     private SwipeFlingAdapterView flingContainer;
 
 
     private OnFragmentInteractionListener mListener;
    // ArrayList<String> al;
-    CustomBaseAdapter arrayAdapter;
+   // CustomBaseAdapter arrayAdapter;
 
     ImageButton swipeLeft,swipeRight;
     private SwipeDeck cardStack;
@@ -120,12 +123,6 @@ public class ShowCardsNew extends Fragment{
         }
     }
 
-    public static void removeBackground() {
-
-        viewHolder.background.setVisibility(View.GONE);
-        myAppAdapter.notifyDataSetChanged();
-    }
-
     public static class ViewHolder {
         public static FrameLayout background;
         public TextView DataText;
@@ -136,6 +133,12 @@ public class ShowCardsNew extends Fragment{
 
         public List<Data> parkingList;
         public Context context;
+
+        private class ViewHolder {
+            ImageView imageView;
+            TextView tvFollowling;
+            TextView txtDesc;
+        }
 
         public void remove(int i) {
             parkingList.remove(i);
@@ -164,29 +167,34 @@ public class ShowCardsNew extends Fragment{
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder = null;
 
-            View rowView = convertView;
-
-
-            if (rowView == null) {
+            if (convertView == null) {
 
                 LayoutInflater inflater = getActivity().getLayoutInflater();
-                rowView = inflater.inflate(R.layout.item, parent, false);
+                convertView = inflater.inflate(R.layout.item, parent, false);
                 // configure view holder
                 viewHolder = new ViewHolder();
-                /*viewHolder.DataText = (TextView) rowView.findViewById(R.id.bookText);
-                viewHolder.background = (FrameLayout) rowView.findViewById(R.id.background);
-                viewHolder.cardImage = (ImageView) rowView.findViewById(R.id.cardImage);*/
-                rowView.setTag(viewHolder);
-
-            } else {
+                viewHolder.tvFollowling = (TextView) convertView.findViewById(R.id.tvFollowling);
+                viewHolder.imageView = (ImageView) convertView.findViewById(R.id.coverImage);
+                convertView.setTag(viewHolder);
+            }
+            else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
+
+            viewHolder.tvFollowling.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    showDialog(Gravity.BOTTOM,true,false,false);
+                }
+            });
             //viewHolder.DataText.setText(parkingList.get(position).getDescription() + "");
 
             //Glide.with(MainActivity.this).load(parkingList.get(position).getImagePath()).into(viewHolder.cardImage);
 
-            return rowView;
+            return convertView;
         }
     }
 
@@ -371,8 +379,8 @@ public class ShowCardsNew extends Fragment{
                 dumbView.setVisibility(View.INVISIBLE);*//*
             }
         });
-*/
-        /*cardStack = (SwipeDeck) view.findViewById(R.id.swipe_deck);
+
+        cardStack = (SwipeDeck) view.findViewById(R.id.swipe_deck);*/
 
         namesArray.add("Sahil");
         namesArray.add("Kartik");
@@ -420,7 +428,7 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-
+/*
 
         al = new ArrayList<String>();
         al.add("php");
@@ -463,9 +471,9 @@ public class ShowCardsNew extends Fragment{
             }
 
         });
-
+        */
         multiple_actions = (FloatingActionsMenu)view.findViewById(R.id.multiple_actions);
-*/
+
         return view;
     }
 
@@ -513,10 +521,10 @@ public class ShowCardsNew extends Fragment{
         void onFragmentInteraction(Uri uri);
     }
 
-    public class CustomBaseAdapter extends BaseAdapter {
+   /* public class CustomBaseAdapter extends BaseAdapter {
 
 
-        /*private view holder class*/
+        *//*private view holder class*//*
         private class ViewHolder {
             ImageView imageView;
             TextView tvFollowling;
@@ -541,8 +549,8 @@ public class ShowCardsNew extends Fragment{
                 holder = (ViewHolder) convertView.getTag();
             }
 
-           /* holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(getWindowManager().getDefaultDisplay().getWidth(),
-                    getWindowManager().getDefaultDisplay().getWidth()));*/
+           *//* holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(getWindowManager().getDefaultDisplay().getWidth(),
+                    getWindowManager().getDefaultDisplay().getWidth()));*//*
 
             holder.tvFollowling.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -569,25 +577,25 @@ public class ShowCardsNew extends Fragment{
             return Long.parseLong(null);
         }
     }
-
+*/
     void showOptionsDialog(){
 
-        Bitmap v= AppConstants.takeScreenShot(getActivity());
-        Bitmap f = fastblur(v,15);
+
+        /*Bitmap f = fastblur(v,15);*/
         dialog1 = new Dialog(getActivity(), R.style.DialogSlideAnim);
         dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog1.setContentView(R.layout.options_dialog);
         dialog1.setCanceledOnTouchOutside(false);
-
+        dialog1.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //style id
         WindowManager.LayoutParams params = dialog1.getWindow().getAttributes();
 
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.height = WindowManager.LayoutParams.MATCH_PARENT;
 
         dialog1.getWindow().setAttributes(params);
-        Drawable d = new BitmapDrawable(getResources(), f);
+        //Drawable d = new BitmapDrawable(getResources(), blurred);
 
-        dialog1.getWindow().setBackgroundDrawable(d);
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
 
         TextView vMyPlan  =  (TextView)dialog1.findViewById(R.id.vMyPlan);
         vMyPlan.setOnClickListener(new View.OnClickListener() {
@@ -598,6 +606,50 @@ public class ShowCardsNew extends Fragment{
                 Intent intent = new Intent(getActivity(), MyPlan.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        TextView vfollowling  =  (TextView)dialog1.findViewById(R.id.vfollowling);
+        vfollowling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+
+               /* Intent intent = new Intent(getActivity(), MyPlan.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+            }
+        });
+
+        TextView vToday  =  (TextView)dialog1.findViewById(R.id.vToday);
+        vToday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+
+                /*Intent intent = new Intent(getActivity(), MyPlan.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+            }
+        });
+
+        TextView vNearby  =  (TextView)dialog1.findViewById(R.id.vNearby);
+        vNearby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+/*
+                Intent intent = new Intent(getActivity(), MyPlan.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+            }
+        });
+
+        TextView vClose  =  (TextView)dialog1.findViewById(R.id.vClose);
+        vClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
             }
         });
         dialog1.show();
@@ -765,8 +817,6 @@ public class ShowCardsNew extends Fragment{
             } else {
                 viewHolder = (ViewHolder) view.getTag();
             }
-
-
                     viewHolder.textView.setText(namesArray.get(position));
                     viewHolder.imageView.setImageDrawable(drawables.get(position));
 

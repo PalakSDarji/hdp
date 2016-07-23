@@ -1,87 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:paddingBottom="5dp"
-    android:background="#9b000000"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="bottom|right|center_horizontal">
+                xmlns:fab="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:fab="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
-        android:gravity="end"
-        android:layout_width="wrap_content"
-        android:layout_marginRight="@dimen/bottom_menu_side_margin"
-android:background="@null"
-        android:layout_height="wrap_content">
+                  xmlns:fab="http://schemas.android.com/apk/res-auto"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="#9b000000"
+                  android:gravity="bottom|right|center_horizontal"
+                  android:orientation="vertical"
+                  android:paddingBottom="5dp">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      xmlns:fab="http://schemas.android.com/apk/res-auto"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginRight="@dimen/bottom_menu_side_margin"
+                      android:background="@null"
+                      android:gravity="end"
+                      android:orientation="vertical">
 
 
             <TextView
                 android:id="@+id/vMyPlan"
-                android:textStyle="bold"
-                android:textColor="@color/my_plan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/my_plan"
-                android:gravity="center"
                 android:drawablePadding="15dp"
                 android:drawableRight="@drawable/ic_my_plan"
+                android:gravity="center"
+                android:text="@string/my_plan"
+                android:textColor="@color/my_plan"
+                android:textStyle="bold"
                 />
 
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@color/followling"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/followling"
-            android:gravity="center"
-            android:drawablePadding="15dp"
-            android:drawableRight="@drawable/ic_following_bottom_drawer"
-            />
+            <TextView
+                android:id="@+id/vfollowling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="15dp"
+                android:drawableRight="@drawable/ic_following_bottom_drawer"
+                android:gravity="center"
+                android:text="@string/followling"
+                android:textColor="@color/followling"
+                android:textStyle="bold"
+                />
 
 
+            <TextView
+                android:id="@+id/vToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="15dp"
+                android:drawableRight="@drawable/ic_today"
+                android:gravity="center"
+                android:text="@string/today"
+                android:textColor="@color/today"
+                android:textStyle="bold"
+                />
 
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@color/today"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/today"
-            android:gravity="center"
-            android:drawablePadding="15dp"
-            android:drawableRight="@drawable/ic_today"
-            />
+            <TextView
+                android:id="@+id/vNearby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="15dp"
+                android:drawableRight="@drawable/ic_nearby"
+                android:gravity="center"
+                android:text="@string/near_by"
+                android:textColor="@color/near_by"
+                android:textStyle="bold"
+                />
 
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@color/near_by"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/near_by"
-            android:gravity="center"
-            android:drawablePadding="15dp"
-            android:drawableRight="@drawable/ic_nearby"
-            />
-
-        <TextView
-            android:textStyle="bold"
-            android:textColor="@color/close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/close"
-            android:gravity="center"
-            android:drawablePadding="15dp"
-            android:drawableRight="@drawable/ic_close"
-            />
+            <TextView
+                android:id="@+id/vClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="15dp"
+                android:drawableRight="@drawable/ic_close"
+                android:gravity="center"
+                android:text="@string/close"
+                android:textColor="@color/close"
+                android:textStyle="bold"
+                />
 
 
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 
 </RelativeLayout>
