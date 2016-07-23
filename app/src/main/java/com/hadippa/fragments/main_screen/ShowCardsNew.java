@@ -49,9 +49,6 @@ import com.orhanobut.dialogplus.OnItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import fabspeeddial.FabSpeedDial;
-import fabspeeddial.SimpleMenuListenerAdapter;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -86,7 +83,6 @@ public class ShowCardsNew extends Fragment{
     RelativeLayout relFab;
     ImageButton imageOptions;
     FloatingActionsMenu multiple_actions;
-    private FabSpeedDial fabSpeedDial;
 
     int i = 0;
    // FloatingActionsMenu multiple_actions;
