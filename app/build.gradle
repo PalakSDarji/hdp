@@ -4,6 +4,10 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
+    repositories {
+        mavenCentral()
+    }
+
     defaultConfig {
         applicationId "com.hadippa"
         minSdkVersion 15
@@ -31,10 +35,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
-    compile 'com.android.support:cardview-v7:22.0.0'
+    compile 'com.android.support:cardview-v7:23.4.0'
     compile project(':dialogplus')
     compile project(':library')
     compile 'com.appyvet:materialrangebar:1.3'
     compile 'org.adw.library:discrete-seekbar:1.0.0'
     compile project(':rangeseekbar')
+    compile 'com.sothree.slidinguppanel:library:3.3.0'
 }

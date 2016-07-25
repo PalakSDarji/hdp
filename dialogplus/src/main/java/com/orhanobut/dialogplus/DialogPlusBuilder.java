@@ -36,6 +36,7 @@ public class DialogPlusBuilder {
   private OnBackPressListener onBackPressListener;
 
   private boolean isCancelable = true;
+    private boolean canExpand = true;
   private int contentBackgroundResource = android.R.color.white;
   private int headerViewResourceId = INVALID;
   private int footerViewResourceId = INVALID;
@@ -109,6 +110,11 @@ public class DialogPlusBuilder {
     this.isCancelable = isCancelable;
     return this;
   }
+
+    public DialogPlusBuilder setCanExpand(boolean canExpand) {
+        this.canExpand = canExpand;
+        return this;
+    }
 
   /**
    * Set the content of the dialog by passing one of the provided Holders
@@ -315,6 +321,10 @@ public class DialogPlusBuilder {
   public boolean isCancelable() {
     return isCancelable;
   }
+    public boolean canExpand() {
+        return canExpand;
+    }
+
 
   public OnItemClickListener getOnItemClickListener() {
     return onItemClickListener;

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.hadippa.R;
 import com.hadippa.fragments.main_screen.ShowCards;
 import com.hadippa.fragments.main_screen.ShowCardsNew;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class HomeScreen extends AppCompatActivity implements View.OnClickListener
         ,ShowCardsNew.OnFragmentInteractionListener {
@@ -48,6 +49,19 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
 
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        if(fragment != null && ((ShowCardsNew)fragment).checkPanelState()){
+            return;
+        }
+         else {
+            super.onBackPressed();
+            overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+        }
     }
 
     void initUI(){
@@ -95,14 +109,6 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         fragmentTransaction.replace(R.id.frame, fragment, "home_fragment");
         fragmentTransaction.commit();
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        finish();
-        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
     }
 
     @Override

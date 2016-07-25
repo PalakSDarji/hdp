@@ -28,6 +28,7 @@ public class DialogPlus {
    */
   private final ViewGroup contentContainer;
 
+    private final boolean canExpand;
   /**
    * Determines whether dialog should be dismissed by back button or touch in the black overlay
    */
@@ -84,11 +85,12 @@ public class DialogPlus {
     holder = builder.getHolder();
 
     onItemClickListener = builder.getOnItemClickListener();
-    onClickListener = builder.getOnClickListener();
+      onClickListener = builder.getOnClickListener();
     onDismissListener = builder.getOnDismissListener();
     onCancelListener = builder.getOnCancelListener();
     onBackPressListener = builder.getOnBackPressListener();
     isCancelable = builder.isCancelable();
+      canExpand = builder.canExpand();
 
     /**
      * Avoid getting directly from the decor view because by doing that we are overlapping the black soft key on
@@ -210,9 +212,15 @@ public class DialogPlus {
     }
     final AbsListView absListView = (AbsListView) view;
 
-    view.setOnTouchListener(ExpandTouchListener.newListener(
-        activity, absListView, contentContainer, gravity, displayHeight, defaultHeight
-    ));
+      if(canExpand){
+          view.setOnTouchListener(ExpandTouchListener.newListener(
+                  activity, absListView, contentContainer, gravity, displayHeight, defaultHeight
+          ));
+      }
+      else{
+          view.setOnTouchListener(null);
+      }
+
   }
 
   /**

@@ -1,6 +1,7 @@
 package com.hadippa.fragments.main_screen;
 
 import android.app.Dialog;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,11 +10,15 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.internal.NavigationMenu;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,6 +42,8 @@ import com.hadippa.R;
 import com.hadippa.activities.MyPlan;
 import com.hadippa.tindercard.FlingCardListener;
 import com.hadippa.tindercard.SwipeFlingAdapterView;
+import com.hadippa.twowaygrid.TwoWayAdapterView;
+import com.hadippa.twowaygrid.TwoWayGridView;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.Holder;
@@ -45,6 +52,7 @@ import com.orhanobut.dialogplus.OnCancelListener;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.OnItemClickListener;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +75,8 @@ public class ShowCardsNew extends Fragment{
     private String mParam1;
     private String mParam2;
 
+    RecyclerView horizontal_recycler_view;
+
     private boolean menuOpened = false;
     public static MyAppAdapter myAppAdapter;
     private ArrayList<Data> al;
@@ -88,6 +98,8 @@ public class ShowCardsNew extends Fragment{
    // FloatingActionsMenu multiple_actions;
     ArrayList<String> namesArray = new ArrayList<>();
     ArrayList<Drawable> drawables = new ArrayList<>();
+    private SlidingUpPanelLayout mLayout;
+
     public ShowCardsNew() {
         // Required empty public constructor
     }
@@ -183,7 +195,8 @@ public class ShowCardsNew extends Fragment{
                 @Override
                 public void onClick(View v) {
 
-                    showDialog(Gravity.BOTTOM,true,false,false);
+                    showTwoWayGrid();
+                    //showDialog(Gravity.BOTTOM,true,false,false);
                 }
             });
             //viewHolder.DataText.setText(parkingList.get(position).getDescription() + "");
@@ -200,6 +213,10 @@ public class ShowCardsNew extends Fragment{
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_show_cards, container, false);
+
+        horizontal_recycler_view = (RecyclerView) view.findViewById(R.id.horizontal_recycler_view);
+
+        mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
 
         flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.frame);
 
@@ -651,6 +668,100 @@ public class ShowCardsNew extends Fragment{
         dialog1.show();
     }
 
+    private void showTwoWayGrid(){
+
+
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        horizontal_recycler_view.setLayoutManager(horizontalLayoutManagaer);
+
+        //Sample arraylist..
+        List<DoublePeople> doublePeoples = new ArrayList<>();
+        doublePeoples.add(new DoublePeople(new People("palak",""),new People("darji","")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("Sahil", ""), new People("bhai", "")));
+
+        HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples);
+        horizontal_recycler_view.setAdapter(adapter);
+
+        /*mImageGrid.setOnItemClickListener(new com.hadippa.twowaygrid.TwoWayAbsListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(TwoWayAdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view.findViewById(R.id.text_view);
+                String clickedAppName = textView.getText().toString();
+            }
+        });*/
+
+        OnClickListener clickListener = new OnClickListener() {
+            @Override
+            public void onClick(DialogPlus dialog, View view) {
+
+            }
+        };
+
+        OnItemClickListener itemClickListener = new OnItemClickListener() {
+            @Override
+            public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                TextView textView = (TextView) view.findViewById(R.id.text_view);
+                String clickedAppName = textView.getText().toString();
+
+            }
+        };
+
+        OnDismissListener dismissListener = new OnDismissListener() {
+            @Override
+            public void onDismiss(DialogPlus dialog) {
+                //        Toast.makeText(MainActivity.this, "dismiss listener invoked!", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        OnCancelListener cancelListener = new OnCancelListener() {
+            @Override
+            public void onCancel(DialogPlus dialog) {
+                //        Toast.makeText(MainActivity.this, "cancel listener invoked!", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        /*dialog = DialogPlus.newDialog(getActivity())
+                .setHeader(view)
+                        //  .setFooter(footer)
+
+                .setCancelable(true)
+                .setCanExpand(false)
+                .setGravity(Gravity.BOTTOM)
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                        Log.d("DialogPlus", "onItemClick() called with: " + "item = [" +
+                                item + "], position = [" + position + "]");
+                    }
+                })
+                .setOnDismissListener(dismissListener)
+                .setOnCancelListener(cancelListener)
+                .setOnBackPressListener(new OnBackPressListener() {
+                    @Override
+                    public void onBackPressed(DialogPlus dialogPlus) {
+                        dialogPlus.dismiss();
+                    }
+                })
+                .setExpanded(true)
+
+                .create();
+        dialog.show();*/
+        adapter.notifyDataSetChanged();
+
+        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+    }
+
+    public boolean checkPanelState(){
+        if (mLayout != null &&
+                (mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED || mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.ANCHORED)) {
+            mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     private void showDialog(int gravity, boolean showHeader, boolean showFooter, boolean expanded) {
         boolean isGrid;
         Holder holder;
@@ -713,7 +824,7 @@ public class ShowCardsNew extends Fragment{
             }
         };
 
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), isGrid);
+        SimpleAdapter adapter = new SimpleAdapter(getActivity());
 
         if (showHeader && !showFooter) {
             showNoFooterDialog(holder, gravity, adapter, clickListener, itemClickListener, dismissListener, cancelListener, onBackPressListener,
@@ -770,20 +881,78 @@ public class ShowCardsNew extends Fragment{
         dialog.show();
     }
 
+    public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.MyViewHolder> {
+
+        private List<DoublePeople> horizontalList;
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+            private TextView text_view1;
+            private TextView text_view2;
+            private ImageView image_view1;
+            private ImageView image_view2;
+
+            public MyViewHolder(View view) {
+                super(view);
+                text_view1 = (TextView) view.findViewById(R.id.text_view1);
+                text_view2 = (TextView) view.findViewById(R.id.text_view2);
+                image_view1 = (ImageView) view.findViewById(R.id.image_view1);
+                image_view2 = (ImageView) view.findViewById(R.id.image_view2);
+            }
+        }
+
+
+        public HorizontalAdapter(List<DoublePeople> horizontalList) {
+            this.horizontalList = horizontalList;
+        }
+
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.two_grid_item, parent, false);
+
+            return new MyViewHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(final MyViewHolder holder, final int position) {
+            Log.v("hadippa","onBindViewHolder");
+            holder.text_view1.setText(horizontalList.get(position).getPeople1().getName());
+            holder.text_view2.setText(horizontalList.get(position).getPeople1().getName());
+
+            holder.text_view1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), holder.text_view1.getText().toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            holder.text_view2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(),holder.text_view2.getText().toString(),Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return horizontalList.size();
+        }
+    }
+
+
 
     public class SimpleAdapter extends BaseAdapter {
 
         private LayoutInflater layoutInflater;
-        private boolean isGrid;
 
-        public SimpleAdapter(Context context, boolean isGrid) {
+        public SimpleAdapter(Context context) {
             layoutInflater = LayoutInflater.from(context);
-            this.isGrid = isGrid;
         }
 
         @Override
         public int getCount() {
-            return 16;
+            return 5;
         }
 
         @Override
@@ -798,25 +967,22 @@ public class ShowCardsNew extends Fragment{
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             ViewHolder viewHolder;
             View view = convertView;
 
             if (view == null) {
-                if (isGrid) {
-                    view = layoutInflater.inflate(R.layout.simple_grid_item, parent, false);
-                }
-
+                view = layoutInflater.inflate(R.layout.simple_grid_item, parent, false);
                 viewHolder = new ViewHolder();
                 viewHolder.textView = (TextView) view.findViewById(R.id.text_view);
                 viewHolder.imageView = (ImageView) view.findViewById(R.id.image_view);
                 view.setTag(viewHolder);
-            } else {
+            }
+            else {
                 viewHolder = (ViewHolder) view.getTag();
             }
-                    viewHolder.textView.setText(namesArray.get(position));
-                    viewHolder.imageView.setImageDrawable(drawables.get(position));
-
-
+            viewHolder.textView.setText(namesArray.get(position));
+            viewHolder.imageView.setImageDrawable(drawables.get(position));
             return view;
         }
 
