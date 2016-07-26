@@ -65,7 +65,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     }
 
     void initUI(){
-
+//ajksdbnkjasbdn
         drawerOpen = (ImageView) findViewById(R.id.drawerOpen);
         drawerOpen.setOnClickListener(this);
         imageFilter = (ImageView) findViewById(R.id.imageFilter);
