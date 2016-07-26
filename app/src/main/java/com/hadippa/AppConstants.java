@@ -10,6 +10,8 @@ import android.view.View;
  */
 public class AppConstants {
 
+
+    public static String USER = "user";
     public static Bitmap takeScreenShot(Activity activity)
     {
         View view = activity.getWindow().getDecorView();
