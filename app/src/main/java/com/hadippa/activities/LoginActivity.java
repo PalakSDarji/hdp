@@ -3,8 +3,10 @@ package com.hadippa.activities;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,14 @@ import android.widget.Toast;
 
 import com.commonclasses.connection.ConnectionDetector;
 import com.commonclasses.connection.LibHttp;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 
@@ -28,13 +38,19 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText edtUsername,edtPassword;
     LinearLayout linearFacebook;
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
 
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(LoginActivity.this);
         setContentView(R.layout.activity_login);
 
+        AppConstants.generateSHAKey(LoginActivity.this);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
         }
@@ -59,8 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (ConnectionDetector.isConnectedToInternet(LoginActivity.this)) {
 
-                    new LoginFb("facebook","","","").execute();
-
+                    loginButton.callOnClick();
                 }
             }
         });
@@ -82,8 +97,43 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        loginButton = (LoginButton) findViewById(R.id.fb_login_button);
+        loginButton.setReadPermissions("public_profile, email, user_birthday, user_friends");
+
+        callbackManager = CallbackManager.Factory.create();
+
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                new LoginFb("facebook","","",loginResult.getAccessToken().getToken()).execute();
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        });
+
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+
+    }
+
 
     protected class LoginFb extends AsyncTask<String, Void, String> {
 

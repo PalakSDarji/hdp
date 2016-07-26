@@ -3,9 +3,17 @@ package com.hadippa;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by HP on 11-07-2016.
@@ -71,4 +79,19 @@ public class AppConstants {
         PROGRESS_DIALOG.dismiss();
 
     }
+
+    public static void generateSHAKey(Context context) {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(
+                    "com.hadippa", PackageManager.GET_SIGNATURES); //package name here
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
