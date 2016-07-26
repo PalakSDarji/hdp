@@ -7,6 +7,7 @@
     <string name="button_login">LOG IN</string>
     <string name="forgot_password">Forgot your login detail? Get help sign in</string>
     <string name="connect_facebook">Connect with Facebook</string>
+    <string name="message_user_auth">Please wait.. Authenticating user..</string>
     <string name="dont_have_acc">Don\'t have an account ?</string>
     <string name="signup">SIGN UP</string>
     <string name="about_you">ABOUT YOU</string>

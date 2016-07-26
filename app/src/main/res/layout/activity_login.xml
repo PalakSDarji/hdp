@@ -139,6 +139,7 @@
             android:layout_height="1dp"
             android:background="#34ffffff"></View>
         <LinearLayout
+            android:id="@+id/linearFacebook"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
             android:paddingTop="@dimen/connect_with_facebook_padding_top"
