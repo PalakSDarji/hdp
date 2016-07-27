@@ -72,6 +72,7 @@ android:layout_marginTop="@dimen/signup_cam_top_margin"
 
 
         <EditText
+            android:id="@+id/edtFullName"
             style="@style/App_EditTextStyle_SiginUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +85,7 @@ android:layout_marginTop="@dimen/signup_cam_top_margin"
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:id="@+id/edtPassword"
             android:drawableLeft="@drawable/signup1_password"
             android:drawablePadding="15dp"
             android:hint="@string/password"
@@ -94,6 +95,7 @@ android:layout_marginTop="@dimen/signup_cam_top_margin"
             />
 
         <EditText
+            android:id="@+id/edtConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/signup1_repeat_password"
@@ -105,6 +107,7 @@ android:layout_marginTop="@dimen/signup_cam_top_margin"
             />
 
         <EditText
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/signup1_email"

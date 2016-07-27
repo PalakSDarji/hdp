@@ -9,7 +9,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +26,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
@@ -35,11 +33,16 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -106,9 +109,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (ConnectionDetector.isConnectedToInternet(LoginActivity.this)) {
 
-                    new LoginFb("password",edtUsername.getText().toString().trim(),
-                            edtPassword.getText().toString().trim(),"").execute();
+                   /* new LoginFb("password",edtUsername.getText().toString().trim(),
+                            edtPassword.getText().toString().trim(),"").execute();*/
 
+                    login("password",edtUsername.getText().toString().trim(),
+                            edtPassword.getText().toString().trim(),"");
                 }
 
             }
@@ -124,7 +129,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-                new LoginFb("facebook","","",loginResult.getAccessToken().getToken()).execute();
+
+                login("facebook","","",loginResult.getAccessToken().getToken());
+             //   new LoginFb("facebook","","",loginResult.getAccessToken().getToken()).execute();
 
             }
 
@@ -334,6 +341,113 @@ public class LoginActivity extends AppCompatActivity {
         }.execute(null, null, null);
     }
 
+    private void login(String grant_type, String email ,
+                       String password, String accessTokenFb)
+    {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
+        RequestParams requestParams = new RequestParams();
+        
+        try
+        {
+
+            requestParams.add( "client_id", AppConstants.CLIENT_ID);
+
+            requestParams.add("client_secret", AppConstants.CLIENT_SECRET);
+
+            requestParams.add("device_id", Settings.Secure.getString(getContentResolver(),
+                    Settings.Secure.ANDROID_ID));
+
+            requestParams.add("device_os_version", String.valueOf(Build.VERSION.SDK_INT));
+
+            requestParams.add("grant_type",grant_type);
+
+            requestParams.add( "device_type","android");
+
+            requestParams.add("device_token",sp.getString("gcmId",""));
+
+            if(grant_type.equals("facebook")){
+
+                requestParams.add("code", accessTokenFb);
+
+            }else {
+                requestParams.add( "username", email);
+
+                requestParams.add( "password", password);
+            }
+
+
+
+            Log.d("request>>",requestParams.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL+AppConstants.API_VERSION + AppConstants.LOGIN, requestParams,
+                new LoginAsync());
+    }
+
+    class LoginAsync extends AsyncHttpResponseHandler
+    {
+
+        @Override
+        public void onStart()
+        {
+            super.onStart();
+
+            //  dataScroll.setVisibility(View.GONE);
+            AppConstants.showProgressDialog(LoginActivity.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish()
+        {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+//            updateDonut((int) ((totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+
+
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                Log.d("async","success"+response);
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.d("async","success exc  >>"+ e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                Log.d("async","failure"+response);
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.d("async","failure"+e.toString());
+            }
+        }
+
+    }
 
 }
