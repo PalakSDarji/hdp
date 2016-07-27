@@ -9,7 +9,7 @@
     <solid android:color="#ffffff" ></solid>
     <!--  padding -->
 
-    <stroke android:color="#f0f0f2" android:width="2dp"></stroke>
+    <stroke android:color="@color/edittextborder" android:width="1dp"></stroke>
 
     <!-- corner radius -->
 

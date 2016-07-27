@@ -6,21 +6,21 @@
     <dimen name="edit_text_padding">17dp</dimen>
     <dimen name="edit_text_size">11dp</dimen>
     <dimen name="login_button_padding">17dp</dimen>
-    <dimen name="login_button_textsize">14dp</dimen>
+    <dimen name="login_button_textsize">17dp</dimen>
     <dimen name="login_button_margin_bottom">10dp</dimen>
     <dimen name="edittext_margin_bottom">25dp</dimen>
-    <dimen name="edittext_margin_bottom_2">27dp</dimen>
+    <dimen name="edittext_margin_bottom_2">24dp</dimen>
     <dimen name="textview_or_margin_top">14dp</dimen>
     <dimen name="textview_or_margin_bottom">17dp</dimen>
     <dimen name="logo_margin_bottom">50dp</dimen>
-    <dimen name="logo_margin_top">74dp</dimen>
+    <dimen name="logo_margin_top">64dp</dimen>
 
     <dimen name="sign_up_padding">15dp</dimen>
     <dimen name="sign_up_padding_horizontal">47dp</dimen>
     <dimen name="sign_up_margin_bottom">41dp</dimen>
     <dimen name="connect_with_facebook_padding_bottom">17dp</dimen>
-    <dimen name="connect_with_facebook_padding_top">14dp</dimen>
-    <dimen name="forgot_pass_textsize">8dp</dimen>
+    <dimen name="connect_with_facebook_padding_top">16dp</dimen>
+    <dimen name="forgot_pass_textsize">13dp</dimen>
 
     <dimen name="slidingpanel_height">190dp</dimen>
     <!-- Sign Up -->
@@ -44,9 +44,9 @@
     <dimen name="home_drawer_title1_margin_bottom">26dp</dimen>
     <dimen name="home_drawer_profile_image_margin_top">38dp</dimen>
     <dimen name="home_drawer_profile_image_margin_bottom">12dp</dimen>
-    <dimen name="home_drawer_profile_image_height">73dp</dimen>
-    <dimen name="home_drawer_profile_image_width">73dp</dimen>
-    <dimen name="home_drawer_username_textsize">12dp</dimen>
+    <dimen name="home_drawer_profile_image_height">85dp</dimen>
+    <dimen name="home_drawer_profile_image_width">85dp</dimen>
+    <dimen name="home_drawer_username_textsize">14dp</dimen>
     <dimen name="home_drawer_username_margin_bottom">16dp</dimen>
     <dimen name="home_drawer_post_margin_top">32dp</dimen>
     <dimen name="home_drawer_side_margins">60dp</dimen>
@@ -55,21 +55,21 @@
     <dimen name="home_drawer_menu_left_margins">32dp</dimen>
     <dimen name="home_drawer_menu_text_size">11dp</dimen>
     <dimen name="home_drawer_option1_margin_bottom">37dp</dimen>
-    <dimen name="home_drawer_option2_margin_bottom">16dp</dimen>
+    <dimen name="home_drawer_option2_margin_bottom">25dp</dimen>
     <dimen name="home_drawer_option3_margin_bottom">35dp</dimen>
     <dimen name="home_drawer_option4_margin_bottom">38dp</dimen>
     <dimen name="home_drawer_option5_margin_bottom">50dp</dimen>
     <dimen name="logout_padding_vertical">17dp</dimen>
     <dimen name="logout_margin_bottom">28dp</dimen>
-    <dimen name="tab_search_textsize">10dp</dimen>
+    <dimen name="tab_search_textsize">12dp</dimen>
     <dimen name="tab_search_padding_vertical">8dp</dimen>
     <dimen name="tab_search_text_width">122dp</dimen>
 
     <!--Show Card Fragment-->
     <dimen name="card_padding_top">10dp</dimen>
     <dimen name="card_padding_side">14dp</dimen>
-    <dimen name="card_title_textsize">15dp</dimen>
-    <dimen name="card_title1_textsize">11dp</dimen>
+    <dimen name="card_title_textsize">18sp</dimen>
+    <dimen name="card_title1_textsize">15dp</dimen>
     <dimen name="card_image_height">303dp</dimen>
     <dimen name="card_share_textsize">7dp</dimen>
     <dimen name="card_event_margin_bottom">12dp</dimen>
@@ -119,4 +119,7 @@
     <dimen name="card_height_longue">163dp</dimen>
 
     <dimen name="my_plan_image">74dp</dimen>
+    <dimen name="home_drawer_sub_textsize">13dp</dimen>
+    <dimen name="login_button_dont_have_margin_bottom">10dp</dimen>
+    <dimen name="or_text_size">14sp</dimen>
 </resources>

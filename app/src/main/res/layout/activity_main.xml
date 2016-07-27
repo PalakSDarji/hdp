@@ -11,9 +11,7 @@
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-        >
+                    android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/top"
@@ -103,22 +101,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/view"
-            android:background="@color/white"
-            >
+            android:background="@color/white">
 
         </FrameLayout>
-
 
     </RelativeLayout>
 
 
+    <!--android:layout_gravity="start"-->
     <LinearLayout
         android:id="@+id/leftDrawer"
         android:layout_width="@dimen/home_drawer_item_width"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
         android:background="@color/white"
         android:clickable="true"
+        android:layout_gravity="start"
         android:orientation="vertical"
         >
 
@@ -164,7 +161,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/home_drawer_username_margin_bottom"
-
                         android:text="Shalu Soni"
                         android:textColor="#ffffff"
                         android:textSize="@dimen/home_drawer_username_textsize"
@@ -193,9 +189,10 @@
                     android:paddingLeft="@dimen/home_drawer_title1_padding_horizontal"
                     android:paddingRight="@dimen/home_drawer_title1_padding_horizontal"
                     android:paddingTop="@dimen/home_drawer_title1_padding_vertical"
+                    android:textStyle="bold"
                     android:text="@string/post"
                     android:textColor="@color/pink_text"
-                    android:textSize="@dimen/home_drawer_username_textsize"/>
+                    android:textSize="@dimen/home_drawer_sub_textsize"/>
 
 
                 <View
@@ -365,8 +362,9 @@
                 android:paddingRight="@dimen/home_drawer_side_margins"
                 android:paddingTop="@dimen/logout_padding_vertical"
                 android:text="@string/logout"
+                android:textStyle="bold"
                 android:textColor="@color/pink_text"
-                android:textSize="@dimen/home_drawer_username_textsize"/>
+                android:textSize="@dimen/home_drawer_sub_textsize"/>
         </RelativeLayout>
 
     </LinearLayout>

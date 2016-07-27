@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
 
-                        <TextView
+                        <com.hadippa.BoldTextView
                             android:id="@+id/activityname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                             android:drawablePadding="5dp"
                             android:text="100"
                             android:textColor="@color/subText"
-                            android:textSize="@dimen/card_share_textsize"/>
+                            android:textSize="@dimen/card_title1_textsize"/>
                     </RelativeLayout>
 
                     <TextView

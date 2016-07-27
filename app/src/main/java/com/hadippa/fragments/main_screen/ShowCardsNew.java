@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -99,6 +100,7 @@ public class ShowCardsNew extends Fragment{
     ArrayList<String> namesArray = new ArrayList<>();
     ArrayList<Drawable> drawables = new ArrayList<>();
     private SlidingUpPanelLayout mLayout;
+    private View mMapCover;
 
     public ShowCardsNew() {
         // Required empty public constructor
@@ -218,6 +220,21 @@ public class ShowCardsNew extends Fragment{
 
         mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
 
+        mMapCover = view.findViewById(R.id.mapCover);
+        mMapCover.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Log.v(AppConstants.DEBUG_TAG, "mMapCover onTouch called");
+
+                if (mLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                    mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    return true;
+                }
+
+                return false;
+            }
+        });
         flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.frame);
 
         al = new ArrayList<>();

@@ -3,7 +3,6 @@
     <!--Show Card Fragment-->
     <dimen name="card_padding_top">10dp</dimen>
     <dimen name="card_padding_side">14dp</dimen>
-    <dimen name="card_title_textsize">15dp</dimen>
     <dimen name="card_share_textsize">7dp</dimen>
     <dimen name="card_event_margin_bottom">17dp</dimen>
     <dimen name="card_bottom_layer_vertical_padding">9dp</dimen>

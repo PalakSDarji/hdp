@@ -80,12 +80,13 @@ public class SignUp_Step1 extends Fragment  {
             @Override
             public void onClick(View v) {
 
-                if(validate()){
+                SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
+                /*if(validate()){
 
                     login();
                   //  SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
 
-                }
+                }*/
 
 
             }

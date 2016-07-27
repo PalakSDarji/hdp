@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textStyle="bold"
             android:text="@string/mobile_number"
             android:textColor="@color/pink_text"
             android:textSize="@dimen/signup_title_textsize" />
@@ -62,6 +63,9 @@
             android:imeOptions="actionDone"
           style="@style/App_EditTextStyle_SiginUp"
             android:drawablePadding="15dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:drawableLeft="@drawable/signup2_mobileicon"
             />
 
@@ -77,10 +81,8 @@
             <TextView
                 android:paddingBottom="@dimen/signup_button_padding_vertical"
                 android:paddingTop="@dimen/signup_button_padding_vertical"
-                android:paddingRight="@dimen/signup_button_padding_horizontal"
-                android:paddingLeft="@dimen/signup_button_padding_horizontal"
                 android:textColor="#ffffff"
-                android:textSize="@dimen/signup_cam_top_margin"
+                android:textSize="@dimen/pref_card_title_size"
                 android:background="@drawable/rounded_resend_otp"
                 android:gravity="center"
 
@@ -91,16 +93,18 @@
                 android:text="@string/resend_otp"/>
 
             <EditText
-                android:textSize="@dimen/signup_cam_top_margin"
+                android:textSize="@dimen/pref_card_title_size"
                 android:drawableLeft="@drawable/signup1_password"
                 android:layout_marginLeft="10dp"
                 android:paddingBottom="@dimen/signup_button_padding_vertical"
                 android:paddingTop="@dimen/signup_button_padding_vertical"
-                android:paddingRight="@dimen/signup_button_padding_horizontal"
-                android:paddingLeft="@dimen/signup_button_padding_horizontal"
+                android:paddingLeft="20dp"
                 android:background="@drawable/rounded_otp"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_otp"/>
@@ -112,7 +116,7 @@
             android:id="@+id/tvNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/login_button_margin_bottom"
+            android:textSize="@dimen/pref_card_title_size"
             android:background="@drawable/rounded_edittext_signup_button"
             android:paddingBottom="@dimen/signup_button_padding_vertical"
             android:paddingLeft="@dimen/signup_button_padding_horizontal"

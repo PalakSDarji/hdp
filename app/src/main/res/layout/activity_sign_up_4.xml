@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/tell_us_more"
+            android:textStyle="bold"
             android:textColor="@color/pink_text"
             android:textSize="@dimen/signup_title_textsize"  />
     </RelativeLayout>
@@ -160,13 +161,13 @@ android:layout_centerInParent="true"
         android:id="@+id/tvNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/login_button_margin_bottom"
+        android:textSize="@dimen/pref_card_title_size"
         android:background="@drawable/rounded_edittext_signup_button"
         android:paddingBottom="@dimen/signup_button_padding_vertical"
         android:paddingLeft="@dimen/signup_button_padding_horizontal"
         android:paddingRight="@dimen/signup_button_padding_horizontal"
         android:paddingTop="@dimen/signup_button_padding_vertical"
-        android:text="@string/next"
+        android:text="@string/done"
         android:textColor="@color/purple"
 
         />

@@ -8,6 +8,9 @@ import android.graphics.Typeface;
  */
 public class Hadippa extends Application {
 
+    private static Hadippa sInstance;
+    private static Typeface bold;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -17,6 +20,22 @@ public class Hadippa extends Application {
      //   FontsOverride.setDefaultFont(this, "MONOSPACE", "MyFontAsset2.ttf");
      //   FontsOverride.setDefaultFont(this, "SERIF", "MyFontAsset3.ttf");
      //   FontsOverride.setDefaultFont(this, "SANS_SERIF", "MyFontAsset4.ttf");
+
+        sInstance = this;
+        bold = Typeface.createFromAsset(getApplicationContext().getAssets(), "proxima_bold.OTF");
+    }
+
+
+    public static Typeface getBold() {
+        return bold;
+    }
+
+    public static void setBold(Typeface bold) {
+        Hadippa.bold = bold;
+    }
+
+    public static synchronized Hadippa getInstance() {
+        return sInstance;
     }
 
 }
