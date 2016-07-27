@@ -56,12 +56,13 @@
             android:textColor="@color/purple"/>
 
         <EditText
+            android:id="@+id/edtPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="+91 "
             android:inputType="number"
             android:imeOptions="actionDone"
-          style="@style/App_EditTextStyle_SiginUp"
+            style="@style/App_EditTextStyle_SiginUp"
             android:drawablePadding="15dp"
             android:singleLine="true"
             android:ellipsize="end"
@@ -85,7 +86,7 @@
                 android:textSize="@dimen/pref_card_title_size"
                 android:background="@drawable/rounded_resend_otp"
                 android:gravity="center"
-
+                android:id="@+id/resendOtp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_marginRight="10dp"
@@ -93,6 +94,7 @@
                 android:text="@string/resend_otp"/>
 
             <EditText
+                android:id="@+id/edtOtp"
                 android:textSize="@dimen/pref_card_title_size"
                 android:drawableLeft="@drawable/signup1_password"
                 android:layout_marginLeft="10dp"

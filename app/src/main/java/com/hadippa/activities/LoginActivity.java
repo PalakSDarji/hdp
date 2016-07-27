@@ -104,18 +104,18 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
+              /*  Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+*/
+                if (ConnectionDetector.isConnectedToInternet(LoginActivity.this)) {
 
-                /*if (ConnectionDetector.isConnectedToInternet(LoginActivity.this)) {
-
-                   *//* new LoginFb("password",edtUsername.getText().toString().trim(),
-                            edtPassword.getText().toString().trim(),"").execute();*//*
+                   /* new LoginFb("password",edtUsername.getText().toString().trim(),
+                            edtPassword.getText().toString().trim(),"").execute();*/
 
                     login("password",edtUsername.getText().toString().trim(),
                             edtPassword.getText().toString().trim(),"");
-                }*/
+                }
 
             }
         });
@@ -131,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
 
 
+                Log.d("accesstoken>>",loginResult.getAccessToken().getToken());
                 login("facebook","","",loginResult.getAccessToken().getToken());
              //   new LoginFb("facebook","","",loginResult.getAccessToken().getToken()).execute();
 

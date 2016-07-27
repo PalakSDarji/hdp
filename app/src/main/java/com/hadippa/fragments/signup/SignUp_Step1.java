@@ -80,13 +80,13 @@ public class SignUp_Step1 extends Fragment  {
             @Override
             public void onClick(View v) {
 
-                SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
-                /*if(validate()){
+               // SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
+                if(validate()){
 
                     login();
                   //  SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
 
-                }*/
+                }
 
 
             }
@@ -240,6 +240,9 @@ public class SignUp_Step1 extends Fragment  {
 
                     editor.putInt("user",jsonObject.getInt("user"));
                     editor.commit();
+
+                      SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
+
                 }
                 Log.d("async","success"+response);
             }catch (Exception e){
