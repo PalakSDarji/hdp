@@ -1,5 +1,8 @@
 package com.commonclasses.connection;
 
+import android.content.Context;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.hadippa.AppConstants;
@@ -63,7 +66,8 @@ public class LibHttp {
         return jsonRes;
     }
 
-    public String login(String grant_type, String email , String password, String accessTokenFb) throws Exception
+    public String login(Context context,String grant_type, String email ,
+                        String password, String accessTokenFb, String device_token) throws Exception
 
     {
 
@@ -75,7 +79,17 @@ public class LibHttp {
 
         alPostParams.add(new HttpNameValue(HttpNameValue.TEXT, "client_secret", AppConstants.CLIENT_SECRET, null));
 
+        alPostParams.add(new HttpNameValue(HttpNameValue.TEXT, "device_id", Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID), null));
+
+        alPostParams.add(new HttpNameValue(HttpNameValue.TEXT, "device_os_version", String.valueOf(Build.VERSION.SDK_INT), null));
+
         alPostParams.add(new HttpNameValue(HttpNameValue.TEXT, "grant_type",grant_type, null));
+
+        alPostParams.add(new HttpNameValue(HttpNameValue.TEXT, "device_type","android", null));
+
+        alPostParams.add(new HttpNameValue(HttpNameValue.TEXT, "device_token",device_token, null));
+
         if(grant_type.equals("facebook")){
 
             alPostParams.add(new HttpNameValue(HttpNameValue.TEXT, "code", accessTokenFb, null));

@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,11 +30,16 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,6 +48,10 @@ public class LoginActivity extends AppCompatActivity {
     LinearLayout linearFacebook;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+
+    protected GoogleCloudMessaging gcm;
+    public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    protected String regId;
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -50,11 +62,15 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(LoginActivity.this);
         setContentView(R.layout.activity_login);
 
+        sp = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+        editor = sp.edit();
+
         AppConstants.generateSHAKey(LoginActivity.this);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
         }
 
+        startRegistration();
         edtPassword = (EditText)findViewById(R.id.edtPass);
         edtUsername = (EditText)findViewById(R.id.edtUsername);
         linearFacebook = (LinearLayout)findViewById(R.id.linearFacebook);
@@ -90,7 +106,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (ConnectionDetector.isConnectedToInternet(LoginActivity.this)) {
 
-                    new LoginFb("password",edtUsername.getText().toString().trim(),edtPassword.getText().toString().trim(),"").execute();
+                    new LoginFb("password",edtUsername.getText().toString().trim(),
+                            edtPassword.getText().toString().trim(),"").execute();
 
                 }
 
@@ -164,7 +181,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 LibHttp libHttp = new LibHttp();
 
-                jsonStr = libHttp.login(grant_type, username, password, fbAccessToken);
+                jsonStr = libHttp.login(LoginActivity.this,grant_type, username, password, fbAccessToken,sp.getString("gcmId",""));
 
                 if (AppConstants.DEBUG) Log.d(AppConstants.DEBUG_TAG, "Response: > " + jsonStr);
 
@@ -200,5 +217,123 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
+
+    protected void startRegistration() {
+
+        if (checkPlayServices()) {
+            // If this check succeeds, proceed with normal processing.
+            // Otherwise, prompt user to get valid Play Services APK.
+            if(AppConstants.DEBUG) Log.i(AppConstants.DEBUG_TAG, "Google Play Services OK");
+            gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+
+            if(AppConstants.DEBUG)Log.i(AppConstants.DEBUG_TAG, "regId : "+regId);
+            registerInBackground();
+        }else{
+            if(AppConstants.DEBUG)Log.i(AppConstants.DEBUG_TAG, "No valid Google Play Services APK found.");
+
+        }
+
+    }
+
+    protected boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil
+                .isGooglePlayServicesAvailable(getApplicationContext());
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                if(AppConstants.DEBUG)Log.i(AppConstants.DEBUG_TAG, "No Google Play Services...Get it from the store.");
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        AppConstants.PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                if(AppConstants.DEBUG)Log.i(AppConstants.DEBUG_TAG, "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Registers the application with GCM servers asynchronously. Stores the
+     * registration ID and app versionCode in the application's shared
+     * preferences.
+     */
+    protected void registerInBackground() {
+
+        new AsyncTask<Void, Void, String>() {
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+                    }
+                    regId = gcm.register(AppConstants.SENDER_ID);
+                    msg = "Device registered, registration ID=" + regId;
+
+                } catch (IOException ex) {
+                    msg = ex.getMessage();
+                }
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+                if(AppConstants.DEBUG)Log.i(AppConstants.DEBUG_TAG, "onPostExecute : " + msg);
+
+
+
+                if (!msg.equalsIgnoreCase("SERVICE_NOT_AVAILABLE")) {
+
+                    Message msgObj = handler.obtainMessage();
+                    Bundle b = new Bundle();
+                    b.putString("server_response", msg);
+                    msgObj.setData(b);
+                    handler.sendMessage(msgObj);
+
+                } else {
+
+
+
+                }
+            }
+
+            // Define the Handler that receives messages from the thread and
+            // update the progress
+            private final Handler handler = new Handler() {
+
+                public void handleMessage(Message msg) {
+
+                    String aResponse = msg.getData().getString(
+                            "server_response");
+
+                    if ((null != aResponse)) {
+
+                        if(AppConstants.DEBUG)Log.i(AppConstants.DEBUG_TAG, " sendRegistrationIdToBackend();");
+
+
+                        editor.putString("gcmId",regId);
+                        editor.commit();
+
+
+
+                    } else {
+
+                    }
+
+                }
+            };
+        }.execute(null, null, null);
+    }
+
+
 
 }

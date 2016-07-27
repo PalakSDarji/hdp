@@ -42,6 +42,11 @@ public class AppConstants {
     public static final String LOGIN_STATUS_FB="2";
     public static final String LOGIN_STATUS_NA="0";
 
+    public static final String API_KEY = "AIzaSyC3u3fzAnZ4qkHgSt7BNPifoXFHzUPKV1U";
+    public static final String SENDER_ID = "663857922214";
+
+    public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
     public static final String DEVICE_TYPE="2"; //For Android
 
     public static ProgressDialog PROGRESS_DIALOG = null;
@@ -93,5 +98,8 @@ public class AppConstants {
             e.printStackTrace();
         }
     }
+
+
+
 
 }

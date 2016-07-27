@@ -36,6 +36,7 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:cardview-v7:23.4.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile project(':dialogplus')
     compile project(':library')
     compile 'com.appyvet:materialrangebar:1.3'
