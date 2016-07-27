@@ -78,9 +78,7 @@ public class SignUp_Step2 extends Fragment  {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 String s1 = edtPhoneNumber.getText().toString().trim();
-                if(s1.contains("+91 ")){
 
-                }
             }
 
             @Override
