@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="15dp">
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                        xmlns:tools="http://schemas.android.com/tools"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:background="@drawable/card_edge"
-                                        android:orientation="vertical"
-                                        app:cardCornerRadius="10dp"
-                                        app:cardElevation="0dp"
-                                        card_view:cardPreventCornerOverlap="false">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_edge"
+        android:orientation="vertical"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        card_view:cardPreventCornerOverlap="false">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -29,10 +28,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/llControls"
-                android:background="@drawable/card_top"
                 android:layout_alignParentTop="true"
+                android:background="@drawable/card_top"
                 android:scaleType="centerCrop"
-                android:src="@drawable/customl"/>
+                android:src="@drawable/customl" />
             <!--
                     </com.github.captain_miao.optroundcardview.OptRoundCardView>
             -->
@@ -41,8 +40,8 @@
                 android:id="@+id/llControls"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="35"
                 android:layout_alignParentBottom="true"
+                android:layout_weight="35"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -59,7 +58,7 @@
                         android:layout_marginTop="10dp">
 
                         <com.hadippa.BoldTextView
-                            android:id="@+id/activityname"
+                            android:id="@+id/tvActivityName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -68,10 +67,11 @@
                             android:text="Sarabjit Movie"
                             android:textColor="@color/pink_text"
                             android:textSize="@dimen/card_title_textsize"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
 
                         <TextView
+                            android:id="@+id/tvCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -81,10 +81,11 @@
                             android:drawablePadding="5dp"
                             android:text="100"
                             android:textColor="@color/subText"
-                            android:textSize="@dimen/card_title1_textsize"/>
+                            android:textSize="@dimen/card_title1_textsize" />
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/tvAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/layouttop1"
@@ -96,7 +97,7 @@
                         android:drawablePadding="5dp"
                         android:text="PVR Cinemas, Lower Parel, Mumbai"
                         android:textColor="@color/subText"
-                        android:textSize="@dimen/card_title1_textsize"/>
+                        android:textSize="@dimen/card_title1_textsize" />
 
                 </RelativeLayout>
 
@@ -110,6 +111,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tvActivityDate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -117,10 +119,11 @@
                         android:drawableTop="@drawable/landing_pages_r2_29"
                         android:gravity="center"
                         android:text="04 May"
-                        android:textSize="@dimen/tab_search_textsize"/>
+                        android:textSize="@dimen/tab_search_textsize" />
 
 
                     <TextView
+                        android:id="@+id/tvActivtyTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -128,7 +131,7 @@
                         android:drawableTop="@drawable/landing_pages_time"
                         android:gravity="center"
                         android:text="12.15 pm"
-                        android:textSize="@dimen/tab_search_textsize"/>
+                        android:textSize="@dimen/tab_search_textsize" />
 
 
                     <TextView
@@ -136,11 +139,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="5dp"
-
+                        android:id="@+id/tvDistance"
                         android:drawableTop="@drawable/landing_pages_distance"
                         android:gravity="center"
                         android:text="10 Km"
-                        android:textSize="@dimen/tab_search_textsize"/>
+                        android:textSize="@dimen/tab_search_textsize" />
 
 
                     <TextView
@@ -152,7 +155,7 @@
                         android:drawableTop="@drawable/landing_pages_people"
                         android:gravity="center"
                         android:text="10 Going"
-                        android:textSize="@dimen/tab_search_textsize"/>
+                        android:textSize="@dimen/tab_search_textsize" />
 
 
                 </LinearLayout>
@@ -168,10 +171,10 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:gravity="center"
-                    android:padding="@dimen/card_bottom_layer_vertical_padding"
-                    >
+                    android:padding="@dimen/card_bottom_layer_vertical_padding">
 
                     <TextView
+                        android:id="@+id/tvName_Age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -201,14 +204,14 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/rounded_caard"/>
+        android:src="@drawable/rounded_caard" />
 
     <View
         android:id="@+id/item_swipe_left_indicator"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:alpha="0"
-        android:background="@drawable/like"/>
+        android:background="@drawable/like" />
 
     <View
         android:id="@+id/item_swipe_right_indicator"
@@ -216,8 +219,7 @@
         android:layout_height="100dp"
         android:layout_gravity="right"
         android:alpha="0"
-        android:background="@drawable/nope"/>
-
+        android:background="@drawable/nope" />
 
 
 </FrameLayout>

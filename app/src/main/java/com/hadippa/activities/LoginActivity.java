@@ -34,8 +34,11 @@ import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.hadippa.model.DataModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -44,6 +47,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -58,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     protected GoogleCloudMessaging gcm;
     public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     protected String regId;
-
+    public static List<DataModel> posts;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -107,19 +113,32 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-              /*  Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-*/
-                if (ConnectionDetector.isConnectedToInternet(LoginActivity.this)) {
+                if(edtUsername.getText().toString().trim().equals("") ||
+                edtPassword.getText().toString().trim().equals("")){
 
-                   /* new LoginFb("password",edtUsername.getText().toString().trim(),
-                            edtPassword.getText().toString().trim(),"").execute();*/
+                    if(edtUsername.getText().toString().trim().equals("")){
+                        edtUsername.setError("Cannot be empty");
+                        return;
+                    }
 
-                    login("password",edtUsername.getText().toString().trim(),
-                            edtPassword.getText().toString().trim(),"");
+                    if(edtPassword.getText().toString().trim().equals("")){
+                        edtPassword.setError("Cannot be empty");
+                        return;
+                    }
+
+
+                }else {
+                    if(AppConstants.isValidEmail(edtUsername.getText().toString().trim())){
+                    if (ConnectionDetector.isConnectedToInternet(LoginActivity.this)) {
+
+                        login("password", edtUsername.getText().toString().trim(),
+                                edtPassword.getText().toString().trim(), "");
+                    }
+                }else{
+                        edtUsername.setError("Invalid Email.");
+                        return;
+                    }
                 }
-
             }
         });
 
@@ -461,7 +480,22 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 String response = new String(responseBody, "UTF-8");
-                Log.d("async","success"+response);
+                JSONObject jsonObject = new JSONObject(response);
+                if(jsonObject.has("access_token")) {
+
+                    //post json stored g\here
+                    editor.putString("posts",jsonObject.getString("posts"));
+                    editor.commit();
+                    Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                }else{
+
+
+
+                }
+                    Log.d("async","success"+response);
             }catch (Exception e){
                 e.printStackTrace();
                 Log.d("async","success exc  >>"+ e.toString());

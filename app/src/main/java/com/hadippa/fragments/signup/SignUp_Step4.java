@@ -217,10 +217,12 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-                if(jsonObject.getBoolean("success")){
+                Log.d("async_step_2", "success" + response);
+                if(jsonObject.has("access_token")){
 
-                    editor.putInt("user",jsonObject.getInt("user"));
-                    editor.commit();
+                    Log.d("async_step_2>>>",jsonObject.getJSONArray("posts").toString());
+                   /* editor.putInt("user",jsonObject.getInt("user"));
+                    editor.commit();*/
 
                     Intent intent = new Intent(getActivity(), HomeScreen.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -228,7 +230,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
                     getActivity().overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
 
                 }
-                Log.d("async_step_2", "success" + response);
+
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d("async", "success exc  >>" + e.toString());

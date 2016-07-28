@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -13,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.internal.NavigationMenu;
 import android.support.v4.app.Fragment;
@@ -38,9 +40,14 @@ import android.widget.Toast;
 
 import com.daprlabs.cardstack.SwipeDeck;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.hadippa.activities.LoginActivity;
 import com.hadippa.activities.MyPlan;
+import com.hadippa.model.DataModel;
 import com.hadippa.tindercard.FlingCardListener;
 import com.hadippa.tindercard.SwipeFlingAdapterView;
 import com.hadippa.twowaygrid.TwoWayAdapterView;
@@ -55,7 +62,12 @@ import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -80,7 +92,7 @@ public class ShowCardsNew extends Fragment{
 
     private boolean menuOpened = false;
     public static MyAppAdapter myAppAdapter;
-    private ArrayList<Data> al;
+    private ArrayList<DataModel> al;
     private SwipeFlingAdapterView flingContainer;
 
 
@@ -141,21 +153,17 @@ public class ShowCardsNew extends Fragment{
 
     public class MyAppAdapter extends BaseAdapter {
 
-        public List<Data> parkingList;
+        public List<DataModel> parkingList;
         public Context context;
 
-        private class ViewHolder {
-            ImageView imageView;
-            TextView tvFollowling;
-            TextView txtDesc;
-        }
+
 
         public void remove(int i) {
             parkingList.remove(i);
             notifyDataSetChanged();
         }
 
-        private MyAppAdapter(List<Data> apps, Context context) {
+        private MyAppAdapter(List<DataModel> apps, Context context) {
             this.parkingList = apps;
             this.context = context;
         }
@@ -175,6 +183,12 @@ public class ShowCardsNew extends Fragment{
             return position;
         }
 
+        private class ViewHolder {
+            ImageView imageView,coverImage;
+            TextView tvFollowling,tvName_Age,tvDistance,
+                    tvActivityName,tvActivtyTime,tvActivtyDate,tvAddress,tvCount;
+            TextView txtDesc;
+        }
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder = null;
@@ -186,13 +200,35 @@ public class ShowCardsNew extends Fragment{
                 // configure view holder
                 viewHolder = new ViewHolder();
                 viewHolder.tvFollowling = (TextView) convertView.findViewById(R.id.tvFollowling);
+                viewHolder.tvName_Age = (TextView) convertView.findViewById(R.id.tvName_Age);
+                viewHolder.tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
+                viewHolder.tvActivityName = (TextView) convertView.findViewById(R.id.tvActivityName);
+                viewHolder.tvActivtyTime = (TextView) convertView.findViewById(R.id.tvActivtyTime);
+                viewHolder.tvActivtyDate = (TextView) convertView.findViewById(R.id.tvActivityDate);
+                viewHolder.tvCount = (TextView) convertView.findViewById(R.id.tvCount);
+                viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
                 viewHolder.imageView = (ImageView) convertView.findViewById(R.id.coverImage);
                 convertView.setTag(viewHolder);
             }
             else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
+            
+            DataModel dataModel = posts.get(position);
 
+            try {
+               /* viewHolder.tvName_Age.setText(dataModel.user.getString("first_name")
+                +" "+dataModel.user.getString("last_name")+", " +
+                        ""+dataModel.user.getString("age"));*/
+                JSONObject activity = new JSONObject(dataModel.activity);
+                viewHolder.tvActivityName.setText(activity.getString("activity_name"));
+                viewHolder.tvActivtyTime.setText(activity.getString("activity_display_name"));
+                viewHolder.tvActivtyDate.setText(dataModel.activity_date);
+                viewHolder.tvAddress.setText(dataModel.activity_time);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             viewHolder.tvFollowling.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -209,13 +245,27 @@ public class ShowCardsNew extends Fragment{
         }
     }
 
+    public static List<DataModel> posts;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_show_cards, container, false);
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        editor = sp.edit();
 
+        Type listType = new TypeToken<ArrayList<DataModel>>(){}.getType();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+
+        Gson gson = gsonBuilder.create();
+        posts = new ArrayList<>();
+        posts = (gson.fromJson(sp.getString("posts",""), listType));
+
+        Log.d("posts>>",sp.getString("posts",""));
         horizontal_recycler_view = (RecyclerView) view.findViewById(R.id.horizontal_recycler_view);
 
         mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
@@ -237,29 +287,7 @@ public class ShowCardsNew extends Fragment{
         });
         flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.frame);
 
-        al = new ArrayList<>();
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://switchboard.nrdc.org/blogs/dlashof/mission_impossible_4-1.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-        al.add(new Data("http://i.ytimg.com/vi/PnxsTxV8y3g/maxresdefault.jpg", "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness."));
-
-        myAppAdapter = new MyAppAdapter(al, getActivity());
+        myAppAdapter = new MyAppAdapter(posts, getActivity());
         flingContainer.setAdapter(myAppAdapter);
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
@@ -458,50 +486,6 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-/*
-
-        al = new ArrayList<String>();
-        al.add("php");
-        al.add("c");
-        al.add("python");
-        al.add("java");
-
-        //choose your favorite adapter
-        arrayAdapter = new CustomBaseAdapter();
-
-        //set the listener and the adapter
-        cardStack.setAdapter(arrayAdapter);
-
-        cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
-            @Override
-            public void cardSwipedLeft(int position) {
-                Log.i("MainActivity", "card was swiped left, position in adapter: " + position);
-            }
-
-            @Override
-            public void cardSwipedRight(int position) {
-                Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
-            }
-
-            @Override
-            public void cardsDepleted() {
-                Log.i("MainActivity", "no more cards");
-            }
-
-            @Override
-            public void cardActionDown() {
-                Log.i("fff", "cardActionDown");// cardStack.swipeTopCardRight(180);
-            }
-
-            @Override
-            public void cardActionUp() {
-                Log.i("fff", "cardActionUp");
-
-             //   cardStack.swipeTopCardLeft(180);
-            }
-
-        });
-        */
         multiple_actions = (FloatingActionsMenu)view.findViewById(R.id.multiple_actions);
 
         return view;

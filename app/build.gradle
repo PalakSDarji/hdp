@@ -45,6 +45,7 @@ dependencies {
     compile 'com.sothree.slidinguppanel:library:3.3.0'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
+    compile files('libs/gson-2.5.jar')
 }
 
 
