@@ -190,7 +190,7 @@ public class ShowCardsNew extends Fragment{
 
         private class ViewHolder {
             ImageView imageView,coverImage;
-            TextView tvFollowling,tvName_Age,tvDistance,
+            TextView tvGoing,tvName_Age,tvDistance,
                     tvActivityName,tvActivtyTime,tvActivtyDate,tvAddress,tvCount;
             TextView txtDesc;
         }
@@ -204,7 +204,7 @@ public class ShowCardsNew extends Fragment{
                 convertView = inflater.inflate(R.layout.item, parent, false);
                 // configure view holder
                 viewHolder = new ViewHolder();
-                viewHolder.tvFollowling = (TextView) convertView.findViewById(R.id.tvFollowling);
+                viewHolder.tvGoing = (TextView) convertView.findViewById(R.id.tvGoing);
                 viewHolder.tvName_Age = (TextView) convertView.findViewById(R.id.tvName_Age);
                 viewHolder.tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
                 viewHolder.tvActivityName = (TextView) convertView.findViewById(R.id.tvActivityName);
@@ -229,12 +229,13 @@ public class ShowCardsNew extends Fragment{
                 viewHolder.tvActivtyTime.setText(dataModel.getActivity_time());
                 viewHolder.tvActivtyDate.setText(convertDate(dataModel.getActivity_date()));
                 viewHolder.tvAddress.setText(dataModel.getActivity_location());
+            viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size())+ " Going");
 
 
             Glide.with(context)
                     .load(dataModel.getUser().getProfile_photo())
                     .into(viewHolder.coverImage);
-            viewHolder.tvFollowling.setOnClickListener(new View.OnClickListener() {
+            viewHolder.tvGoing.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -257,7 +258,7 @@ public class ShowCardsNew extends Fragment{
             // obtain date and time from initial string
             Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(dateInputString);
             // set date string
-            stringDate = new SimpleDateFormat("MMM dd", Locale.US).format(date).toUpperCase(Locale.ROOT);
+            stringDate = new SimpleDateFormat("dd MMM", Locale.US).format(date).toUpperCase(Locale.ROOT);
             // set time string
 
         } catch (ParseException e) {

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hadippa.AppConstants;
@@ -41,7 +42,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
     ImageView imageGirlTick, imageBoyTick;
     TextView tvImBoy, tvImGirl;
     LinearLayout linearBoy, linearGirl;
-
+    RelativeLayout mainRel;
     String gender = "";
 
     public static SignUp_Step4 newInstance(int page, String title) {
@@ -62,6 +63,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
+        mainRel = (RelativeLayout)view.findViewById(R.id.mainRel);
         tvImBoy = (TextView) view.findViewById(R.id.tvImBoy);
         tvImGirl = (TextView) view.findViewById(R.id.tvImGirl);
 
@@ -229,6 +231,8 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
 
+                }else{
+                    AppConstants.showSnackBar(mainRel,"Could not register. try again");
                 }
 
             } catch (Exception e) {
@@ -240,14 +244,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-
-            try {
-                String response = new String(responseBody, "UTF-8");
-                Log.d("async", "failure" + response);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("async", "failure" + e.toString());
-            }
+            AppConstants.showSnackBar(mainRel,"Could not register. try again");
         }
 
     }

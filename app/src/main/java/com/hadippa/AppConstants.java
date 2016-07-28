@@ -8,10 +8,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -72,6 +74,13 @@ public class AppConstants {
         return b;
     }
 
+    public static void showSnackBar(RelativeLayout relativeLayout, String message){
+
+        Snackbar.make(relativeLayout,message , Snackbar.LENGTH_LONG)
+
+                .show();
+
+    }
     public static void showProgressDialog(Context context,String message){
 
         PROGRESS_DIALOG = new ProgressDialog(context);

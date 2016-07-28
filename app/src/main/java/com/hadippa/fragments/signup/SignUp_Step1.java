@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hadippa.AppConstants;
@@ -60,6 +61,7 @@ public class SignUp_Step1 extends Fragment  {
     }
 
     public static EditText edtFullname,edtPassword,edtConfirmPassword,edtEmail;
+    RelativeLayout mainRel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -70,6 +72,7 @@ public class SignUp_Step1 extends Fragment  {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
+        mainRel = (RelativeLayout)view.findViewById(R.id.mainRel);
         edtFullname = (EditText)view.findViewById(R.id.edtFullName);
         edtPassword = (EditText)view.findViewById(R.id.edtPassword);
         edtConfirmPassword = (EditText)view.findViewById(R.id.edtConfirmPassword);
@@ -243,6 +246,8 @@ public class SignUp_Step1 extends Fragment  {
 
                       SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
 
+                }else {
+                    AppConstants.showSnackBar(mainRel,"Could not submit details");
                 }
                 Log.d("async","success"+response);
             }catch (Exception e){
@@ -255,6 +260,7 @@ public class SignUp_Step1 extends Fragment  {
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
 
+            AppConstants.showSnackBar(mainRel,"Could not submit details");
 
             try {
                 String response = new String(responseBody, "UTF-8");

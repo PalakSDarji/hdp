@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class SignUp_Step2 extends Fragment  {
         return fragmentFirst;
     }
 
+    RelativeLayout mainRel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -66,6 +68,7 @@ public class SignUp_Step2 extends Fragment  {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
+        mainRel = (RelativeLayout)view.findViewById(R.id.mainRel);
         TextView tvNext = (TextView)view.findViewById(R.id.tvNext);
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,9 +253,6 @@ public class SignUp_Step2 extends Fragment  {
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-
-
-
             try {
                 String response = new String(responseBody, "UTF-8");
                /* JSONObject jsonObject = new JSONObject(response);
@@ -275,6 +275,7 @@ public class SignUp_Step2 extends Fragment  {
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
 
+            AppConstants.showSnackBar(mainRel,"Could not send Otp. try again");
 
             try {
                 String response = new String(responseBody, "UTF-8");
@@ -344,6 +345,7 @@ public class SignUp_Step2 extends Fragment  {
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
 
+            AppConstants.showSnackBar(mainRel,"Could not verify. try again");
 
             try {
                 String response = new String(responseBody, "UTF-8");

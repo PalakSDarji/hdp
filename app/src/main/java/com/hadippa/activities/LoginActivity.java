@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     public static List<DataModel> posts;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    RelativeLayout mainRel;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
         }
 
+        mainRel = (RelativeLayout)findViewById(R.id.mainRel);
         startRegistration();
         edtPassword = (EditText)findViewById(R.id.edtPass);
         edtUsername = (EditText)findViewById(R.id.edtUsername);
@@ -493,6 +496,7 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
 
 
+                    AppConstants.showSnackBar(mainRel,"Invalid username or password");
 
                 }
                     Log.d("async","success"+response);
@@ -505,15 +509,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-
-
-            try {
-                String response = new String(responseBody, "UTF-8");
-                Log.d("async","failure"+response);
-            }catch (Exception e){
-                e.printStackTrace();
-                Log.d("async","failure"+e.toString());
-            }
+            AppConstants.showSnackBar(mainRel,"Try again!");
         }
 
     }

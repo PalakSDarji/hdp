@@ -147,7 +147,7 @@
 
 
                     <TextView
-                        android:id="@+id/tvFollowling"
+                        android:id="@+id/tvGoing"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
