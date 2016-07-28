@@ -38,6 +38,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.daprlabs.cardstack.SwipeDeck;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.gson.Gson;
@@ -66,9 +67,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -159,7 +164,7 @@ public class ShowCardsNew extends Fragment{
 
 
         public void remove(int i) {
-            parkingList.remove(i);
+            posts.remove(i);
             notifyDataSetChanged();
         }
 
@@ -170,7 +175,7 @@ public class ShowCardsNew extends Fragment{
 
         @Override
         public int getCount() {
-            return parkingList.size();
+            return posts.size();
         }
 
         @Override
@@ -207,7 +212,7 @@ public class ShowCardsNew extends Fragment{
                 viewHolder.tvActivtyDate = (TextView) convertView.findViewById(R.id.tvActivityDate);
                 viewHolder.tvCount = (TextView) convertView.findViewById(R.id.tvCount);
                 viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
-                viewHolder.imageView = (ImageView) convertView.findViewById(R.id.coverImage);
+                viewHolder.coverImage = (ImageView) convertView.findViewById(R.id.coverImage);
                 convertView.setTag(viewHolder);
             }
             else {
@@ -216,19 +221,19 @@ public class ShowCardsNew extends Fragment{
             
             DataModel dataModel = posts.get(position);
 
-            try {
-               /* viewHolder.tvName_Age.setText(dataModel.user.getString("first_name")
-                +" "+dataModel.user.getString("last_name")+", " +
-                        ""+dataModel.user.getString("age"));*/
-                JSONObject activity = new JSONObject(dataModel.activity);
-                viewHolder.tvActivityName.setText(activity.getString("activity_name"));
-                viewHolder.tvActivtyTime.setText(activity.getString("activity_display_name"));
-                viewHolder.tvActivtyDate.setText(dataModel.activity_date);
-                viewHolder.tvAddress.setText(dataModel.activity_time);
+                viewHolder.tvName_Age.setText(dataModel.getUser().getFirst_name()
+                +" "+dataModel.getUser().getLast_name()+", " +
+                        ""+dataModel.getUser().getAge());
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                viewHolder.tvActivityName.setText(dataModel.getActivity_details().getActivity_name());
+                viewHolder.tvActivtyTime.setText(dataModel.getActivity_time());
+                viewHolder.tvActivtyDate.setText(convertDate(dataModel.getActivity_date()));
+                viewHolder.tvAddress.setText(dataModel.getActivity_location());
+
+
+            Glide.with(context)
+                    .load(dataModel.getUser().getProfile_photo())
+                    .into(viewHolder.coverImage);
             viewHolder.tvFollowling.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -245,6 +250,23 @@ public class ShowCardsNew extends Fragment{
         }
     }
 
+    String convertDate(String dateInputString){
+
+        String stringDate = null;
+        try {
+            // obtain date and time from initial string
+            Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(dateInputString);
+            // set date string
+            stringDate = new SimpleDateFormat("MMM dd", Locale.US).format(date).toUpperCase(Locale.ROOT);
+            // set time string
+
+        } catch (ParseException e) {
+            // wrong input
+        }
+
+        return stringDate;
+
+    }
     public static List<DataModel> posts;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
