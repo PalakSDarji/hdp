@@ -14,6 +14,8 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.hadippa.fragments.signup.SignUp_Step2;
+
 /**
  * Created by HP on 28-07-2016.
  */
@@ -44,12 +46,11 @@ public class IncomingSmsReceiver extends BroadcastReceiver {
                     Log.d("SmsReceiver", "senderNum: "+ senderNum + "; message: " + message.substring(message.length() - 4,
                             message.length()));
 
-
-                    // Show Alert
-                    int duration = Toast.LENGTH_LONG;
-                  /*  Toast toast = Toast.makeText(context,
-                            "senderNum: "+ senderNum + ", message: " + message, Toast.LENGTH_LONG);
-                    toast.show();*/
+                    if(senderNum.equals("DM-KKDEAL"))
+                        if(message.contains("Mobile Verification")) {
+                            SignUp_Step2.edtOtp.setText(message.substring(message.length() - 4,
+                                    message.length()));
+                        }
 
                 } // end for loop
             } // bundle is null

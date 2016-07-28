@@ -45,7 +45,7 @@ public class SignUp_Step2 extends Fragment  {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
-    EditText edtPhoneNumber,edtOtp;
+    public static EditText edtPhoneNumber,edtOtp;
     TextView resendOtp;
 
     public static SignUp_Step2 newInstance(int page, String title) {
@@ -128,6 +128,30 @@ public class SignUp_Step2 extends Fragment  {
         });
 
         edtOtp = (EditText)view.findViewById(R.id.edtOtp);
+
+        edtOtp.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String s1 = edtOtp.getText().toString().trim();
+
+                if(s1.length() == 4){
+                    signUpStep_2("verify_otp");
+                }else{
+                  //  edtOtp.setError(getString(R.string.phone_error));
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
         return view;
