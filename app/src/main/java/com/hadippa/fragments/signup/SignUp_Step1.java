@@ -59,7 +59,7 @@ public class SignUp_Step1 extends Fragment  {
         return fragmentFirst;
     }
 
-    EditText edtFullname,edtPassword,edtConfirmPassword,edtEmail;
+    public static EditText edtFullname,edtPassword,edtConfirmPassword,edtEmail;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -83,7 +83,7 @@ public class SignUp_Step1 extends Fragment  {
                // SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
                 if(validate()){
 
-                    login();
+                    signUpStep_1();
                   //  SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
 
                 }
@@ -150,7 +150,7 @@ public class SignUp_Step1 extends Fragment  {
     }
 
 
-    private void login()
+    private void signUpStep_1()
     {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
@@ -194,10 +194,10 @@ public class SignUp_Step1 extends Fragment  {
         }
 
         asyncHttpClient.post(AppConstants.BASE_URL+AppConstants.API_VERSION + AppConstants.SIGN_UP_STEP_1, requestParams,
-                new LoginAsync());
+                new SignUpStep_1());
     }
 
-    class LoginAsync extends AsyncHttpResponseHandler
+    class SignUpStep_1 extends AsyncHttpResponseHandler
     {
 
         @Override

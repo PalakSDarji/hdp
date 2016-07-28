@@ -26,6 +26,7 @@
     <string name="whats_your_number">What\'s Your Number?</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="enter_otp">Enter OTP</string>
+    <string name="phone_error">Phone number must be 10 digits.</string>
 
     <string name="birth_date">BIRTH DATE</string>
     <string name="whats_your_bdate">What\'s Your Birth Date ?</string>

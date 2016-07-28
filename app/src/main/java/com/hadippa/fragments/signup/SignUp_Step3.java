@@ -27,7 +27,7 @@ public class SignUp_Step3 extends Fragment  {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
-
+    public static EditText date;
     public static SignUp_Step3 newInstance(int page, String title) {
         SignUp_Step3 fragmentFirst = new SignUp_Step3();
         Log.d("FRAGMENT_LOG", "Crewated ");
@@ -50,11 +50,16 @@ public class SignUp_Step3 extends Fragment  {
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem() + 1);
+                if(date.equals("")){
+                    date.setError("Select Date");
+                }else{
+                    SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem() + 1);
+                }
+
             }
         });
 
-        final EditText date = (EditText)view.findViewById(R.id.date);
+       date = (EditText)view.findViewById(R.id.date);
 
         date.setFocusable(false);
         date.setOnClickListener(new View.OnClickListener() {

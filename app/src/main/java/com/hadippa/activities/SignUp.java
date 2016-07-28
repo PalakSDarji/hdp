@@ -1,5 +1,6 @@
 package com.hadippa.activities;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -81,4 +82,15 @@ public class SignUp extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
     }
+
+  /*  @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        for (Fragment requestingFragment : SignUp_Step2.instantiate()) {
+            requestingFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        if(SignUp_Step2.newInstance(0,"")!=null)
+
+    }*/
 }

@@ -55,20 +55,44 @@
             android:text="@string/whats_your_number"
             android:textColor="@color/purple"/>
 
-        <EditText
-            android:id="@+id/edtPhoneNumber"
+        <LinearLayout
+            android:background="@drawable/rounded_edittext_signup"
+            android:orientation="horizontal"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="@dimen/signup_edittext_margin_bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="+91 "
-            android:inputType="number"
-            android:imeOptions="actionDone"
-            style="@style/App_EditTextStyle_SiginUp"
-            android:drawablePadding="15dp"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:drawableLeft="@drawable/signup2_mobileicon"
-            />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+91 "
+                android:inputType="number"
+                android:imeOptions="actionDone"
+                style="@style/App_EditTextStyle_SiginUp_left_margin"
+                android:drawablePadding="15dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:drawableLeft="@drawable/signup2_mobileicon"
+                />
+
+            <EditText
+                android:id="@+id/edtPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="number"
+                android:imeOptions="actionDone"
+                style="@style/App_EditTextStyle_SiginUp_right_margin"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

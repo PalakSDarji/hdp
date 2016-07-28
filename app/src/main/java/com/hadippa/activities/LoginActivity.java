@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
@@ -130,9 +133,38 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+
+                                Log.v("LoginActivity", response.toString());
+                                try {
+
+                                    JSONObject fbResponse = new JSONObject(String.valueOf(response.getJSONObject()));
+                                    Log.v("LoginActivity", fbResponse.toString());
+
+                                    login("facebook","","",fbResponse.getString("id"));
+
+
+                                } catch (JSONException e) {
+
+                                    Log.v("LoginActivity", e.toString());
+                                    e.printStackTrace();
+
+                                }
+
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,link");
+                request.setParameters(parameters);
+                request.executeAsync();
 
                 Log.d("accesstoken>>",loginResult.getAccessToken().getToken());
-                login("facebook","","",loginResult.getAccessToken().getToken());
              //   new LoginFb("facebook","","",loginResult.getAccessToken().getToken()).execute();
 
             }

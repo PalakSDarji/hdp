@@ -57,6 +57,23 @@
         <item name="android:textColorHint">@color/edittexthintcolorsignup</item>
     </style>
 
+    <style name="App_EditTextStyle_SiginUp_left_margin">
+        <item name="android:paddingTop">@dimen/edit_text_padding</item>
+        <item name="android:paddingLeft">@dimen/edit_text_padding</item>
+        <item name="android:paddingBottom">@dimen/edit_text_padding</item>
+        <item name="android:textSize">@dimen/pref_card_title_size</item>
+        <item name="android:textColor">@color/edittexthintcolorsignup</item>
+        <item name="android:textColorHint">@color/edittexthintcolorsignup</item>
+    </style>
+
+    <style name="App_EditTextStyle_SiginUp_right_margin">
+        <item name="android:paddingTop">@dimen/edit_text_padding</item>
+        <item name="android:paddingBottom">@dimen/edit_text_padding</item>
+        <item name="android:textSize">@dimen/pref_card_title_size</item>
+        <item name="android:textColor">@color/edittexthintcolorsignup</item>
+        <item name="android:textColorHint">@color/edittexthintcolorsignup</item>
+    </style>
+
     <style name="editTextTheme" parent="AppTheme">
         <item name="colorControlNormal">#d2d2d2</item>
         <item name="colorControlActivated">#d2d2d2</item>

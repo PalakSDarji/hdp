@@ -29,6 +29,8 @@ public class AppConstants {
     public static final String BASE_URL = "http://www.hadipaa.folives.com/api/android/";
     public static final String SIGN_UP_STEP_1 = "/register/step_1";
     public static final String SIGN_UP_STEP_2 = "/register/step_2";
+    public static final String SIGN_UP_STEP_2_RESEND_OTP = "/register/step_2/resend_mobile_otp";
+    public static final String SIGN_UP_STEP_2_VERIFY_OTP = "/register/step_2/verify_mobile_otp";
     public static final String SIGN_UP_STEP_3 = "/register/step_3";
     public static final String SIGN_UP_STEP_4 = "/register/step_4";
     public static final String LOGIN = "/oauth-user/login";
