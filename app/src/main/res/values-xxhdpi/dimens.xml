@@ -63,7 +63,7 @@
     <dimen name="tab_search_padding_vertical">8dp</dimen>
     <dimen name="tab_search_text_width">122dp</dimen>
 
-    <dimen name="slidingpanel_height">190dp</dimen>
+    <dimen name="slidingpanel_height">210dp</dimen>
     <!--Show Card Fragment-->
     <dimen name="card_padding_top">10dp</dimen>
     <dimen name="card_padding_side">14dp</dimen>
