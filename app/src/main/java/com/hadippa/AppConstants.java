@@ -40,6 +40,9 @@ public class AppConstants {
     public static final String SEND_PASSWORD = "/forgot_password_new";
     public static final String RESET_PASSWORD = "/reset_password_new";
     public static final String LOGIN_BY_THIRD_PARTY = "/login_by_thirdparty";
+    public static final String ACTIVITY_REQUEST_JOIN = "/activity/request/join";
+    public static final String ACTIVITY_REQUEST_DECLINE = "/activity/decline";
+
     public static final String CLIENT_ID= "HADIPAA_USER";
     public static final String CLIENT_SECRET="HADIPAA@2016";
     public static final String API_VERSION = "v1";

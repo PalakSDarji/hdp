@@ -172,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                                     login("facebook","","",fbResponse.getString("id"));
 
 
+
                                 } catch (JSONException e) {
 
                                     Log.v("LoginActivity", e.toString());
@@ -202,6 +203,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        if(sp.getBoolean("loginStatus",false)){
+
+            if(sp.getString("grant_type","password").equals("password")){
+                login("password", sp.getString("username",""),
+                            sp.getString("password",""), "");
+            }else{
+                login("facebook","","",sp.getString("code",""));
+            }
+        }
 
     }
 
@@ -214,72 +224,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
-    protected class LoginFb extends AsyncTask<String, Void, String> {
-
-        String grant_type;
-        String username;
-        String password;
-        String fbAccessToken;
-
-        LoginFb(String grant_type,  String username, String password, String fbAccessToken){
-            this.grant_type = grant_type;
-            this.username = username;
-            this.password = password;
-            this.fbAccessToken = fbAccessToken;
-        }
-
-        String jsonStr;
-        ProgressDialog progressDialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-           AppConstants.showProgressDialog(LoginActivity.this,getResources().getString(R.string.message_user_auth));
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            try {
-                LibHttp libHttp = new LibHttp();
-
-                jsonStr = libHttp.login(LoginActivity.this,grant_type, username, password, fbAccessToken,sp.getString("gcmId",""));
-
-                if (AppConstants.DEBUG) Log.d(AppConstants.DEBUG_TAG, "Response: > " + jsonStr);
-
-                return jsonStr;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "not-executed";
-            }
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            try {
-                JSONObject jsonObject = new JSONObject(jsonStr);
-                if ((jsonObject.has("error")) || (jsonObject.has("error_description"))){
-
-                    Toast.makeText(LoginActivity.this,jsonObject.has("error")+" :" +
-                            " "+jsonObject.has("error_description"),Toast.LENGTH_LONG).show();
-
-                }else{
-                    Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            AppConstants.dismissDialog();
-
-        }
-    }
 
     protected void startRegistration() {
 
@@ -397,13 +341,18 @@ public class LoginActivity extends AppCompatActivity {
         }.execute(null, null, null);
     }
 
+    String grant = "",code = "",username = "",password_ = "";
     private void login(String grant_type, String email ,
                        String password, String accessTokenFb)
     {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
-        
+
+        grant = grant_type;
+        code = accessTokenFb;
+        username = email;
+        password_ = password;
         try
         {
 
@@ -425,6 +374,7 @@ public class LoginActivity extends AppCompatActivity {
             if(grant_type.equals("facebook")){
 
                 requestParams.add("code", accessTokenFb);
+
 
             }else {
                 requestParams.add( "username", email);
@@ -487,11 +437,23 @@ public class LoginActivity extends AppCompatActivity {
                 if(jsonObject.has("access_token")) {
 
                     //post json stored g\here
+                    editor.putBoolean("loginStatus",true);
+                    editor.putString("grantType",grant);
+                    if(grant.equals("facebook")){
+                        editor.putString("code",code);
+                    }else {
+                        editor.putString("username",username);
+                        editor.putString("password",password_);
+                    }
+
+                    editor.putString("access_token",jsonObject.getString("access_token"));
                     editor.putString("posts",jsonObject.getString("posts"));
                     editor.commit();
+
                     Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    finish();
 
                 }else{
 

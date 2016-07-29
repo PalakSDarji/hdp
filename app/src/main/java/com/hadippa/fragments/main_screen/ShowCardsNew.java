@@ -13,9 +13,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.design.internal.NavigationMenu;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -46,13 +48,19 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.hadippa.activities.HomeScreen;
 import com.hadippa.activities.LoginActivity;
 import com.hadippa.activities.MyPlan;
+import com.hadippa.fragments.signup.SignUp_Step1;
+import com.hadippa.fragments.signup.SignUp_Step3;
 import com.hadippa.model.DataModel;
 import com.hadippa.tindercard.FlingCardListener;
 import com.hadippa.tindercard.SwipeFlingAdapterView;
 import com.hadippa.twowaygrid.TwoWayAdapterView;
 import com.hadippa.twowaygrid.TwoWayGridView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.Holder;
@@ -75,6 +83,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import cz.msebera.android.httpclient.Header;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -83,7 +93,7 @@ import java.util.Locale;
  * Use the {@link ShowCardsNew#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShowCardsNew extends Fragment{
+public class ShowCardsNew extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -102,10 +112,10 @@ public class ShowCardsNew extends Fragment{
 
 
     private OnFragmentInteractionListener mListener;
-   // ArrayList<String> al;
-   // CustomBaseAdapter arrayAdapter;
+    // ArrayList<String> al;
+    // CustomBaseAdapter arrayAdapter;
 
-    ImageButton swipeLeft,swipeRight;
+    ImageButton swipeLeft, swipeRight;
     private SwipeDeck cardStack;
     Dialog dialog1;
     RelativeLayout relFab;
@@ -113,7 +123,7 @@ public class ShowCardsNew extends Fragment{
     FloatingActionsMenu multiple_actions;
 
     int i = 0;
-   // FloatingActionsMenu multiple_actions;
+    // FloatingActionsMenu multiple_actions;
     ArrayList<String> namesArray = new ArrayList<>();
     ArrayList<Drawable> drawables = new ArrayList<>();
     private SlidingUpPanelLayout mLayout;
@@ -162,10 +172,8 @@ public class ShowCardsNew extends Fragment{
         public Context context;
 
 
-
         public void remove(int i) {
-            posts.remove(i);
-            notifyDataSetChanged();
+
         }
 
         private MyAppAdapter(List<DataModel> apps, Context context) {
@@ -189,11 +197,12 @@ public class ShowCardsNew extends Fragment{
         }
 
         private class ViewHolder {
-            ImageView imageView,coverImage;
-            TextView tvGoing,tvName_Age,tvDistance,
-                    tvActivityName,tvActivtyTime,tvActivtyDate,tvAddress,tvCount;
+            ImageView imageView, coverImage;
+            TextView tvGoing, tvName_Age, tvDistance,
+                    tvActivityName, tvActivtyTime, tvActivtyDate, tvAddress, tvCount;
             TextView txtDesc;
         }
+
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder = null;
@@ -214,23 +223,22 @@ public class ShowCardsNew extends Fragment{
                 viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
                 viewHolder.coverImage = (ImageView) convertView.findViewById(R.id.coverImage);
                 convertView.setTag(viewHolder);
-            }
-            else {
+            } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            
+
             DataModel dataModel = posts.get(position);
 
-                viewHolder.tvName_Age.setText(dataModel.getUser().getFirst_name()
-                +" "+dataModel.getUser().getLast_name()+", " +
-                        ""+dataModel.getUser().getAge());
+            viewHolder.tvName_Age.setText(dataModel.getUser().getFirst_name()
+                    + " " + dataModel.getUser().getLast_name() + ", " +
+                    "" + dataModel.getUser().getAge());
 
-                viewHolder.tvActivityName.setText(dataModel.getActivity_details().getActivity_name());
-                viewHolder.tvActivtyTime.setText(dataModel.getActivity_time());
-                viewHolder.tvActivtyDate.setText(convertDate(dataModel.getActivity_date()));
-                viewHolder.tvAddress.setText(dataModel.getActivity_location());
-            viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size())+ " Going");
-
+            viewHolder.tvActivityName.setText(dataModel.getActivity_details().getActivity_name());
+            viewHolder.tvActivtyTime.setText(dataModel.getActivity_time());
+            viewHolder.tvActivtyDate.setText(convertDate(dataModel.getActivity_date()));
+            viewHolder.tvAddress.setText(dataModel.getActivity_location());
+            viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size()) + " Going");
+            viewHolder.tvCount.setText(String.valueOf(dataModel.getId()));
 
             Glide.with(context)
                     .load(dataModel.getUser().getProfile_photo())
@@ -251,7 +259,7 @@ public class ShowCardsNew extends Fragment{
         }
     }
 
-    String convertDate(String dateInputString){
+    String convertDate(String dateInputString) {
 
         String stringDate = null;
         try {
@@ -268,6 +276,7 @@ public class ShowCardsNew extends Fragment{
         return stringDate;
 
     }
+
     public static List<DataModel> posts;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -281,14 +290,21 @@ public class ShowCardsNew extends Fragment{
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
-        Type listType = new TypeToken<ArrayList<DataModel>>(){}.getType();
+        Type listType = new TypeToken<ArrayList<DataModel>>() {
+        }.getType();
         GsonBuilder gsonBuilder = new GsonBuilder();
 
         Gson gson = gsonBuilder.create();
         posts = new ArrayList<>();
-        posts = (gson.fromJson(sp.getString("posts",""), listType));
+        posts = (gson.fromJson(sp.getString("posts", ""), listType));
 
-        Log.d("posts>>",sp.getString("posts",""));
+        for(int i = 0; i < posts.size(); i ++){
+
+            DataModel dataModel = posts.get(i);
+            Log.d("dataModel>>Id",dataModel.getId());
+
+        }
+        Log.d("posts>>", sp.getString("posts", ""));
         horizontal_recycler_view = (RecyclerView) view.findViewById(R.id.horizontal_recycler_view);
 
         mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
@@ -317,14 +333,18 @@ public class ShowCardsNew extends Fragment{
             public void removeFirstObjectInAdapter() {
 
                 Log.d("LIST", "removed object!");
-                myAppAdapter.remove(0);
+              //  myAppAdapter.remove(0);
             }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                makeToast(getActivity(), "Left!");
-                /*al.remove(0);
-                myAppAdapter.notifyDataSetChanged();*/
+                makeToast(getActivity(),""+ posts.get(0).getId());
+
+                activityJoinDecline(posts.get(0).getId(),AppConstants.ACTIVITY_REQUEST_DECLINE);
+                posts.remove(i);
+                myAppAdapter.notifyDataSetChanged();
+
+                // myAppAdapter.notifyDataSetChanged();
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
@@ -334,6 +354,9 @@ public class ShowCardsNew extends Fragment{
             @Override
             public void onRightCardExit(Object dataObject) {
                 makeToast(getActivity(), "Right!");
+                activityJoinDecline(posts.get(0).getId(),AppConstants.ACTIVITY_REQUEST_JOIN);
+                posts.remove(i);
+                myAppAdapter.notifyDataSetChanged();
                 /*al.remove(0);
                 myAppAdapter.notifyDataSetChanged();*/
             }
@@ -366,7 +389,7 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-        swipeLeft = (ImageButton)view.findViewById(R.id.imageLeft);
+        swipeLeft = (ImageButton) view.findViewById(R.id.imageLeft);
         swipeLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -374,7 +397,7 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-        swipeRight = (ImageButton)view.findViewById(R.id.imageRight);
+        swipeRight = (ImageButton) view.findViewById(R.id.imageRight);
         swipeRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -382,7 +405,7 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-        imageOptions = (ImageButton)view.findViewById(R.id.imageOptions);
+        imageOptions = (ImageButton) view.findViewById(R.id.imageOptions);
 
         imageOptions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -391,77 +414,8 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-        multiple_actions = (FloatingActionsMenu)view.findViewById(R.id.multiple_actions);
+        multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
 
-        /*fabSpeedDial = (FabSpeedDial) view.findViewById(R.id.fab1);
-        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
-
-            @Override
-            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
-
-                //Do something with yout menu items, or return false if you don't want to show them
-                //logv("On Prepare menu called");
-               // dumbView.setVisibility(View.VISIBLE);
-                menuOpened = true;
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemSelected(MenuItem menuItem) {
-
-                if (menuItem.getItemId() == R.id.actionMyPlan) {
-                    *//*showCategoryCreationDialog();
-                    dumbView.setVisibility(View.INVISIBLE);*//*
-                    menuOpened = false;
-                    return true;
-                }
-
-                if (menuItem.getItemId() == R.id.actionFollowing) {
-
-                    //dumbView.setVisibility(View.INVISIBLE);
-                   //startActivity(new Intent(MainActivity.this, AddHashtagActivity.class));
-                    menuOpened = false;
-                    return true;
-                }
-
-                if (menuItem.getItemId() == R.id.actionToday) {
-
-                    *//*dumbView.setVisibility(View.INVISIBLE);
-                    Intent intent = new Intent(MainActivity.this, LinkContentActivity.class);
-                    intent.putExtra("comingFrom","thisApp");
-                    startActivity(intent);*//*
-                    menuOpened = false;
-                    return true;
-                }
-
-                if (menuItem.getItemId() == R.id.actionNearby) {
-
-                    //dumbView.setVisibility(View.INVISIBLE);
-                    //startActivity(new Intent(MainActivity.this, AddHashtagActivity.class));
-                    menuOpened = false;
-                    return true;
-                }
-
-                if (menuItem.getItemId() == R.id.actionCLose) {
-
-                    //dumbView.setVisibility(View.INVISIBLE);
-                    //startActivity(new Intent(MainActivity.this, AddHashtagActivity.class));
-                    menuOpened = false;
-                    return true;
-                }
-
-                return false;
-            }
-
-            @Override
-            public void onMenuClosed() {
-
-                *//*logv("On menu closed called");
-                dumbView.setVisibility(View.INVISIBLE);*//*
-            }
-        });
-
-        cardStack = (SwipeDeck) view.findViewById(R.id.swipe_deck);*/
 
         namesArray.add("Sahil");
         namesArray.add("Kartik");
@@ -500,7 +454,7 @@ public class ShowCardsNew extends Fragment{
         drawables.add(getResources().getDrawable(R.drawable.ic_avatar3));
 
 
-        imageOptions = (ImageButton)view.findViewById(R.id.imageOptions);
+        imageOptions = (ImageButton) view.findViewById(R.id.imageOptions);
 
         imageOptions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -509,13 +463,13 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-        multiple_actions = (FloatingActionsMenu)view.findViewById(R.id.multiple_actions);
+        multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
 
         return view;
     }
 
 
-    static void makeToast(Context ctx, String s){
+    static void makeToast(Context ctx, String s) {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
 
@@ -543,79 +497,13 @@ public class ShowCardsNew extends Fragment{
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
-   /* public class CustomBaseAdapter extends BaseAdapter {
 
-
-        *//*private view holder class*//*
-        private class ViewHolder {
-            ImageView imageView;
-            TextView tvFollowling;
-            TextView txtDesc;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-
-            LayoutInflater mInflater = getActivity().getLayoutInflater();
-            if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.item_match_parent_sample,parent, false);
-                holder = new ViewHolder();
-               // holder.txtDesc = (TextView) convertView.findViewById(R.id.desc);
-                holder.tvFollowling = (TextView) convertView.findViewById(R.id.tvFollowling);
-                holder.imageView = (ImageView) convertView.findViewById(R.id.coverImage);
-
-
-                convertView.setTag(holder);
-            }
-            else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-
-           *//* holder.imageView.setLayoutParams(new LinearLayout.LayoutParams(getWindowManager().getDefaultDisplay().getWidth(),
-                    getWindowManager().getDefaultDisplay().getWidth()));*//*
-
-            holder.tvFollowling.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    showDialog(Gravity.BOTTOM,true,false,false);
-                }
-            });
-            return convertView;
-        }
-
-        @Override
-        public int getCount() {
-            return 10;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return Long.parseLong(null);
-        }
-    }
-*/
-    void showOptionsDialog(){
+    void showOptionsDialog() {
 
 
         /*Bitmap f = fastblur(v,15);*/
@@ -634,7 +522,7 @@ public class ShowCardsNew extends Fragment{
 
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
 
-        TextView vMyPlan  =  (TextView)dialog1.findViewById(R.id.vMyPlan);
+        TextView vMyPlan = (TextView) dialog1.findViewById(R.id.vMyPlan);
         vMyPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -646,7 +534,7 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-        TextView vfollowling  =  (TextView)dialog1.findViewById(R.id.vfollowling);
+        TextView vfollowling = (TextView) dialog1.findViewById(R.id.vfollowling);
         vfollowling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -658,7 +546,7 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-        TextView vToday  =  (TextView)dialog1.findViewById(R.id.vToday);
+        TextView vToday = (TextView) dialog1.findViewById(R.id.vToday);
         vToday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -670,7 +558,7 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-        TextView vNearby  =  (TextView)dialog1.findViewById(R.id.vNearby);
+        TextView vNearby = (TextView) dialog1.findViewById(R.id.vNearby);
         vNearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -682,7 +570,7 @@ public class ShowCardsNew extends Fragment{
             }
         });
 
-        TextView vClose  =  (TextView)dialog1.findViewById(R.id.vClose);
+        TextView vClose = (TextView) dialog1.findViewById(R.id.vClose);
         vClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -692,7 +580,7 @@ public class ShowCardsNew extends Fragment{
         dialog1.show();
     }
 
-    private void showTwoWayGrid(){
+    private void showTwoWayGrid() {
 
 
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -700,7 +588,7 @@ public class ShowCardsNew extends Fragment{
 
         //Sample arraylist..
         List<DoublePeople> doublePeoples = new ArrayList<>();
-        doublePeoples.add(new DoublePeople(new People("palak",""),new People("darji","")));
+        doublePeoples.add(new DoublePeople(new People("palak", ""), new People("darji", "")));
         doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
         doublePeoples.add(new DoublePeople(new People("Sahil", ""), new People("bhai", "")));
 
@@ -775,13 +663,12 @@ public class ShowCardsNew extends Fragment{
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
     }
 
-    public boolean checkPanelState(){
+    public boolean checkPanelState() {
         if (mLayout != null &&
                 (mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED || mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.ANCHORED)) {
             mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -790,11 +677,11 @@ public class ShowCardsNew extends Fragment{
         boolean isGrid;
         Holder holder;
 
-                holder = new GridHolder(4);
-                isGrid = true;
+        holder = new GridHolder(4);
+        isGrid = true;
 
 
-        OnBackPressListener onBackPressListener  = new OnBackPressListener() {
+        OnBackPressListener onBackPressListener = new OnBackPressListener() {
             @Override
             public void onBackPressed(DialogPlus dialogPlus) {
                 dialogPlus.dismiss();
@@ -865,28 +752,29 @@ public class ShowCardsNew extends Fragment{
                                     OnDismissListener dismissListener, OnCancelListener cancelListener, final OnBackPressListener onBackPressListener,
                                     boolean expanded) {
 
-        View  header = getActivity().getLayoutInflater().inflate(R.layout.header,null);
-        ImageView showMore = (ImageView)header.findViewById(R.id.dismiss);
+        View header = getActivity().getLayoutInflater().inflate(R.layout.header, null);
+        ImageView showMore = (ImageView) header.findViewById(R.id.dismiss);
         showMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-              onBackPressListener.onBackPressed(dialog);
-              //  adapter.notifyDataSetChanged();
+                onBackPressListener.onBackPressed(dialog);
+                //  adapter.notifyDataSetChanged();
             }
         });
         dialog = DialogPlus.newDialog(getActivity())
                 .setContentHolder(holder)
                 .setHeader(header)
-              //  .setFooter(footer)
+                //  .setFooter(footer)
 
                 .setCancelable(true)
                 .setGravity(gravity)
                 .setAdapter(adapter)
                 .setOnClickListener(clickListener)
                 .setOnItemClickListener(new OnItemClickListener() {
-                    @Override public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                    @Override
+                    public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
                         Log.d("DialogPlus", "onItemClick() called with: " + "item = [" +
                                 item + "], position = [" + position + "]");
                     }
@@ -939,7 +827,7 @@ public class ShowCardsNew extends Fragment{
 
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
-            Log.v("hadippa","onBindViewHolder");
+            Log.v("hadippa", "onBindViewHolder");
             holder.text_view1.setText(horizontalList.get(position).getPeople1().getName());
             holder.text_view2.setText(horizontalList.get(position).getPeople1().getName());
 
@@ -953,7 +841,7 @@ public class ShowCardsNew extends Fragment{
             holder.text_view2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(),holder.text_view2.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), holder.text_view2.getText().toString(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -963,7 +851,6 @@ public class ShowCardsNew extends Fragment{
             return horizontalList.size();
         }
     }
-
 
 
     public class SimpleAdapter extends BaseAdapter {
@@ -1001,8 +888,7 @@ public class ShowCardsNew extends Fragment{
                 viewHolder.textView = (TextView) view.findViewById(R.id.text_view);
                 viewHolder.imageView = (ImageView) view.findViewById(R.id.image_view);
                 view.setTag(viewHolder);
-            }
-            else {
+            } else {
                 viewHolder = (ViewHolder) view.getTag();
             }
             viewHolder.textView.setText(namesArray.get(position));
@@ -1168,7 +1054,7 @@ public class ShowCardsNew extends Fragment{
             stackpointer = radius;
             for (y = 0; y < h; y++) {
                 // Preserve alpha channel: ( 0xff000000 & pix[yi] )
-                pix[yi] = ( 0xff000000 & pix[yi] ) | ( dv[rsum] << 16 ) | ( dv[gsum] << 8 ) | dv[bsum];
+                pix[yi] = (0xff000000 & pix[yi]) | (dv[rsum] << 16) | (dv[gsum] << 8) | dv[bsum];
 
                 rsum -= routsum;
                 gsum -= goutsum;
@@ -1219,4 +1105,77 @@ public class ShowCardsNew extends Fragment{
         return (bitmap);
     }
 
+    private void activityJoinDecline(String activity_id,String requestFor) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+            requestParams.add("activity_id", activity_id);
+
+            requestParams.add("access_token", (sp.getString("access_token", "")));
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + requestFor, requestParams,
+                new ActivityJoinDecline());
+
+    }
+
+    class ActivityJoinDecline extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            //  dataScroll.setVisibility(View.GONE);
+            AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+//            updateDonut((int) ((totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                Log.d("async_step_2", "success" + response);
+                if(jsonObject.getBoolean("success")){
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+          //  AppConstants.showSnackBar(mainRel,"Could not register. try again");
+        }
+
+    }
 }

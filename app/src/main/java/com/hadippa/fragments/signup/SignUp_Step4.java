@@ -63,7 +63,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
-        mainRel = (RelativeLayout)view.findViewById(R.id.mainRel);
+        mainRel = (RelativeLayout) view.findViewById(R.id.mainRel);
         tvImBoy = (TextView) view.findViewById(R.id.tvImBoy);
         tvImGirl = (TextView) view.findViewById(R.id.tvImGirl);
 
@@ -180,8 +180,8 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
 
-            asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.SIGN_UP_STEP_3, requestParams,
-                    new Update_Gender_DOB());
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.SIGN_UP_STEP_3, requestParams,
+                new Update_Gender_DOB());
 
     }
 
@@ -220,19 +220,25 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
                 Log.d("async_step_2", "success" + response);
-                if(jsonObject.has("access_token")){
+                if (jsonObject.has("access_token")) {
 
-                    Log.d("async_step_2>>>",jsonObject.getJSONArray("posts").toString());
-                   /* editor.putInt("user",jsonObject.getInt("user"));
-                    editor.commit();*/
+                    editor.putBoolean("loginStatus", true);
+                    editor.putString("grantType", "password");
+
+                    editor.putString("username", SignUp_Step1.edtEmail.getText().toString().trim());
+                    editor.putString("password", SignUp_Step1.edtPassword.getText().toString().trim());
+
+                    editor.putString("access_token", jsonObject.getString("access_token"));
+                    editor.putString("posts", jsonObject.getString("posts"));
+                    editor.commit();
 
                     Intent intent = new Intent(getActivity(), HomeScreen.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
 
-                }else{
-                    AppConstants.showSnackBar(mainRel,"Could not register. try again");
+                } else {
+                    AppConstants.showSnackBar(mainRel, "Could not register. try again");
                 }
 
             } catch (Exception e) {
@@ -244,7 +250,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-            AppConstants.showSnackBar(mainRel,"Could not register. try again");
+            AppConstants.showSnackBar(mainRel, "Could not register. try again");
         }
 
     }
