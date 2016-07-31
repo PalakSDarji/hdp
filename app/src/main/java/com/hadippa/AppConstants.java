@@ -34,7 +34,9 @@ public class AppConstants {
     public static final String SIGN_UP_STEP_2_RESEND_OTP = "/register/step_2/resend_mobile_otp";
     public static final String SIGN_UP_STEP_2_VERIFY_OTP = "/register/step_2/verify_mobile_otp";
     public static final String SIGN_UP_STEP_3 = "/register/step_3";
-    public static final String SIGN_UP_STEP_4 = "/register/step_4";
+    public static final String CONNECTION_FOLLOWERS = "/followers";
+
+    public static final String CONNECTION_FOLLOWING = "/following";
     public static final String LOGIN = "/oauth-user/login";
     public static final String CHANGE_PASSWORD = "/change_password";
     public static final String SEND_PASSWORD = "/forgot_password_new";

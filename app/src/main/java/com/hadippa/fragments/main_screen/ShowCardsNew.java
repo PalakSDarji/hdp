@@ -298,12 +298,6 @@ public class ShowCardsNew extends Fragment {
         posts = new ArrayList<>();
         posts = (gson.fromJson(sp.getString("posts", ""), listType));
 
-        for(int i = 0; i < posts.size(); i ++){
-
-            DataModel dataModel = posts.get(i);
-            Log.d("dataModel>>Id",dataModel.getId());
-
-        }
         Log.d("posts>>", sp.getString("posts", ""));
         horizontal_recycler_view = (RecyclerView) view.findViewById(R.id.horizontal_recycler_view);
 

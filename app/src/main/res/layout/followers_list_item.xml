@@ -54,6 +54,7 @@ android:layout_marginLeft="@dimen/textview_or_margin_top"
                 android:text="David Beckham"/>
 
             <TextView
+                android:id="@+id/title2"
                 android:textColor="#9b9697"
                 android:textSize="@dimen/tab_search_padding_vertical"
                 android:layout_width="wrap_content"
