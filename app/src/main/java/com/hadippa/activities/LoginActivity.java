@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-                GraphRequest request = GraphRequest.newMeRequest(
+              /*  GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
@@ -185,8 +185,9 @@ public class LoginActivity extends AppCompatActivity {
                 Bundle parameters = new Bundle();
                 parameters.putString("fields", "id,name,email,link");
                 request.setParameters(parameters);
-                request.executeAsync();
+                request.executeAsync();*/
 
+                login("facebook","","",loginResult.getAccessToken().getToken());
                 Log.d("accesstoken>>",loginResult.getAccessToken().getToken());
              //   new LoginFb("facebook","","",loginResult.getAccessToken().getToken()).execute();
 
@@ -403,7 +404,6 @@ public class LoginActivity extends AppCompatActivity {
         {
             super.onStart();
 
-            //  dataScroll.setVisibility(View.GONE);
             AppConstants.showProgressDialog(LoginActivity.this, "Please Wait");
 
         }
@@ -421,21 +421,18 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
                     bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
 
-//            updateDonut((int) ((totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
         }
 
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-
-
-
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
                 if(jsonObject.has("access_token")) {
 
+                    Log.d("response>>",response);
                     //post json stored g\here
                     editor.putBoolean("loginStatus",true);
                     editor.putString("grantType",grant);
