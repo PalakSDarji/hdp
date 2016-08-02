@@ -38,6 +38,19 @@
             </intent-filter>
         </activity>
 
+        <receiver
+            android:name="com.commonclasses.notification.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="infinite.kitchen" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.commonclasses.notification.GCMIntentService" />
+
+
          <receiver android:name="com.commonclasses.receivers.IncomingSmsReceiver">  
                     <intent-filter>
                             <action android:name="android.provider.Telephony.SMS_RECEIVED" />

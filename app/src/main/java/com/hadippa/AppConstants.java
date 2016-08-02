@@ -56,7 +56,7 @@ public class AppConstants {
     public static final String LOGIN_STATUS_NA="0";
 
     public static final String API_KEY = "AIzaSyC3u3fzAnZ4qkHgSt7BNPifoXFHzUPKV1U";
-    public static final String SENDER_ID = "663857922214";
+    public static final String SENDER_ID = "1091219618361";
 
     public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 

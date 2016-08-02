@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.commonclasses.connection.ConnectionDetector;
 import com.commonclasses.connection.LibHttp;
+import com.commonclasses.notification.ServerUtilities;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -448,6 +449,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("posts",jsonObject.getString("posts"));
                     editor.commit();
 
+                    ServerUtilities.register(LoginActivity.this,"","",sp.getString("gcmId",""),AppConstants.BASE_URL+AppConstants.API_VERSION + AppConstants.LOGIN);
                     Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
