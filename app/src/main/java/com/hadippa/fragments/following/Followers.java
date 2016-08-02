@@ -211,7 +211,7 @@ public class Followers extends Fragment {
 
     }
 
-    class GetFollowers extends AsyncHttpResponseHandler {
+    class  GetFollowers extends AsyncHttpResponseHandler {
 
         @Override
         public void onStart() {

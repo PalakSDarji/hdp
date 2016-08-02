@@ -24,6 +24,7 @@
 
 
         <EditText
+            android:id="@+id/edtSearch"
             android:textColor="#2a2a2a"
 android:theme="@style/editTextTheme"
             android:imeOptions="actionSearch"

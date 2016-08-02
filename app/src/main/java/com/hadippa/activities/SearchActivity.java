@@ -10,10 +10,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.SlidingTab.SlidingTabLayout;
@@ -40,6 +43,7 @@ public class SearchActivity extends FragmentActivity implements View.OnClickList
     private ViewPagerAdapter pagerAdapter;
     ImageView imageBack;
 
+    public static EditText edtSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,37 @@ public class SearchActivity extends FragmentActivity implements View.OnClickList
         });
         tabs.setViewPager(pager);
 
+
+        edtSearch = (EditText)findViewById(R.id.edtSearch);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                if(s.length()>=2){
+                    if(pager.getCurrentItem()==2){
+                        SearchTag.fetchByTags(String.valueOf(s));
+                        SearchPeople.fetchPeople(String.valueOf(s));
+
+                    }else{
+                        SearchCity.fetchCities(String.valueOf(s));
+                        SearchPeople.fetchPeople(String.valueOf(s));
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override

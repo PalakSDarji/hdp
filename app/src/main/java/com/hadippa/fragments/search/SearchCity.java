@@ -11,11 +11,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.commonclasses.connection.ConnectionDetector;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.hadippa.activities.SearchActivity;
+import com.hadippa.model.CityModel;
+import com.hadippa.model.DataModel;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by alm-android on 01-12-2015.
@@ -23,17 +40,20 @@ import com.hadippa.R;
 
 public class SearchCity extends Fragment {
 
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
+    public static SharedPreferences sp;
+    public static SharedPreferences.Editor editor;
 
     public static RecyclerView mRecyclerView;
 
     
     public static Snackbar snackbar = null;
 
-    public static  RelativeLayout linearMain;
-    
-    CustomAdapter customAdapter;
+    public static  RelativeLayout relMain;
+    public static ProgressBar progressBar;
+    public static ArrayList<CityModel> cityModelArrayList = new ArrayList<>();
+
+
+    public static CustomAdapter customAdapter;
     public static SearchCity newInstance(int page, String title) {
         SearchCity fragmentFirst = new SearchCity();
         Log.d("FRAGMENT_LOG", "Crewated ");
@@ -52,42 +72,25 @@ public class SearchCity extends Fragment {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
+        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        linearMain = (RelativeLayout) view.findViewById(R.id.linearMain);
+        relMain = (RelativeLayout) view.findViewById(R.id.relMain);
 
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(new CustomAdapter());
 
+
+        if(SearchActivity.edtSearch.getText().toString().length()>=2){
+            fetchCities(SearchActivity.edtSearch.getText().toString());
+        }
 
         return view;
 
     }
 
-    void checkConnection(final int page) {
-
-        if (ConnectionDetector.isConnectedToInternet(getActivity())) {
-
-        } else {
-            snackbar = Snackbar
-                    .make(linearMain, "No Internet Connection.", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Try Again", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            snackbar.dismiss();
-                            checkConnection(page);
-                        }
-                    });
-
-            snackbar.show();
-        }
-    }
-
-  
-
-    class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+    static class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
 
         @Override
@@ -105,6 +108,11 @@ public class SearchCity extends Fragment {
             Log.d(TAG, "Element " + position + " set.");
 
 
+            CityModel cityModel = cityModelArrayList.get(position);
+
+            viewHolder.getCity().setText(cityModel.getName());
+            viewHolder.getCountry().setText(", "+cityModel.getCountry_name());
+            viewHolder.getId().setText(String.valueOf(cityModel.getId()));
 
 
         }
@@ -112,22 +120,16 @@ public class SearchCity extends Fragment {
         @Override
         public int getItemCount() {
 
-
-
-
-            return 10;
+            return cityModelArrayList.size();
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder
     {
-      /*  private final TextView id;
-        private final ImageView foodImage;
-        private final TextView tvDonarName;
-        private final TextView tvDonarPh, tvAddress, tvFoodfor, tvStatus;
-        private final View typeView;*/
+        private final TextView id;
+        private final TextView city;
+        private final TextView country;
 
-        TextView tvFollowUnfollow;
         public ViewHolder(final View v) {
             super(v);
 
@@ -140,58 +142,125 @@ public class SearchCity extends Fragment {
                 }
             });
 
-/*
+
             id = (TextView) v.findViewById(R.id.tvId);
-
-            foodImage = (ImageView) v.findViewById(R.id.profileImage);*/
-           /* tvDonarName = (TextView) v.findViewById(R.id.tvDonarName);
-            tvDonarPh = (TextView) v.findViewById(R.id.tvDonarPh);
-            tvAddress = (TextView) v.findViewById(R.id.tvAddress);
-            tvFoodfor = (TextView) v.findViewById(R.id.tvFoodfor);
-            tvStatus = (TextView) v.findViewById(R.id.tvStatus);
-            typeView = (View) v.findViewById(R.id.typeView);*/
-
-
+            city = (TextView) v.findViewById(R.id.city);
+            country = (TextView) v.findViewById(R.id.country);
 
         }
 
-
-      /*  public TextView getTvStatus() {
-            return tvStatus;
+        public TextView getCity() {
+            return city;
         }
 
-        public TextView getName() {
-            return tvDonarName;
+        public TextView getCountry() {
+            return country;
         }
 
         public TextView getId() {
             return id;
         }
 
-        public ImageView getProfileImage() {
-            return foodImage;
-        }
+    }
 
 
-        public TextView getTvDonarPh() {
-            return tvDonarPh;
+    public static void fetchCities(String query) {
+
+        cityModelArrayList.clear();
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("query", query);
+
+
+
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        public TextView getTvAddress() {
-            return tvAddress;
-        }
-
-        public TextView getTvFoodfor() {
-            return tvFoodfor;
-        }
-
-        public View getTypeView() {
-            return typeView;
-        }
-*/
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.SEARCH_CITY, requestParams,
+                new GetCity());
 
     }
 
+    static class GetCity extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            progressBar.setVisibility(View.VISIBLE);
+            // AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            //   AppConstants.dismissDialog();
+            progressBar.setVisibility(View.GONE);
+        }
+
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+//            updateDonut((int) ((totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                Log.d("async_step_2", "success" + response);
+                if (jsonObject.getBoolean("success")) {
+
+                    JSONObject cites = jsonObject.getJSONObject("cities");
+                    if(cites.getJSONArray("location_suggestions").length()==0){
+                      //  AppConstants.showSnackBar(relMain, "No followers yet.");
+                    }else {
+                        Type listType = new TypeToken<ArrayList<CityModel>>() {
+                        }.getType();
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+
+                        Gson gson = gsonBuilder.create();
+                        cityModelArrayList = new ArrayList<>();
+                        cityModelArrayList = (gson.fromJson(String.valueOf(cites.getJSONArray("location_suggestions")), listType));
+
+                    }
+
+                    customAdapter = new CustomAdapter();
+                    mRecyclerView.setAdapter(customAdapter);
+                } else {
+                    AppConstants.showSnackBar(relMain, "Could not refresh feed");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            AppConstants.showSnackBar(relMain, "Could not refresh feed");
+        }
+
+    }
    
 
 }
