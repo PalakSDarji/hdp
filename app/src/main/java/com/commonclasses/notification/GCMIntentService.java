@@ -55,7 +55,7 @@ public class GCMIntentService extends IntentService {
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
 
 
-        if(sp.getInt("login_status",0)==1) {
+        if(sp.getBoolean("loginStatus",false)) {
 
             String messageType = gcm.getMessageType(intent);
 
@@ -84,7 +84,7 @@ public class GCMIntentService extends IntentService {
                         });
                         thread.start();
                     }else {*/
-                        sendNotification(extras.toString());
+                        sendNotification(extras.getString("message"));
                         //  }
 
                     } catch (Exception e) {
@@ -110,13 +110,13 @@ public class GCMIntentService extends IntentService {
 
         Log.d(TAG, "sendNotification");
         Intent intent = null;
-        if(noti_type.equalsIgnoreCase("donationcancel") ||noti_type.equalsIgnoreCase("b") ){
+      //  if(noti_type.equalsIgnoreCase("donationcancel") ||noti_type.equalsIgnoreCase("b") ){
             intent = new Intent(this, HomeScreen.class);
-        }else{
+       // }else{
            /* intent = new Intent(this, DonationDetails.class);
             intent.putExtra("from", "notification");
             intent.putExtra("item_id", item_id);*/
-        }
+      //  }
 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
@@ -128,7 +128,7 @@ public class GCMIntentService extends IntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.landing_pages_address_icon)
-                        .setContentTitle("Infinite Kitchen")
+                        .setContentTitle("Hadipaa")
 
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(jobj))
