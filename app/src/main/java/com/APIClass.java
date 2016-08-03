@@ -1,3 +1,4 @@
+/*
 package com;
 
 import android.content.Intent;
@@ -18,9 +19,11 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
+*/
 /**
  * Created by HP on 03-08-2016.
- */
+ *//*
+
 public class APIClass {
 
 
@@ -367,3 +370,4 @@ public class APIClass {
 
     }
 }
+*/
