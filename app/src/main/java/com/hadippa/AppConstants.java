@@ -39,6 +39,10 @@ public class AppConstants {
     public static final String SEARCH_CITY = "/search/city";
     public static final String SEARCH_PEOPLE = "/search/people";
     public static final String SEARCH_TAGS = "/search/people/tags";
+    public static final String PREFERENCES = "/user/preference";
+    public static final String PREFERENCES_EDIT = "/user/preference/edit";
+    public static final String MY_PROFILE = "/profile/my_profile";
+    public static final String OTHERS_PROFILE = "/profile/other_profile";
 
     public static final String LOGIN = "/oauth-user/login";
     public static final String CHANGE_PASSWORD = "/change_password";
