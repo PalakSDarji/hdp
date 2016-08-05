@@ -181,7 +181,7 @@ public class SignUp_Step2 extends Fragment  {
 
             requestParams.add("device_os_version", String.valueOf(Build.VERSION.SDK_INT));
 
-            requestParams.add("grant_type","password");
+            requestParams.add("grant_type",sp.getString("grantType",""));
 
             requestParams.add( "device_type","android");
 

@@ -1,5 +1,7 @@
 package com.hadippa.activities;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -17,16 +19,35 @@ public class SignUp extends AppCompatActivity {
 
 
     public static CustomViewPager customViewPager;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_main);
 
+        sp = PreferenceManager.getDefaultSharedPreferences(SignUp.this);
+        editor = sp.edit();
+
+
         customViewPager = (CustomViewPager) findViewById(R.id.viewPager);
         customViewPager.setPagingEnabled(false);
 
         customViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+
+        if(getIntent().getExtras()!=null){
+            if(getIntent().getExtras().getString("type").equals("incomplete")){
+                customViewPager.setCurrentItem(1);
+                editor.putString("grantType","facebook");
+                editor.commit();
+
+            }
+        }else{
+            editor.putString("grantType","password");
+            editor.commit();
+        }
 
     }
 

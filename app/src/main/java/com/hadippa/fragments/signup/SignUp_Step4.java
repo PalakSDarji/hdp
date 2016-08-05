@@ -158,7 +158,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
 
             requestParams.add("device_os_version", String.valueOf(Build.VERSION.SDK_INT));
 
-            requestParams.add("grant_type", "password");
+            requestParams.add("grant_type",sp.getString("grantType",""));
 
             requestParams.add("device_type", "android");
 
@@ -223,11 +223,11 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
                 if (jsonObject.has("access_token")) {
 
                     editor.putBoolean("loginStatus", true);
-                    editor.putString("grantType", "password");
 
-                    editor.putString("username", SignUp_Step1.edtEmail.getText().toString().trim());
-                    editor.putString("password", SignUp_Step1.edtPassword.getText().toString().trim());
-
+                    if(sp.getString("grantType","").equals("password")) {
+                        editor.putString("username", SignUp_Step1.edtEmail.getText().toString().trim());
+                        editor.putString("password", SignUp_Step1.edtPassword.getText().toString().trim());
+                    }
                     editor.putString("access_token", jsonObject.getString("access_token"));
                     editor.putString("posts", jsonObject.getString("posts"));
                     editor.commit();

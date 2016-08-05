@@ -440,21 +440,31 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("grantType",grant);
                     if(grant.equals("facebook")){
                         editor.putString("code",code);
+
                     }else {
                         editor.putString("username",username);
                         editor.putString("password",password_);
                     }
 
-                    editor.putString("access_token",jsonObject.getString("access_token"));
-                    editor.putString("posts",jsonObject.getString("posts"));
-                    editor.commit();
+                    if(jsonObject.has("registration_incomplete")){
+                        editor.putInt("user",Integer.parseInt(jsonObject.getString("user")));
+                        editor.commit();
 
-                    ServerUtilities.register(LoginActivity.this,"","",sp.getString("gcmId",""),AppConstants.BASE_URL+AppConstants.API_VERSION + AppConstants.LOGIN);
-                    Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
+                        Intent intent = new Intent(LoginActivity.this, SignUp.class);
+                        intent.putExtra("type","incomplete");
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }else {
+                        editor.putString("access_token", jsonObject.getString("access_token"));
+                        editor.putString("posts", jsonObject.getString("posts"));
+                        editor.commit();
 
+                        ServerUtilities.register(LoginActivity.this, "", "", sp.getString("gcmId", ""), AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.LOGIN);
+                        Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
+                    }
                 }else{
 
 
