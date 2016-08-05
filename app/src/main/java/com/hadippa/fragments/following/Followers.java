@@ -253,7 +253,7 @@ public class Followers extends Fragment {
                     if(jsonObject.getJSONArray("followers").length()==0){
                         AppConstants.showSnackBar(relMain, "No followers yet.");
                     }else {
-                        Type listType = new TypeToken<ArrayList<DataModel>>() {
+                        Type listType = new TypeToken<ArrayList<Followers_Following>>() {
                         }.getType();
                         GsonBuilder gsonBuilder = new GsonBuilder();
 

@@ -290,6 +290,7 @@ public class ShowCardsNew extends Fragment {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
+      //  getPreferences();
         Type listType = new TypeToken<ArrayList<DataModel>>() {
         }.getType();
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -1171,5 +1172,92 @@ public class ShowCardsNew extends Fragment {
           //  AppConstants.showSnackBar(mainRel,"Could not register. try again");
         }
 
+    }
+
+    //GET PREFERENCS
+    private void getPreferences()
+    {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try
+        {
+
+            requestParams.add("access_token",sp.getString("access_token",""));
+
+
+            Log.d("request>>",requestParams.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL+AppConstants.API_VERSION + AppConstants.PREFERENCES, requestParams,
+                new GetPreferences());
+    }
+
+    class GetPreferences extends AsyncHttpResponseHandler
+    {
+
+        @Override
+        public void onStart()
+        {
+            super.onStart();
+
+            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish()
+        {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+
+                if(jsonObject.getBoolean("success")){
+                    editor.putString("user_preference",jsonObject.getString("user_preference"));
+                    editor.commit();
+                }
+
+                Log.d("async","success"+response);
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.d("async","success exc  >>"+ e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getPreferences();
     }
 }

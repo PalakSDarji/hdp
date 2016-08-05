@@ -29,28 +29,47 @@ public class AppConstants {
     public static final int SOCKET_TIMEOUT = 60;
     public static final int CONNECTION_TIMEOUT = 60;
     public static final String BASE_URL = "http://www.hadipaa.folives.com/api/android/";
-    public static final String SIGN_UP_STEP_1 = "/register/step_1";
-    public static final String SIGN_UP_STEP_2 = "/register/step_2";
-    public static final String SIGN_UP_STEP_2_RESEND_OTP = "/register/step_2/resend_mobile_otp";
-    public static final String SIGN_UP_STEP_2_VERIFY_OTP = "/register/step_2/verify_mobile_otp";
-    public static final String SIGN_UP_STEP_3 = "/register/step_3";
-    public static final String CONNECTION_FOLLOWERS = "/followers";
-    public static final String CONNECTION_FOLLOWING = "/following";
-    public static final String SEARCH_CITY = "/search/city";
-    public static final String SEARCH_PEOPLE = "/search/people";
-    public static final String SEARCH_TAGS = "/search/people/tags";
-    public static final String PREFERENCES = "/user/preference";
-    public static final String PREFERENCES_EDIT = "/user/preference/edit";
-    public static final String MY_PROFILE = "/profile/my_profile";
-    public static final String OTHERS_PROFILE = "/profile/other_profile";
-
+    //LOGIN PAGE
     public static final String LOGIN = "/oauth-user/login";
     public static final String CHANGE_PASSWORD = "/change_password";
     public static final String SEND_PASSWORD = "/forgot_password_new";
     public static final String RESET_PASSWORD = "/reset_password_new";
     public static final String LOGIN_BY_THIRD_PARTY = "/login_by_thirdparty";
+
+    //CARD
     public static final String ACTIVITY_REQUEST_JOIN = "/activity/request/join";
     public static final String ACTIVITY_REQUEST_DECLINE = "/activity/decline";
+
+    //SIGN UP
+    public static final String SIGN_UP_STEP_1 = "/register/step_1";
+    public static final String SIGN_UP_STEP_2 = "/register/step_2";
+    public static final String SIGN_UP_STEP_2_RESEND_OTP = "/register/step_2/resend_mobile_otp";
+    public static final String SIGN_UP_STEP_2_VERIFY_OTP = "/register/step_2/verify_mobile_otp";
+    public static final String SIGN_UP_STEP_3 = "/register/step_3";
+
+    //CONNECTIONS
+    public static final String CONNECTION_FOLLOWERS = "/followers";
+    public static final String CONNECTION_FOLLOWING = "/following";
+    public static final String CONNECTION_FOLLOW = "/follow";
+    public static final String CONNECTION_UNFOLLOW = "/unfollow";
+    public static final String CONNECTION_BLOCK = "/block";
+    public static final String CONNECTION_UNBLOCK = "/unblock";
+    public static final String CONNECTION_BLOCKLIST = "/blocked_list";
+
+    //SEARCH
+    public static final String SEARCH_CITY = "/search/city";
+    public static final String SEARCH_PEOPLE = "/search/people";
+    public static final String SEARCH_TAGS = "/search/people/tags";
+
+    //PREFERENCES
+    public static final String PREFERENCES = "/user/preference";
+    public static final String PREFERENCES_EDIT = "/user/preference/edit";
+
+    //PROFILE
+    public static final String MY_PROFILE = "/profile/my_profile";
+    public static final String OTHERS_PROFILE = "/profile/other_profile";
+
+
 
     public static final String CLIENT_ID= "HADIPAA_USER";
     public static final String CLIENT_SECRET="HADIPAA@2016";

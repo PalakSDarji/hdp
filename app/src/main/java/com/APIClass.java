@@ -1,7 +1,7 @@
-/*
 package com;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
@@ -19,13 +19,14 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-*/
 /**
  * Created by HP on 03-08-2016.
- *//*
+ */
 
 public class APIClass {
 
+
+    SharedPreferences sp;
 
     //GET PREFERENCS
     private void getPreferences()
@@ -369,5 +370,258 @@ public class APIClass {
         }
 
     }
+
+    //Follow/UnFollow
+    private void follow_Unfollow(String type,String id)
+    {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try
+        {
+
+            requestParams.add("access_token",sp.getString("access_token",""));
+            requestParams.add("followed_id",id);
+
+            Log.d("request>>",requestParams.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL+AppConstants.API_VERSION + type, requestParams,
+                new Follow_Unfollow());
+    }
+
+    class Follow_Unfollow extends AsyncHttpResponseHandler
+    {
+
+        @Override
+        public void onStart()
+        {
+            super.onStart();
+
+            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish()
+        {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                if(jsonObject.has("access_token")) {
+
+                    Log.d("response>>",response);
+                    //post json stored g\here
+
+                }else{
+
+
+                    //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
+
+                }
+                Log.d("async","success"+response);
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.d("async","success exc  >>"+ e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
+    //Block/Unblock
+    private void block_Unblock(String type,String id)
+    {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try
+        {
+
+            requestParams.add("access_token",sp.getString("access_token",""));
+            requestParams.add("blocked_id",id);
+
+            Log.d("request>>",requestParams.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL+AppConstants.API_VERSION + type, requestParams,
+                new Block_UnBlock());
+    }
+
+    class Block_UnBlock extends AsyncHttpResponseHandler
+    {
+
+        @Override
+        public void onStart()
+        {
+            super.onStart();
+
+            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish()
+        {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                if(jsonObject.has("access_token")) {
+
+                    Log.d("response>>",response);
+                    //post json stored g\here
+
+                }else{
+
+
+                    //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
+
+                }
+                Log.d("async","success"+response);
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.d("async","success exc  >>"+ e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
+    //Blocked List
+    private void blockList()
+    {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try
+        {
+
+            requestParams.add("access_token",sp.getString("access_token",""));
+
+            Log.d("request>>",requestParams.toString());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL+AppConstants.API_VERSION + AppConstants.MY_PROFILE, requestParams,
+                new BlockedList());
+    }
+
+    class BlockedList extends AsyncHttpResponseHandler
+    {
+
+        @Override
+        public void onStart()
+        {
+            super.onStart();
+
+            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish()
+        {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                if(jsonObject.has("access_token")) {
+
+                    Log.d("response>>",response);
+                    //post json stored g\here
+
+                }else{
+
+
+                    //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
+
+                }
+                Log.d("async","success"+response);
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.d("async","success exc  >>"+ e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
 }
-*/
