@@ -243,7 +243,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("async", "success exc  >>" + e.toString());
+                Log.d("async", "succes exc  >>" + e.toString());
             }
         }
 
