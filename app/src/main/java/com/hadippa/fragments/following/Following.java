@@ -141,9 +141,6 @@ public class Following extends Fragment {
         @Override
         public int getItemCount() {
 
-
-
-
             return followersFollowings.size();
         }
     }
