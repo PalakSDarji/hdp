@@ -31,10 +31,10 @@ public class AppConstants {
     public static final String BASE_URL = "http://www.hadipaa.folives.com/api/android/";
     //LOGIN PAGE
     public static final String LOGIN = "/oauth-user/login";
-    public static final String CHANGE_PASSWORD = "/change_password";
-    public static final String SEND_PASSWORD = "/forgot_password_new";
+    public static final String FORGOT_PASSWORD = "/user/forgot_password";
+    public static final String VERIFY_CHANGE_PASSWORD_CODE = "/user/forgot_password/verify_change_password_code";
+    public static final String CHANGE_PASSWORD = "/user/forgot_password/change_password";
     public static final String RESET_PASSWORD = "/reset_password_new";
-    public static final String LOGIN_BY_THIRD_PARTY = "/login_by_thirdparty";
 
     //CARD
     public static final String ACTIVITY_REQUEST_JOIN = "/activity/request/join";
