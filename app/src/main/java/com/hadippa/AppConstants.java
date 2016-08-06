@@ -36,9 +36,11 @@ public class AppConstants {
     public static final String CHANGE_PASSWORD = "/user/forgot_password/change_password";
     public static final String RESET_PASSWORD = "/reset_password_new";
 
-    //CARD
+    //ACTIVITY
     public static final String ACTIVITY_REQUEST_JOIN = "/activity/request/join";
     public static final String ACTIVITY_REQUEST_DECLINE = "/activity/decline";
+    public static final String ACTIVITY_OTHER_REQUEST_DECLINE = "/activity/request/decline";
+    public static final String ACTIVITY_OTHER_REQUEST_ACCEPT = "/activity/request/accept";
 
     //SIGN UP
     public static final String SIGN_UP_STEP_1 = "/register/step_1";
