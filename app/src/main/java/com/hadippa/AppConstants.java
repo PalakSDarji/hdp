@@ -69,7 +69,12 @@ public class AppConstants {
     public static final String MY_PROFILE = "/profile/my_profile";
     public static final String OTHERS_PROFILE = "/profile/other_profile";
 
-
+    //MY PLANS
+    public static final String MY_PLANS = "/my_plans";
+    public static final String MY_PLANS_HISTORY = "/my_plans/history";
+    public static final String MY_PLANS_EDIT = "/my_plans/edit";
+    public static final String MY_PLANS_DELETE_MY_ACTIVITY = "/my_plans/delete_my_activity";
+    public static final String MY_PLANS_DELETE_FROM_OTHER_ACTIVITY = "/my_plans/delete_from_other_activity";
 
     public static final String CLIENT_ID= "HADIPAA_USER";
     public static final String CLIENT_SECRET="HADIPAA@2016";
