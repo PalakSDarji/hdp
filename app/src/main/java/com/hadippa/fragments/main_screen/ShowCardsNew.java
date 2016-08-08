@@ -168,7 +168,7 @@ public class ShowCardsNew extends Fragment {
 
     public class MyAppAdapter extends BaseAdapter {
 
-        public List<DataModel> parkingList;
+        public List<DataModel> parkingList = new ArrayList<>();
         public Context context;
 
 
@@ -183,7 +183,7 @@ public class ShowCardsNew extends Fragment {
 
         @Override
         public int getCount() {
-            return posts.size();
+            return parkingList.size();
         }
 
         @Override
@@ -227,7 +227,7 @@ public class ShowCardsNew extends Fragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            DataModel dataModel = posts.get(position);
+            DataModel dataModel = parkingList.get(position);
 
             viewHolder.tvName_Age.setText(dataModel.getUser().getFirst_name()
                     + " " + dataModel.getUser().getLast_name() + ", " +
@@ -297,7 +297,11 @@ public class ShowCardsNew extends Fragment {
 
         Gson gson = gsonBuilder.create();
         posts = new ArrayList<>();
-        posts = (gson.fromJson(sp.getString("posts", ""), listType));
+
+        ArrayList<DataModel> dataModels = gson.fromJson(sp.getString("posts", ""), listType);
+        if(dataModels != null && dataModels.size()>0){
+            posts.addAll(dataModels);
+        }
 
         Log.d("posts>>", sp.getString("posts", ""));
         horizontal_recycler_view = (RecyclerView) view.findViewById(R.id.horizontal_recycler_view);

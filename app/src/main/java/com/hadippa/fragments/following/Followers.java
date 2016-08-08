@@ -102,26 +102,47 @@ public class Followers extends Fragment {
 
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-            Log.d(TAG, "Element " + position + " set.");
+        public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
-            Followers_Following followers_following = followersFollowings.get(position);
-            viewHolder.getName().setText(followers_following.getFollowed().getFirst_name()+" "+
-                    followers_following.getFollowed().getLast_name());
+            final Followers_Following followers_following = followersFollowings.get(position);
 
-            Glide.with(getActivity())
-                    .load(followers_following.getFollowed().getProfile_photo_thumbnail())
-                    .into(viewHolder.getProfileImage());
+            Log.d(TAG, "Element " + position + " set." + followers_following);
+            Log.d(TAG, "Element " + position + " set." + followers_following);
+            if(followers_following != null && followers_following.getFollowed() != null){
+                viewHolder.name.setText(followers_following.getFollowed().getFirst_name()+" "+
+                        followers_following.getFollowed().getLast_name());
 
+                Glide.with(getActivity())
+                        .load(followers_following.getFollowed().getProfile_photo_thumbnail())
+                        .into(viewHolder.foodImage);
+            }
 
+            viewHolder.tvFollowUnfollow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    followers_following.setFollowing(!followers_following.isFollowing());
+                    notifyDataSetChanged();
+                }
+            });
+
+            if(followers_following.isFollowing()){
+                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
+                viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+                viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
+                viewHolder.tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_following),null,null,null);
+            }
+            else{
+                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.followers));
+                viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+                viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                viewHolder.tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow),null,null,null);
+            }
 
         }
 
         @Override
         public int getItemCount() {
-
-
-
 
             return followersFollowings.size();
         }
@@ -149,10 +170,12 @@ public class Followers extends Fragment {
             title2 = (TextView) v.findViewById(R.id.title2);
             foodImage = (ImageView) v.findViewById(R.id.profileImage);
 
-            tvFollowUnfollow.setOnClickListener(new View.OnClickListener() {
+            /*tvFollowUnfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(tvFollowUnfollow.getText().toString().trim().equals(getResources().getString(R.string.followers))){
+
+
+                    *//*if(tvFollowUnfollow.getText().toString().trim().equals(getResources().getString(R.string.followers))){
                         tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
                         tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
                         tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
@@ -164,26 +187,10 @@ public class Followers extends Fragment {
                         tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow),null,null,null);
 
 
-                    }
+                    }*//*
                 }
             });
-
-        }
-
-        public TextView getTvFollowUnfollow() {
-            return tvFollowUnfollow;
-        }
-
-        public TextView getTitle2() {
-           return title2;
-        }
-
-        public TextView getName() {
-            return name;
-        }
-
-        public ImageView getProfileImage() {
-            return foodImage;
+*/
         }
 
     }

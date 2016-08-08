@@ -27,12 +27,13 @@ import com.hadippa.fragments.following.Following;
 import com.hadippa.fragments.search.SearchCity;
 import com.hadippa.fragments.search.SearchPeople;
 import com.hadippa.fragments.search.SearchTag;
+import com.klinker.android.peekview.PeekViewActivity;
 
 
 /**
  * Created by alm-android on 01-12-2015.
  */
-public class SearchActivity extends FragmentActivity implements View.OnClickListener {
+public class SearchActivity extends PeekViewActivity implements View.OnClickListener {
 
     String [] tabTitle = {"CITY","PEOPLE","TAG"};
     SlidingTabLayout tabs;

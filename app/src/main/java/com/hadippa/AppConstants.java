@@ -91,6 +91,8 @@ public class AppConstants {
     public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     public static final String DEVICE_TYPE="2"; //For Android
+    public static final String SEND_PASSWORD = "";//TODO add value
+    public static final String LOGIN_BY_THIRD_PARTY = "";//TODO add value
 
     public static ProgressDialog PROGRESS_DIALOG = null;
 
@@ -131,7 +133,8 @@ public class AppConstants {
 
     public static void dismissDialog(){
 
-        PROGRESS_DIALOG.dismiss();
+        if(PROGRESS_DIALOG != null) PROGRESS_DIALOG.dismiss();
+
 
     }
     public final static boolean isValidEmail(CharSequence target) {

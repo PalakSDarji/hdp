@@ -17,7 +17,7 @@
 
     <color name="purple">#6c66d0</color>
     <color name="purple_light">#af6c66d0</color>
-
+    <color name="blue_off">#f2f7fb</color>
     <color name="white">#ffffff</color>
     <color name="pink_text">#fb4c53</color>
     <color name="black">#000000</color>

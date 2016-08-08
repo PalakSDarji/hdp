@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="card_title_textsize">18sp</dimen>
+    <dimen name="card_title_textsize">21sp</dimen>
     <dimen name="edit_text_padding">17dp</dimen>
     <dimen name="edit_text_size">11dp</dimen>
     <dimen name="login_button_padding">17dp</dimen>
@@ -25,6 +25,7 @@
     <!-- Sign Up -->
     <dimen name="signup_edittext_margin_bottom">23dp</dimen>
     <dimen name="signup_cam_bottom_margin">20dp</dimen>
+    <dimen name="font_follower_subtext">12sp</dimen>
     <dimen name="signup_cam_top_margin">11dp</dimen>
     <dimen name="signup_button_padding_vertical">18dp</dimen>
     <dimen name="signup_button_padding_horizontal">38dp</dimen>

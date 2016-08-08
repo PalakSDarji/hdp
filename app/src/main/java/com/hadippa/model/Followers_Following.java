@@ -22,6 +22,10 @@ public class Followers_Following {
     private String follow_accepted;
     private String created_at;
     private String updated_at;
+
+
+    //TODO This is for testing..
+    private boolean isFollowing;
     /**
      * id : 1
      * first_name : Ranjeet
@@ -33,6 +37,13 @@ public class Followers_Following {
 
     private FollowedBean followed;
 
+    public boolean isFollowing() {
+        return isFollowing;
+    }
+
+    public void setFollowing(boolean following) {
+        isFollowing = following;
+    }
     public String getId() {
         return id;
     }

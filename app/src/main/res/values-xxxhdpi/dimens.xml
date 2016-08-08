@@ -68,12 +68,13 @@
     <!--Show Card Fragment-->
     <dimen name="card_padding_top">10dp</dimen>
     <dimen name="card_padding_side">14dp</dimen>
-    <dimen name="card_title_textsize">18sp</dimen>
+    <dimen name="card_title_textsize">21sp</dimen>
     <dimen name="card_title1_textsize">15dp</dimen>
     <dimen name="card_image_height">303dp</dimen>
     <dimen name="card_share_textsize">7dp</dimen>
     <dimen name="card_event_margin_bottom">12dp</dimen>
     <dimen name="card_bottom_layer_vertical_padding">8dp</dimen>
+    <dimen name="font_follower_subtext">12sp</dimen>
     <dimen name="rounded_radius">51dp</dimen>
     <dimen name="card_view_margin_vertical">11dp</dimen>
     <dimen name="bottom_menu_side_margin">59dp</dimen>

@@ -1,5 +1,6 @@
 package com.hadippa.fragments.search;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -28,6 +29,8 @@ import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.activities.SearchActivity;
 import com.hadippa.model.PeopleModel;
+import com.klinker.android.peekview.builder.Peek;
+import com.klinker.android.peekview.callback.SimpleOnPeek;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -38,6 +41,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+
+import static com.hadippa.R.id.view;
 
 /**
  * Created by alm-android on 01-12-2015.
@@ -90,10 +95,21 @@ public class SearchTag extends Fragment {
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(2));
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+       /* PeopleModel peopleModel = new PeopleModel();
+        peopleModel.setFirst_name("Palak");
+        peopleModel.setProfile_photo_thumbnail("https://dyn.web.whatsapp.com/pp?t=l&u=918490800236%40c.us&i=1470245410&ref=0%40FcUK%2BNFYTwRMqIPQN1ytCHa72OOc%2F9cFtfY%2BOuvzbK4ifd0e479xkRN8&tok=0%40jiph%2Fci23ymKJpIF8p%2FliMZqh4IUr%2BeP2YLHxGVUmbk%2FZHaNtzTgGS4Ogng0fxs15J7AF543XhzppQ%3D%3D");
+        tagsModelArrayList.add(peopleModel);*/
+
+        customAdapter = new CustomAdapter((Activity)context);
+        mRecyclerView.setAdapter(customAdapter);
+
+
+        /*
+
+        //TODO uncomment this call once webservice starts responding.
         if(SearchActivity.edtSearch.getText().toString().length()>=2) {
             SearchTag.fetchByTags(SearchActivity.edtSearch.getText().toString());
-        }
-
+        }*/
 
         return view;
 
@@ -144,7 +160,13 @@ public class SearchTag extends Fragment {
 
 
    static class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private static final String TAG = "CustomAdapter";
+
+       private Activity activity;
+       private static final String TAG = "CustomAdapter";
+
+       public CustomAdapter(Activity activity) {
+           this.activity = activity;
+       }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -157,19 +179,32 @@ public class SearchTag extends Fragment {
 
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             Log.d(TAG, "Element " + position + " set.");
 
-            PeopleModel peopleModel = tagsModelArrayList.get(position);
+            final PeopleModel peopleModel = tagsModelArrayList.get(position);
             viewHolder.getId().setText(peopleModel.getId());
 
             if(peopleModel.getProfile_photo_thumbnail().equals("")){
                 viewHolder.getImage_view().setImageResource(R.drawable.ic_user_avatar_default);
-            }else {
+            }
+            else {
 
                 Glide.with(context)
                         .load(peopleModel.getProfile_photo_thumbnail())
                         .into(viewHolder.getImage_view());
+
+                Peek.into(R.layout.peek_view, new SimpleOnPeek() {
+                    @Override
+                    public void onInflated(View rootView) {
+                        // rootView is the layout inflated from R.layout.image_peek
+
+                        Glide.with(context)
+                                .load(peopleModel.getProfile_photo_thumbnail())
+                                .into((ImageView) rootView.findViewById(R.id.image));
+
+                    }
+                }).applyTo((SearchActivity)context, viewHolder.image_view);
             }
 
 
@@ -343,13 +378,12 @@ public class SearchTag extends Fragment {
                         GsonBuilder gsonBuilder = new GsonBuilder();
 
                         Gson gson = gsonBuilder.create();
-                        tagsModelArrayList = new ArrayList<>();
-                        tagsModelArrayList = (gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
+                        tagsModelArrayList.addAll((ArrayList<PeopleModel>)gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
 
+                        customAdapter.notifyDataSetChanged();
                     }
 
-                    customAdapter = new CustomAdapter();
-                    mRecyclerView.setAdapter(customAdapter);
+
                 } else {
                     AppConstants.showSnackBar(relMain, "Could not refresh feed");
                 }

@@ -15,9 +15,9 @@ import com.hadippa.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+import org.florescu.android.rangeseekbar.RangeSeekBar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,13 +51,13 @@ public class Preference extends Activity implements View.OnClickListener {
 
         switchMale = (Switch) findViewById(R.id.switchMale);
         switchFemale = (Switch) findViewById(R.id.switchFemale);
-        rangeSeekBar = (RangeSeekBar) findViewById(R.id.ageRange);
+        //rangeSeekBar = (RangeSeekBar) findViewById(R.id.ageRange);
         discreteBarkms = (DiscreteSeekBar) findViewById(R.id.discreteBarkms);
         imageBack = (ImageView)findViewById(R.id.imageBack);
         tvDone = (TextView) findViewById(R.id.tvDone);
         tvAge = (TextView) findViewById(R.id.tvAge);
         tvDistance = (TextView) findViewById(R.id.tvDistance);
-
+/*
         rangeSeekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
@@ -65,7 +65,7 @@ public class Preference extends Activity implements View.OnClickListener {
                 age_from = String.valueOf(rangeSeekBar.getSelectedMinValue());
                 age_to = String.valueOf(rangeSeekBar.getSelectedMaxValue());
             }
-        });
+        });*/
 
         discreteBarkms.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
             @Override
@@ -118,11 +118,11 @@ public class Preference extends Activity implements View.OnClickListener {
                 tvDistance.setText(user_preference.getString("radius"));
                 radius = user_preference.getString("radius");
 
-                rangeSeekBar.setSelectedMaxValue(Integer.parseInt(user_preference.getString("age_range_to")));
+                /*rangeSeekBar.setSelectedMaxValue(Integer.parseInt(user_preference.getString("age_range_to")));
                 rangeSeekBar.setSelectedMinValue(Integer.parseInt(user_preference.getString("age_range_from")));
                 tvAge.setText(rangeSeekBar.getSelectedMinValue() + " - " + rangeSeekBar.getSelectedMaxValue());
                 age_from = String.valueOf(rangeSeekBar.getSelectedMinValue());
-                age_to = String.valueOf(rangeSeekBar.getSelectedMaxValue());
+                age_to = String.valueOf(rangeSeekBar.getSelectedMaxValue());*/
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -62,7 +62,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:drawableLeft="@drawable/landing_pages_movie_icon"
+                            android:drawableLeft="@drawable/movie"
                             android:drawablePadding="10dp"
                             android:text="Sarabjit Movie"
                             android:textColor="@color/pink_text"
@@ -77,7 +77,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="10dp"
-                            android:drawableLeft="@drawable/landing_pages_share"
+                            android:drawableLeft="@drawable/red_down"
                             android:drawablePadding="5dp"
                             android:text="100"
                             android:textColor="@color/subText"
@@ -116,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="5dp"
-                        android:drawableTop="@drawable/landing_pages_r2_29"
+                        android:drawableTop="@drawable/cal"
                         android:gravity="center"
                         android:text="04 May"
                         android:textSize="@dimen/tab_search_textsize" />
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="5dp"
-                        android:drawableTop="@drawable/landing_pages_time"
+                        android:drawableTop="@drawable/clock"
                         android:gravity="center"
                         android:text="12.15 pm"
                         android:textSize="@dimen/tab_search_textsize" />
@@ -140,7 +140,7 @@
                         android:layout_weight="1"
                         android:drawablePadding="5dp"
                         android:id="@+id/tvDistance"
-                        android:drawableTop="@drawable/landing_pages_distance"
+                        android:drawableTop="@drawable/loc"
                         android:gravity="center"
                         android:text="10 Km"
                         android:textSize="@dimen/tab_search_textsize" />
@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="5dp"
-                        android:drawableTop="@drawable/landing_pages_people"
+                        android:drawableTop="@drawable/people"
                         android:gravity="center"
                         android:text="10 Going"
                         android:textSize="@dimen/tab_search_textsize" />
@@ -164,14 +164,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginTop="@dimen/card_view_margin_vertical"
-                    android:background="#d0d0d0"></View>
+                    android:background="#efefef"></View>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:gravity="center"
-                    android:padding="@dimen/card_bottom_layer_vertical_padding">
+                    android:padding="@dimen/card_event_margin_bottom">
 
                     <TextView
                         android:id="@+id/tvName_Age"
@@ -192,7 +192,7 @@
                         android:layout_marginRight="10dp"
                         android:text="FOLLOWLING"
 
-                        android:textSize="@dimen/tab_search_padding_vertical">
+                        android:textSize="@dimen/or_text_size">
 
                     </TextView>
                 </RelativeLayout>
