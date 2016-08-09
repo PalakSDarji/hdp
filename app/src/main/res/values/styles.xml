@@ -46,6 +46,13 @@
         <item name="android:layout_marginBottom">@dimen/login_button_margin_bottom</item>
     </style>
 
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">#202020</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+
     <style name="App_EditTextStyle_SiginUp">
         <item name="android:padding">@dimen/edit_text_padding</item>
         <item name="android:textSize">@dimen/pref_card_title_size</item>

@@ -98,11 +98,11 @@
                         rsb:activeColor="@color/colorAccent"
                         rsb:barHeight="13dp"
                         rsb:defaultColor="@color/blue_off"
-                        rsb:showLabels="true"
+                        rsb:showLabels="false"
                         rsb:thumbDisabled="@drawable/fab"
                         rsb:thumbNormal="@drawable/fab"
                         rsb:thumbPressed="@drawable/fab"
-                        rsb:valuesAboveThumbs="true"/>
+                        rsb:valuesAboveThumbs="false"/>
 
                     <!--
                                 <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar

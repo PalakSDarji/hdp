@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,6 +28,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.hadippa.SquareImageView;
+import com.hadippa.activities.FilterActivity;
 import com.hadippa.activities.SearchActivity;
 import com.hadippa.model.PeopleModel;
 import com.klinker.android.peekview.builder.Peek;
@@ -50,6 +53,7 @@ import static com.hadippa.R.id.view;
 
 public class SearchTag extends Fragment {
 
+    private AlertDialog alertDialog;
     public static SharedPreferences sp;
     public static SharedPreferences.Editor editor;
 
@@ -95,10 +99,10 @@ public class SearchTag extends Fragment {
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(2));
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-       /* PeopleModel peopleModel = new PeopleModel();
+        PeopleModel peopleModel = new PeopleModel();
         peopleModel.setFirst_name("Palak");
         peopleModel.setProfile_photo_thumbnail("https://dyn.web.whatsapp.com/pp?t=l&u=918490800236%40c.us&i=1470245410&ref=0%40FcUK%2BNFYTwRMqIPQN1ytCHa72OOc%2F9cFtfY%2BOuvzbK4ifd0e479xkRN8&tok=0%40jiph%2Fci23ymKJpIF8p%2FliMZqh4IUr%2BeP2YLHxGVUmbk%2FZHaNtzTgGS4Ogng0fxs15J7AF543XhzppQ%3D%3D");
-        tagsModelArrayList.add(peopleModel);*/
+        tagsModelArrayList.add(peopleModel);
 
         customAdapter = new CustomAdapter((Activity)context);
         mRecyclerView.setAdapter(customAdapter);
@@ -115,6 +119,31 @@ public class SearchTag extends Fragment {
 
     }
 
+
+    public void showPopupDialog(final PeopleModel peopleModel){
+
+        final View view = getActivity().getLayoutInflater().inflate(R.layout.peek_view, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
+        builder.setView(view);
+        builder.setMessage(null);
+
+        view.findViewById(R.id.tvFollowUnfollow).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //cancelThisDialog();
+
+            }
+        });
+
+        Glide.with(context)
+                .load(peopleModel.getProfile_photo_thumbnail())
+                .into((SquareImageView) view.findViewById(R.id.image));
+
+        alertDialog = builder.create();
+        alertDialog.show();
+
+    }
 
     public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;
@@ -159,7 +188,7 @@ public class SearchTag extends Fragment {
     }
 
 
-   static class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+   class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
        private Activity activity;
        private static final String TAG = "CustomAdapter";
@@ -194,6 +223,15 @@ public class SearchTag extends Fragment {
                         .load(peopleModel.getProfile_photo_thumbnail())
                         .into(viewHolder.getImage_view());
 
+                viewHolder.image_view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+
+                        showPopupDialog(peopleModel);
+                        return false;
+                    }
+                });
+/*
                 Peek.into(R.layout.peek_view, new SimpleOnPeek() {
                     @Override
                     public void onInflated(View rootView) {
@@ -204,7 +242,7 @@ public class SearchTag extends Fragment {
                                 .into((ImageView) rootView.findViewById(R.id.image));
 
                     }
-                }).applyTo((SearchActivity)context, viewHolder.image_view);
+                }).applyTo((SearchActivity)context, viewHolder.image_view);*/
             }
 
 
