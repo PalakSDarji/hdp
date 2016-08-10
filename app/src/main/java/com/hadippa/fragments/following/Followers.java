@@ -150,6 +150,7 @@ public class Followers extends Fragment {
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
+        //
         private final ImageView foodImage;
         private final TextView name,title2;
 
