@@ -53,7 +53,7 @@ import static com.hadippa.R.id.view;
 
 public class SearchTag extends Fragment {
 
-    private AlertDialog alertDialog;
+    public static  AlertDialog alertDialog;
     public static SharedPreferences sp;
     public static SharedPreferences.Editor editor;
 
@@ -69,7 +69,7 @@ public class SearchTag extends Fragment {
     public static Context context;
 
     public static ArrayList<PeopleModel> tagsModelArrayList = new ArrayList<>();
-
+    public static LayoutInflater layoutInflater;
     public static SearchTag newInstance(int page, String title) {
         SearchTag fragmentFirst = new SearchTag();
         Log.d("FRAGMENT_LOG", "Crewated ");
@@ -89,6 +89,7 @@ public class SearchTag extends Fragment {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
         context = getActivity();
+        layoutInflater = getActivity().getLayoutInflater();
         width = getActivity().getWindowManager().getDefaultDisplay().getWidth() / 3;
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -99,39 +100,41 @@ public class SearchTag extends Fragment {
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(2));
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        PeopleModel peopleModel = new PeopleModel();
+       /* PeopleModel peopleModel = new PeopleModel();
         peopleModel.setFirst_name("Palak");
         peopleModel.setProfile_photo_thumbnail("https://dyn.web.whatsapp.com/pp?t=l&u=918490800236%40c.us&i=1470245410&ref=0%40FcUK%2BNFYTwRMqIPQN1ytCHa72OOc%2F9cFtfY%2BOuvzbK4ifd0e479xkRN8&tok=0%40jiph%2Fci23ymKJpIF8p%2FliMZqh4IUr%2BeP2YLHxGVUmbk%2FZHaNtzTgGS4Ogng0fxs15J7AF543XhzppQ%3D%3D");
-        tagsModelArrayList.add(peopleModel);
+        tagsModelArrayList.add(peopleModel);*/
 
-        customAdapter = new CustomAdapter((Activity)context);
+      /*  customAdapter = new CustomAdapter((Activity)context);
         mRecyclerView.setAdapter(customAdapter);
+*/
 
-
-        /*
 
         //TODO uncomment this call once webservice starts responding.
         if(SearchActivity.edtSearch.getText().toString().length()>=2) {
             SearchTag.fetchByTags(SearchActivity.edtSearch.getText().toString());
-        }*/
+        }
 
         return view;
 
     }
 
 
-    public void showPopupDialog(final PeopleModel peopleModel){
+    public static void showPopupDialog(final PeopleModel peopleModel){
 
-        final View view = getActivity().getLayoutInflater().inflate(R.layout.peek_view, null);
+        final View view = layoutInflater.inflate(R.layout.peek_view, null);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle);
         builder.setView(view);
         builder.setMessage(null);
 
+        ((TextView)view.findViewById(R.id.tvName_Age)).setText(peopleModel.getFirst_name()+ " "+ peopleModel.getLast_name());
         view.findViewById(R.id.tvFollowUnfollow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //cancelThisDialog();
+
+                follow_Unfollow(AppConstants.CONNECTION_FOLLOW,peopleModel.getId());
 
             }
         });
@@ -188,14 +191,11 @@ public class SearchTag extends Fragment {
     }
 
 
-   class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+   static class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
        private Activity activity;
        private static final String TAG = "CustomAdapter";
 
-       public CustomAdapter(Activity activity) {
-           this.activity = activity;
-       }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -223,14 +223,7 @@ public class SearchTag extends Fragment {
                         .load(peopleModel.getProfile_photo_thumbnail())
                         .into(viewHolder.getImage_view());
 
-                viewHolder.image_view.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
 
-                        showPopupDialog(peopleModel);
-                        return false;
-                    }
-                });
 /*
                 Peek.into(R.layout.peek_view, new SimpleOnPeek() {
                     @Override
@@ -245,6 +238,15 @@ public class SearchTag extends Fragment {
                 }).applyTo((SearchActivity)context, viewHolder.image_view);*/
             }
 
+
+            viewHolder.image_view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    showPopupDialog(tagsModelArrayList.get(position));
+                    return false;
+                }
+            });
 
 
         }
@@ -418,7 +420,8 @@ public class SearchTag extends Fragment {
                         Gson gson = gsonBuilder.create();
                         tagsModelArrayList.addAll((ArrayList<PeopleModel>)gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
 
-                        customAdapter.notifyDataSetChanged();
+                        customAdapter = new CustomAdapter();
+                        mRecyclerView.setAdapter(customAdapter);
                     }
 
 
@@ -439,6 +442,82 @@ public class SearchTag extends Fragment {
         }
 
     }
+
+    //Follow/UnFollow
+    public static void follow_Unfollow(String type, String id) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("followed_id", id);
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + type, requestParams,
+                new Follow_Unfollow());
+    }
+
+    public static class Follow_Unfollow extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                  Log.d("response>>", response);
+                    //post json stored g\here
+
+                if(jsonObject.getBoolean("success")){
+
+                    alertDialog.dismiss();
+
+                }
+                Log.d("async", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
 
 }
 

@@ -44,17 +44,13 @@ public class Following extends Fragment {
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-
     public static RecyclerView mRecyclerView;
-
     ArrayList<Followers_Following> followersFollowings = new ArrayList<>();
-
     public static Snackbar snackbar = null;
-
     public static  RelativeLayout linearMain;
     ProgressBar progressBar;
-
     CustomAdapter customAdapter;
+
     public static Following newInstance(int page, String title) {
         Following fragmentFirst = new Following();
         Log.d("FRAGMENT_LOG", "Crewated ");
@@ -106,8 +102,6 @@ public class Following extends Fragment {
             snackbar.show();
         }
     }
-
-
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
@@ -206,7 +200,6 @@ public class Following extends Fragment {
 
     }
 
-
     private void fetchFollowing() {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
@@ -300,7 +293,6 @@ public class Following extends Fragment {
         }
 
     }
-   
 
 }
 
