@@ -302,8 +302,12 @@ public class SearchPeople extends Fragment {
 
                         Gson gson = gsonBuilder.create();
                         peopleModelArrayList = new ArrayList<>();
+
                         peopleModelArrayList = (gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
 
+
+                        editor.putString("people_users",jsonObject.getJSONArray("users").toString());
+                        editor.commit();
                     }
 
                     customAdapter = new CustomAdapter();

@@ -240,6 +240,8 @@ public class SearchCity extends Fragment {
                         cityModelArrayList = new ArrayList<>();
                         cityModelArrayList = (gson.fromJson(String.valueOf(cites.getJSONArray("location_suggestions")), listType));
 
+                        editor.putString("location_suggestions",cites.getJSONArray("location_suggestions").toString());
+                        editor.commit();
                     }
 
                     customAdapter = new CustomAdapter();

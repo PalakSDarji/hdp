@@ -420,6 +420,9 @@ public class SearchTag extends Fragment {
                         Gson gson = gsonBuilder.create();
                         tagsModelArrayList.addAll((ArrayList<PeopleModel>)gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
 
+                        editor.putString("tags_users",jsonObject.getJSONArray("users").toString());
+                        editor.commit();
+
                         customAdapter = new CustomAdapter();
                         mRecyclerView.setAdapter(customAdapter);
                     }
