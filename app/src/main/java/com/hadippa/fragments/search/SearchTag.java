@@ -238,6 +238,13 @@ public class SearchTag extends Fragment {
                 }).applyTo((SearchActivity)context, viewHolder.image_view);*/
             }
 
+            viewHolder.image_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    showPopupDialog(tagsModelArrayList.get(position));
+                }
+            });
 
             viewHolder.image_view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
