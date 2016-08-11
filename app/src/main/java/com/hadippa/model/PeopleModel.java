@@ -8,18 +8,17 @@ import java.util.List;
 public class PeopleModel {
 
 
-    /*
-    * *
-     * id : 12
-     * first_name : Ravikant
-     * last_name : Sahu
-     * profile_photo : https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/c15.0.50.50/p50x50/10354686_10150004552801856_220367501106153455_n.jpg?oh=31a919a3d795bc64ad02d0a1b462300e&oe=5736B82F&__gda__=1463225095_484ea4441f278e6b8895ab53a1be91a0
+    /**
+     * id : 3
+     * first_name : Aarya
+     * last_name : Vora
+     * profile_photo : https://scontent.fbom1-2.fna.fbcdn.net/v/t1.0-9/13501835_1262854777088513_6208341510195698306_n.jpg?oh=b93ae480f4f4527611762f0254e01508&oe=57F2330B
      * photo_uploaded : 0
-     * profile_photo_thumbnail : https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/c15.0.50.50/p50x50/10354686_10150004552801856_220367501106153455_n.jpg?oh=31a919a3d795bc64ad02d0a1b462300e&oe=5736B82F&__gda__=1463225095_484ea4441f278e6b8895ab53a1be91a0
-     * mutual_friends :
-     * user_relationship_status : null
-     * follower : []
-     * following : []
+     * profile_photo_thumbnail : https://scontent.fbom1-2.fna.fbcdn.net/v/t1.0-9/13501835_1262854777088513_6208341510195698306_n.jpg?oh=b93ae480f4f4527611762f0254e01508&oe=57F2330B
+     * mutual_friends : Followed by Ranjeet Srinivas +2 more
+     * user_relationship_status : Following
+     * follower : [{"id":"330","follower_id":"97","followed_id":"99"}]
+     * following : [{"id":"346","follower_id":"179","followed_id":"3"}]
      */
 
     private String id;
@@ -29,9 +28,21 @@ public class PeopleModel {
     private String photo_uploaded;
     private String profile_photo_thumbnail;
     private String mutual_friends;
-    private Object user_relationship_status;
-    private List<?> follower;
-    private List<?> following;
+    private String user_relationship_status;
+    /**
+     * id : 330
+     * follower_id : 97
+     * followed_id : 99
+     */
+
+    private List<FollowerBean> follower;
+    /**
+     * id : 346
+     * follower_id : 179
+     * followed_id : 3
+     */
+
+    private List<FollowingBean> following;
 
     public String getId() {
         return id;
@@ -89,27 +100,87 @@ public class PeopleModel {
         this.mutual_friends = mutual_friends;
     }
 
-    public Object getUser_relationship_status() {
+    public String getUser_relationship_status() {
         return user_relationship_status;
     }
 
-    public void setUser_relationship_status(Object user_relationship_status) {
+    public void setUser_relationship_status(String user_relationship_status) {
         this.user_relationship_status = user_relationship_status;
     }
 
-    public List<?> getFollower() {
+    public List<FollowerBean> getFollower() {
         return follower;
     }
 
-    public void setFollower(List<?> follower) {
+    public void setFollower(List<FollowerBean> follower) {
         this.follower = follower;
     }
 
-    public List<?> getFollowing() {
+    public List<FollowingBean> getFollowing() {
         return following;
     }
 
-    public void setFollowing(List<?> following) {
+    public void setFollowing(List<FollowingBean> following) {
         this.following = following;
+    }
+
+    public static class FollowerBean {
+        private String id;
+        private String follower_id;
+        private String followed_id;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getFollower_id() {
+            return follower_id;
+        }
+
+        public void setFollower_id(String follower_id) {
+            this.follower_id = follower_id;
+        }
+
+        public String getFollowed_id() {
+            return followed_id;
+        }
+
+        public void setFollowed_id(String followed_id) {
+            this.followed_id = followed_id;
+        }
+    }
+
+    public static class FollowingBean {
+        private String id;
+        private String follower_id;
+        private String followed_id;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getFollower_id() {
+            return follower_id;
+        }
+
+        public void setFollower_id(String follower_id) {
+            this.follower_id = follower_id;
+        }
+
+        public String getFollowed_id() {
+            return followed_id;
+        }
+
+        public void setFollowed_id(String followed_id) {
+            this.followed_id = followed_id;
+        }
     }
 }
