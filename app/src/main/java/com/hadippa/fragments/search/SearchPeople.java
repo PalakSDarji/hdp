@@ -44,22 +44,23 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchPeople extends Fragment {
 
-    public static SharedPreferences sp;
-    public static SharedPreferences.Editor editor;
+    public SharedPreferences sp;
+    public SharedPreferences.Editor editor;
 
-    public static RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
 
     
-    public static Snackbar snackbar = null;
-    public static ProgressBar progressBar;
+    public Snackbar snackbar = null;
+    public ProgressBar progressBar;
 
-    public static  RelativeLayout relMain;
+    public  RelativeLayout relMain;
 
-    public static Context context;
-    public static ArrayList<PeopleModel> peopleModelArrayList = new ArrayList<>();
+    public Context context;
+    public ArrayList<PeopleModel> peopleModelArrayList = new ArrayList<>();
+    SearchTag searchTag = new SearchTag();
 
-    public static CustomAdapter customAdapter;
-    public static SearchPeople newInstance(int page, String title) {
+    public CustomAdapter customAdapter;
+    public SearchPeople newInstance(int page, String title) {
         SearchPeople fragmentFirst = new SearchPeople();
         Log.d("FRAGMENT_LOG", "Crewated ");
         Bundle args = new Bundle();
@@ -88,7 +89,7 @@ public class SearchPeople extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         if(SearchActivity.edtSearch.getText().toString().length()>=2) {
-            SearchTag.fetchByTags(SearchActivity.edtSearch.getText().toString());
+            searchTag.fetchByTags(SearchActivity.edtSearch.getText().toString());
         }
 
         return view;
@@ -116,7 +117,7 @@ public class SearchPeople extends Fragment {
 
   
 
-    static class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+    class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
 
         @Override
@@ -158,7 +159,7 @@ public class SearchPeople extends Fragment {
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView id;
         private final ImageView profileImage;
@@ -228,7 +229,7 @@ public class SearchPeople extends Fragment {
     }
 
 
-    public static void fetchPeople(String query) {
+    public void fetchPeople(String query) {
 
         peopleModelArrayList.clear();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -253,7 +254,7 @@ public class SearchPeople extends Fragment {
 
     }
 
-    static class GetCity extends AsyncHttpResponseHandler {
+    public class GetCity extends AsyncHttpResponseHandler {
 
         @Override
         public void onStart() {

@@ -40,21 +40,21 @@ import cz.msebera.android.httpclient.Header;
 
 public class SearchCity extends Fragment {
 
-    public static SharedPreferences sp;
-    public static SharedPreferences.Editor editor;
+    public SharedPreferences sp;
+    public SharedPreferences.Editor editor;
 
-    public static RecyclerView mRecyclerView;
-
-    
-    public static Snackbar snackbar = null;
-
-    public static  RelativeLayout relMain;
-    public static ProgressBar progressBar;
-    public static ArrayList<CityModel> cityModelArrayList = new ArrayList<>();
+     public RecyclerView mRecyclerView;
 
 
-    public static CustomAdapter customAdapter;
-    public static SearchCity newInstance(int page, String title) {
+    public Snackbar snackbar = null;
+
+    public RelativeLayout relMain;
+    public ProgressBar progressBar;
+    public ArrayList<CityModel> cityModelArrayList = new ArrayList<>();
+
+
+    public CustomAdapter customAdapter;
+    public SearchCity newInstance(int page, String title) {
         SearchCity fragmentFirst = new SearchCity();
         Log.d("FRAGMENT_LOG", "Crewated ");
         Bundle args = new Bundle();
@@ -69,6 +69,7 @@ public class SearchCity extends Fragment {
 
         View view = inflater.inflate(R.layout.follow, null, false);
 
+        Log.d("initialized",">>City<<");
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
@@ -90,7 +91,7 @@ public class SearchCity extends Fragment {
 
     }
 
-    static class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+    public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
 
         @Override
@@ -124,7 +125,7 @@ public class SearchCity extends Fragment {
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView id;
         private final TextView city;
@@ -164,7 +165,7 @@ public class SearchCity extends Fragment {
     }
 
 
-    public static void fetchCities(String query) {
+    public void fetchCities(String query) {
 
         cityModelArrayList.clear();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -189,7 +190,7 @@ public class SearchCity extends Fragment {
 
     }
 
-    static class GetCity extends AsyncHttpResponseHandler {
+    public class GetCity extends AsyncHttpResponseHandler {
 
         @Override
         public void onStart() {

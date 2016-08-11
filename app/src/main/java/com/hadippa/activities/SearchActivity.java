@@ -44,6 +44,9 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
     private ViewPagerAdapter pagerAdapter;
     ImageView imageBack;
 
+    SearchPeople searchPeople = new SearchPeople();
+    SearchTag searchTag = new SearchTag();
+    SearchCity searchCity = new SearchCity();
     public static EditText edtSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,12 +99,12 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                 if(s.length()>=2){
                     if(pager.getCurrentItem()==2){
-                        SearchTag.fetchByTags(String.valueOf(s));
-                        SearchPeople.fetchPeople(String.valueOf(s));
+                        searchTag.fetchByTags(String.valueOf(s));
+                        searchPeople.fetchPeople(String.valueOf(s));
 
                     }else{
-                        SearchCity.fetchCities(String.valueOf(s));
-                        SearchPeople.fetchPeople(String.valueOf(s));
+                        searchCity.fetchCities(String.valueOf(s));
+                        searchPeople.fetchPeople(String.valueOf(s));
 
                     }
 

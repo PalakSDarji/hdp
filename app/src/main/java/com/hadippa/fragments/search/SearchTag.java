@@ -53,24 +53,24 @@ import static com.hadippa.R.id.view;
 
 public class SearchTag extends Fragment {
 
-    public static  AlertDialog alertDialog;
-    public static SharedPreferences sp;
-    public static SharedPreferences.Editor editor;
+    public AlertDialog alertDialog;
+    public SharedPreferences sp;
+    public SharedPreferences.Editor editor;
 
-    public static RecyclerView mRecyclerView;
-    public static ProgressBar progressBar;
+    public RecyclerView mRecyclerView;
+    public ProgressBar progressBar;
 
 
-    public static Snackbar snackbar = null;
+    public Snackbar snackbar = null;
 
-    public static RelativeLayout relMain;
+    public RelativeLayout relMain;
 
-    public static CustomAdapter customAdapter;
-    public static Context context;
+    public CustomAdapter customAdapter;
+    public Context context;
 
-    public static ArrayList<PeopleModel> tagsModelArrayList = new ArrayList<>();
-    public static LayoutInflater layoutInflater;
-    public static SearchTag newInstance(int page, String title) {
+    public ArrayList<PeopleModel> tagsModelArrayList = new ArrayList<>();
+    public LayoutInflater layoutInflater;
+    public SearchTag newInstance(int page, String title) {
         SearchTag fragmentFirst = new SearchTag();
         Log.d("FRAGMENT_LOG", "Crewated ");
         Bundle args = new Bundle();
@@ -110,17 +110,21 @@ public class SearchTag extends Fragment {
 */
 
 
+        SearchTag searchTag = new SearchTag();
         //TODO uncomment this call once webservice starts responding.
         if(SearchActivity.edtSearch.getText().toString().length()>=2) {
-            SearchTag.fetchByTags(SearchActivity.edtSearch.getText().toString());
+            (searchTag).fetchByTags(SearchActivity.edtSearch.getText().toString());
         }
 
         return view;
 
     }
 
+    public void initialize(){
 
-    public static void showPopupDialog(final PeopleModel peopleModel){
+    }
+
+    public void showPopupDialog(final PeopleModel peopleModel){
 
         final View view = layoutInflater.inflate(R.layout.peek_view, null);
 
@@ -191,7 +195,7 @@ public class SearchTag extends Fragment {
     }
 
 
-   static class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+   public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
        private Activity activity;
        private static final String TAG = "CustomAdapter";
@@ -266,7 +270,7 @@ public class SearchTag extends Fragment {
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
          private final TextView id;
        /*   private final ImageView foodImage;
           private final TextView tvDonarName;
@@ -352,7 +356,7 @@ public class SearchTag extends Fragment {
     }
 
 
-    public static void fetchByTags(String query) {
+    public void fetchByTags(String query) {
 
         tagsModelArrayList.clear();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -377,7 +381,7 @@ public class SearchTag extends Fragment {
 
     }
 
-    static class GetCity extends AsyncHttpResponseHandler {
+    public class GetCity extends AsyncHttpResponseHandler {
 
         @Override
         public void onStart() {
@@ -454,7 +458,7 @@ public class SearchTag extends Fragment {
     }
 
     //Follow/UnFollow
-    public static void follow_Unfollow(String type, String id) {
+    public void follow_Unfollow(String type, String id) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -474,7 +478,7 @@ public class SearchTag extends Fragment {
                 new Follow_Unfollow());
     }
 
-    public static class Follow_Unfollow extends AsyncHttpResponseHandler {
+    public class Follow_Unfollow extends AsyncHttpResponseHandler {
 
         @Override
         public void onStart() {
