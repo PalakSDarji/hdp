@@ -70,6 +70,7 @@ public class SearchTag extends Fragment {
 
     public ArrayList<PeopleModel> tagsModelArrayList = new ArrayList<>();
     public LayoutInflater layoutInflater;
+
     public SearchTag newInstance(int page, String title) {
         SearchTag fragmentFirst = new SearchTag();
         Log.d("FRAGMENT_LOG", "Crewated ");
@@ -81,6 +82,7 @@ public class SearchTag extends Fragment {
     }
 
     public static int width;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -94,7 +96,7 @@ public class SearchTag extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         relMain = (RelativeLayout) view.findViewById(R.id.relMain);
-        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         final GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(2));
@@ -110,21 +112,16 @@ public class SearchTag extends Fragment {
 */
 
 
-        SearchTag searchTag = new SearchTag();
         //TODO uncomment this call once webservice starts responding.
-        if(SearchActivity.edtSearch.getText().toString().length()>=2) {
-            (searchTag).fetchByTags(SearchActivity.edtSearch.getText().toString());
+        if (SearchActivity.edtSearch.getText().toString().length() >= 2) {
+            fetchByTags(SearchActivity.edtSearch.getText().toString());
         }
 
         return view;
 
     }
 
-    public void initialize(){
-
-    }
-
-    public void showPopupDialog(final PeopleModel peopleModel){
+    public void showPopupDialog(final PeopleModel peopleModel) {
 
         final View view = layoutInflater.inflate(R.layout.peek_view, null);
 
@@ -132,13 +129,26 @@ public class SearchTag extends Fragment {
         builder.setView(view);
         builder.setMessage(null);
 
-        ((TextView)view.findViewById(R.id.tvName_Age)).setText(peopleModel.getFirst_name()+ " "+ peopleModel.getLast_name());
-        view.findViewById(R.id.tvFollowUnfollow).setOnClickListener(new View.OnClickListener() {
+        TextView tvFollowUnfollow = (TextView) view.findViewById(R.id.tvFollowUnfollow);
+        ((TextView) view.findViewById(R.id.tvName_Age)).setText(peopleModel.getFirst_name() + " " + peopleModel.getLast_name());
+        if (peopleModel.getUser_relationship_status().equals("Following")) {
+            tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
+            tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+            tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
+            tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_following), null, null, null);
+        } else {
+            tvFollowUnfollow.setText(getResources().getString(R.string.followers));
+            tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+            tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+            tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow), null, null, null);
+        }
+
+        tvFollowUnfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //cancelThisDialog();
 
-                follow_Unfollow(AppConstants.CONNECTION_FOLLOW,peopleModel.getId());
+                follow_Unfollow(AppConstants.CONNECTION_FOLLOW, peopleModel.getId());
 
             }
         });
@@ -195,10 +205,10 @@ public class SearchTag extends Fragment {
     }
 
 
-   public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+    public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-       private Activity activity;
-       private static final String TAG = "CustomAdapter";
+        private Activity activity;
+        private static final String TAG = "CustomAdapter";
 
 
         @Override
@@ -218,10 +228,9 @@ public class SearchTag extends Fragment {
             final PeopleModel peopleModel = tagsModelArrayList.get(position);
             viewHolder.getId().setText(peopleModel.getId());
 
-            if(peopleModel.getProfile_photo_thumbnail().equals("")){
+            if (peopleModel.getProfile_photo_thumbnail().equals("")) {
                 viewHolder.getImage_view().setImageResource(R.drawable.ic_user_avatar_default);
-            }
-            else {
+            } else {
 
                 Glide.with(context)
                         .load(peopleModel.getProfile_photo_thumbnail())
@@ -271,11 +280,11 @@ public class SearchTag extends Fragment {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-         private final TextView id;
-       /*   private final ImageView foodImage;
-          private final TextView tvDonarName;
-          private final TextView tvDonarPh, tvAddress, tvFoodfor, tvStatus;
-          private final View typeView;*/
+        private final TextView id;
+        /*   private final ImageView foodImage;
+           private final TextView tvDonarName;
+           private final TextView tvDonarPh, tvAddress, tvFoodfor, tvStatus;
+           private final View typeView;*/
         private final ImageView image_view;
 
         //   TextView tvFollowUnfollow;
@@ -315,7 +324,7 @@ public class SearchTag extends Fragment {
         public ImageView getImage_view() {
             return image_view;
         }
-        
+
         public TextView getId() {
             return id;
         }
@@ -369,8 +378,6 @@ public class SearchTag extends Fragment {
             requestParams.add("query", query);
 
 
-
-
             Log.d("request>>", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -421,17 +428,17 @@ public class SearchTag extends Fragment {
                 if (jsonObject.getBoolean("success")) {
 
 
-                    if(jsonObject.getJSONArray("users").length()==0){
-                       // AppConstants.showSnackBar(relMain, "No followers yet.");
-                    }else {
+                    if (jsonObject.getJSONArray("users").length() == 0) {
+                        AppConstants.showSnackBar(relMain, "No tags found.");
+                    } else {
                         Type listType = new TypeToken<ArrayList<PeopleModel>>() {
                         }.getType();
                         GsonBuilder gsonBuilder = new GsonBuilder();
 
                         Gson gson = gsonBuilder.create();
-                        tagsModelArrayList.addAll((ArrayList<PeopleModel>)gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
+                        tagsModelArrayList.addAll((ArrayList<PeopleModel>) gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
 
-                        editor.putString("tags_users",jsonObject.getJSONArray("users").toString());
+                        editor.putString("tags_users", jsonObject.getJSONArray("users").toString());
                         editor.commit();
 
                         customAdapter = new CustomAdapter();
@@ -509,10 +516,10 @@ public class SearchTag extends Fragment {
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-                  Log.d("response>>", response);
-                    //post json stored g\here
+                Log.d("response>>", response);
+                //post json stored g\here
 
-                if(jsonObject.getBoolean("success")){
+                if (jsonObject.getBoolean("success")) {
 
                     alertDialog.dismiss();
 

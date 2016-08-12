@@ -44,6 +44,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
     private ViewPagerAdapter pagerAdapter;
     ImageView imageBack;
 
+    //Fragment na object banaya.. and trying to using them
     SearchPeople searchPeople = new SearchPeople();
     SearchTag searchTag = new SearchTag();
     SearchCity searchCity = new SearchCity();
@@ -67,6 +68,12 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         });
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
+
+        //This prevents fragments from being destroyed, default limit is 1, so next and pre frag will be alive if pos -1,
+        // if pos = 0 then 1 will be alive, if 2 then 1 will be alive
+        //by setting it 2, we make sure that view pager should atleast keep 2 fragments in a history, other than current
+      //  pager.setOffscreenPageLimit(2);
+
 
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true);
@@ -97,17 +104,18 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
+                //HERE.. but
                 if(s.length()>=2){
+
+                    Log.v("searchCity","searchCity"+searchCity);
+
                     if(pager.getCurrentItem()==2){
                         searchTag.fetchByTags(String.valueOf(s));
                         searchPeople.fetchPeople(String.valueOf(s));
-
                     }else{
                         searchCity.fetchCities(String.valueOf(s));
                         searchPeople.fetchPeople(String.valueOf(s));
-
                     }
-
                 }
             }
 
@@ -137,19 +145,19 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                 case 0:
 
-                    fragment = new SearchCity();
+                    fragment = searchCity;
 
                     break;
 
                 case 1 :
 
-                    fragment = new SearchPeople();
+                    fragment = searchPeople;
 
                     break;
 
                 case 2 :
 
-                    fragment = new SearchTag();
+                    fragment = searchTag;
 
                     break;
 

@@ -3,6 +3,7 @@ package com.hadippa.fragments.search;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -64,16 +65,22 @@ public class SearchCity extends Fragment {
         return fragmentFirst;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.follow, null, false);
+        return inflater.inflate(R.layout.follownew, container, false);
+
+/*
+        View view = inflater.inflate(R.layout.follownew, container, false);
+
+        Log.v("view",""+ view);
 
         Log.d("initialized",">>City<<");
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
-        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
+       // progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         relMain = (RelativeLayout) view.findViewById(R.id.relMain);
@@ -82,12 +89,38 @@ public class SearchCity extends Fragment {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        //crashed
 
         if(SearchActivity.edtSearch.getText().toString().length()>=2){
             fetchCities(SearchActivity.edtSearch.getText().toString());
         }
 
-        return view;
+        return view;*/
+
+        //ok textviewe aayu
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        editor = sp.edit();
+
+        ((TextView)getView().findViewById(R.id.tvSample)).setText("OK");
+
+        progressBar = (ProgressBar)getView().findViewById(R.id.tempProgress);
+
+        mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
+        relMain = (RelativeLayout) getView().findViewById(R.id.relMain);
+
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        if(SearchActivity.edtSearch.getText().toString().length()>=2){
+            fetchCities(SearchActivity.edtSearch.getText().toString());
+        }
 
     }
 
@@ -164,7 +197,6 @@ public class SearchCity extends Fragment {
 
     }
 
-
     public void fetchCities(String query) {
 
         cityModelArrayList.clear();
@@ -178,8 +210,18 @@ public class SearchCity extends Fragment {
             requestParams.add("query", query);
 
 
+            //Sahil , i will see it tomorrow, meanwhile keep trying!
+            //Yeah, sure. Csn i use static ? its the easiest of alll.
+            // give it a try
+            //already did. but palak asked to not to use staic variables so i changed it to this.
+            //do palak and you work together on this proj?
+            //yeah.. ok well static prevents reference n it ha its own adv n disadv..somewhere its best somewhere it isnt..// one more
 
-
+            //thing, it would be better if we prefer to use TabLayout given in support lib
+            //ok thanks sahil to cooperating ,
+             //see u tomorrow
+//yea bro, thanks for helping out.. will try this tomorrow again.. and let you know if done..
+            // thanks.. Good night :) yeah gn tc
             Log.d("request>>", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -196,6 +238,7 @@ public class SearchCity extends Fragment {
         public void onStart() {
             super.onStart();
 
+            //NUll aave che....
             progressBar.setVisibility(View.VISIBLE);
             // AppConstants.showProgressDialog(getActivity(), "Please Wait");
 
