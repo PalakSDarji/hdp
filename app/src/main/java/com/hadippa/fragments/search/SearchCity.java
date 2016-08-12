@@ -32,6 +32,8 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -117,6 +119,8 @@ public class SearchCity extends Fragment {
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        setPreviousData();
 
         if(SearchActivity.edtSearch.getText().toString().length()>=2){
             fetchCities(SearchActivity.edtSearch.getText().toString());
@@ -307,7 +311,29 @@ public class SearchCity extends Fragment {
         }
 
     }
-   
+
+
+    void setPreviousData(){
+
+        cityModelArrayList.clear();
+        if(sp.getString("location_suggestions","").equals("")){
+
+
+
+        }else{
+            Type listType = new TypeToken<ArrayList<CityModel>>() {
+            }.getType();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+
+            Gson gson = gsonBuilder.create();
+            cityModelArrayList = new ArrayList<>();
+            cityModelArrayList = (gson.fromJson(String.valueOf(sp.getString("location_suggestions","")), listType));
+
+            customAdapter = new CustomAdapter();
+            mRecyclerView.setAdapter(customAdapter);
+        }
+
+    }
 
 }
 

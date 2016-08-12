@@ -31,6 +31,7 @@ import com.hadippa.R;
 import com.hadippa.SquareImageView;
 import com.hadippa.activities.FilterActivity;
 import com.hadippa.activities.SearchActivity;
+import com.hadippa.model.CityModel;
 import com.hadippa.model.PeopleModel;
 import com.klinker.android.peekview.builder.Peek;
 import com.klinker.android.peekview.callback.SimpleOnPeek;
@@ -111,6 +112,7 @@ public class SearchTag extends Fragment {
         mRecyclerView.setAdapter(customAdapter);
 */
 
+        setPreviousData();
 
         //TODO uncomment this call once webservice starts responding.
         if (SearchActivity.edtSearch.getText().toString().length() >= 2) {
@@ -131,7 +133,7 @@ public class SearchTag extends Fragment {
 
         TextView tvFollowUnfollow = (TextView) view.findViewById(R.id.tvFollowUnfollow);
         ((TextView) view.findViewById(R.id.tvName_Age)).setText(peopleModel.getFirst_name() + " " + peopleModel.getLast_name());
-        if (peopleModel.getUser_relationship_status().equals("Following")) {
+        if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
             tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
             tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
             tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
@@ -539,6 +541,27 @@ public class SearchTag extends Fragment {
 
     }
 
+
+    void setPreviousData(){
+
+        tagsModelArrayList.clear();
+        if(sp.getString("tags_users","").equals("")){
+
+
+
+        }else{
+            Type listType = new TypeToken<ArrayList<PeopleModel>>() {
+            }.getType();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+
+            Gson gson = gsonBuilder.create();
+            tagsModelArrayList.addAll((ArrayList<PeopleModel>) gson.fromJson(String.valueOf(sp.getString("tags_users","")), listType));
+
+            customAdapter = new CustomAdapter();
+            mRecyclerView.setAdapter(customAdapter);
+        }
+
+    }
 
 }
 

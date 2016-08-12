@@ -88,6 +88,7 @@ public class SearchPeople extends Fragment {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        setPreviousData();
         if(SearchActivity.edtSearch.getText().toString().length()>=2) {
             searchTag.fetchByTags(SearchActivity.edtSearch.getText().toString());
         }
@@ -330,7 +331,31 @@ public class SearchPeople extends Fragment {
         }
 
     }
-   
+
+    void setPreviousData(){
+
+        peopleModelArrayList.clear();
+        if(sp.getString("people_users","").equals("")){
+
+
+
+        }else{
+            Type listType = new TypeToken<ArrayList<PeopleModel>>() {
+            }.getType();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+
+            Gson gson = gsonBuilder.create();
+            peopleModelArrayList = new ArrayList<>();
+
+            peopleModelArrayList = (gson.fromJson(String.valueOf(sp.getString("people_users","")), listType));
+
+
+            customAdapter = new CustomAdapter();
+            mRecyclerView.setAdapter(customAdapter);
+        }
+
+    }
+
 
 }
 
