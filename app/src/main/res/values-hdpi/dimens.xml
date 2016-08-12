@@ -131,6 +131,9 @@
     <dimen name="home_drawer_sub_textsize">12dp</dimen>
     <dimen name="login_button_dont_have_margin_bottom">5dp</dimen>
     <dimen name="or_text_size">12sp</dimen>
+    <dimen name="value_12">12dp</dimen>
+    <dimen name="value_16">16dp</dimen>
+    <dimen name="value_20">20dp</dimen>
 
 
 </resources>

@@ -44,10 +44,9 @@
 
                 <ImageView
                     android:id="@+id/chat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@drawable/landing_pages_chat"/>
+                    android:layout_width="@dimen/value_20"
+                    android:layout_height="@dimen/value_20"
+                    android:src="@drawable/chat"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -58,18 +57,18 @@
                     android:gravity="center"
                     android:text="1"
                     android:textColor="@color/pink_text"
-                    android:textSize="5dp"/>
+                    android:textSize="9dp"/>
 
             </FrameLayout>
 
             <ImageView
                 android:id="@+id/imageFilter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/value_20"
+                android:layout_height="@dimen/value_20"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/relChat"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/landing_pages_filter"/>
+                android:layout_marginRight="10dp"
+                android:src="@drawable/filter"/>
 
             <EditText
                 android:id="@+id/edtSearch"

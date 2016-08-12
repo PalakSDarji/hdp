@@ -57,7 +57,34 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp">
 
-                        <com.hadippa.BoldTextView
+                        <LinearLayout
+                            android:id="@+id/llActivityName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_20"
+                                android:layout_height="@dimen/value_20"
+                                android:layout_gravity="center"
+                                android:src="@drawable/movie"/>
+
+                            <com.hadippa.BoldTextView
+                                android:id="@+id/tvActivityName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="Sarabjit Movie"
+                                android:layout_marginLeft="5dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/pink_text"
+                                android:textSize="@dimen/card_title_textsize" />
+
+                        </LinearLayout>
+
+                     <!--   <com.hadippa.BoldTextView
                             android:id="@+id/tvActivityName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -68,7 +95,7 @@
                             android:textColor="@color/pink_text"
                             android:textSize="@dimen/card_title_textsize"
                             android:textStyle="bold" />
-
+-->
 
                         <TextView
                             android:id="@+id/tvCount"
@@ -106,57 +133,112 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tvActivityDate"
+                    <LinearLayout
+                        android:id="@+id/llActivityDate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawablePadding="5dp"
-                        android:drawableTop="@drawable/cal"
-                        android:gravity="center"
-                        android:text="04 May"
-                        android:textSize="@dimen/tab_search_textsize" />
+                        android:orientation="vertical"
+                        android:layout_weight="1">
 
+                        <ImageView
+                            android:layout_width="@dimen/value_20"
+                            android:layout_height="@dimen/value_20"
+                            android:layout_gravity="center"
+                            android:src="@drawable/cal"/>
 
-                    <TextView
-                        android:id="@+id/tvActivtyTime"
+                        <TextView
+                            android:id="@+id/tvActivityDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="04 May"
+                            android:layout_marginTop="5dp"
+                            android:textSize="@dimen/tab_search_textsize" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llActivtyTime"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawablePadding="5dp"
-                        android:drawableTop="@drawable/clock"
-                        android:gravity="center"
-                        android:text="12.15 pm"
-                        android:textSize="@dimen/tab_search_textsize" />
+                        android:orientation="vertical"
+                        android:layout_weight="1">
 
+                        <ImageView
+                            android:layout_width="@dimen/value_20"
+                            android:layout_height="@dimen/value_20"
+                            android:layout_gravity="center"
+                            android:src="@drawable/clock"/>
 
-                    <TextView
+                        <TextView
+                            android:id="@+id/tvActivtyTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="12.15 pm"
+                            android:layout_marginTop="5dp"
+                            android:textSize="@dimen/tab_search_textsize" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llDistance"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawablePadding="5dp"
-                        android:id="@+id/tvDistance"
-                        android:drawableTop="@drawable/loc"
-                        android:gravity="center"
-                        android:text="10 Km"
-                        android:textSize="@dimen/tab_search_textsize" />
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="@dimen/value_20"
+                            android:layout_height="@dimen/value_20"
+                            android:layout_gravity="center"
+                            android:src="@drawable/loc"/>
+
+                        <TextView
+                            android:id="@+id/tvDistance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="10 Km"
+                            android:layout_marginTop="5dp"
+                            android:textSize="@dimen/tab_search_textsize" />
+
+                    </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/tvGoing"
+
+                    <LinearLayout
+                        android:id="@+id/llGoing"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawablePadding="5dp"
-                        android:drawableTop="@drawable/people"
-                        android:gravity="center"
-                        android:text="10 Going"
-                        android:textSize="@dimen/tab_search_textsize" />
+                        android:orientation="vertical"
+                        android:layout_weight="1">
 
+                        <ImageView
+                            android:layout_width="@dimen/value_20"
+                            android:layout_height="@dimen/value_20"
+                            android:layout_gravity="center"
+                            android:src="@drawable/people"/>
+
+                        <TextView
+                            android:id="@+id/tvGoing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="10 Going"
+                            android:layout_marginTop="5dp"
+                            android:textSize="@dimen/tab_search_textsize" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -201,7 +283,7 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-    <ImageView
+   <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/rounded_caard" />
