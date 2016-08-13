@@ -21,6 +21,8 @@ import com.bumptech.glide.Glide;
 import com.commonclasses.connection.ConnectionDetector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
@@ -35,6 +37,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -87,6 +90,7 @@ public class SearchPeople extends Fragment {
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        progressBar.setVisibility(View.GONE);
 
         setPreviousData();
         if(SearchActivity.edtSearch.getText().toString().length()>=2) {
@@ -354,6 +358,18 @@ public class SearchPeople extends Fragment {
             mRecyclerView.setAdapter(customAdapter);
         }
 
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        Gson gson = new Gson();
+        JsonElement element = gson.toJsonTree(peopleModelArrayList, new TypeToken<List<PeopleModel>>() {}.getType());
+
+        JsonArray jsonArray = element.getAsJsonArray();
+        editor.putString("people_users", jsonArray.toString());
+        editor.commit();
     }
 
 

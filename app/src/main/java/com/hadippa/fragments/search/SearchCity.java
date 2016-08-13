@@ -18,12 +18,15 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.activities.SearchActivity;
 import com.hadippa.model.CityModel;
 import com.hadippa.model.DataModel;
+import com.hadippa.model.PeopleModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -33,6 +36,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import cz.msebera.android.httpclient.Header;
@@ -120,6 +124,7 @@ public class SearchCity extends Fragment {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        progressBar.setVisibility(View.GONE);
         setPreviousData();
 
         if(SearchActivity.edtSearch.getText().toString().length()>=2){
@@ -335,6 +340,17 @@ public class SearchCity extends Fragment {
 
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        Gson gson = new Gson();
+        JsonElement element = gson.toJsonTree(cityModelArrayList, new TypeToken<List<CityModel>>() {}.getType());
+
+        JsonArray jsonArray = element.getAsJsonArray();
+        editor.putString("location_suggestions", jsonArray.toString());
+        editor.commit();
+    }
 }
 
 

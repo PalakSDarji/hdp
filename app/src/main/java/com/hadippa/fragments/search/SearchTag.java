@@ -25,6 +25,8 @@ import com.bumptech.glide.Glide;
 import com.commonclasses.connection.ConnectionDetector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
@@ -43,6 +45,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -98,6 +101,7 @@ public class SearchTag extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         relMain = (RelativeLayout) view.findViewById(R.id.relMain);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
 
         final GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
         mRecyclerView.addItemDecoration(new SpacesItemDecoration(2));
@@ -112,11 +116,13 @@ public class SearchTag extends Fragment {
         mRecyclerView.setAdapter(customAdapter);
 */
 
-        setPreviousData();
+
 
         //TODO uncomment this call once webservice starts responding.
         if (SearchActivity.edtSearch.getText().toString().length() >= 2) {
             fetchByTags(SearchActivity.edtSearch.getText().toString());
+        }else{
+            setPreviousData();
         }
 
         return view;
@@ -131,12 +137,12 @@ public class SearchTag extends Fragment {
         builder.setView(view);
         builder.setMessage(null);
 
-        TextView tvFollowUnfollow = (TextView) view.findViewById(R.id.tvFollowUnfollow);
+        final TextView tvFollowUnfollow = (TextView) view.findViewById(R.id.tvFollowUnfollow);
         ((TextView) view.findViewById(R.id.tvName_Age)).setText(peopleModel.getFirst_name() + " " + peopleModel.getLast_name());
         if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
             tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
             tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
-            tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
+            tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
             tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_following), null, null, null);
         } else {
             tvFollowUnfollow.setText(getResources().getString(R.string.followers));
@@ -150,13 +156,16 @@ public class SearchTag extends Fragment {
             public void onClick(View v) {
                 //cancelThisDialog();
 
-                follow_Unfollow(AppConstants.CONNECTION_FOLLOW, peopleModel.getId());
-
+                if(tvFollowUnfollow.getText().toString().equals(getResources().getString(R.string.followers))) {
+                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, peopleModel.getId());
+                }else{
+                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_UNFOLLOW, peopleModel.getId());
+                }
             }
         });
 
         Glide.with(context)
-                .load(peopleModel.getProfile_photo_thumbnail())
+                .load(peopleModel.getProfile_photo())
                 .into((SquareImageView) view.findViewById(R.id.image));
 
         alertDialog = builder.create();
@@ -221,6 +230,7 @@ public class SearchTag extends Fragment {
 
             return new ViewHolder(v);
         }
+
 
 
         @Override
@@ -467,7 +477,7 @@ public class SearchTag extends Fragment {
     }
 
     //Follow/UnFollow
-    public void follow_Unfollow(String type, String id) {
+    public void follow_Unfollow(PeopleModel peopleModel,String type, String id) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -484,10 +494,18 @@ public class SearchTag extends Fragment {
         }
 
         asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + type, requestParams,
-                new Follow_Unfollow());
+                new Follow_Unfollow(peopleModel,type));
     }
 
     public class Follow_Unfollow extends AsyncHttpResponseHandler {
+
+        PeopleModel peopleModel;
+        String type;
+
+        Follow_Unfollow(PeopleModel peopleModel,String type){
+           this.peopleModel = peopleModel;
+            this.type = type;
+        }
 
         @Override
         public void onStart() {
@@ -525,6 +543,16 @@ public class SearchTag extends Fragment {
 
                     alertDialog.dismiss();
 
+                    if(type.equals(AppConstants.CONNECTION_FOLLOW)){
+
+                        peopleModel.setUser_relationship_status("Following");
+
+                    }else{
+
+                        peopleModel.setUser_relationship_status(null);
+
+                    }
+
                 }
                 Log.d("async", "success" + response);
             } catch (Exception e) {
@@ -540,7 +568,6 @@ public class SearchTag extends Fragment {
         }
 
     }
-
 
     void setPreviousData(){
 
@@ -563,6 +590,18 @@ public class SearchTag extends Fragment {
 
     }
 
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        Gson gson = new Gson();
+        JsonElement element = gson.toJsonTree(tagsModelArrayList, new TypeToken<List<PeopleModel>>() {}.getType());
+
+        JsonArray jsonArray = element.getAsJsonArray();
+        editor.putString("tags_users", jsonArray.toString());
+        editor.commit();
+    }
 }
 
 
