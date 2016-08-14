@@ -20,11 +20,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
-import com.hadippa.model.DataModel;
-import com.hadippa.model.Followers_Following;
+import com.hadippa.model.FollowersModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -33,6 +34,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -47,7 +49,7 @@ public class Followers extends Fragment {
 
     public static RecyclerView mRecyclerView;
 
-    ArrayList<Followers_Following>  followersFollowings = new ArrayList<>();
+    ArrayList<FollowersModel>  followersFollowings = new ArrayList<>();
     
     public static Snackbar snackbar = null;
 
@@ -82,6 +84,7 @@ public class Followers extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(new CustomAdapter());
 
+        setPreviousData();
         fetchFollowers();
 
         return view;
@@ -104,16 +107,16 @@ public class Followers extends Fragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
-            final Followers_Following followers_following = followersFollowings.get(position);
+            final FollowersModel followers_following = followersFollowings.get(position);
 
             Log.d(TAG, "Element " + position + " set." + followers_following);
             Log.d(TAG, "Element " + position + " set." + followers_following);
-            if(followers_following != null && followers_following.getFollowed() != null){
-                viewHolder.name.setText(followers_following.getFollowed().getFirst_name()+" "+
-                        followers_following.getFollowed().getLast_name());
+            if(followers_following != null && followers_following.getFollower() != null){
+                viewHolder.name.setText(followers_following.getFollower().getFirst_name()+" "+
+                        followers_following.getFollower().getLast_name());
 
                 Glide.with(getActivity())
-                        .load(followers_following.getFollowed().getProfile_photo_thumbnail())
+                        .load(followers_following.getFollower().getProfile_photo())
                         .into(viewHolder.foodImage);
             }
 
@@ -121,12 +124,12 @@ public class Followers extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    followers_following.setFollowing(!followers_following.isFollowing());
+                  //  followers_following.setFollowing(!followers_following.isFollowing());
                     notifyDataSetChanged();
                 }
             });
 
-            if(followers_following.isFollowing()){
+        /*    if(followers_following.isFollowing()){
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
                 viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
@@ -137,7 +140,7 @@ public class Followers extends Fragment {
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
                 viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow),null,null,null);
-            }
+            }*/
 
         }
 
@@ -198,6 +201,8 @@ public class Followers extends Fragment {
 
 
     private void fetchFollowers() {
+
+        followersFollowings.clear();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -261,7 +266,7 @@ public class Followers extends Fragment {
                     if(jsonObject.getJSONArray("followers").length()==0){
                         AppConstants.showSnackBar(relMain, "No followers yet.");
                     }else {
-                        Type listType = new TypeToken<ArrayList<Followers_Following>>() {
+                        Type listType = new TypeToken<ArrayList<FollowersModel>>() {
                         }.getType();
                         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -270,6 +275,9 @@ public class Followers extends Fragment {
                         followersFollowings = (gson.fromJson(String.valueOf(jsonObject.getJSONArray("followers")), listType));
 
                     }
+
+                    editor.putString("myFollowers", jsonObject.getJSONArray("followers").toString());
+                    editor.commit();
 
                     customAdapter = new CustomAdapter();
                     mRecyclerView.setAdapter(customAdapter);
@@ -290,7 +298,40 @@ public class Followers extends Fragment {
         }
 
     }
-   
+
+    void setPreviousData(){
+
+        followersFollowings.clear();
+        if(sp.getString("myFollowers","").equals("")){
+
+
+
+        }else{
+            Type listType = new TypeToken<ArrayList<FollowersModel>>() {
+            }.getType();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+
+            Gson gson = gsonBuilder.create();
+            followersFollowings.addAll((ArrayList<FollowersModel>) gson.fromJson(String.valueOf(sp.getString("myFollowers","")), listType));
+
+            customAdapter = new CustomAdapter();
+            mRecyclerView.setAdapter(customAdapter);
+        }
+
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        Gson gson = new Gson();
+        JsonElement element = gson.toJsonTree(followersFollowings, new TypeToken<List<FollowersModel>>() {}.getType());
+
+        JsonArray jsonArray = element.getAsJsonArray();
+        editor.putString("myFollowers", jsonArray.toString());
+        editor.commit();
+    }
 
 }
 

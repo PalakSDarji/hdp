@@ -3,7 +3,7 @@ package com.hadippa.model;
 /**
  * Created by HP on 01-08-2016.
  */
-public class Followers_Following {
+public class FollowingModel {
 
 
     /**
