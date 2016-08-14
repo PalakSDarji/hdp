@@ -88,10 +88,13 @@
                       android:background="@drawable/rounded_small"
                       android:src="@drawable/landing_pages_events" />
       -->
+
                 <RelativeLayout
+                    android:id="@+id/rlFix"
                     android:layout_width="@dimen/card_bottom_drawer"
                     android:layout_height="@dimen/card_bottom_drawer"
-                    android:layout_centerVertical="true"
+                    android:layout_alignBottom="@+id/linearCenter"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="@dimen/logout_padding_vertical"
                     android:layout_marginRight="@dimen/bottom_menu_side_margin"
                     android:layout_toRightOf="@+id/linearCenter"
@@ -106,40 +109,7 @@
                         android:background="@drawable/rounded_small"
                         android:src="@drawable/landing_pages_events"/>
 
-                    <com.getbase.floatingactionbutton.FloatingActionsMenu
-                        android:id="@+id/multiple_actions"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:visibility="gone"
-                        fab:fab_addButtonColorNormal="@color/white"
-                        fab:fab_addButtonColorPressed="@color/white_pressed"
-                        fab:fab_addButtonPlusIconColor="@color/half_black"
-                        fab:fab_addButtonSize="mini"
-                        fab:fab_labelStyle="@style/menu_labels_style"
-                        >
-
-                        <com.getbase.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/action_a"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            fab:fab_colorNormal="@color/white"
-                            fab:fab_colorPressed="@color/white_pressed"
-                            fab:fab_title="Action A"/>
-
-                        <com.getbase.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/action_b"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            fab:fab_colorNormal="@color/white"
-                            fab:fab_colorPressed="@color/white_pressed"
-                            fab:fab_title="Action B"/>
-
-                    </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
-
                 </RelativeLayout>
-
 
             </RelativeLayout>
 

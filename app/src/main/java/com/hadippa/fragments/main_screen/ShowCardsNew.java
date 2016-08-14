@@ -36,6 +36,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -197,6 +198,7 @@ public class ShowCardsNew extends Fragment {
         }
 
         private class ViewHolder {
+            LinearLayout llGoing;
             ImageView imageView, coverImage;
             TextView tvGoing, tvName_Age, tvDistance,
                     tvActivityName, tvActivtyTime, tvActivtyDate, tvAddress, tvCount;
@@ -213,6 +215,7 @@ public class ShowCardsNew extends Fragment {
                 convertView = inflater.inflate(R.layout.item, parent, false);
                 // configure view holder
                 viewHolder = new ViewHolder();
+                viewHolder.llGoing = (LinearLayout) convertView.findViewById(R.id.llGoing);
                 viewHolder.tvGoing = (TextView) convertView.findViewById(R.id.tvGoing);
                 viewHolder.tvName_Age = (TextView) convertView.findViewById(R.id.tvName_Age);
                 viewHolder.tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
@@ -243,12 +246,12 @@ public class ShowCardsNew extends Fragment {
             Glide.with(context)
                     .load(dataModel.getUser().getProfile_photo())
                     .into(viewHolder.coverImage);
-            viewHolder.tvGoing.setOnClickListener(new View.OnClickListener() {
+
+            viewHolder.llGoing.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     showTwoWayGrid();
-                    //showDialog(Gravity.BOTTOM,true,false,false);
                 }
             });
             //viewHolder.DataText.setText(parkingList.get(position).getDescription() + "");
@@ -413,7 +416,7 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
+        //multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
 
 
         namesArray.add("Sahil");
@@ -462,7 +465,7 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
+       // multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
 
         return view;
     }
@@ -521,8 +524,8 @@ public class ShowCardsNew extends Fragment {
 
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
 
-        TextView vMyPlan = (TextView) dialog1.findViewById(R.id.vMyPlan);
-        vMyPlan.setOnClickListener(new View.OnClickListener() {
+        RelativeLayout rlMyPlan = (RelativeLayout) dialog1.findViewById(R.id.rlMyPlan);
+        rlMyPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
@@ -533,8 +536,8 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        TextView vfollowling = (TextView) dialog1.findViewById(R.id.vfollowling);
-        vfollowling.setOnClickListener(new View.OnClickListener() {
+        RelativeLayout rlFollowling = (RelativeLayout) dialog1.findViewById(R.id.rlFollowling);
+        rlFollowling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
@@ -545,8 +548,8 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        TextView vToday = (TextView) dialog1.findViewById(R.id.vToday);
-        vToday.setOnClickListener(new View.OnClickListener() {
+        RelativeLayout rlToday = (RelativeLayout) dialog1.findViewById(R.id.rlToday);
+        rlToday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
@@ -557,8 +560,8 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        TextView vNearby = (TextView) dialog1.findViewById(R.id.vNearby);
-        vNearby.setOnClickListener(new View.OnClickListener() {
+        RelativeLayout rlNearby = (RelativeLayout) dialog1.findViewById(R.id.rlNearby);
+        rlNearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
@@ -569,8 +572,8 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        TextView vClose = (TextView) dialog1.findViewById(R.id.vClose);
-        vClose.setOnClickListener(new View.OnClickListener() {
+        RelativeLayout rlClose = (RelativeLayout) dialog1.findViewById(R.id.rlClose);
+        rlClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();

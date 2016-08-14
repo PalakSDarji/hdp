@@ -22,7 +22,7 @@
     <dimen name="connect_with_facebook_padding_top">16dp</dimen>
     <dimen name="forgot_pass_textsize">13dp</dimen>
 
-    <dimen name="slidingpanel_height">200dp</dimen>
+    <dimen name="slidingpanel_height">250dp</dimen>
     <!-- Sign Up -->
     <dimen name="signup_edittext_margin_bottom">23dp</dimen>
     <dimen name="signup_cam_bottom_margin">20dp</dimen>
@@ -130,4 +130,6 @@
     <dimen name="value_150">200dp</dimen>
     <dimen name="values_txt_12">14sp</dimen>
     <dimen name="value_10">10dp</dimen>
+    <dimen name="values_50">50dp</dimen>
+    <dimen name="values_10">10dp</dimen>
 </resources>

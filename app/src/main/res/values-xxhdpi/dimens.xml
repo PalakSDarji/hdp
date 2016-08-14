@@ -64,7 +64,7 @@
     <dimen name="tab_search_padding_vertical">8dp</dimen>
     <dimen name="tab_search_text_width">122dp</dimen>
 
-    <dimen name="slidingpanel_height">210dp</dimen>
+    <dimen name="slidingpanel_height">220dp</dimen>
     <!--Show Card Fragment-->
     <dimen name="card_padding_top">10dp</dimen>
     <dimen name="card_padding_side">14dp</dimen>
@@ -127,4 +127,6 @@
     <dimen name="value_150">200dp</dimen>
     <dimen name="values_txt_12">13sp</dimen>
     <dimen name="value_10">10dp</dimen>
+    <dimen name="values_50">50dp</dimen>
+    <dimen name="values_10">10dp</dimen>
 </resources>

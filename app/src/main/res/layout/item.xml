@@ -213,13 +213,12 @@
 
                     </LinearLayout>
 
-
-
                     <LinearLayout
                         android:id="@+id/llGoing"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:clickable="true"
                         android:layout_weight="1">
 
                         <ImageView
