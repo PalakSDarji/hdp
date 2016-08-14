@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="7.5dp"
+            android:src="@drawable/ic_back"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivPostHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/post_header"
+        android:layout_below="@+id/top"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+
+    <ImageView
+        android:id="@+id/ivGlass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/glass"
+        android:layout_below="@+id/ivPostHeader"/>
+
+    <ImageView
+        android:id="@+id/ivTravel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/travel"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
+        android:layout_toLeftOf="@+id/ivGlass"
+        android:layout_below="@+id/ivPostHeader"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Travel"
+        android:gravity="center_horizontal"
+        android:layout_alignRight="@+id/ivTravel"
+        android:textSize="@dimen/values_txt_12"
+        android:layout_alignLeft="@+id/ivTravel"
+        android:layout_below="@+id/ivTravel"/>
+
+    <ImageView
+        android:id="@+id/ivPlusBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/plus_blue"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/ivGlass"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Activity"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ivPlusBlue"/>
+
+
+    <ImageView
+        android:id="@+id/ivEntertainment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/entertainment"
+        android:layout_toRightOf="@+id/ivGlass"
+        android:layout_below="@+id/ivPostHeader"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entertainment"
+        android:textSize="@dimen/values_txt_12"
+        android:gravity="center_horizontal"
+        android:layout_alignRight="@+id/ivEntertainment"
+        android:layout_alignLeft="@+id/ivEntertainment"
+        android:layout_below="@+id/ivTravel"/>
+
+</RelativeLayout>

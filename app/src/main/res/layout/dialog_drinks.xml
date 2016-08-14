@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#9b000000"
+                android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivNightLife"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivGlass"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/glass"/>
+
+    <TextView
+        android:id="@+id/tvNightLife"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivNightLife"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="Nightlife"
+        android:textColor="#fff"
+        android:textSize="@dimen/values_txt_12"/>
+
+    <LinearLayout
+        android:id="@+id/llLoungeParty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ivNightLife"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <LinearLayout
+            android:id="@+id/llLounge"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivLounge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvLounge"
+                android:src="@drawable/nightlife_lounge"/>
+
+            <TextView
+                android:id="@+id/tvLounge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/value_10"
+                android:text="Lounge"
+                android:textColor="#fff"
+                android:textSize="@dimen/values_txt_12"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llParty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/party_nughtclub"/>
+
+            <TextView
+                android:id="@+id/tvParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/value_10"
+                android:text="Party"
+                android:textColor="#fff"
+                android:textSize="@dimen/values_txt_12"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivNightClub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/tvNightClub"
+        android:src="@drawable/nightlife_nughtclub"
+        android:layout_above="@+id/tvNightClub"/>
+
+    <TextView
+        android:id="@+id/tvNightClub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nightclub"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/values_txt_12"
+        android:layout_toLeftOf="@+id/llLoungeParty"
+        android:layout_alignTop="@+id/ivNightLife"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/card_bottom_drawer"
+        android:textColor="#fff"/>
+
+
+    <ImageView
+        android:id="@+id/ivStandup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvStandup"
+        android:src="@drawable/nightclun_standupcomedy"
+        android:layout_above="@+id/tvStandup"/>
+
+    <TextView
+        android:id="@+id/tvStandup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Standup Comedy"
+        android:textSize="@dimen/values_txt_12"
+        android:layout_toRightOf="@+id/llLoungeParty"
+        android:layout_alignTop="@+id/ivNightLife"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/card_bottom_drawer"
+        android:textColor="#fff"/>
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_close"
+        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
+        android:layout_below="@+id/tvNightLife"/>
+
+</RelativeLayout>

@@ -103,7 +103,6 @@
             android:name=".activities.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
-
         <activity
             android:name=".activities.CategoryTab"
             android:label="@string/title_activity_category_tab"
@@ -111,13 +110,18 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activities.MyPlan"/>
-        <!--<activity android:name=".activities.SampleActivity">
+        <!--
+        <activity android:name=".activities.SampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>-->
+        </activity>
+        -->
+
+        <activity android:name=".activities.PostActivity">
+        </activity>
     </application>
 
 </manifest>

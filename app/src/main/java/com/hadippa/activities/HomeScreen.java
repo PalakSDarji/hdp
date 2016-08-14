@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -87,6 +88,14 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             }
         });
 
+        findViewById(R.id.tvPost).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this,PostActivity.class);
+                Log.v("Post: "," intent called");
+                startActivity(intent);
+            }
+        });
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         leftDrawer = (LinearLayout) findViewById(R.id.leftDrawer);
         tvUserName = (TextView) findViewById(R.id.tvUserName);

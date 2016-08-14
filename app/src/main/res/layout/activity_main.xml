@@ -112,9 +112,9 @@
         android:id="@+id/leftDrawer"
         android:layout_width="@dimen/home_drawer_item_width"
         android:layout_height="match_parent"
+        android:layout_gravity="start"
         android:background="@color/white"
         android:clickable="true"
-        android:layout_gravity="start"
         android:orientation="vertical"
         >
 
@@ -177,6 +177,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvPost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/home_drawer_title1_margin_bottom"
@@ -192,7 +193,6 @@
                     android:text="@string/post"
                     android:textColor="@color/pink_text"
                     android:textSize="@dimen/home_drawer_sub_textsize"/>
-
 
                 <View
                     android:layout_width="match_parent"
