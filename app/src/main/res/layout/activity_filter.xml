@@ -1,432 +1,383 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    tools:context="com.hadippa.activities.FilterActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.hadippa.activities.FilterActivity">
 
     <RelativeLayout
-        android:background="#ffffff"
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:padding="10dp">
 
         <ImageView
-            android:layout_centerVertical="true"
             android:id="@+id/imageBack"
             android:layout_width="wrap_content"
-            android:padding="7.5dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back" />
-
+            android:layout_centerVertical="true"
+            android:padding="7.5dp"
+            android:src="@drawable/ic_back"/>
 
         <TextView
-
-            android:drawablePadding="5dp"
-            android:textColor="@color/title_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/choose_activity"
-            android:drawableRight="@drawable/ic_info"
             android:layout_centerInParent="true"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_info"
+            android:text="@string/choose_activity"
+            android:textColor="@color/title_light"
             android:textStyle="bold"/>
-
 
     </RelativeLayout>
 
-
     <LinearLayout
-        android:layout_below="@+id/top"
-        android:background="@color/white"
-        android:id="@+id/linear_filter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="17.5dp">
-
-        <LinearLayout
-            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/tvMovie"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-               android:layout_width="0dp"
-                android:layout_weight="20"
-                android:layout_height="wrap_content"
-                android:text="@string/movie"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_entertainment"/>
-
-            <TextView
-                android:id="@+id/tvTheatrePlay"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-               android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="31"
-                android:layout_height="wrap_content"
-                android:text="@string/theatre_play"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_entertainment"/>
-
-            <TextView
-                android:id="@+id/tvEvent"
-                android:layout_marginRight="10dp"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="19"                android:layout_height="wrap_content"
-                android:text="@string/event"
-                android:gravity="center"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_entertainment"/>
-
-            <TextView
-                android:id="@+id/tvFestival"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_weight="24"
-                android:layout_height="wrap_content"
-                android:text="@string/festival"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_entertainment"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/tvNightClub"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="24"
-                android:layout_height="wrap_content"
-                android:text="@string/night_club"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_hotel"/>
-
-            <TextView
-                android:id="@+id/tvLongue"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"    android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="19"
-                android:layout_height="wrap_content"
-                android:text="@string/lounge"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_hotel"/>
-
-
-
-            <TextView
-                android:id="@+id/tvParty"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-            android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-            android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-            android:layout_width="0dp"
-            android:layout_weight="16"
-            android:layout_height="wrap_content"
-            android:text="@string/party"
-            android:textSize="@dimen/pref_card_sub_title_size"
-            android:textColor="@color/filter_text"
-            android:background="@drawable/rounded_hotel"/>
-
-            <TextView
-                android:id="@+id/tvStandUpComedy"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="35"
-                android:layout_height="wrap_content"
-                android:text="@string/standup_comedy"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_hotel"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/tvCoffee"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="21"
-                android:layout_height="wrap_content"
-                android:text="@string/coffee"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_coffee"/>
-
-            <TextView
-                android:id="@+id/tvAirplane"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="33"
-                android:layout_height="wrap_content"
-                android:text="@string/airplane"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_transport"/>
-
-
-
-            <TextView
-                android:id="@+id/tvCar"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="16"
-                android:layout_height="wrap_content"
-                android:text="@string/car"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_transport"/>
-
-            <TextView
-                android:id="@+id/tvTrain"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="24"
-                android:layout_height="wrap_content"
-                android:text="@string/train"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_transport"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/tvBus"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="13"
-                android:layout_height="wrap_content"
-                android:text="@string/bus"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_transport"/>
-
-            <TextView
-                android:id="@+id/tvAdventure"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="24"
-                android:layout_height="wrap_content"
-                android:text="@string/adventure"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_sports"/>
-
-
-
-
-            <TextView
-                android:id="@+id/tvIndoor"
-                android:layout_marginRight="5dp"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="27"
-                android:layout_height="wrap_content"
-                android:text="@string/indoor_sports"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_sports"/>
-
-            <TextView
-                android:id="@+id/tvOutdoor"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="30"
-                android:layout_height="wrap_content"
-                android:text="@string/outdoor_sports"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_sports"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginBottom="@dimen/tab_search_padding_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="100">
-
-        
-
-            <TextView
-                android:id="@+id/tvHobby"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="30"
-                android:layout_height="wrap_content"
-                android:text="@string/hobby_class"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_hobby"/>
-
-
-
-
-            <TextView
-                android:id="@+id/tvOtherActivity"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"   android:layout_marginRight="5dp"
-                android:gravity="center"
-                android:paddingTop="@dimen/filter_first_line_textview_padding_vertical"
-                android:paddingBottom="@dimen/filter_first_line_textview_padding_vertical"
-                android:layout_width="0dp"
-                android:layout_weight="35"
-                android:layout_height="wrap_content"
-                android:text="@string/other_activity"
-                android:textSize="@dimen/pref_card_sub_title_size"
-                android:textColor="@color/filter_text"
-                android:background="@drawable/rounded_other"/>
-
-        
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_marginBottom="7dp"
-        android:layout_below="@+id/linear_filter"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:background="@android:color/white"
         android:orientation="vertical"
-        >
+        android:weightSum="10">
 
-        <View
-            android:id="@+id/sep"
-            android:layout_marginBottom="@dimen/filter_seperator_margin"
+        <ScrollView
+            android:id="@+id/sc_linear_filter"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/filter_seperator"></View>
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/value_12"
+            android:layout_weight="4"
+            android:background="@android:color/white">
 
-        <TextView
+            <LinearLayout
+                android:id="@+id/linear_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            android:layout_below="@+id/sep"
-            android:id="@+id/choo"
-            android:drawablePadding="5dp"
-            android:textColor="@color/title_light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_date"
-            android:textSize="@dimen/signup_button_padding_vertical"
-            android:layout_marginBottom="@dimen/filter_seperator_margin"
-            android:drawableRight="@drawable/ic_info"
-android:layout_centerHorizontal="true"
-            android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/tvMovie"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20"
+                        style="@style/activity_name"
+                        android:background="@drawable/rounded_entertainment"
+                        android:text="@string/movie"
+                        android:textColor="@color/filter_text"/>
+
+                    <TextView
+                        android:id="@+id/tvTheatrePlay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="31"
+                        android:background="@drawable/rounded_entertainment"
+                        style="@style/activity_name"
+                        android:text="@string/theatre_play"
+                        android:textColor="@color/filter_text"/>
+
+                    <TextView
+                        android:id="@+id/tvEvent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="19"
+                        android:background="@drawable/rounded_entertainment"
+                        style="@style/activity_name"
+                        android:text="@string/event"
+                        android:textColor="@color/filter_text"/>
+
+                    <TextView
+                        android:id="@+id/tvFestival"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="24"
+                        android:background="@drawable/rounded_entertainment"
+                        style="@style/activity_name"
+                        android:text="@string/festival"
+                        android:textColor="@color/filter_text"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/tvNightClub"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="24"
+                        android:background="@drawable/rounded_hotel"
+                        style="@style/activity_name"
+                        android:text="@string/night_club"
+                        android:textColor="@color/filter_text"/>
+
+                    <TextView
+                        android:id="@+id/tvLongue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="19"
+                        android:background="@drawable/rounded_hotel"
+                        style="@style/activity_name"
+                        android:text="@string/lounge"
+                        android:textColor="@color/filter_text"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvParty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="16"
+                        android:background="@drawable/rounded_hotel"
+                        style="@style/activity_name"
+                        android:text="@string/party"
+                        android:textColor="@color/filter_text"/>
+
+                    <TextView
+                        android:id="@+id/tvStandUpComedy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        android:background="@drawable/rounded_hotel"
+                        style="@style/activity_name"
+                        android:text="@string/standup_comedy"
+                        android:textColor="@color/filter_text"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/tvCoffee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="21"
+                        android:background="@drawable/rounded_coffee"
+                        style="@style/activity_name"
+                        android:text="@string/coffee"
+                        android:textColor="@color/filter_text"/>
+
+                    <TextView
+                        android:id="@+id/tvAirplane"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="33"
+                        android:background="@drawable/rounded_transport"
+                        style="@style/activity_name"
+                        android:text="@string/airplane"
+                        android:textColor="@color/filter_text"/>
+
+                    <TextView
+                        android:id="@+id/tvCar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="16"
+                        android:background="@drawable/rounded_transport"
+                        style="@style/activity_name"
+                        android:text="@string/car"
+                        android:textColor="@color/filter_text"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvTrain"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="24"
+                        android:background="@drawable/rounded_transport"
+                        style="@style/activity_name"
+                        android:text="@string/train"
+                        android:textColor="@color/filter_text"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/tvBus"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="13"
+                        android:background="@drawable/rounded_transport"
+                        style="@style/activity_name"
+                        android:text="@string/bus"
+                        android:textColor="@color/filter_text"/>
+
+                    <TextView
+                        android:id="@+id/tvAdventure"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="24"
+                        android:background="@drawable/rounded_sports"
+                        style="@style/activity_name"
+                        android:text="@string/adventure"
+                        android:textColor="@color/filter_text"/>
+
+                    <TextView
+                        android:id="@+id/tvIndoor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="35"
+                        android:background="@drawable/rounded_sports"
+                        style="@style/activity_name"
+                        android:text="@string/indoor_sports"
+                        android:textColor="@color/filter_text"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/tvOutdoor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        android:background="@drawable/rounded_sports"
+                        style="@style/activity_name"
+                        android:text="@string/outdoor_sports"
+                        android:textColor="@color/filter_text"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvHobby"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="30"
+                        android:background="@drawable/rounded_hobby"
+                        style="@style/activity_name"
+                        android:text="@string/hobby_class"
+                        android:textColor="@color/filter_text"/>
+
+
+                    <TextView
+                        android:id="@+id/tvOtherActivity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="35"
+                        android:background="@drawable/rounded_other"
+                        style="@style/activity_name"
+                        android:text="@string/other_activity"
+                        android:textColor="@color/filter_text"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <!-- <org.apmem.tools.layouts.FlowLayout
+                 android:id="@+id/flow_layout"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 >
+             </org.apmem.tools.layouts.FlowLayout>-->
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/sc_linear_filter"
+            android:layout_marginBottom="7dp"
+            android:layout_weight="6"
+            android:background="@color/white"
+            android:orientation="vertical"
+            >
+
+            <View
+                android:id="@+id/sep"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/filter_seperator_margin"
+                android:background="@color/filter_seperator"></View>
+
+            <TextView
+
+                android:id="@+id/choo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sep"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/filter_seperator_margin"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_info"
+                android:text="@string/choose_date"
+                android:textColor="@color/title_light"
+                android:textSize="@dimen/signup_button_padding_vertical"
+                android:textStyle="bold"/>
 
             <android.support.v7.widget.RecyclerView
-                android:layout_below="@+id/choo"
                 android:id="@+id/dateList"
-                android:layout_above="@+id/l"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_above="@+id/l"
+                android:layout_below="@+id/choo"
                 ></android.support.v7.widget.RecyclerView>
 
 
-
-        <LinearLayout
-            android:layout_marginTop="7dp"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/l"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvDone"
-                android:layout_centerHorizontal="true"
-                android:paddingTop="@dimen/card_title_textsize"
-                android:paddingBottom="@dimen/card_title_textsize"
-                android:background="@drawable/rounded_done"
-                android:textSize="@dimen/pref_card_title_size"
-                android:textStyle="bold"
-                android:paddingRight="@dimen/home_drawer_title1_padding_horizontal"
-                android:paddingLeft="@dimen/home_drawer_title1_padding_horizontal"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/l"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="7dp"
                 android:gravity="center"
-                android:text="@string/done"/>
-        </LinearLayout>
+                android:orientation="horizontal">
 
-
-
-
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/tvDone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/rounded_done"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/card_padding_side"
+                    android:paddingLeft="@dimen/home_drawer_profile_image_margin_top"
+                    android:paddingRight="@dimen/home_drawer_profile_image_margin_top"
+                    android:paddingTop="@dimen/card_padding_side"
+                    android:text="@string/done"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/pref_card_title_size"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

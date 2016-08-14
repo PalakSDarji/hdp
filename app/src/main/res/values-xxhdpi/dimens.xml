@@ -124,4 +124,7 @@
     <dimen name="value_20">20dp</dimen>
 
 
+    <dimen name="value_150">200dp</dimen>
+    <dimen name="values_txt_12">13sp</dimen>
+    <dimen name="value_10">10dp</dimen>
 </resources>

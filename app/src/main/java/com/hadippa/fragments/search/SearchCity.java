@@ -72,10 +72,13 @@ public class SearchCity extends Fragment {
     }
 
 
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.follownew, container, false);
+        return null;
+        //TODO commented by palak
+        //return inflater.inflate(R.layout.follownew, container, false);
 
 /*
         View view = inflater.inflate(R.layout.follownew, container, false);
@@ -113,9 +116,10 @@ public class SearchCity extends Fragment {
         sp = PreferenceManager.getDefaultSharedPreferences(getContext());
         editor = sp.edit();
 
-        ((TextView)getView().findViewById(R.id.tvSample)).setText("OK");
+        //TODO commented by palak
+        /*((TextView)getView().findViewById(R.id.tvSample)).setText("OK");
 
-        progressBar = (ProgressBar)getView().findViewById(R.id.tempProgress);
+        progressBar = (ProgressBar)getView().findViewById(R.id.tempProgress);*/
 
         mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
         relMain = (RelativeLayout) getView().findViewById(R.id.relMain);

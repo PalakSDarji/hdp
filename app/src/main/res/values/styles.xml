@@ -102,6 +102,13 @@
         <item name="android:windowExitAnimation">@anim/fadeout</item>
     </style>
 
+    <style name="activity_name">
+        <item name="android:textSize">@dimen/values_txt_12</item>
+        <item name="android:paddingTop">@dimen/filter_first_line_textview_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/filter_first_line_textview_padding_vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
     </style>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="@drawable/bg_tag_border"
+        android:gravity="center"
+        android:paddingTop="@dimen/value_10"
+        android:paddingLeft="@dimen/value_12"
+        android:paddingRight="@dimen/value_12"
+        android:paddingBottom="@dimen/value_10"
+        android:text="@string/theatre_play"
+        android:textColor="@color/filter_text"
+        android:textSize="@dimen/value_12"/>
+
+
+</LinearLayout>

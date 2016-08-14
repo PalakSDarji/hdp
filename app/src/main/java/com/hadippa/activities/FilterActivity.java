@@ -16,16 +16,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.FacebookRequestError;
 import com.hadippa.R;
+import com.hadippa.model.FilterModel;
+
+import org.apmem.tools.layouts.FlowLayout;
+
+import java.util.ArrayList;
 
 public class FilterActivity extends AppCompatActivity implements View.OnClickListener
         ,View.OnLongClickListener   {
 
     TextView tvMovie, tvTheatrePlay, tvEvent, tvFestival, tvNightClub,
             tvLongue, tvParty, tvStandUpComedy, tvCoffee, tvAirplane, tvCar, tvTrain, tvBus, tvAdventure, tvIndoor, tvOutdoor, tvHobby, tvOtherActivity;
-
+    FlowLayout flow_layout;
+    ArrayList<FilterModel> filters = new ArrayList<>();
     CustomAdapter customAdapter = new CustomAdapter();
     RecyclerView dateList;
+    LayoutInflater inflater;
 
     ImageView imageBack;
 
@@ -34,7 +42,9 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
+        inflater = getLayoutInflater();
         dateList = (RecyclerView) findViewById(R.id.dateList);
+        //flow_layout = (FlowLayout) findViewById(R.id.flow_layout);
 
         imageBack = (ImageView)findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +99,57 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         tvHobby.setOnClickListener(this);
         tvOtherActivity = (TextView) findViewById(R.id.tvOtherActivity);
         tvOtherActivity.setOnClickListener(this);
+
+        // TODO This code is to make activity list dynamic. Not needed now, but in case in future.
+        /*filters.add(new FilterModel("Movie",R.color.pink,false));
+        filters.add(new FilterModel("Theatre Play",R.color.pink,false));
+        filters.add(new FilterModel("Event",R.color.pink,false));
+        filters.add(new FilterModel("Festival",R.color.pink,false));
+        filters.add(new FilterModel("Nightclub", R.color.pink, false));
+        filters.add(new FilterModel("Lounge",R.color.pink,false));
+        filters.add(new FilterModel("Party",R.color.pink,false));
+        filters.add(new FilterModel("Standup Comedy",R.color.pink,false));
+        filters.add(new FilterModel("Coffee",R.color.pink,false));
+        filters.add(new FilterModel("Airplane",R.color.green,false));
+        filters.add(new FilterModel("Car",R.color.green,false));
+        filters.add(new FilterModel("Train",R.color.green,false));
+        filters.add(new FilterModel("Bus",R.color.green,false));
+        filters.add(new FilterModel("Adventure",R.color.dark_green,false));
+        filters.add(new FilterModel("Indoor Sports",R.color.dark_green,false));
+        filters.add(new FilterModel("Outdoor Sports",R.color.dark_green,false));
+        filters.add(new FilterModel("Hobby Class",R.color.blue,false));
+        filters.add(new FilterModel("Add Activity",R.color.purple,false));
+
+        try{
+            if(filters != null){
+                flow_layout.removeAllViews();
+                for (final FilterModel filter : filters) {
+
+                    if(filter != null){
+                        final LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.filter_tag, null);
+                        final TextView textView = ((TextView) ll.findViewById(R.id.tvFilter));
+                        textView.setText(filter.getFilterName());
+
+                        textView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                FilterModel filterModel = (FilterModel) v.getTag();
+                                filterModel.setChecked(!filterModel.isChecked());
+
+                                textView.setSelected(filterModel.isChecked());
+                            }
+                        });
+
+                        textView.setTag(filter);
+                        flow_layout.addView(ll);
+                    }
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }*/
 
     }
 

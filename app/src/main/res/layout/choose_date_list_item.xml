@@ -38,15 +38,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:textSize="@dimen/home_drawer_title1_drawable_padding"
+                android:textSize="@dimen/values_txt_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="June"/>
 
             <TextView
-                android:textSize="@dimen/home_drawer_title1_drawable_padding"
+                android:textSize="@dimen/values_txt_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="Mon"/>
 
 

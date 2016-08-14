@@ -16,5 +16,6 @@
     <dimen name="keyline_1_minus_8dp">8dp</dimen>
     <dimen name="coordinator_layout_offset">12dp</dimen>
 
+    <dimen name="value_150">150dp</dimen>
 
 </resources>
