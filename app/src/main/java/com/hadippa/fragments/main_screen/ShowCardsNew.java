@@ -251,7 +251,9 @@ public class ShowCardsNew extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    showTwoWayGrid();
+                    myAppAdapter.getItem(position);
+
+                    showTwoWayGrid(posts.get(position));
                 }
             });
             //viewHolder.DataText.setText(parkingList.get(position).getDescription() + "");
@@ -419,43 +421,6 @@ public class ShowCardsNew extends Fragment {
         //multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
 
 
-        namesArray.add("Sahil");
-        namesArray.add("Kartik");
-        namesArray.add("Nilam");
-        namesArray.add("Jaimin");
-        namesArray.add("Jay");
-        namesArray.add("Krunal");
-        namesArray.add("AliAkbar");
-        namesArray.add("Jabir");
-
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar3));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar2));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar1));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar4));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar5));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar2));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar4));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar3));
-
-        namesArray.add("Sahil");
-        namesArray.add("Kartik");
-        namesArray.add("Nilam");
-        namesArray.add("Jaimin");
-        namesArray.add("Jay");
-        namesArray.add("Krunal");
-        namesArray.add("AliAkbar");
-        namesArray.add("Jabir");
-
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar3));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar2));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar1));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar4));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar5));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar2));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar4));
-        drawables.add(getResources().getDrawable(R.drawable.ic_avatar3));
-
-
         imageOptions = (ImageButton) view.findViewById(R.id.imageOptions);
 
         imageOptions.setOnClickListener(new View.OnClickListener() {
@@ -582,12 +547,13 @@ public class ShowCardsNew extends Fragment {
         dialog1.show();
     }
 
-    private void showTwoWayGrid() {
+    private void showTwoWayGrid(DataModel dataModel) {
 
 
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         horizontal_recycler_view.setLayoutManager(horizontalLayoutManagaer);
 
+        dataModel.getPeople_going();
         //Sample arraylist..
         List<DoublePeople> doublePeoples = new ArrayList<>();
         doublePeoples.add(new DoublePeople(new People("palak", ""), new People("darji", "")));
@@ -597,69 +563,7 @@ public class ShowCardsNew extends Fragment {
         HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples);
         horizontal_recycler_view.setAdapter(adapter);
 
-        /*mImageGrid.setOnItemClickListener(new com.hadippa.twowaygrid.TwoWayAbsListView.OnItemClickListener() {
-            @Override
-            public void onItemClick(TwoWayAdapterView<?> parent, View view, int position, long id) {
-                TextView textView = (TextView) view.findViewById(R.id.text_view);
-                String clickedAppName = textView.getText().toString();
-            }
-        });*/
 
-        OnClickListener clickListener = new OnClickListener() {
-            @Override
-            public void onClick(DialogPlus dialog, View view) {
-
-            }
-        };
-
-        OnItemClickListener itemClickListener = new OnItemClickListener() {
-            @Override
-            public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
-                TextView textView = (TextView) view.findViewById(R.id.text_view);
-                String clickedAppName = textView.getText().toString();
-
-            }
-        };
-
-        OnDismissListener dismissListener = new OnDismissListener() {
-            @Override
-            public void onDismiss(DialogPlus dialog) {
-                //        Toast.makeText(MainActivity.this, "dismiss listener invoked!", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        OnCancelListener cancelListener = new OnCancelListener() {
-            @Override
-            public void onCancel(DialogPlus dialog) {
-                //        Toast.makeText(MainActivity.this, "cancel listener invoked!", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        /*dialog = DialogPlus.newDialog(getActivity())
-                .setHeader(view)
-                        //  .setFooter(footer)
-
-                .setCancelable(true)
-                .setCanExpand(false)
-                .setGravity(Gravity.BOTTOM)
-                .setOnItemClickListener(new OnItemClickListener() {
-                    @Override public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
-                        Log.d("DialogPlus", "onItemClick() called with: " + "item = [" +
-                                item + "], position = [" + position + "]");
-                    }
-                })
-                .setOnDismissListener(dismissListener)
-                .setOnCancelListener(cancelListener)
-                .setOnBackPressListener(new OnBackPressListener() {
-                    @Override
-                    public void onBackPressed(DialogPlus dialogPlus) {
-                        dialogPlus.dismiss();
-                    }
-                })
-                .setExpanded(true)
-
-                .create();
-        dialog.show();*/
         adapter.notifyDataSetChanged();
 
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
