@@ -88,11 +88,18 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             }
         });
 
+        findViewById(R.id.linearProfile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
         findViewById(R.id.tvPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeScreen.this,PostActivity.class);
-                Log.v("Post: "," intent called");
                 startActivity(intent);
             }
         });

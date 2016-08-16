@@ -142,6 +142,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/purple"
                     android:gravity="center_horizontal"
+                    android:clickable="true"
                     android:orientation="vertical"
                     android:visibility="visible">
 

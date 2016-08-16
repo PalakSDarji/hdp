@@ -128,5 +128,11 @@
     <dimen name="value_10">10dp</dimen>
     <dimen name="values_50">50dp</dimen>
     <dimen name="values_10">10dp</dimen>
+    <dimen name="values_txt_16">16sp</dimen>
+    <dimen name="values_120">120dp</dimen>
+    <dimen name="values_115">115dp</dimen>
+    <dimen name="values_130">130dp</dimen>
+    <dimen name="values_30">30dp</dimen>
+    <dimen name="value_txt_9">9sp</dimen>
 
 </resources>

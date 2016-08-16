@@ -50,8 +50,10 @@ dependencies {
     compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
     compile 'com.klinkerapps:peekview:1.2.2'
     compile 'org.apmem.tools:layouts:1.10@aar'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha5'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 

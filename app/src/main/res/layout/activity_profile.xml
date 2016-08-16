@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_profile"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.hadippa.activities.ProfileActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="7.5dp"
+            android:src="@drawable/ic_back"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/imageBack"
+            android:text="Sania Singh, 25"
+            android:textColor="#2e2e2e"
+            android:textSize="@dimen/values_txt_16"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/ivMore"
+            android:layout_width="@dimen/card_bottom_drawer_radius"
+            android:layout_height="@dimen/card_bottom_drawer_radius"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_more_vert_black_18dp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/top"
+        android:background="#efefef"/>
+
+    <RelativeLayout
+        android:id="@+id/rlProfilePic"
+        android:layout_width="@dimen/values_130"
+        android:layout_height="@dimen/values_130"
+        android:layout_below="@+id/view1"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/ivProfilePic"
+            android:layout_width="@dimen/values_115"
+            android:layout_height="@dimen/values_115"
+            android:layout_centerInParent="true"
+            android:background="@drawable/profile_pic_shape"
+            android:padding="5dp"/>
+
+        <ImageView
+            android:id="@+id/ivEditPic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:src="@drawable/ic_edit_button"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view1"
+        android:layout_marginTop="14dp"
+        android:layout_toLeftOf="@+id/ivEdit"
+        android:layout_toRightOf="@+id/rlProfilePic"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Interior Designer"
+        android:textColor="@color/bel_grey_text"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/ivEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvName"
+        android:layout_marginRight="14dp"
+        android:clickable="true"
+        android:src="@drawable/ic_edit"/>
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_marginTop="14dp"
+        android:layout_toLeftOf="@+id/ivEdit"
+        android:layout_toRightOf="@+id/rlProfilePic"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Sky Height Company"
+        android:textColor="@color/bel_grey_text"/>
+
+    <TextView
+        android:id="@+id/tvCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAddress"
+        android:layout_marginTop="14dp"
+        android:layout_toLeftOf="@+id/ivEdit"
+        android:layout_toRightOf="@+id/rlProfilePic"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Mumbai"
+        android:textColor="@color/bel_grey_text"/>
+
+    <TextView
+        android:id="@+id/tvCitySub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCity"
+        android:layout_marginTop="14dp"
+        android:layout_toLeftOf="@+id/ivEdit"
+        android:layout_toRightOf="@+id/rlProfilePic"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Libra"
+        android:textColor="@color/bel_grey_text"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlProfilePic">
+
+        <LinearLayout
+            android:id="@+id/llCounters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvActivityVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="10"
+                    android:textColor="@color/bel_grey_text"
+                    android:textSize="@dimen/values_txt_16"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvActivityVal"
+                    android:layout_centerHorizontal="true"
+                    android:text="Activity"
+                    android:textColor="@color/bel_grey_text"
+                    android:textSize="@dimen/or_text_size"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/llAppr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/values_txt_12"
+                        android:layout_height="@dimen/values_txt_12"
+                        android:src="@drawable/ic_approaching"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvApproachingVal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="100"
+                        android:textColor="@color/bel_grey_text"
+                        android:textSize="@dimen/values_txt_16"
+                        android:textStyle="bold"/>
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvApproaching"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llAppr"
+                    android:layout_centerHorizontal="true"
+                    android:text="Approaching"
+                    android:textColor="@color/bel_grey_text"
+                    android:textSize="@dimen/or_text_size"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/llAppr2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/values_txt_12"
+                        android:layout_height="@dimen/values_txt_12"
+                        android:src="@drawable/ic_aproached_by"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvApproaching2Val"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="100"
+                        android:textColor="@color/bel_grey_text"
+                        android:textSize="@dimen/values_txt_16"
+                        android:textStyle="bold"/>
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvApproaching2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llAppr2"
+                    android:layout_centerHorizontal="true"
+                    android:text="Approached by"
+                    android:textColor="@color/bel_grey_text"
+                    android:textSize="@dimen/or_text_size"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/llCounters"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="#efefef"/>
+
+        <TextView
+            android:id="@+id/tvYourBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view2"
+            android:layout_marginLeft="14dp"
+            android:text="Your Board"
+            android:textColor="@color/bel_grey_text"
+            android:textSize="@dimen/value_12"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvYourBoard"
+            android:layout_margin="14dp">
+
+            <ImageView
+                android:id="@+id/ivProfilePic1"
+                android:layout_width="@dimen/values_30"
+                android:layout_height="@dimen/values_30"
+                android:background="@drawable/profile_pic_shape"
+                android:padding="5dp"/>
+
+            <TextView
+                android:id="@+id/tvBoardMemberName1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@+id/ivProfilePic1"
+                android:text="Surabhi Mishra,"
+                android:textColor="@color/bel_grey_text"
+                android:textSize="@dimen/value_12"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvBoardMemberDate1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tvBoardMemberName1"
+                android:text="2 August at 6 pm"
+                android:textColor="@color/bel_grey_text"
+                android:textSize="@dimen/value_12"/>
+
+            <TextView
+                android:id="@+id/tvTag1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvBoardMemberName1"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/ivProfilePic1"
+                android:background="@drawable/shape_profile_tag"
+                android:padding="5dp"
+                android:text=" Cute "
+                android:textColor="@color/bel_grey_text"
+                android:textSize="@dimen/value_12"/>
+
+
+            <TextView
+                android:id="@+id/tvTag2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvBoardMemberName1"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/tvTag1"
+                android:background="@drawable/shape_profile_tag"
+                android:padding="5dp"
+                android:text=" Beautiful "
+                android:textColor="@color/bel_grey_text"
+                android:textSize="@dimen/value_12"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>
