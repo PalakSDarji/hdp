@@ -25,7 +25,7 @@
 
     <color name="edittextborder">#d1cdce</color>
     <color name="edittexthintcolorsignup">#9c9c9c</color>
-
+    <color name="red_orange">#fb636b</color>
     <color name="my_plan">#fc636b</color>
     <color name="followling">#0bc7b4</color>
     <color name="today">#fec242</color>

@@ -172,26 +172,42 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@color/edittextborder"/>
+<!--
+            <Switch
+                android:id="@+id/switchPrivateProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pref_card_switch_margin"
+                android:backgroundTint="@color/pref_sub_text"
+                android:buttonTint="@color/pref_sub_text"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:checked="true"
+                android:layout_marginTop="25dp"
+                android:text="Private Profile"
+                android:textColor="#3c3c3c"/>-->
 
             <Switch
                 android:id="@+id/switchPrivateProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/pref_card_switch_margin"
-                android:backgroundTint="@color/pink"
-                android:buttonTint="@color/pink"
+                android:checked="true"
+                android:longClickable="false"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:checked="true"
-                android:layout_marginTop="25dp"
                 android:text="Private Profile"
-                android:textColor="@color/pref_sub_text"/>
+                android:textColor="#3c3c3c"
+                android:layout_marginTop="25dp"
+                android:theme="@style/BrandedSwitch"/>
+
 
             <TextView
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_width="match_parent"
                 android:textSize="@dimen/value_12"
+                android:textColor="#464646"
                 android:layout_height="wrap_content"
                 android:text="When your account is private only people you approve can see your activity. your existing follower won't be affected."/>
 
@@ -205,9 +221,103 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="20dp"
                 android:text="Private Information"
+                android:textColor="@color/bel_grey_text"
                 android:textStyle="bold"
-                android:textSize="@dimen/value_16"/>.
+                android:textSize="@dimen/value_16"/>
 
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Saniasingh@gmail.com"
+                android:textSize="@dimen/value_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/edittextborder"/>
+
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Add Phone Number"
+                android:textSize="@dimen/value_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/edittextborder"/>
+
+            <EditText
+                android:id="@+id/etGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Gender"
+                android:textSize="@dimen/value_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/edittextborder"/>
+
+
+            <EditText
+                android:id="@+id/etDateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Date of birth"
+                android:textSize="@dimen/value_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="20dp"
+                android:background="@color/edittextborder"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
         </LinearLayout>
 
     </ScrollView>
