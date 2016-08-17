@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_edit_profile"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.hadippa.activities.EditProfileActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/card_bottom_drawer_radius"
+            android:layout_height="@dimen/card_bottom_drawer_radius"
+            android:layout_centerVertical="true"
+            android:src="@drawable/landing_pages_reject"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="Edit Profile"
+            android:textColor="#2e2e2e"
+            android:textSize="@dimen/values_txt_16"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/ivMore"
+            android:layout_width="@dimen/card_bottom_drawer_radius"
+            android:layout_height="@dimen/card_bottom_drawer_radius"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/landing_pages_accept"/>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/top"
+        android:background="#efefef"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view1">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Sania Singh"
+                android:textSize="@dimen/value_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/edittextborder"/>
+
+            <EditText
+                android:id="@+id/etOccupation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Occupation"
+                android:textSize="@dimen/value_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/edittextborder"/>
+
+            <EditText
+                android:id="@+id/etCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Company"
+                android:textSize="@dimen/value_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/edittextborder"/>
+
+            <EditText
+                android:id="@+id/etLiveIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Live in"
+                android:textSize="@dimen/value_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/edittextborder"/>
+
+            <EditText
+                android:id="@+id/etZodiac"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="zodiac"
+                android:textSize="@dimen/value_16"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/edittextborder"/>
+
+            <Switch
+                android:id="@+id/switchPrivateProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pref_card_switch_margin"
+                android:backgroundTint="@color/pink"
+                android:buttonTint="@color/pink"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:checked="true"
+                android:layout_marginTop="25dp"
+                android:text="Private Profile"
+                android:textColor="@color/pref_sub_text"/>
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/value_12"
+                android:layout_height="wrap_content"
+                android:text="When your account is private only people you approve can see your activity. your existing follower won't be affected."/>
+
+
+            <TextView
+                android:id="@+id/tvPrivateInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:text="Private Information"
+                android:textStyle="bold"
+                android:textSize="@dimen/value_16"/>.
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

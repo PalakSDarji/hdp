@@ -120,9 +120,17 @@
         </activity>
         -->
 
-        <activity android:name=".activities.PostActivity">
+        <activity android:name=".activities.PostActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden">
         </activity>
-        <activity android:name=".activities.ProfileActivity">
+        <activity android:name=".activities.ProfileActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity android:name=".activities.EditProfileActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden">
         </activity>
     </application>
 
