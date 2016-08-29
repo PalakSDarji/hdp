@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button login = (Button)findViewById(R.id.login);
+        TextView login = (TextView)findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

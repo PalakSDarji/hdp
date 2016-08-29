@@ -12,8 +12,7 @@
 
     <!-- corner radius -->
 
-    <corners android:radius="5dp"></corners>
-    <size android:height="15dp" android:width="15dp"></size>
+    <corners android:radius="25dp"></corners>
 
     <!--  <corners
           android:radius="5dp"   >

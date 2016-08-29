@@ -41,8 +41,8 @@
 
         <RelativeLayout
             android:id="@+id/rlFix"
-            android:layout_width="@dimen/card_bottom_drawer"
-            android:layout_height="@dimen/card_bottom_drawer"
+            android:layout_width="@dimen/value_w75"
+            android:layout_height="@dimen/value_w75"
             android:layout_alignBottom="@+id/linearCenter"
             android:layout_marginBottom="@dimen/value_10"
             android:layout_marginLeft="@dimen/logout_padding_vertical"
@@ -52,8 +52,8 @@
 
             <ImageButton
                 android:id="@+id/imageOptions"
-                android:layout_width="@dimen/card_bottom_drawer"
-                android:layout_height="@dimen/card_bottom_drawer"
+                android:layout_width="@dimen/value_w24"
+                android:layout_height="@dimen/value_w24"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/bottom_menu_side_margin"
                 android:background="@drawable/rounded_small"
@@ -184,7 +184,7 @@
 
             <RelativeLayout
                 android:id="@+id/rlClose"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/values_10"
                 android:clickable="true">

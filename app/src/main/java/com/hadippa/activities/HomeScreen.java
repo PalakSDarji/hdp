@@ -33,7 +33,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     ImageView drawerOpen,imageFilter;
     LinearLayout leftDrawer;
     TextView tvUserName;
-    ImageButton profileImage;
+    ImageView profileImage;
     LinearLayout linearFollowling, linearNotification, linearPreference, linearHome, linearFeedback;
     EditText edtSearch;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -88,7 +88,21 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        findViewById(R.id.linearProfile).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.profileImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.tvUserName).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
@@ -96,7 +110,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        findViewById(R.id.tvPost).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.llPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeScreen.this,PostActivity.class);
@@ -106,7 +120,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         leftDrawer = (LinearLayout) findViewById(R.id.leftDrawer);
         tvUserName = (TextView) findViewById(R.id.tvUserName);
-        profileImage = (ImageButton)findViewById(R.id.profileImage);
+        profileImage = (ImageView)findViewById(R.id.profileImage);
 
         linearHome = (LinearLayout) findViewById(R.id.linearHome);
         linearHome.setOnClickListener(this);

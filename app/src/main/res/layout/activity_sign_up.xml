@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:id="@+id/mainRel"
-    tools:context="com.hadippa.activities.SignUp">
+<RelativeLayout android:id="@+id/mainRel"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                tools:context="com.hadippa.activities.SignUp">
 
     <RelativeLayout
         android:id="@+id/top"
@@ -14,19 +15,18 @@
         android:padding="15dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/signup_hlogo" />
+            android:layout_width="@dimen/value_w40"
+            android:layout_height="@dimen/value_w40"
+            android:src="@drawable/signup_hlogo"/>
 
-        <TextView
-
+        <com.hadippa.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/about_you"
-            android:textStyle="bold"
             android:textColor="@color/pink_text"
-            android:textSize="@dimen/signup_title_textsize"  />
+            android:textSize="@dimen/values_txt_18"
+            app:customFont="@string/proxima_bold"/>
     </RelativeLayout>
 
     <View
@@ -34,107 +34,185 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/top"
-        android:background="#d0d0d0"></View>
+        android:background="@color/c_d1cdce"></View>
 
     <RelativeLayout
         android:id="@+id/imageLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/value_w154"
+        android:layout_height="@dimen/value_w154"
         android:layout_below="@+id/view"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/value_h21">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_profile"
-            android:padding="15dp"
-            android:layout_marginTop="@dimen/signup_cam_bottom_margin"
             android:id="@+id/ivIcon"
-            android:src="@drawable/signup1_profile" />
+            android:layout_width="@dimen/value_w144"
+            android:layout_height="@dimen/value_h124"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rounded_profile"
+            android:src="@drawable/signup1_profile"/>
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_marginTop="@dimen/signup_cam_top_margin"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/value_w40"
+            android:layout_height="@dimen/value_w40"
+            android:layout_alignParentRight="true"
             android:layout_alignRight="@+id/ivIcon"
             android:background="@drawable/rounded_profile_cam"
-            android:padding="5dp"
-            android:src="@drawable/signup_camera" />
+            android:padding="@dimen/value_10"
+            android:src="@drawable/signup_camera"/>
 
 
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_marginTop="@dimen/signup_cam_bottom_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageLayout"
+        android:layout_marginTop="@dimen/value_h21"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-
-        <EditText
-            android:id="@+id/edtFullName"
-            style="@style/App_EditTextStyle_SiginUp"
+        <LinearLayout
+            android:id="@+id/llFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/signup1_name"
-            android:singleLine="true"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:drawablePadding="15dp"
-            android:hint="@string/full_name"
-            android:imeOptions="actionNext" />
+            android:layout_marginBottom="@dimen/value_h42"
+            android:layout_marginLeft="@dimen/value_w56"
+            android:layout_marginRight="@dimen/value_w56"
+            android:background="@drawable/rounded_edittext_signup"
+            android:clickable="true"
+            android:orientation="horizontal">
 
-        <EditText
+            <ImageView
+                android:layout_width="@dimen/value_w32"
+                android:layout_height="@dimen/value_w32"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/value_w29"
+                android:src="@drawable/signup1_name"/>
+
+            <com.hadippa.CustomEditText
+                android:id="@+id/edtFullName"
+                style="@style/App_EditTextStyle_SiginUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:hint="@string/full_name"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                android:singleLine="true"
+                app:customFont="@string/proxima_reg"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edtPassword"
-            android:drawableLeft="@drawable/signup1_password"
-            android:drawablePadding="15dp"
-            android:hint="@string/password"
-            android:imeOptions="actionNext"
-            android:inputType="textPassword"
-            style="@style/App_EditTextStyle_SiginUp"
-            />
+            android:layout_marginBottom="@dimen/value_h42"
+            android:layout_marginLeft="@dimen/value_w56"
+            android:layout_marginRight="@dimen/value_w56"
+            android:background="@drawable/rounded_edittext_signup"
+            android:clickable="true"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edtConfirmPassword"
+            <ImageView
+                android:layout_width="@dimen/value_w36"
+                android:layout_height="@dimen/value_w36"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/value_w29"
+                android:src="@drawable/signup1_password"/>
+
+            <com.hadippa.CustomEditText
+                android:id="@+id/edtPassword"
+                style="@style/App_EditTextStyle_SiginUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                app:customFont="@string/proxima_reg"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/signup1_repeat_password"
-            android:drawablePadding="15dp"
-            android:hint="@string/re_enter_password"
-            android:imeOptions="actionNext"
-            android:inputType="textPassword"
-            style="@style/App_EditTextStyle_SiginUp"
-            />
+            android:layout_marginBottom="@dimen/value_h42"
+            android:layout_marginLeft="@dimen/value_w56"
+            android:layout_marginRight="@dimen/value_w56"
+            android:background="@drawable/rounded_edittext_signup"
+            android:clickable="true"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edtEmail"
+            <ImageView
+                android:layout_width="@dimen/value_w36"
+                android:layout_height="@dimen/value_w36"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/value_w29"
+                android:src="@drawable/signup1_repeat_password"/>
+
+            <com.hadippa.CustomEditText
+                android:id="@+id/edtConfirmPassword"
+                style="@style/App_EditTextStyle_SiginUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/re_enter_password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                app:customFont="@string/proxima_reg"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/signup1_email"
-            android:drawablePadding="15dp"
-            android:hint="@string/email_address"
-            android:imeOptions="actionDone"
-            android:inputType="textEmailAddress"
-            style="@style/App_EditTextStyle_SiginUp"
-            />
+            android:layout_marginBottom="@dimen/value_h42"
+            android:layout_marginLeft="@dimen/value_w56"
+            android:layout_marginRight="@dimen/value_w56"
+            android:background="@drawable/rounded_edittext_signup"
+            android:clickable="true"
+            android:orientation="horizontal">
 
-        <TextView
+            <ImageView
+                android:layout_width="@dimen/value_w36"
+                android:layout_height="@dimen/value_w32"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/value_w29"
+                android:src="@drawable/signup1_email"/>
+
+            <com.hadippa.CustomEditText
+                android:id="@+id/edtEmail"
+                style="@style/App_EditTextStyle_SiginUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email_address"
+                android:imeOptions="actionDone"
+                android:inputType="textEmailAddress"
+                app:customFont="@string/proxima_reg"
+                />
+
+        </LinearLayout>
+
+        <com.hadippa.CustomTextView
             android:id="@+id/tvNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/pref_card_title_size"
             android:background="@drawable/rounded_edittext_signup_button"
-            android:paddingBottom="@dimen/signup_button_padding_vertical"
-            android:paddingLeft="@dimen/signup_button_padding_horizontal"
-            android:paddingRight="@dimen/signup_button_padding_horizontal"
-            android:paddingTop="@dimen/signup_button_padding_vertical"
+            android:paddingBottom="@dimen/value_h31"
+            android:paddingLeft="@dimen/value_w66"
+            android:paddingRight="@dimen/value_w66"
+            android:paddingTop="@dimen/value_h31"
             android:text="@string/next"
-            android:textStyle="bold"
             android:textColor="@color/purple"
+            android:textSize="@dimen/values_txt_13"
+            android:textStyle="bold"
+            app:customFont="@string/proxima_bold"
 
             />
     </LinearLayout>

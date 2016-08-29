@@ -22,69 +22,91 @@
 
             <ImageView
                 android:id="@+id/drawerOpen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/value_w40"
+                android:layout_height="@dimen/value_w40"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_drawer"/>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/value_w40"
+                android:layout_height="@dimen/value_w40"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="3dp"
                 android:layout_toRightOf="@+id/drawerOpen"
-                android:padding="5dp"
                 android:src="@drawable/signup_hlogo"/>
 
-            <FrameLayout
+            <RelativeLayout
                 android:id="@+id/relChat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true">
+                android:layout_width="@dimen/value_w50"
+                android:layout_height="@dimen/value_h42"
+                android:layout_alignParentRight="true">
 
                 <ImageView
                     android:id="@+id/chat"
-                    android:layout_width="@dimen/value_20"
-                    android:layout_height="@dimen/value_20"
+                    android:layout_width="@dimen/value_w32"
+                    android:layout_height="@dimen/value_w32"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
                     android:src="@drawable/chat"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:layout_gravity="end|top"
                     android:background="@drawable/rounded_chat"
                     android:gravity="center"
                     android:text="1"
                     android:textColor="@color/pink_text"
-                    android:textSize="9dp"/>
+                    android:textSize="@dimen/values_txt_10"/>
 
-            </FrameLayout>
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/imageFilter"
-                android:layout_width="@dimen/value_20"
-                android:layout_height="@dimen/value_20"
+                android:layout_width="@dimen/value_w32"
+                android:layout_height="@dimen/value_w32"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/value_w26"
                 android:layout_toLeftOf="@+id/relChat"
-                android:layout_marginRight="10dp"
                 android:src="@drawable/filter"/>
 
-            <EditText
-                android:id="@+id/edtSearch"
-                android:layout_width="@dimen/tab_search_text_width"
+            <RelativeLayout
+                android:layout_width="@dimen/value_w215"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="@drawable/rounded_edittext_search"
-                android:drawableRight="@drawable/ic_search"
-                android:focusable="false"
-                android:hint="@string/search"
-                android:paddingBottom="@dimen/tab_search_padding_vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="@dimen/tab_search_padding_vertical"
-                android:textColor="#fa4c54"
-                android:textSize="@dimen/tab_search_textsize"/>
+                android:padding="8dp"
+                >
+
+                <com.hadippa.CustomEditText
+                    android:id="@+id/edtSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@android:color/transparent"
+                    android:focusable="false"
+                    android:hint="@string/search"
+                    android:textColor="@color/c_a5a1a0"
+                    android:textSize="@dimen/values_txt_11"
+                    android:textStyle="normal"
+                    app:customFont="@string/proxima_reg"/>
+
+                <ImageView
+                    android:id="@+id/imageSearch"
+                    android:layout_width="@dimen/value_12"
+                    android:layout_height="@dimen/value_12"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_search"/>
+
+
+            </RelativeLayout>
+
+
         </RelativeLayout>
 
 
@@ -106,266 +128,295 @@
 
     </RelativeLayout>
 
-
-    <!--android:layout_gravity="start"-->
-    <LinearLayout
-        android:id="@+id/leftDrawer"
+    <ScrollView
         android:layout_width="@dimen/home_drawer_item_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white"
-        android:clickable="true"
-        android:orientation="vertical"
-        >
+        android:background="@android:color/white">
 
-
-        <RelativeLayout
-            android:id="@+id/topDrawer"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="@dimen/home_drawer_item_width"
             android:layout_height="wrap_content"
-            >
+            android:orientation="vertical">
 
-
+            <!--android:layout_gravity="start"-->
             <LinearLayout
-                android:id="@+id/profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-
-                <LinearLayout
-                    android:id="@+id/linearProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/purple"
-                    android:gravity="center_horizontal"
-                    android:clickable="true"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-
-                    <ImageButton
-                        android:id="@+id/profileImage"
-                        android:layout_width="@dimen/home_drawer_profile_image_width"
-                        android:layout_height="@dimen/home_drawer_profile_image_height"
-                        android:layout_marginBottom="@dimen/home_drawer_profile_image_margin_bottom"
-                        android:layout_marginTop="@dimen/home_drawer_profile_image_margin_top"
-                        android:background="@drawable/rounded__drawer_dp"
-                        android:src="@drawable/ic_user_avatar_default"/>
-
-
-                    <TextView
-                        android:id="@+id/tvUserName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/home_drawer_username_margin_bottom"
-                        android:text="Shalu Soni"
-                        android:textColor="#ffffff"
-                        android:textSize="@dimen/home_drawer_username_textsize"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/profile"
-                android:layout_marginTop="@dimen/home_drawer_post_margin_top"
-                android:gravity="center"
+                android:id="@+id/leftDrawer"
+                android:layout_width="@dimen/home_drawer_item_width"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:clickable="true"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvPost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/home_drawer_title1_margin_bottom"
-                    android:background="@drawable/pinkborder_whitebg"
-                    android:drawableLeft="@drawable/ic_post"
-                    android:drawablePadding="@dimen/home_drawer_title1_drawable_padding"
-                    android:gravity="center"
-                    android:paddingBottom="@dimen/home_drawer_title1_padding_vertical"
-                    android:paddingLeft="@dimen/home_drawer_title1_padding_horizontal"
-                    android:paddingRight="@dimen/home_drawer_title1_padding_horizontal"
-                    android:paddingTop="@dimen/home_drawer_title1_padding_vertical"
-                    android:textStyle="bold"
-                    android:text="@string/post"
-                    android:textColor="@color/pink_text"
-                    android:textSize="@dimen/home_drawer_sub_textsize"/>
-
-                <View
+                <RelativeLayout
+                    android:id="@+id/topDrawer"
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginBottom="@dimen/home_drawer_view_margin_bottom"
-                    android:layout_marginLeft="@dimen/home_drawer_side_margins"
-                    android:layout_marginRight="@dimen/home_drawer_side_margins"
-                    android:background="@color/subText"></View>
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/linearProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/purple"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <ImageView
+                                android:id="@+id/profileImage"
+                                android:layout_width="@dimen/home_drawer_profile_image_width"
+                                android:layout_height="@dimen/home_drawer_profile_image_height"
+                                android:layout_marginBottom="@dimen/value_12"
+                                android:layout_marginTop="@dimen/value_20"
+                                android:clickable="true"
+                                android:padding="15dp"
+                                android:background="@drawable/rounded__drawer_dp"
+                                android:src="@drawable/ic_user_avatar_default"/>
+
+                            <com.hadippa.CustomTextView
+                                android:id="@+id/tvUserName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/value_12"
+                                android:text="Shalu Soni"
+                                android:textColor="#ffffff"
+                                android:clickable="true"
+                                android:textSize="@dimen/values_txt_12"
+                                android:textStyle="bold"
+                                app:customFont="@string/proxima_reg"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/profile"
+                        android:layout_marginTop="@dimen/value_28"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/llPost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/pinkborder_whitebg"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_w50"
+                                android:layout_height="@dimen/value_w50"
+                                android:layout_marginBottom="@dimen/value_8"
+                                android:layout_marginLeft="@dimen/value_20"
+                                android:layout_marginTop="@dimen/value_8"
+                                android:src="@drawable/ic_post"/>
+
+                            <com.hadippa.CustomTextView
+                                android:id="@+id/tvPost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/value_10"
+                                android:layout_marginRight="@dimen/value_20"
+                                android:text="@string/post"
+                                android:textColor="@color/pink_text"
+                                android:textSize="@dimen/values_txt_12"
+                                android:textStyle="bold"
+                                app:customFont="@string/proxima_bold"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginBottom="@dimen/home_drawer_view_margin_bottom"
+                            android:layout_marginLeft="@dimen/home_drawer_side_margins"
+                            android:layout_marginRight="@dimen/home_drawer_side_margins"
+                            android:layout_marginTop="@dimen/home_drawer_view_margin_bottom"
+                            android:background="@color/c_cacaca"/>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/linearHome"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/home_drawer_option2_margin_bottom"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_w40"
+                                android:layout_height="@dimen/value_w40"
+                                android:src="@drawable/ic_home"/>
+
+                            <com.hadippa.CustomTextView
+                                android:id="@+id/customTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/value_10"
+                                android:gravity="center_vertical"
+                                android:text="@string/home"
+                                android:textColor="@color/purple"
+                                android:textSize="@dimen/values_txt_14"
+                                app:customFont="@string/proxima_reg"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearNotification"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/home_drawer_option2_margin_bottom"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_w40"
+                                android:layout_height="@dimen/value_w40"
+                                android:src="@drawable/ic_notification"/>
+
+                            <com.hadippa.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/value_10"
+                                android:gravity="center_vertical"
+                                android:text="@string/notification"
+                                android:textColor="@color/purple"
+                                android:textSize="@dimen/values_txt_14"
+                                app:customFont="@string/proxima_reg"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearPreference"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/home_drawer_option2_margin_bottom"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_w40"
+                                android:layout_height="@dimen/value_w40"
+                                android:src="@drawable/ic_prefrences"/>
+
+                            <com.hadippa.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/value_10"
+                                android:gravity="center_vertical"
+                                android:text="@string/preference"
+                                android:textColor="@color/purple"
+                                android:textSize="@dimen/values_txt_14"
+                                app:customFont="@string/proxima_reg"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearFollowling"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/home_drawer_option2_margin_bottom"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_w40"
+                                android:layout_height="@dimen/value_w40"
+                                android:src="@drawable/ic_following"/>
+
+                            <com.hadippa.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/value_10"
+                                android:gravity="center_vertical"
+                                android:text="@string/followling"
+                                android:textColor="@color/purple"
+                                android:textSize="@dimen/values_txt_14"
+                                app:customFont="@string/proxima_reg"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearFeedback"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/home_drawer_option4_margin_bottom"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_w40"
+                                android:layout_height="@dimen/value_w40"
+                                android:src="@drawable/ic_feedback"/>
+
+                            <com.hadippa.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/value_10"
+                                android:gravity="center_vertical"
+                                android:text="@string/feedback_suggestion"
+                                android:textColor="@color/purple"
+                                android:textSize="@dimen/values_txt_14"
+                                app:customFont="@string/proxima_reg"/>
+
+                        </LinearLayout>
+
+                        <com.hadippa.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center_horizontal|bottom"
+                            android:layout_marginBottom="@dimen/logout_margin_bottom"
+                            android:background="@drawable/pinkborder_whitebg"
+                            android:gravity="center"
+                            android:paddingBottom="@dimen/logout_padding_vertical"
+                            android:paddingLeft="@dimen/home_drawer_side_margins"
+                            android:paddingRight="@dimen/home_drawer_side_margins"
+                            android:paddingTop="@dimen/logout_padding_vertical"
+                            android:text="@string/logout"
+                            android:textColor="@color/pink_text"
+                            android:textSize="@dimen/values_txt_14"
+                            android:textStyle="bold"
+                            app:customFont="@string/proxima_bold"/>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
             </LinearLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/linearHome"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/home_drawer_option2_margin_bottom"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/home_drawer_menu_left_margins">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_home"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/home"
-                        android:textColor="@color/purple"
-                        android:textSize="@dimen/home_drawer_username_textsize"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearNotification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/home_drawer_option2_margin_bottom"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/home_drawer_menu_left_margins">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_notification"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/notification"
-
-                        android:textColor="@color/purple"
-                        android:textSize="@dimen/home_drawer_username_textsize"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearPreference"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/home_drawer_option2_margin_bottom"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/home_drawer_menu_left_margins">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_prefrences"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/preference"
-
-                        android:textColor="@color/purple"
-                        android:textSize="@dimen/home_drawer_username_textsize"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearFollowling"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/home_drawer_option2_margin_bottom"
-
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/home_drawer_menu_left_margins">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_following"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/followling"
-                        android:textColor="@color/purple"
-                        android:textSize="@dimen/home_drawer_username_textsize">
-
-                    </TextView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearFeedback"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/home_drawer_option4_margin_bottom"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/home_drawer_menu_left_margins">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_feedback"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/feedback_suggestion"
-                        android:textColor="@color/purple"
-                        android:textSize="@dimen/home_drawer_username_textsize"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="@dimen/logout_margin_bottom"
-                android:background="@drawable/pinkborder_whitebg"
-                android:gravity="center"
-                android:paddingBottom="@dimen/logout_padding_vertical"
-                android:paddingLeft="@dimen/home_drawer_side_margins"
-                android:paddingRight="@dimen/home_drawer_side_margins"
-                android:paddingTop="@dimen/logout_padding_vertical"
-                android:text="@string/logout"
-                android:textStyle="bold"
-                android:textColor="@color/pink_text"
-                android:textSize="@dimen/home_drawer_sub_textsize"/>
-        </RelativeLayout>
-
-    </LinearLayout>
+    </ScrollView>
 </android.support.v4.widget.DrawerLayout>

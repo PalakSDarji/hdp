@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@android:color/white"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/sign_up_padding"
+        android:paddingRight="@dimen/sign_up_padding"
+        android:paddingTop="@dimen/sign_up_padding">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/profileImage"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="@dimen/value_w130"
+            android:layout_height="@dimen/value_w130"
+            android:layout_marginRight="@dimen/tab_search_textsize"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_avatar1"
+            app:riv_border_color="@color/c_b7b3b4"
+            app:riv_border_width="@dimen/value_1"
+            app:riv_corner_radius="@dimen/value_10"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/layouttop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:id="@+id/layouttop1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivActivityIcon"
+                        android:layout_width="@dimen/value_w24"
+                        android:layout_height="@dimen/value_w24"
+                        android:src="@drawable/landing_pages_movie_icon"/>
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/activityname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/ivActivityIcon"
+                        android:text="Sarabjit Movie"
+                        android:textColor="@color/pink_text"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/values_txt_14"
+                        app:customFont="@string/proxima_bold"/>
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/activityname"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="5dp"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_toRightOf="@+id/ivActivityIcon"
+                        android:text="PVR Juhu, Mumbai"
+                        android:textColor="@color/c_555555"
+                        android:textSize="@dimen/values_txt_10"
+                        app:customFont="@string/proxima_reg"/>
+
+                    <ImageView
+                        android:id="@+id/ivMore"
+                        android:layout_width="@dimen/value_h31"
+                        android:layout_height="@dimen/value_h31"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/value_5"
+                        android:clickable="true"
+                        android:src="@drawable/ic_more_vert_black_18dp"/>
+
+                    <TextView
+                        android:id="@+id/tvExpired"
+                        android:background="@drawable/expired_bg_shape"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/values_txt_10"
+                        android:textColor="@android:color/white"
+                        android:paddingTop="@dimen/value_5"
+                        android:paddingBottom="@dimen/value_5"
+                        android:paddingLeft="@dimen/value_8"
+                        android:paddingRight="@dimen/value_8"
+                        android:layout_toLeftOf="@+id/ivMore"
+                        android:layout_marginRight="@dimen/value_10"
+                        android:layout_height="wrap_content"
+                        android:text="@string/expired"/>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/value_w370"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/tvAddress"
+                        android:layout_below="@+id/tvAddress"
+                        android:weightSum="3"
+                        android:layout_marginTop="@dimen/card_padding_side"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/value_28"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_w26"
+                                android:layout_height="@dimen/value_w26"
+                                android:src="@drawable/landing_pages_r2_29"/>
+
+                            <com.hadippa.CustomTextView
+                                android:id="@+id/tvActivityDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:gravity="center"
+                                android:text="04 May"
+                                android:textColor="@color/c_908e8f"
+                                android:textSize="@dimen/values_txt_10"
+                                app:customFont="@string/proxima_reg"/>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/value_28"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_w26"
+                                android:layout_height="@dimen/value_w26"
+                                android:src="@drawable/landing_pages_time"/>
+
+                            <com.hadippa.CustomTextView
+                                android:id="@+id/tvActivityTime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:gravity="center"
+                                android:text="12.15 pm"
+                                android:textColor="@color/c_908e8f"
+                                android:textSize="@dimen/values_txt_10"
+                                app:customFont="@string/proxima_reg"/>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/value_w40"
+                                android:layout_height="@dimen/value_w26"
+                                android:src="@drawable/landing_pages_people"/>
+
+                            <com.hadippa.CustomTextView
+                                android:id="@+id/tvGoing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:gravity="center"
+                                android:text="10 Going"
+                                android:textColor="@color/c_908e8f"
+                                android:textSize="@dimen/values_txt_10"
+                                app:customFont="@string/proxima_reg"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/value_10"
+        android:layout_marginTop="@dimen/value_10"
+        android:background="@color/c_e3e3e3"/>
+
+    <com.hadippa.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/value_8"
+        android:paddingLeft="@dimen/sign_up_padding"
+        android:text="Approved People"
+        android:textColor="@color/c_949293"
+        android:textSize="@dimen/values_txt_10"
+        app:customFont="@string/proxima_reg"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sign_up_padding"
+        android:orientation="horizontal">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/value_10"
+        android:background="@color/c_e3e3e3"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/value_8"
+        android:background="@color/c_f4f4f2"/>
+
+</LinearLayout>

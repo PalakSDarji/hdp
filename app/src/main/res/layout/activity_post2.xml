@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white">
@@ -21,144 +22,154 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/ivPostHeader"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/post_header"
+        android:layout_height="match_parent"
         android:layout_below="@+id/top"
-        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+        android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/ivGlass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/glass"
-        android:layout_below="@+id/ivPostHeader"/>
+        <ImageView
+            android:id="@+id/ivPostHeader"
+            android:layout_width="@dimen/value_w500"
+            android:layout_height="@dimen/value_h110"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/post_header"/>
 
-    <ImageView
-        android:id="@+id/ivTravel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/travel"
-        android:layout_marginRight="@dimen/home_drawer_title1_padding_horizontal"
-        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
-        android:layout_toLeftOf="@+id/ivGlass"
-        android:layout_below="@+id/ivPostHeader"/>
+        <ImageView
+            android:id="@+id/ivGlass"
+            android:layout_width="@dimen/value_w140"
+            android:layout_height="@dimen/value_w140"
+            android:layout_below="@+id/ivPostHeader"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/glass"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Travel"
-        android:gravity="center_horizontal"
-        android:layout_alignRight="@+id/ivTravel"
-        android:textSize="@dimen/values_txt_12"
-        android:layout_alignLeft="@+id/ivTravel"
-        android:layout_below="@+id/ivTravel"/>
+        <ImageView
+            android:id="@+id/ivTravel"
+            android:layout_width="@dimen/value_w140"
+            android:layout_height="@dimen/value_w140"
+            android:layout_below="@+id/ivPostHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="@dimen/home_drawer_title1_padding_horizontal"
+            android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
+            android:layout_toLeftOf="@+id/ivGlass"
+            android:src="@drawable/travel"/>
 
-    <ImageView
-        android:id="@+id/ivPlusBlue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/plus_blue"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_below="@+id/ivGlass"/>
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ivTravel"
+            android:layout_alignRight="@+id/ivTravel"
+            android:layout_below="@+id/ivTravel"
+            android:gravity="center_horizontal"
+            android:text="Travel"
+            android:textSize="@dimen/values_txt_12"
+            app:customFont="@string/proxima_bold"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Activity"
-        android:textSize="@dimen/values_txt_12"
-        android:gravity="center_horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/ivPlusBlue"/>
+        <ImageView
+            android:id="@+id/ivPlusBlue"
+            android:layout_width="@dimen/value_w140"
+            android:layout_height="@dimen/value_w140"
+            android:layout_below="@+id/ivGlass"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:src="@drawable/plus_blue"/>
 
-
-    <ImageView
-        android:id="@+id/ivEntertainment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/entertainment"
-        android:layout_toRightOf="@+id/ivGlass"
-        android:layout_below="@+id/ivPostHeader"
-        android:layout_marginLeft="@dimen/home_drawer_title1_padding_horizontal"
-        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Entertainment"
-        android:textSize="@dimen/values_txt_12"
-        android:gravity="center_horizontal"
-        android:layout_alignLeft="@+id/ivEntertainment"
-        android:layout_below="@+id/ivEntertainment"
-        android:id="@+id/textView"/>
-
-    <ImageView
-        android:id="@+id/ivCoffee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/coffee"
-        android:layout_marginRight="@dimen/home_drawer_title1_padding_horizontal"
-        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
-        android:layout_toLeftOf="@+id/ivPlusBlue"
-        android:layout_below="@+id/ivTravel"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Coffee"
-        android:gravity="center_horizontal"
-        android:layout_alignRight="@+id/ivTravel"
-        android:textSize="@dimen/values_txt_12"
-        android:layout_alignLeft="@+id/ivTravel"
-        android:layout_below="@+id/ivCoffee"/>
-
-    <ImageView
-        android:id="@+id/ivHobby"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/hobby"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
-        android:layout_below="@+id/ivPlusBlue"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hobby"
-        android:gravity="center_horizontal"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/values_txt_12"
-        android:layout_below="@+id/ivHobby"/>
-
-    <ImageView
-        android:id="@+id/ivSports"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/sports"
-        android:layout_below="@+id/ivEntertainment"
-        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
-        android:layout_alignLeft="@+id/ivEntertainment"
-        android:layout_alignStart="@+id/textView"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sports"
-        android:gravity="center_horizontal"
-        android:layout_alignRight="@+id/ivSports"
-        android:textSize="@dimen/values_txt_12"
-        android:layout_alignLeft="@+id/ivSports"
-        android:layout_below="@+id/ivSports"/>
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivPlusBlue"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="Create Activity"
+            android:textSize="@dimen/values_txt_12"
+            app:customFont="@string/proxima_bold"/>
 
 
+        <ImageView
+            android:id="@+id/ivEntertainment"
+            android:layout_width="@dimen/value_w140"
+            android:layout_height="@dimen/value_w140"
+            android:layout_below="@+id/ivPostHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/home_drawer_title1_padding_horizontal"
+            android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
+            android:layout_toRightOf="@+id/ivGlass"
+            android:src="@drawable/entertainment"/>
 
+        <com.hadippa.CustomTextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ivEntertainment"
+            android:layout_below="@+id/ivEntertainment"
+            android:gravity="center_horizontal"
+            android:text="Entertainment"
+            android:textSize="@dimen/values_txt_12"
+            app:customFont="@string/proxima_bold"/>
+
+        <ImageView
+            android:id="@+id/ivCoffee"
+            android:layout_width="@dimen/value_w140"
+            android:layout_height="@dimen/value_w140"
+            android:layout_below="@+id/ivTravel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="@dimen/home_drawer_title1_padding_horizontal"
+            android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
+            android:layout_toLeftOf="@+id/ivPlusBlue"
+            android:src="@drawable/coffee"/>
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ivTravel"
+            android:layout_alignRight="@+id/ivTravel"
+            android:layout_below="@+id/ivCoffee"
+            android:gravity="center_horizontal"
+            android:text="Coffee"
+            android:textSize="@dimen/values_txt_12"
+            app:customFont="@string/proxima_bold"/>
+
+        <ImageView
+            android:id="@+id/ivHobby"
+            android:layout_width="@dimen/value_w140"
+            android:layout_height="@dimen/value_w140"
+            android:layout_below="@+id/ivPlusBlue"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
+            android:src="@drawable/hobby"/>
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivHobby"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="Hobby"
+            android:textSize="@dimen/values_txt_12"
+            app:customFont="@string/proxima_bold"/>
+
+        <ImageView
+            android:id="@+id/ivSports"
+            android:layout_width="@dimen/value_w140"
+            android:layout_height="@dimen/value_w140"
+            android:layout_alignLeft="@+id/ivEntertainment"
+            android:layout_alignStart="@+id/textView"
+            android:layout_below="@+id/ivEntertainment"
+            android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
+            android:src="@drawable/sports"/>
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ivSports"
+            android:layout_alignRight="@+id/ivSports"
+            android:layout_below="@+id/ivSports"
+            android:gravity="center_horizontal"
+            android:text="Sports"
+            android:textSize="@dimen/values_txt_12"
+            app:customFont="@string/proxima_bold"/>
+
+    </RelativeLayout>
 </RelativeLayout>

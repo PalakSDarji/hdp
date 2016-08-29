@@ -23,7 +23,7 @@
     <color name="black">#000000</color>
     <color name="subText">#a6a7a8</color>
 
-    <color name="edittextborder">#d1cdce</color>
+    <color name="edittextborder">#e3e3e3</color>
     <color name="edittexthintcolorsignup">#9c9c9c</color>
     <color name="red_orange">#fb636b</color>
     <color name="my_plan">#fc636b</color>
@@ -60,6 +60,35 @@
     <color name="green">#0cc7b4</color>
     <color name="dark_green">#7aa262</color>
     <color name="blue">#3483d1</color>
+    <color name="c_a79e9e">#a79e9e</color>
+    <color name="c_878586">#878586</color>
+    <color name="c_000">#000000</color>
+    <color name="c_a8a09e">#a8a09e</color>
+    <color name="c_b7b3b4">#b7b3b4</color>
+    <color name="c_a79e9f">#a79e9f</color>
+    <color name="c_f5f5f3">#f5f5f3</color>
+    <color name="c_e3e3e3">#e3e3e3</color>
+    <color name="c_eaeaea">#eaeaea</color>
+    <color name="c_969495">#969495</color>
+    <color name="c_6f6b6c">#6f6b6c</color>
+    <color name="c_565455">#565455</color>
+    <color name="c_8f8f8f">#8f8f8f</color>
+    <color name="c_555555">#555555</color>
+    <color name="c_908e8f">#908e8f</color>
+    <color name="c_949293">#949293</color>
+    <color name="c_f4f4f2">#f4f4f2</color>
+    <color name="c_cacaca">#cacaca</color>
+    <color name="c_a5a1a0">#a5a1a0</color>
+    <color name="c_303030">#303030</color>
+    <color name="c_2f2f2f">#2f2f2f</color>
+    <color name="c_312f30">#312f30</color>
+    <color name="c_fd636d">#fd636d</color>
+    <color name="c_fd636b">#fd636b</color>
+    <color name="c_eb5058">#eb5058</color>
+    <color name="c_fd8c92">#fd8c92</color>
+    <color name="c_6b696a">#6b696a</color>
+    <color name="c_d1cdce">#d1cdce</color>
+    <color name="c_e6e2e1">#e6e2e1</color>
 
 
 </resources>

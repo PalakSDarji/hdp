@@ -116,11 +116,11 @@ public class ShowCardsNew extends Fragment {
     // ArrayList<String> al;
     // CustomBaseAdapter arrayAdapter;
 
-    ImageButton swipeLeft, swipeRight;
+    ImageView swipeLeft, swipeRight;
     private SwipeDeck cardStack;
     Dialog dialog1;
     RelativeLayout relFab;
-    ImageButton imageOptions;
+    RelativeLayout rlFix;
     FloatingActionsMenu multiple_actions;
 
     int i = 0;
@@ -393,7 +393,7 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        swipeLeft = (ImageButton) view.findViewById(R.id.imageLeft);
+        swipeLeft = (ImageView) view.findViewById(R.id.imageLeft);
         swipeLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -401,7 +401,7 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        swipeRight = (ImageButton) view.findViewById(R.id.imageRight);
+        swipeRight = (ImageView) view.findViewById(R.id.imageRight);
         swipeRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -409,9 +409,9 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        imageOptions = (ImageButton) view.findViewById(R.id.imageOptions);
+        rlFix = (RelativeLayout) view.findViewById(R.id.rlFix);
 
-        imageOptions.setOnClickListener(new View.OnClickListener() {
+        rlFix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showOptionsDialog();
@@ -419,17 +419,6 @@ public class ShowCardsNew extends Fragment {
         });
 
         //multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
-
-
-        imageOptions = (ImageButton) view.findViewById(R.id.imageOptions);
-
-        imageOptions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showOptionsDialog();
-            }
-        });
-
        // multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
 
         return view;

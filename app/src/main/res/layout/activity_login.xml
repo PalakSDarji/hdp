@@ -1,141 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainRel"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login"
-    android:orientation="vertical"
-    tools:context="com.hadippa.activities.LoginActivity">
+<RelativeLayout android:id="@+id/mainRel"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/login">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@drawable/login"
+                  android:orientation="vertical"
+                  tools:context="com.hadippa.activities.LoginActivity">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/logo_margin_bottom"
-        android:layout_marginTop="@dimen/logo_margin_top"
-        android:src="@drawable/login_logo" />
+        <ImageView
+            android:layout_width="@dimen/value_w340"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="@dimen/logo_margin_bottom"
+            android:src="@drawable/login_logo"/>
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/relIdPass"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edtUsername"
-                style="@style/App_EditTextStyle_Login"
+            <RelativeLayout
+                android:id="@+id/relIdPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.hadippa.CustomEditText
+                    app:customFont="@string/proxima_reg"
+                    android:id="@+id/edtUsername"
+                    style="@style/App_EditTextStyle_Login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/edittext_margin_bottom_2"
+                    android:hint="@string/hint_username"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:imeOptions="actionNext"/>
+
+                <com.hadippa.CustomEditText
+                    app:customFont="@string/proxima_reg"
+                    android:id="@+id/edtPass"
+                    style="@style/App_EditTextStyle_Login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edtUsername"
+                    android:layout_marginBottom="@dimen/edittext_margin_bottom_2"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:hint="@string/hint_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"/>
+
+                <com.hadippa.CustomTextView
+                    app:customFont="@string/proxima_bold"
+                    android:id="@+id/login"
+                    style="@style/App_ButtonStyle_Login"
+                    android:layout_width="match_parent"
+                    android:clickable="true"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edtPass"
+                    android:text="@string/button_login"
+                    android:gravity="center"
+
+                    android:textStyle="bold"/>
+
+                <com.hadippa.CustomTextView
+                    app:customFont="@string/proxima_reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/login"
+                    android:layout_centerHorizontal="true"
+
+                    android:text="@string/forgot_password"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/forgot_pass_textsize"/>
+            </RelativeLayout>
+
+
+            <com.hadippa.CustomTextView
+                app:customFont="@string/proxima_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/edittext_margin_bottom_2"
-                android:hint="@string/hint_username"
-                android:imeOptions="actionNext" />
-
-            <EditText
-                android:id="@+id/edtPass"
-                style="@style/App_EditTextStyle_Login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edtUsername"
-                android:layout_marginBottom="@dimen/edittext_margin_bottom_2"
-                android:hint="@string/hint_password"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword" />
-
-            <Button
-                android:textStyle="bold"
-                android:id="@+id/login"
-                style="@style/App_ButtonStyle_Login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edtPass"
-
-                android:text="@string/button_login" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/login"
-                android:layout_centerHorizontal="true"
-
-                android:text="@string/forgot_password"
+                android:layout_below="@+id/relIdPass"
+                android:layout_marginTop="@dimen/textview_or_margin_top"
+                android:gravity="center"
+                android:paddingBottom="@dimen/textview_or_margin_bottom"
+                android:text="OR"
                 android:textColor="#ffffff"
-                android:textSize="@dimen/forgot_pass_textsize" />
+                android:textSize="@dimen/or_text_size"/>
+
+
         </RelativeLayout>
 
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/relIdPass"
-            android:paddingBottom="@dimen/textview_or_margin_bottom"
-            android:layout_marginTop="@dimen/textview_or_margin_top"
             android:gravity="center"
-            android:text="OR"
-            android:textSize="@dimen/or_text_size"
-            android:textColor="#ffffff" />
+            android:orientation="vertical">
 
+            <com.hadippa.CustomTextView
+                app:customFont="@string/proxima_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/login_button_dont_have_margin_bottom"
+                android:text="@string/dont_have_acc"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/forgot_pass_textsize"/>
 
-    </RelativeLayout>
+            <com.hadippa.CustomTextView
+                app:customFont="@string/proxima_reg"
+                android:id="@+id/signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sign_up_margin_bottom"
+                android:background="@drawable/rounded_signup"
+                android:gravity="center"
+                android:paddingBottom="@dimen/sign_up_padding"
+                android:paddingLeft="@dimen/sign_up_padding_horizontal"
+                android:paddingRight="@dimen/sign_up_padding_horizontal"
+                android:paddingTop="@dimen/sign_up_padding"
+                android:text="@string/signup"
+                android:clickable="true"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/edit_text_size"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dont_have_acc"
-            android:textColor="#ffffff"
-            android:layout_marginBottom="@dimen/login_button_dont_have_margin_bottom"
-            android:textSize="@dimen/forgot_pass_textsize" />
-
-        <TextView
-            android:id="@+id/signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sign_up_margin_bottom"
-            android:background="@drawable/rounded_signup"
-            android:gravity="center"
-            android:textSize="@dimen/edit_text_size"
-            android:paddingTop="@dimen/sign_up_padding"
-            android:paddingBottom="@dimen/sign_up_padding"
-            android:paddingRight="@dimen/sign_up_padding_horizontal"
-            android:paddingLeft="@dimen/sign_up_padding_horizontal"
-            android:text="@string/signup"
-            android:textColor="#ffffff" />
 
     </LinearLayout>
 
-
-
-
-
-</LinearLayout>
-
     <LinearLayout
-        android:layout_gravity="bottom"
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-       >
+        >
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -148,31 +164,35 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
             android:text="connect_with_facebook"
-            android:visibility="gone" />
+            android:visibility="gone"/>
+
         <LinearLayout
             android:id="@+id/linearFacebook"
-            android:layout_gravity="bottom"
             android:layout_width="match_parent"
-            android:paddingTop="@dimen/connect_with_facebook_padding_top"
-            android:paddingBottom="@dimen/connect_with_facebook_padding_bottom"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
-        <ImageView
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/login_facebookicon"
-            android:textColor="#ffffff" />
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:paddingBottom="@dimen/connect_with_facebook_padding_bottom"
+            android:paddingTop="@dimen/connect_with_facebook_padding_top">
 
-        <TextView
-            android:textSize="@dimen/or_text_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/connect_facebook"
-            android:textColor="#ffffff" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/login_facebookicon"
+                android:textColor="#ffffff"/>
+
+            <com.hadippa.CustomTextView
+                app:customFont="@string/proxima_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/connect_facebook"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/or_text_size"/>
         </LinearLayout>
     </LinearLayout>
 

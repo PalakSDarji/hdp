@@ -7,7 +7,7 @@
     <solid android:color="#ffffff"></solid>
     <!--border color,width -->
 
-    <stroke android:color="@color/edittextborder" android:width="1dp"></stroke>
+    <stroke android:color="@color/c_d1cdce" android:width="1dp"></stroke>
     <!--  padding -->
 
 

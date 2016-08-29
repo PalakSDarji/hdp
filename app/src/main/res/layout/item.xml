@@ -70,7 +70,7 @@
                                 android:layout_gravity="center"
                                 android:src="@drawable/movie"/>
 
-                            <com.hadippa.BoldTextView
+                            <com.hadippa.CustomTextView
                                 android:id="@+id/tvActivityName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

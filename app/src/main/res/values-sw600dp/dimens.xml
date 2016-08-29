@@ -1,15 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--<dimen name="value_w130">122dp</dimen>
+    <dimen name="value_h15">14dp</dimen>
+    <dimen name="value_w26">24dp</dimen>
+    <dimen name="value_h21">20dp</dimen>
+    <dimen name="value_w24">23dp</dimen>
+    <dimen name="values_txt_11">13sp</dimen>
+    <dimen name="values_txt_13">15sp</dimen>
+    <dimen name="value_w5">5dp</dimen>
+    <dimen name="value_w85">80dp</dimen>
+    &lt;!&ndash;<dimen name="value_w40">30dp</dimen>&ndash;&gt;
+    <dimen name="values_txt_12">14sp</dimen>--><!--<dimen name="value_w130">122dp</dimen>
+    <dimen name="value_h15">14dp</dimen>
+    <dimen name="value_w26">24dp</dimen>
+    <dimen name="value_h21">20dp</dimen>
+    <dimen name="value_w24">23dp</dimen>
+    <dimen name="values_txt_11">13sp</dimen>
+    <dimen name="values_txt_13">15sp</dimen>
+    <dimen name="value_w5">5dp</dimen>
+    <dimen name="value_w85">80dp</dimen>
+    &lt;!&ndash;<dimen name="value_w40">30dp</dimen>&ndash;&gt;
+    <dimen name="values_txt_12">14sp</dimen>-->
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="card_title_textsize">21sp</dimen>
     <dimen name="edit_text_padding">17dp</dimen>
     <dimen name="edit_text_size">11dp</dimen>
     <dimen name="login_button_padding">17dp</dimen>
     <dimen name="login_button_textsize">16dp</dimen>
     <dimen name="login_button_margin_bottom">10dp</dimen>
     <dimen name="edittext_margin_bottom">25dp</dimen>
-    <dimen name="edittext_margin_bottom_2">23dp</dimen>
+    <dimen name="edittext_margin_bottom_2">24dp</dimen>
     <dimen name="textview_or_margin_top">14dp</dimen>
     <dimen name="textview_or_margin_bottom">17dp</dimen>
     <dimen name="logo_margin_bottom">47dp</dimen>
@@ -24,6 +49,7 @@
     <!-- Sign Up -->
     <dimen name="signup_edittext_margin_bottom">23dp</dimen>
     <dimen name="signup_cam_bottom_margin">20dp</dimen>
+    <dimen name="font_follower_subtext">12sp</dimen>
     <dimen name="signup_cam_top_margin">11dp</dimen>
     <dimen name="signup_button_padding_vertical">18dp</dimen>
     <dimen name="signup_button_padding_horizontal">38dp</dimen>
@@ -52,7 +78,7 @@
     <dimen name="home_drawer_menu_left_margins">32dp</dimen>
     <dimen name="home_drawer_menu_text_size">11dp</dimen>
     <dimen name="home_drawer_option1_margin_bottom">37dp</dimen>
-    <dimen name="home_drawer_option2_margin_bottom">16dp</dimen>
+    <dimen name="home_drawer_option2_margin_bottom">25dp</dimen>
     <dimen name="home_drawer_option3_margin_bottom">35dp</dimen>
     <dimen name="home_drawer_option4_margin_bottom">38dp</dimen>
     <dimen name="home_drawer_option5_margin_bottom">50dp</dimen>
@@ -66,24 +92,23 @@
     <!--Show Card Fragment-->
     <dimen name="card_padding_top">10dp</dimen>
     <dimen name="card_padding_side">14dp</dimen>
-    <dimen name="card_title_textsize">21sp</dimen>
     <dimen name="card_title1_textsize">15dp</dimen>
-    <dimen name="font_follower_subtext">12sp</dimen>
     <dimen name="card_image_height">303dp</dimen>
     <dimen name="card_share_textsize">7dp</dimen>
     <dimen name="card_event_margin_bottom">12dp</dimen>
-    <dimen name="card_bottom_layer_vertical_padding">8dp</dimen>
-    <dimen name="card_view_margin_vertical">11dp</dimen>
+    <dimen name="card_bottom_layer_vertical_padding">9dp</dimen>
     <dimen name="rounded_radius">51dp</dimen>
+    <dimen name="card_view_margin_vertical">11dp</dimen>
+    <dimen name="bottom_menu_side_margin">59dp</dimen>
     <dimen name="card_bottom_text_size">13dp</dimen>
     <dimen name="card_followling">12dp</dimen>
 
     <dimen name="list_image_dimen">49dp</dimen>
-
     <dimen name="card_bottom_drawer">40dp</dimen>
     <dimen name="card_bottom_center">57dp</dimen>
     <dimen name="card_bottom_drawer_radius">20dp</dimen>
     <dimen name="card_bottom_center_radius">28.5dp</dimen>
+
 
     <dimen name="pref_card_1_margin_top">28dp</dimen>
     <dimen name="pref_card_side_margin">14dp</dimen>
@@ -99,7 +124,6 @@
     <dimen name="pref_range_bar_height">30dp</dimen>
 
     <dimen name="card_bottom_drawer_margin_bottom">24dp</dimen>
-
     <dimen name="filter_first_line_textview_padding_horizontal">16dp</dimen>
     <dimen name="filter_first_line_textview_padding_vertical">11dp</dimen>
     <dimen name="filter_movie_width">68dp</dimen>
@@ -108,22 +132,23 @@
     <dimen name="filter_festival_width">76dp</dimen>
     <dimen name="filter_seperator_margin">8dp</dimen>
 
-
     <dimen name="follow_width_layout_1">235dp</dimen>
     <dimen name="follow_width_layout_2">100dp</dimen>
     <dimen name="follow_width_layout_3">56dp</dimen>
-
 
     <dimen name="list_image_dimen1">79dp</dimen>
     <dimen name="view_height">31dp</dimen>
     <dimen name="card_height_longue">163dp</dimen>
     <dimen name="my_plan_image">74dp</dimen>
-    <dimen name="home_drawer_sub_textsize">12dp</dimen>
-    <dimen name="login_button_dont_have_margin_bottom">7dp</dimen>
-    <dimen name="or_text_size">12sp</dimen>
+    <dimen name="home_drawer_sub_textsize">13dp</dimen>
+    <dimen name="login_button_dont_have_margin_bottom">8dp</dimen>
+    <dimen name="or_text_size">14sp</dimen>
     <dimen name="value_12">12dp</dimen>
     <dimen name="value_16">16dp</dimen>
     <dimen name="value_20">20dp</dimen>
+
+
+    <dimen name="value_150">200dp</dimen>
     <dimen name="values_txt_12">13sp</dimen>
     <dimen name="value_10">10dp</dimen>
     <dimen name="values_50">50dp</dimen>
@@ -149,11 +174,11 @@
     <dimen name="value_w5">4dp</dimen>
     <dimen name="value_w85">48dp</dimen>
     <dimen name="value_w40">23dp</dimen>
-    <dimen name="value_w340">191dp</dimen>
-    <dimen name="value_h120">68dp</dimen>
+    <dimen name="value_w340">319dp</dimen>
+    <dimen name="value_h120">113dp</dimen>
     <dimen name="value_w50">28dp</dimen>
     <dimen name="value_w32">18dp</dimen>
-    <dimen name="value_w215">121dp</dimen>
+    <dimen name="value_w215">200dp</dimen>
     <dimen name="value_w29">16dp</dimen>
     <dimen name="value_h42">24dp</dimen>
     <dimen name="value_w140">80dp</dimen>
@@ -183,5 +208,4 @@
     <dimen name="value_w105">59dp</dimen>
     <dimen name="value_w43">24dp</dimen>
     <dimen name="value_h27">15dp</dimen>
-
 </resources>

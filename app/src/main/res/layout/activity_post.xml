@@ -58,16 +58,6 @@
         android:layout_alignLeft="@+id/ivTravel"
         android:layout_below="@+id/ivTravel"/>
 
-    <ImageView
-        android:id="@+id/ivPlusBlue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/plus_blue"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_below="@+id/ivGlass"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,5 +87,15 @@
         android:layout_alignRight="@+id/ivEntertainment"
         android:layout_alignLeft="@+id/ivEntertainment"
         android:layout_below="@+id/ivTravel"/>
+
+    <ImageView
+        android:id="@+id/ivPlusBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/plus_blue"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/ivGlass"
+        android:layout_alignLeft="@+id/ivGlass"
+        android:layout_alignStart="@+id/ivGlass"/>
 
 </RelativeLayout>

@@ -77,7 +77,7 @@
     <dimen name="card_share_textsize">7dp</dimen>
     <dimen name="card_event_margin_bottom">10dp</dimen>
     <dimen name="card_bottom_layer_vertical_padding">7dp</dimen>
-<dimen name="card_view_margin_vertical">10dp</dimen>
+    <dimen name="card_view_margin_vertical">10dp</dimen>
     <dimen name="rounded_radius">45dp</dimen>
     <dimen name="bottom_menu_side_margin">52dp</dimen>
     <dimen name="card_bottom_text_size">12dp</dimen>
@@ -114,7 +114,6 @@
     <dimen name="filter_seperator_margin">7dp</dimen>
 
 
-
     <dimen name="follow_width_layout_1">209dp</dimen>
     <dimen name="follow_width_layout_2">89dp</dimen>
     <dimen name="follow_width_layout_3">40dp</dimen>
@@ -144,6 +143,55 @@
     <dimen name="values_130">130dp</dimen>
     <dimen name="values_30">30dp</dimen>
     <dimen name="value_txt_9">9sp</dimen>
+    <dimen name="values_txt_10">10sp</dimen>
+    <dimen name="value_40">40dp</dimen>
+    <dimen name="value_28">28dp</dimen>
+    <dimen name="value_130">130dp</dimen>
+    <dimen name="value_w130">65dp</dimen>
+    <dimen name="value_h15">8dp</dimen>
+    <dimen name="value_w26">13dp</dimen>
+    <dimen name="value_h21">11dp</dimen>
+    <dimen name="value_w24">12dp</dimen>
+    <dimen name="values_txt_11">11sp</dimen>
+    <dimen name="values_txt_13">13sp</dimen>
+    <dimen name="values_txt_14">14sp</dimen>
+    <dimen name="value_w5">3dp</dimen>
+    <dimen name="value_w85">43dp</dimen>
+    <dimen name="value_w40">20dp</dimen>
+    <dimen name="value_w340">170dp</dimen>
+    <dimen name="value_h120">60dp</dimen>
+    <dimen name="value_w50">25dp</dimen>
+    <dimen name="value_w32">16dp</dimen>
+    <dimen name="value_w215">108dp</dimen>
+    <dimen name="value_w29">15dp</dimen>
+    <dimen name="value_h42">21dp</dimen>
+    <dimen name="value_w140">60dp</dimen>
+    <dimen name="value_w470">235dp</dimen>
+    <dimen name="value_h110">55dp</dimen>
+    <dimen name="value_w100">50dp</dimen>
+    <dimen name="value_w90">45dp</dimen>
+    <dimen name="value_w500">250dp</dimen>
+    <dimen name="value_h31">16dp</dimen>
+    <dimen name="value_w210">105dp</dimen>
+    <dimen name="values_w235">118dp</dimen>
+    <dimen name="value_h13">7dp</dimen>
+    <dimen name="value_w36">18dp</dimen>
+    <dimen name="values_txt_18">18sp</dimen>
+    <dimen name="value_w56">28dp</dimen>
+    <dimen name="value_w17">9dp</dimen>
+    <dimen name="value_w66">33dp</dimen>
+    <dimen name="value_w170">85dp</dimen>
+    <dimen name="value_h55">28dp</dimen>
+    <dimen name="value_h140">70dp</dimen>
+    <dimen name="value_h64">32dp</dimen>
+    <dimen name="value_w370">185dp</dimen>
+    <dimen name="value_w154">77dp</dimen>
+    <dimen name="value_w144">72dp</dimen>
+    <dimen name="value_h124">62dp</dimen>
+    <dimen name="value_w75">35dp</dimen>
+    <dimen name="value_w105">53dp</dimen>
+    <dimen name="value_w43">22dp</dimen>
+    <dimen name="value_h27">14dp</dimen>
 
 
 </resources>

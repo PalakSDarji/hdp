@@ -151,5 +151,8 @@
         <attr name="gravity" />
     </declare-styleable>
 
+    <declare-styleable name="CustomTextView">
+        <attr name="customFont" format="string"/>
+    </declare-styleable>
 
 </resources>

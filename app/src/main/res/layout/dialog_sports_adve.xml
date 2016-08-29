@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-                android:background="#9b000000"
-              android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="#bb000000"
+                android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/ivSport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/value_w140"
+        android:layout_height="@dimen/value_w140"
         android:layout_centerInParent="true"
         android:src="@drawable/sports"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_below="@+id/ivGlass"/>
 
-    <TextView
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sports"
         android:textSize="@dimen/values_txt_12"
         android:gravity="center_horizontal"
         android:textColor="#fff"
+        android:id="@+id/tvSports"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/value_5"
         android:layout_below="@+id/ivSport"/>
 
     <ImageView
         android:id="@+id/ivClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/value_w90"
+        android:layout_height="@dimen/value_w90"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_close"
-        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
-        android:layout_below="@+id/ivSport"/>
+        android:layout_marginTop="@dimen/value_h42"
+        android:layout_below="@+id/tvSports"/>
 
     <ImageView
         android:id="@+id/ivAdve"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/value_w100"
+        android:layout_height="@dimen/value_w100"
         android:layout_centerHorizontal="true"
         android:src="@drawable/adve"
         android:layout_above="@+id/tvAdve"/>
 
-    <TextView
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
         android:id="@+id/tvAdve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Adventure"
         android:textSize="@dimen/values_txt_12"
+        android:layout_marginTop="@dimen/value_5"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:gravity="center_horizontal"
         android:textColor="#fff"
@@ -72,12 +78,13 @@
 
             <ImageView
                 android:id="@+id/ivWater"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/value_w100"
+                android:layout_height="@dimen/value_w100"
                 android:layout_above="@+id/Water"
                 android:src="@drawable/adventurewater"/>
 
-            <TextView
+            <com.hadippa.CustomTextView
+                app:customFont="@string/proxima_bold"
                 android:id="@+id/tvWater"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,11 +106,12 @@
 
             <ImageView
                 android:id="@+id/ivAir"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/value_w100"
+                android:layout_height="@dimen/value_w100"
                 android:src="@drawable/adventure_air"/>
 
-            <TextView
+            <com.hadippa.CustomTextView
+                app:customFont="@string/proxima_bold"
                 android:id="@+id/tvAir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,13 +127,14 @@
 
     <ImageView
         android:id="@+id/ivEarth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/value_w100"
+        android:layout_height="@dimen/value_w100"
         android:layout_alignRight="@+id/tvEarth"
         android:src="@drawable/adventure_earth"
         android:layout_above="@+id/tvEarth"/>
 
-    <TextView
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
         android:id="@+id/tvEarth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -134,27 +143,28 @@
         android:textSize="@dimen/values_txt_12"
         android:layout_toLeftOf="@+id/llWaterAir"
         android:layout_alignTop="@+id/ivAdve"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/value_5"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/card_bottom_drawer"
         android:textColor="#fff"/>
 
     <ImageView
         android:id="@+id/ivSnow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/value_w100"
+        android:layout_height="@dimen/value_w100"
         android:layout_alignLeft="@+id/tvSnow"
         android:src="@drawable/adventuresnow"
         android:layout_above="@+id/tvSnow"/>
 
-    <TextView
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
         android:id="@+id/tvSnow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" Snow"
         android:textSize="@dimen/values_txt_12"
         android:layout_toRightOf="@+id/llWaterAir"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/value_5"
         android:layout_alignTop="@+id/ivAdve"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/card_bottom_drawer"

@@ -22,5 +22,19 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        findViewById(R.id.rlActivity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this,ActivityThingsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

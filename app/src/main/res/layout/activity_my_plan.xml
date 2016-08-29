@@ -1,47 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.hadippa.activities.MyPlan">
-
-    <RelativeLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/imageBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="7.5dp"
-            android:src="@drawable/ic_back" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/my_plan_"
-            android:textColor="@color/tabs_movie_cinema_text"
-            android:textStyle="bold" />
-
-
-        <TextView
-            android:id="@+id/imageFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:drawableTop="@drawable/ic_info"
-            android:text="History"
-            android:textSize="7dp" />
-
-    </RelativeLayout>
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.hadippa.activities.MyPlan">
 
     <LinearLayout
         android:id="@+id/linear_filter"
@@ -56,27 +19,76 @@
             android:id="@+id/sep"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/filter_seperator"></View>
+            android:background="@color/c_e3e3e3"></View>
 
-        <TextView
-            android:text="Upcoming Plan"
-            android:paddingBottom="@dimen/connect_with_facebook_padding_top"
-            android:paddingTop="@dimen/connect_with_facebook_padding_top"
+        <com.hadippa.CustomTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/value_12"
             android:paddingLeft="@dimen/connect_with_facebook_padding_top"
-            android:textSize="@dimen/connect_with_facebook_padding_top"/>
-
-        <View
-            android:id="@+id/sep1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/filter_seperator"></View>
+            android:paddingTop="@dimen/value_12"
+            app:customFont="@string/proxima_reg"
+            android:text="@string/upcoming_plan"
+            android:textColor="@color/c_a79e9f"
+            android:textSize="@dimen/values_txt_16"/>
 
         <android.support.v7.widget.RecyclerView
-            android:background="#f5f5f5"
-                      android:layout_width="match_parent"
+            android:id="@+id/myPlanRecycler"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/myPlanRecycler"></android.support.v7.widget.RecyclerView>
+            android:background="@color/c_f5f5f3"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/my_plan_small"
+            android:textColor="@color/c_a8a09e"
+            android:textSize="@dimen/values_txt_18"
+            app:customFont="@string/proxima_bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/value_w40"
+                android:layout_height="@dimen/value_w40"
+                android:src="@drawable/my_plan_history"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/imageFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="History"
+                android:textColor="@color/c_b7b3b4"
+                android:textSize="@dimen/values_txt_8"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

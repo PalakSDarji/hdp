@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:typeface">monospace</item>
+        <!--<item name="android:typeface">monospace</item>-->
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
@@ -54,14 +54,14 @@
 
 
     <style name="App_EditTextStyle_SiginUp">
-        <item name="android:padding">@dimen/edit_text_padding</item>
-        <item name="android:textSize">@dimen/pref_card_title_size</item>
-        <item name="android:layout_marginBottom">@dimen/signup_edittext_margin_bottom</item>
-        <item name="android:background">@drawable/rounded_edittext_signup</item>
-        <item name="android:layout_marginRight">30dp</item>
-        <item name="android:layout_marginLeft">30dp</item>
-        <item name="android:textColor">@color/edittexthintcolorsignup</item>
-        <item name="android:textColorHint">@color/edittexthintcolorsignup</item>
+        <item name="android:textSize">@dimen/values_txt_13</item>
+        <item name="android:paddingTop">@dimen/value_w32</item>
+        <item name="android:paddingBottom">@dimen/value_w32</item>
+        <item name="android:layout_marginRight">@dimen/value_w32</item>
+        <item name="android:layout_marginLeft">@dimen/value_w32</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/c_9c9c9c</item>
+        <item name="android:textColorHint">@color/c_9c9c9c</item>
     </style>
 
     <style name="App_EditTextStyle_SiginUp_left_margin">
@@ -175,4 +175,5 @@
     </style>
 
 
+    <color name="c_9c9c9c">#9c9c9c</color>
 </resources>
