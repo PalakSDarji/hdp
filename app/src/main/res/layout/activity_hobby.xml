@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_hobby"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.hadippa.activities.HobbyActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/hobby"
+            android:textColor="@color/c_444444"
+            android:textSize="@dimen/values_txt_16"
+            app:customFont="@string/proxima_bold"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/value_w17"
+            android:text="NEXT"
+            android:textColor="@color/c_f25e5e"
+            android:textSize="@dimen/values_txt_16"
+            app:customFont="@string/proxima_bold"/>
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/value_w90"
+            android:paddingRight="@dimen/value_w90"
+            android:paddingTop="@dimen/value_h64">
+
+            <com.hadippa.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_h21"
+                android:text="@string/name_of_hobby_class"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_12"
+                app:customFont="@string/proxima_reg"/>
+
+            <com.hadippa.CustomEditText
+                android:id="@+id/etHobbyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/value_h55"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Guitar"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_18"
+                app:customFont="@string/proxima_bold"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/c_e8e6e7"
+                />
+
+            <com.hadippa.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_h42"
+                android:text="@string/place"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_12"
+                app:customFont="@string/proxima_reg"/>
+
+            <com.hadippa.CustomEditText
+                android:id="@+id/etHobbyPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/value_h55"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Ashima Class"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_18"
+                app:customFont="@string/proxima_bold"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/c_e8e6e7"
+                />
+
+            <com.hadippa.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_h42"
+                android:text="@string/area"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_12"
+                app:customFont="@string/proxima_reg"/>
+
+            <com.hadippa.CustomEditText
+                android:id="@+id/etHobbyArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/value_h55"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Andheri West"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_18"
+                app:customFont="@string/proxima_bold"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/c_e8e6e7"
+                />
+
+            <com.hadippa.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_h42"
+                android:text="@string/city"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_12"
+                app:customFont="@string/proxima_reg"/>
+
+            <com.hadippa.CustomEditText
+                android:id="@+id/etHobbyCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/value_h55"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Mumbai"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_18"
+                app:customFont="@string/proxima_bold"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/c_e8e6e7"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/top"
+        android:background="@drawable/header_gredient"/>
+
+
+</RelativeLayout>
