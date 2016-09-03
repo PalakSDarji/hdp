@@ -69,6 +69,7 @@
 
     <string name="movie">Movie</string>
     <string name="theatre_play">Theatre Play</string>
+    <string name="theatre_party">Theatre Party</string>
     <string name="event">Event</string>
     <string name="festival">Festival</string>
     <string name="night_club">Nightclub</string>
@@ -133,5 +134,34 @@
     <string name="desbribe_this_user">Describe this user in one word</string>
     <string name="send">SEND</string>
     <string name="expired">Expired</string>
+    <string name="hobby">Hobby</string>
+    <string name="name_of_hobby_class">Name of hobby class</string>
+    <string name="place">Place</string>
+    <string name="area">Area</string>
+    <string name="city">City</string>
+    <string name="create_activity">Create activity</string>
+    <string name="invite">Invite</string>
+    <string name="address">Address</string>
+    <string name="name_of_the_activity">Name of the activity</string>
+    <string name="visiting_date">Visiting Date</string>
+    <string name="hide_post_from">Hide Post from</string>
+    <string name="public_following"><![CDATA[Public & Following]]></string>
+    <string name="following">Following</string>
+    <string name="public_activity">Public</string>
+    <string name="want_to_receive_notification_for_same_activity">Want to receive notification\nfor same activity</string>
+    <string name="invite_to_join_you">Invite to join you</string>
+    <string name="join_these_people">Join these people</string>
+    <string name="list_with_hadipaa">List with Hadipaa</string>
+    <string name="live_music">Live Music</string>
+    <string name="adventure_sports">Adventure Sports</string>
+    <string name="hobby_classes">Hobby Classes</string>
+    <string name="my_booking">My Booking</string>
+    <string name="invite_friends">Invite Friends</string>
+    <string name="setting">Setting</string>
+    <string name="your_name">Your Name</string>
+    <string name="email">Email</string>
+    <string name="mobile_number_small">Mobile Number</string>
+    <string name="company_name">Company Name</string>
+    <string name="company_website_or_page_link">Company Website or Page link</string>
 
 </resources>

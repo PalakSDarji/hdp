@@ -192,6 +192,11 @@
     <dimen name="value_w105">53dp</dimen>
     <dimen name="value_w43">22dp</dimen>
     <dimen name="value_h27">14dp</dimen>
+    <dimen name="value_h38">19dp</dimen>
+    <dimen name="value_h48">24dp</dimen>
+    <dimen name="value_h10">5dp</dimen>
+    <dimen name="value_h90">45dp</dimen>
+    <dimen name="value_h50">25dp</dimen>
 
 
 </resources>

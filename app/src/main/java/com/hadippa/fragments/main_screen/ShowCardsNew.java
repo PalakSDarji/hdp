@@ -117,11 +117,8 @@ public class ShowCardsNew extends Fragment {
     // CustomBaseAdapter arrayAdapter;
 
     ImageView swipeLeft, swipeRight;
-    private SwipeDeck cardStack;
     Dialog dialog1;
-    RelativeLayout relFab;
     RelativeLayout rlFix;
-    FloatingActionsMenu multiple_actions;
 
     int i = 0;
     // FloatingActionsMenu multiple_actions;

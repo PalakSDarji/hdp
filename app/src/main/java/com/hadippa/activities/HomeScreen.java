@@ -34,7 +34,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     LinearLayout leftDrawer;
     TextView tvUserName;
     ImageView profileImage;
-    LinearLayout linearFollowling, linearNotification, linearPreference, linearHome, linearFeedback;
+    LinearLayout linearNotification, linearPreference, linearHome, linearFeedback;
     EditText edtSearch;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -128,8 +128,8 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         linearNotification.setOnClickListener(this);
         linearPreference = (LinearLayout) findViewById(R.id.linearPreference);
         linearPreference.setOnClickListener(this);
-        linearFollowling = (LinearLayout) findViewById(R.id.linearFollowling);
-        linearFollowling.setOnClickListener(this);
+        /*linearFollowling = (LinearLayout) findViewById(R.id.linearFollowling);
+        linearFollowling.setOnClickListener(this);*/
         linearFeedback = (LinearLayout) findViewById(R.id.linearFeedback);
         linearFeedback.setOnClickListener(this);
 
@@ -138,6 +138,25 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.frame, fragment, "home_fragment");
         fragmentTransaction.commit();
+
+        findViewById(R.id.linearListWithHadipaa).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(HomeScreen.this, ListHadipaaActivity.class);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        findViewById(R.id.linearPreference).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intentPreference = new Intent(HomeScreen.this, Preference.class);
+                startActivity(intentPreference);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
 
     }
 
@@ -166,21 +185,6 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
-            case R.id.linearFollowling:
-
-
-                Intent intent = new Intent(HomeScreen.this, FollowingMain.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                break;
-
-            case R.id.linearPreference:
-
-
-                Intent intentPreference = new Intent(HomeScreen.this, Preference.class);
-                startActivity(intentPreference);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                break;
         }
     }
 

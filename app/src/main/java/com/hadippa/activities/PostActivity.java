@@ -49,7 +49,21 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.ivHobby).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostActivity.this, HobbyActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        findViewById(R.id.ivPlusBlue).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

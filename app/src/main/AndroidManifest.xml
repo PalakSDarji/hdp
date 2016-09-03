@@ -146,6 +146,21 @@
         </activity>
         <activity android:name=".activities.ActivityThingsActivity">
         </activity>
+        <activity android:name=".activities.HobbyActivity">
+        </activity>
+        <activity
+            android:name=".activities.CreateActivityActvity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity android:name=".activities.InviteToJoinActivity">
+        </activity>
+        <activity android:name=".activities.PeopleJoinActivity">
+        </activity>
+        <activity android:name=".activities.ListHadipaaActivity">
+        </activity>
+        <activity android:name=".activities.ListHadipaaDetailActivity"
+                  android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
     </application>
 
 </manifest>

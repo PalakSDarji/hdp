@@ -30,6 +30,7 @@ public class MyPlan extends AppCompatActivity {
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

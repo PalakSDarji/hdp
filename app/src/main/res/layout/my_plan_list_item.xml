@@ -70,28 +70,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.hadippa.CustomTextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="@dimen/tab_search_padding_vertical"
-                        android:layout_toLeftOf="@+id/ivCountIcon"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text="Maria Sharopava, 29"
-                        android:textColor="@color/c_6f6b6c"
-                        android:textSize="@dimen/values_txt_13"
-                        android:textStyle="bold"
-                        app:customFont="@string/proxima_bold">
-
-                    </com.hadippa.CustomTextView>
-
                     <ImageView
                         android:id="@+id/ivActivityIcon"
                         android:layout_width="@dimen/value_w24"
                         android:layout_height="@dimen/value_w24"
+                        android:layout_marginTop="@dimen/value_2"
                         android:layout_below="@+id/name"
                         android:src="@drawable/landing_pages_movie_icon"/>
 
@@ -104,11 +87,12 @@
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/ivActivityIcon"
                         android:text="Sarabjit Movie"
+                        android:layout_toLeftOf="@+id/ivCountIcon"
                         android:textColor="@color/pink_text"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        android:textSize="@dimen/values_txt_13"
+                        android:textSize="@dimen/values_txt_16"
                         app:customFont="@string/proxima_bold"/>
 
                     <com.hadippa.CustomTextView
@@ -242,7 +226,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="@dimen/value_10"
+        android:layout_marginBottom="@dimen/value_5"
         android:layout_marginTop="@dimen/value_10"
         android:background="@color/c_e3e3e3"/>
 

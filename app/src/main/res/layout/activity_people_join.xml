@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    android:id="@+id/sliding_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoOverlay="false"
+    sothree:umanoPanelHeight="0dp"
+    sothree:umanoShadowHeight="4dp">
+
+    <RelativeLayout
+        android:id="@+id/activity_people_join"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        tools:context="com.hadippa.activities.PeopleJoinActivity">
+
+        <RelativeLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#ffffff"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imageBack"
+                android:layout_width="@dimen/value_40"
+                android:layout_height="@dimen/value_28"
+                android:layout_centerVertical="true"
+                android:padding="4dp"
+                android:src="@drawable/ic_back"/>
+
+            <com.hadippa.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/join_these_people"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_18"
+                app:customFont="@string/proxima_bold"/>
+
+            <LinearLayout
+                android:id="@+id/llInvite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/value_w17"
+                android:visibility="invisible"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/value_w40"
+                    android:layout_height="@dimen/value_w40"
+                    android:src="@drawable/my_plan_history"/>
+
+                <com.hadippa.CustomTextView
+                    android:id="@+id/imageFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/invite"
+                    android:textColor="@color/c_464646"
+                    android:textSize="@dimen/values_txt_10"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="@dimen/value_h21"
+            android:paddingLeft="@dimen/value_w36"
+            android:paddingRight="@dimen/value_w36"
+            android:paddingTop="@dimen/value_2"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/imageLeft"
+                    android:layout_width="@dimen/value_w105"
+                    android:layout_height="@dimen/value_w105"
+                    android:layout_marginRight="@dimen/home_drawer_title1_drawable_padding"
+                    android:layout_toLeftOf="@+id/linearCenter"
+                    android:background="@drawable/rounded_small"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/value_w43"
+                        android:layout_height="@dimen/value_w43"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/landing_pages_reject"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/imageRight"
+                    android:layout_width="@dimen/value_w105"
+                    android:layout_height="@dimen/value_w105"
+                    android:layout_marginLeft="@dimen/home_drawer_title1_drawable_padding"
+                    android:layout_toLeftOf="@+id/linearCenter"
+                    android:background="@drawable/rounded_small"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/value_w56"
+                        android:layout_height="@dimen/value_w56"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/landing_pages_accept"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/value_w105"
+                    android:layout_height="@dimen/value_w105"
+                    android:layout_marginLeft="@dimen/home_drawer_title1_drawable_padding"
+                    android:layout_toLeftOf="@+id/linearCenter"
+                    android:background="@drawable/rounded_small"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/value_w50"
+                        android:layout_height="@dimen/value_w50"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/landing_pages_refresh"/>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.hadippa.tindercard.SwipeFlingAdapterView
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/footer"
+            android:layout_below="@+id/top"
+            app:rotation_degrees="10.0"
+            tools:context=".HomeScreen"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@+id/top"
+            android:background="@drawable/header_gredient"/>
+
+        <View
+            android:id="@+id/mapCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/slidingpanel_height">
+
+        <TextView
+            android:id="@+id/tvPp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="People Going alone"
+            android:textColor="@color/pink_text"
+            android:textSize="@dimen/card_title_textsize"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/horizontal_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPp"
+            android:background="#fff"/>
+
+
+    </RelativeLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

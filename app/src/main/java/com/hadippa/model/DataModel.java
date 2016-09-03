@@ -87,6 +87,8 @@ public class DataModel{
     private List<?> follower;
     private List<?> following;
 
+
+
     public String getId() {
         return id;
     }
