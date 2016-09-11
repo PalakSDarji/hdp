@@ -122,13 +122,21 @@
                         android:id="@+id/tvCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_toLeftOf="@+id/ivMore"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="10dp"
                         android:text="100"
                         android:textColor="@color/c_8f8f8f"
                         android:textSize="@dimen/values_txt_11"
                         app:customFont="@string/proxima_reg"/>
+
+                    <ImageView
+                        android:id="@+id/ivMore"
+                        android:layout_width="@dimen/value_w24"
+                        android:layout_height="@dimen/value_w24"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_header_right_overflow"/>
+
                 </RelativeLayout>
 
             </RelativeLayout>

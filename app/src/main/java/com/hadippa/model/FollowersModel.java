@@ -22,6 +22,17 @@ public class FollowersModel {
     private String follow_accepted;
     private String created_at;
     private String updated_at;
+
+    public FollowersModel() {
+        this.id = "97";
+        this.follower_id = "Kartik";
+        this.followed_id = "Mistry";
+        this.follow_accepted = "";
+        this.created_at = "";
+        this.updated_at = "";
+        this.follower = new FollowerBean();
+    }
+
     /**
      * id : 97
      * first_name : Kartik
@@ -29,6 +40,8 @@ public class FollowersModel {
      * profile_photo : https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41
      * photo_uploaded : 1
      */
+
+
 
     private FollowerBean follower;
 
@@ -94,6 +107,14 @@ public class FollowersModel {
         private String last_name;
         private String profile_photo;
         private String photo_uploaded;
+
+        public FollowerBean() {
+            this.id = "97";
+            this.first_name = "kartick";
+            this.last_name = "Mistry";
+            this.profile_photo = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41";
+            this.photo_uploaded = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41";
+        }
 
         public String getId() {
             return id;

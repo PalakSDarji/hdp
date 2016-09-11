@@ -70,7 +70,7 @@ public class Preference extends Activity implements View.OnClickListener {
         discreteBarkms.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
             @Override
             public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                tvDistance.setText(String.valueOf(value));
+                tvDistance.setText(String.valueOf(value) + " km");
                 radius = String.valueOf(value);
             }
 

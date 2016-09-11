@@ -1,115 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:paddingBottom="@dimen/home_drawer_menu_text_size"
-    android:paddingLeft="17dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/home_drawer_menu_text_size"
+              android:paddingLeft="17dp"
     >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-   >
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="center_vertical"
+                  android:orientation="vertical"
+        >
 
-    <LinearLayout
-        android:id="@+id/linearDate"
-        android:background="@drawable/rounded_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/card_share_textsize"
-        android:paddingBottom="@dimen/card_share_textsize"
-        android:paddingLeft="@dimen/card_bottom_text_size"
-        android:paddingRight="@dimen/card_bottom_text_size"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="14"
-            android:textSize="@dimen/card_title1_textsize"/>
 
         <LinearLayout
-            android:layout_marginLeft="5dp"
+            android:id="@+id/linearDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@drawable/rounded_date"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/value_h15"
+            android:paddingLeft="@dimen/value_w29"
+            android:paddingRight="@dimen/value_w29"
+            android:paddingTop="@dimen/value_h15">
 
             <TextView
-                android:textSize="@dimen/values_txt_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="June"/>
+                android:layout_gravity="center_vertical"
+                android:text="14"
+                android:textColor="@color/c_433d3d"
+                android:textSize="@dimen/values_txt_16"/>
 
-            <TextView
-                android:textSize="@dimen/values_txt_12"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Mon"/>
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="June"
+                    android:textColor="@color/c_443e3e"
+                    android:textSize="@dimen/values_txt_10"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Mon"
+                    android:textColor="@color/c_443e3e"
+                    android:textSize="@dimen/values_txt_10"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/value_w66"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/value_w66"
+                android:layout_height="@dimen/value_w66"
+                android:src="@drawable/ic_movies"/>
+
+            <ImageView
+                android:layout_width="@dimen/value_w66"
+                android:layout_height="@dimen/value_w66"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:src="@drawable/ic_movies"/>
+
+            <ImageView
+                android:layout_width="@dimen/value_w66"
+                android:layout_height="@dimen/value_w66"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:src="@drawable/ic_movies"/>
+
+            <ImageView
+                android:layout_width="@dimen/value_w66"
+                android:layout_height="@dimen/value_w66"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:src="@drawable/ic_movies"/>
+
+            <ImageView
+                android:layout_width="@dimen/value_w66"
+                android:layout_height="@dimen/value_w66"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:src="@drawable/ic_movies"/>
+
+            <ImageView
+                android:layout_width="@dimen/value_w66"
+                android:layout_height="@dimen/value_w66"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:src="@drawable/ic_movies"/>
+
+            <ImageView
+                android:layout_width="@dimen/value_w66"
+                android:layout_height="@dimen/value_w50"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:src="@drawable/ic_movies"/>
+
+            <ImageView
+                android:layout_width="@dimen/value_w66"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:layout_height="@dimen/value_w66"
+                android:src="@drawable/ic_movies"/>
+
+            <ImageView
+                android:layout_width="@dimen/value_w66"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:layout_height="@dimen/value_w66"
+                android:src="@drawable/ic_movies"/>
 
 
         </LinearLayout>
 
-    </LinearLayout>
-</LinearLayout>
-
-<HorizontalScrollView
-    android:layout_gravity="center_vertical"
-    android:layout_marginLeft="@dimen/home_drawer_option5_margin_bottom"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="none"
-    android:id="@+id/horizontalScroll">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_movies"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_movies"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_movies"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_movies"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_movies"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_movies"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_movies"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_movies"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_movies"/>
-
-
-    </LinearLayout>
-
-</HorizontalScrollView>
+    </HorizontalScrollView>
 </LinearLayout>

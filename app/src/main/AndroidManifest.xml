@@ -33,11 +33,6 @@
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <receiver
@@ -78,7 +73,13 @@
             android:name=".activities.HomeScreen"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.SignUp"
             android:screenOrientation="portrait"
@@ -152,13 +153,24 @@
             android:name=".activities.CreateActivityActvity"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".activities.InviteToJoinActivity">
+        <activity android:name=".activities.InviteToJoinActivity"
+                  android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
-        <activity android:name=".activities.PeopleJoinActivity">
+        <activity android:name=".activities.PeopleJoinActivity"
+                  android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
-        <activity android:name=".activities.ListHadipaaActivity">
+        <activity android:name=".activities.ListHadipaaActivity"
+                  android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
-        <activity android:name=".activities.ListHadipaaDetailActivity"
+        <activity
+            android:name=".activities.ListHadipaaDetailActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity
+            android:name=".activities.VistingActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity android:name=".activities.CoffeeActivity"
                   android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
     </application>

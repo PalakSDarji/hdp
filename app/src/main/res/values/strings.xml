@@ -63,6 +63,7 @@
     <string name="connections">CONNECTIONS</string>
     <string name="choose_activity">CHOOSE ACTIVITY</string>
     <string name="choose_date">Choose Date</string>
+    <string name="choose_activity_small">Choose Activity</string>
     <string name="show_age">Show Ages</string>
     <string name="show_me">Show Me</string>
     <string name="search_distance">Search Distance</string>
@@ -163,5 +164,12 @@
     <string name="mobile_number_small">Mobile Number</string>
     <string name="company_name">Company Name</string>
     <string name="company_website_or_page_link">Company Website or Page link</string>
+    <string name="visiting_date_and_time">Visiting date and time</string>
+    <string name="fare_per_seat">Fare Per Seat</string>
+    <string name="seats_available">Seats Available</string>
+    <string name="select_date">Select Date</string>
+    <string name="cut_off_time_to_join_you">Cut off time to join you</string>
+    <string name="nightlife">Nightlife</string>
+    <string name="search_cafe_or_area">Search Cafe or Area</string>
 
 </resources>

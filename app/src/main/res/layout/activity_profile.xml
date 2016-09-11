@@ -33,7 +33,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/imageBack"
             android:text="Sania Singh, 25"
-            android:textColor="@color/c_303030"
+            android:textColor="@color/c_2f2f2f"
             android:textSize="@dimen/values_txt_18"
             android:textStyle="bold"
             app:customFont="@string/proxima_bold"/>

@@ -103,6 +103,7 @@
     </style>
 
     <style name="activity_name">
+        <item name="android:clickable">true</item>
         <item name="android:textSize">@dimen/values_txt_12</item>
         <item name="android:paddingTop">@dimen/filter_first_line_textview_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/filter_first_line_textview_padding_vertical</item>

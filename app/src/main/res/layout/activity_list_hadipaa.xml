@@ -84,10 +84,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="70"
-                    android:background="@drawable/rounded_list_with"
+                    android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/standup_comedy"
                     android:textSize="@dimen/values_txt_16"
-                    android:textColor="@color/c_f55158"/>
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
                 <com.hadippa.CustomTextView
                     app:customFont="@string/proxima_reg"
@@ -99,9 +99,9 @@
                     android:layout_marginRight="10dp"
                     android:textSize="@dimen/values_txt_16"
                     android:layout_weight="30"
-                    android:background="@drawable/rounded_entertainment"
+                    android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/party"
-                    android:textColor="@color/c_f55158"/>
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
             </LinearLayout>
 
@@ -119,10 +119,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="40"
-                    android:background="@drawable/rounded_list_with"
+                    android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/live_music"
                     android:textSize="@dimen/values_txt_16"
-                    android:textColor="@color/c_f55158"/>
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
                 <com.hadippa.CustomTextView
                     app:customFont="@string/proxima_reg"
@@ -134,9 +134,9 @@
                     android:layout_marginRight="10dp"
                     android:textSize="@dimen/values_txt_16"
                     android:layout_weight="60"
-                    android:background="@drawable/rounded_entertainment"
+                    android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/adventure_sports"
-                    android:textColor="@color/c_f55158"/>
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
             </LinearLayout>
 
@@ -157,7 +157,7 @@
                     android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/theatre_party"
                     android:textSize="@dimen/values_txt_16"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
                 <com.hadippa.CustomTextView
                     app:customFont="@string/proxima_reg"
@@ -169,9 +169,9 @@
                     android:layout_marginRight="10dp"
                     android:textSize="@dimen/values_txt_16"
                     android:layout_weight="35"
-                    android:background="@drawable/rounded_entertainment"
+                    android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/event"
-                    android:textColor="@color/c_f55158"/>
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
             </LinearLayout>
 
@@ -190,10 +190,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="60"
-                    android:background="@drawable/rounded_list_with"
+                    android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/hobby_classes"
                     android:textSize="@dimen/values_txt_16"
-                    android:textColor="@color/c_f55158"/>
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
             </LinearLayout>
         </LinearLayout>

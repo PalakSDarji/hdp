@@ -8,14 +8,14 @@ import android.widget.ImageView;
 
 import com.hadippa.R;
 
-public class HobbyActivity extends AppCompatActivity {
+public class VistingActivity extends AppCompatActivity {
 
     private ImageView imageBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hobby);
+        setContentView(R.layout.activity_visting);
 
         imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
@@ -27,15 +27,21 @@ public class HobbyActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.tvNext).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.llInvite).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intentPreference = new Intent(HobbyActivity.this, VistingActivity.class);
-                startActivity(intentPreference);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
+                Intent intent = new Intent(VistingActivity.this, InviteToJoinActivity.class);
+                startActivity(intent);
             }
         });
+
+        findViewById(R.id.tvPost).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(VistingActivity.this, PeopleJoinActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

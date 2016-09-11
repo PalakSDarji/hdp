@@ -34,7 +34,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/imageBack"
             android:text="Activity of Sania Singh"
-            android:textColor="@color/c_303030"
+            android:textColor="@color/c_2f2f2f"
             android:layout_centerVertical="true"
             android:singleLine="true"
             android:maxLines="1"

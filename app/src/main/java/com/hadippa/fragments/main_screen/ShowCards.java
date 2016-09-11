@@ -338,7 +338,7 @@ public class ShowCards extends Fragment {
 
         dialog1.getWindow().setBackgroundDrawable(d);
 
-        TextView vMyPlan  =  (TextView)dialog1.findViewById(R.id.vMyPlan);
+        /*TextView vMyPlan  =  (TextView)dialog1.findViewById(R.id.vMyPlan);
         vMyPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -348,7 +348,7 @@ public class ShowCards extends Fragment {
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
-        });
+        });*/
         dialog1.show();
     }
 

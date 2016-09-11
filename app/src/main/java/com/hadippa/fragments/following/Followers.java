@@ -72,6 +72,13 @@ public class Followers extends Fragment {
 
         View view = inflater.inflate(R.layout.follow, null, false);
 
+        followersFollowings.add(new FollowersModel());
+        followersFollowings.add(new FollowersModel());
+        followersFollowings.add(new FollowersModel());
+        followersFollowings.add(new FollowersModel());
+        followersFollowings.add(new FollowersModel());
+        followersFollowings.add(new FollowersModel());
+
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
@@ -84,8 +91,8 @@ public class Followers extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(new CustomAdapter());
 
-        setPreviousData();
-        fetchFollowers();
+       /* setPreviousData();
+        fetchFollowers();*/
 
         return view;
 

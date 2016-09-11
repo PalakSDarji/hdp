@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
+        android:visibility="invisible"
         android:indeterminateTint="@color/abc_input_method_navigation_guard"
         android:indeterminateTintMode="src_atop" />
 

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.hadippa.model.FollowersModel;
 import com.hadippa.model.FollowingModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -68,6 +70,13 @@ public class Following extends Fragment {
 
         View view = inflater.inflate(R.layout.follow, null, false);
 
+        followersFollowings.add(new FollowingModel());
+        followersFollowings.add(new FollowingModel());
+        followersFollowings.add(new FollowingModel());
+        followersFollowings.add(new FollowingModel());
+        followersFollowings.add(new FollowingModel());
+        followersFollowings.add(new FollowingModel());
+
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
@@ -80,8 +89,8 @@ public class Following extends Fragment {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        setPreviousData();
-        fetchFollowing();
+        /*setPreviousData();
+        fetchFollowing();*/
 
         return view;
 
@@ -124,6 +133,13 @@ public class Following extends Fragment {
             Log.d(TAG, "Element " + position + " set.");
 
             FollowingModel followers_following = followersFollowings.get(position);
+
+            if(followers_following.isFollowing()){
+                viewHolder.ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_following);
+            }
+            else{
+                viewHolder.ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_follow);
+            }
             viewHolder.getName().setText(followers_following.getFollowed().getFirst_name()+" "+
                     followers_following.getFollowed().getLast_name());
 
@@ -144,11 +160,11 @@ public class Following extends Fragment {
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        private final ImageView foodImage;
+        private final ImageView foodImage,ivFollowUnfollow;
         private final TextView name,title2;
-
-
+        private LinearLayout llFollowUnfollow;
         TextView tvFollowUnfollow;
+
         public ViewHolder(final View v) {
             super(v);
 
@@ -163,20 +179,24 @@ public class Following extends Fragment {
             name = (TextView) v.findViewById(R.id.name);
             title2 = (TextView) v.findViewById(R.id.title2);
             foodImage = (ImageView) v.findViewById(R.id.profileImage);
+            ivFollowUnfollow = (ImageView) v.findViewById(R.id.ivFollowUnfollow);
+            llFollowUnfollow = (LinearLayout) v.findViewById(R.id.llFollowUnfollow);
 
-            tvFollowUnfollow.setOnClickListener(new View.OnClickListener() {
+            llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     if(tvFollowUnfollow.getText().toString().trim().equals(getResources().getString(R.string.followers))){
                         tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
-                        tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
-                        tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
-                        tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_following),null,null,null);
-                    }else{
+                        //tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+                        ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_following);
+                        //tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_following),null,null,null);
+                    }
+                    else{
                         tvFollowUnfollow.setText(getResources().getString(R.string.followers));
-                        tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
-                        tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
-                        tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow),null,null,null);
+                        //tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+                        ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_follow);
+                        //tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow),null,null,null);
 
 
                     }

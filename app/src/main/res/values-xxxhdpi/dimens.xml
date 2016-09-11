@@ -192,4 +192,6 @@
     <dimen name="value_h10">6dp</dimen>
     <dimen name="value_h90">51dp</dimen>
     <dimen name="value_h50">28dp</dimen>
+    <dimen name="value_w160">90dp</dimen>
+    <dimen name="value_h180">101dp</dimen>
 </resources>

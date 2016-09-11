@@ -121,11 +121,11 @@
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:layout_below="@+id/view"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/view"
+            android:background="@color/white">
 
         </FrameLayout>
 
@@ -161,8 +161,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:gravity="center"
                         android:clickable="true"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -171,21 +171,114 @@
                             android:layout_height="wrap_content"
                             android:background="@color/purple"
                             android:gravity="center_horizontal"
-                            android:orientation="vertical"
+                            android:weightSum="10"
+                            android:orientation="horizontal"
                             android:visibility="visible">
 
-                            <ImageView
-                                android:id="@+id/profileImage"
-                                android:layout_width="@dimen/home_drawer_profile_image_width"
-                                android:layout_height="@dimen/home_drawer_profile_image_height"
-                                android:layout_marginBottom="@dimen/value_12"
-                                android:layout_marginTop="@dimen/value_20"
+                            <RelativeLayout
+                                android:id="@+id/rlFollowers"
                                 android:clickable="true"
-                                android:padding="15dp"
-                                android:background="@drawable/rounded__drawer_dp"
-                                android:src="@drawable/ic_user_avatar_default"/>
+                                android:layout_width="0dp"
+                                android:layout_weight="3"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
 
-                            <com.hadippa.CustomTextView
+                                <com.hadippa.CustomTextView
+                                    android:id="@+id/tvFollowersCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="@dimen/value_8"
+                                    android:layout_above="@+id/tvFollowers"
+                                    android:text="100"
+                                    android:textColor="#ffffff"
+                                    android:textSize="@dimen/values_txt_16"
+                                    android:textStyle="bold"
+                                    app:customFont="@string/proxima_bold"/>
+
+                                <com.hadippa.CustomTextView
+                                    android:id="@+id/tvFollowers"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="Followers"
+                                    android:textColor="#ffffff"
+                                    android:textSize="@dimen/values_txt_12"
+                                    android:textStyle="bold"
+                                    app:customFont="@string/proxima_bold"/>
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rlProfile"
+                                android:clickable="true"
+                                android:layout_width="0dp"
+                                android:layout_weight="4"
+                                android:gravity="center"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/profileImage"
+                                    android:layout_width="@dimen/home_drawer_profile_image_width"
+                                    android:layout_height="@dimen/home_drawer_profile_image_height"
+                                    android:layout_marginBottom="@dimen/value_12"
+                                    android:layout_marginTop="@dimen/value_20"
+                                    android:background="@drawable/rounded__drawer_dp"
+                                    android:padding="15dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:src="@drawable/ic_user_avatar_default"/>
+
+                                <com.hadippa.CustomTextView
+                                    android:id="@+id/tvUserName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/profileImage"
+                                    android:layout_marginBottom="@dimen/value_12"
+                                    android:text="Sania Mirza"
+                                    android:layout_centerHorizontal="true"
+                                    android:textColor="#ffffff"
+                                    android:textSize="@dimen/values_txt_14"
+                                    android:textStyle="bold"
+                                    app:customFont="@string/proxima_bold"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rlFollowing"
+                                android:clickable="true"
+                                android:layout_width="0dp"
+                                android:layout_weight="3"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+
+                                <com.hadippa.CustomTextView
+                                    android:id="@+id/tvFollowingCount"
+                                    android:layout_above="@+id/tvFollowing"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="@dimen/value_8"
+                                    android:text="50"
+                                    android:textColor="#ffffff"
+                                    android:textSize="@dimen/values_txt_16"
+                                    android:textStyle="bold"
+                                    app:customFont="@string/proxima_bold"/>
+
+                                <com.hadippa.CustomTextView
+                                    android:id="@+id/tvFollowing"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="@string/following"
+                                    android:textColor="#ffffff"
+                                    android:textSize="@dimen/values_txt_12"
+                                    android:textStyle="bold"
+                                    app:customFont="@string/proxima_bold"/>
+
+                            </RelativeLayout>
+
+                            <!--<com.hadippa.CustomTextView
                                 android:id="@+id/tvUserName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -195,7 +288,7 @@
                                 android:clickable="true"
                                 android:textSize="@dimen/values_txt_12"
                                 android:textStyle="bold"
-                                app:customFont="@string/proxima_reg"/>
+                                app:customFont="@string/proxima_reg"/>-->
 
                         </LinearLayout>
 
@@ -243,7 +336,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:layout_marginBottom="@dimen/home_drawer_view_margin_bottom"
+                            android:layout_marginBottom="@dimen/value_h21"
                             android:layout_marginLeft="@dimen/home_drawer_side_margins"
                             android:layout_marginRight="@dimen/home_drawer_side_margins"
                             android:layout_marginTop="@dimen/home_drawer_view_margin_bottom"
@@ -267,11 +360,11 @@
                             android:id="@+id/linearHome"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/value_8"
-                            android:paddingBottom="@dimen/value_8"
-                            android:orientation="horizontal"
                             android:clickable="true"
-                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/value_8"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins"
+                            android:paddingTop="@dimen/value_8">
 
                             <ImageView
                                 android:layout_width="@dimen/value_w40"
@@ -296,11 +389,11 @@
                             android:id="@+id/linearNotification"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/value_8"
-                            android:paddingBottom="@dimen/value_8"
-                            android:orientation="horizontal"
                             android:clickable="true"
-                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/value_8"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins"
+                            android:paddingTop="@dimen/value_8">
 
                             <ImageView
                                 android:layout_width="@dimen/value_w40"
@@ -324,11 +417,11 @@
                             android:id="@+id/linearMyPlan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/value_8"
-                            android:paddingBottom="@dimen/value_8"
                             android:clickable="true"
                             android:orientation="horizontal"
-                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+                            android:paddingBottom="@dimen/value_8"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins"
+                            android:paddingTop="@dimen/value_8">
 
                             <ImageView
                                 android:layout_width="@dimen/value_w40"
@@ -353,10 +446,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="true"
-                            android:paddingTop="@dimen/value_8"
-                            android:paddingBottom="@dimen/value_8"
                             android:orientation="horizontal"
-                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+                            android:paddingBottom="@dimen/value_8"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins"
+                            android:paddingTop="@dimen/value_8">
 
                             <ImageView
                                 android:layout_width="@dimen/value_w40"
@@ -380,11 +473,11 @@
                             android:id="@+id/linearPreference"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/value_8"
-                            android:paddingBottom="@dimen/value_8"
                             android:clickable="true"
                             android:orientation="horizontal"
-                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+                            android:paddingBottom="@dimen/value_8"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins"
+                            android:paddingTop="@dimen/value_8">
 
                             <ImageView
                                 android:layout_width="@dimen/value_w40"
@@ -408,11 +501,11 @@
                             android:id="@+id/linearInviteFriends"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/value_8"
-                            android:paddingBottom="@dimen/value_8"
-                            android:orientation="horizontal"
                             android:clickable="true"
-                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/value_8"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins"
+                            android:paddingTop="@dimen/value_8">
 
                             <ImageView
                                 android:layout_width="@dimen/value_w40"
@@ -436,11 +529,11 @@
                             android:id="@+id/linearListWithHadipaa"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/value_8"
-                            android:paddingBottom="@dimen/value_8"
-                            android:orientation="horizontal"
                             android:clickable="true"
-                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/value_8"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins"
+                            android:paddingTop="@dimen/value_8">
 
                             <ImageView
                                 android:layout_width="@dimen/value_w40"
@@ -454,11 +547,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/value_10"
+                                android:clickable="false"
+                                android:duplicateParentState="true"
                                 android:gravity="center_vertical"
                                 android:text="@string/list_with_hadipaa"
                                 android:textColor="@color/purple"
-                                android:duplicateParentState="true"
-                                android:clickable="false"
                                 android:textSize="@dimen/values_txt_14"
                                 app:customFont="@string/proxima_reg"/>
 
@@ -468,11 +561,11 @@
                             android:id="@+id/linearFeedback"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/value_8"
-                            android:paddingBottom="@dimen/value_8"
-                            android:orientation="horizontal"
                             android:clickable="true"
-                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/value_8"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins"
+                            android:paddingTop="@dimen/value_8">
 
                             <ImageView
                                 android:layout_width="@dimen/value_w40"
@@ -496,12 +589,12 @@
                             android:id="@+id/linearSetting"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/value_8"
-                            android:paddingBottom="@dimen/value_8"
                             android:layout_marginBottom="@dimen/value_20"
-                            android:orientation="horizontal"
                             android:clickable="true"
-                            android:paddingLeft="@dimen/home_drawer_menu_left_margins">
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/value_8"
+                            android:paddingLeft="@dimen/home_drawer_menu_left_margins"
+                            android:paddingTop="@dimen/value_8">
 
                             <ImageView
                                 android:layout_width="@dimen/value_w40"
@@ -520,23 +613,23 @@
 
                         </LinearLayout>
 
-                        <com.hadippa.CustomTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_gravity="center_horizontal|bottom"
-                            android:layout_marginBottom="@dimen/logout_margin_bottom"
-                            android:background="@drawable/pinkborder_whitebg"
-                            android:gravity="center"
-                            android:paddingBottom="@dimen/logout_padding_vertical"
-                            android:paddingLeft="@dimen/home_drawer_side_margins"
-                            android:paddingRight="@dimen/home_drawer_side_margins"
-                            android:paddingTop="@dimen/logout_padding_vertical"
-                            android:text="@string/logout"
-                            android:textColor="@color/pink_text"
-                            android:textSize="@dimen/values_txt_14"
-                            android:textStyle="bold"
-                            app:customFont="@string/proxima_bold"/>
+                        <!-- <com.hadippa.CustomTextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_centerHorizontal="true"
+                             android:layout_gravity="center_horizontal|bottom"
+                             android:layout_marginBottom="@dimen/logout_margin_bottom"
+                             android:background="@drawable/pinkborder_whitebg"
+                             android:gravity="center"
+                             android:paddingBottom="@dimen/logout_padding_vertical"
+                             android:paddingLeft="@dimen/home_drawer_side_margins"
+                             android:paddingRight="@dimen/home_drawer_side_margins"
+                             android:paddingTop="@dimen/logout_padding_vertical"
+                             android:text="@string/logout"
+                             android:textColor="@color/pink_text"
+                             android:textSize="@dimen/values_txt_14"
+                             android:textStyle="bold"
+                             app:customFont="@string/proxima_bold"/>-->
 
                     </LinearLayout>
 

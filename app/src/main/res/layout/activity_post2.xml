@@ -14,18 +14,43 @@
 
         <ImageView
             android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:padding="7.5dp"
-            android:src="@drawable/ic_back"/>
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal"
+            android:visibility="invisible"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/value_w40"
+                android:layout_height="@dimen/value_w40"
+                android:src="@drawable/my_plan_history"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/imageFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="History"
+                android:textColor="@color/c_b7b3b4"
+                android:textSize="@dimen/values_txt_8"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/top"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:padding="10dp">
 
         <ImageView
@@ -42,6 +67,18 @@
             android:layout_below="@+id/ivPostHeader"
             android:layout_centerHorizontal="true"
             android:src="@drawable/glass"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvGlass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ivGlass"
+            android:layout_alignRight="@+id/ivGlass"
+            android:layout_below="@+id/ivGlass"
+            android:gravity="center_horizontal"
+            android:text="@string/nightlife"
+            android:textSize="@dimen/values_txt_12"
+            app:customFont="@string/proxima_bold"/>
 
         <ImageView
             android:id="@+id/ivTravel"
@@ -69,7 +106,7 @@
             android:id="@+id/ivPlusBlue"
             android:layout_width="@dimen/value_w140"
             android:layout_height="@dimen/value_w140"
-            android:layout_below="@+id/ivGlass"
+            android:layout_below="@+id/tvGlass"
             android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/activity_create_actvity"
+    android:id="@+id/activity_visting"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.hadippa.activities.CreateActivityActvity">
+    tools:context="com.hadippa.activities.VistingActivity">
 
     <RelativeLayout
         android:id="@+id/top"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/create_activity"
+            android:text="@string/visiting_date_and_time"
             android:textColor="@color/c_2f2f2f"
             android:textSize="@dimen/values_txt_16"
             app:customFont="@string/proxima_bold"/>
@@ -46,9 +46,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="@dimen/value_w26"
-                android:layout_height="@dimen/value_w26"
-                android:src="@drawable/ic_invite"/>
+                android:layout_width="@dimen/value_w40"
+                android:layout_height="@dimen/value_w40"
+                android:src="@drawable/my_plan_history"/>
 
             <com.hadippa.CustomTextView
                 android:id="@+id/imageFilter"
@@ -57,11 +57,12 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:text="@string/invite"
-                app:customFont="@string/proxima_reg"
                 android:textColor="@color/c_464646"
                 android:textSize="@dimen/values_txt_10"/>
 
         </LinearLayout>
+
+
     </RelativeLayout>
 
     <ScrollView
@@ -74,84 +75,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/value_w29"
-            android:paddingRight="@dimen/value_w29"
+            android:paddingLeft="@dimen/value_w26"
+            android:paddingRight="@dimen/value_w26"
             android:paddingTop="@dimen/value_h38">
-
-            <com.hadippa.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/value_w32"
-                android:layout_marginRight="@dimen/value_w32"
-                android:layout_marginTop="@dimen/value_h21"
-                android:text="@string/name_of_the_activity"
-                android:textColor="@color/c_464646"
-                android:textSize="@dimen/values_txt_14"
-                app:customFont="@string/proxima_reg"/>
-
-            <com.hadippa.CustomEditText
-                android:id="@+id/etActivityName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/value_w32"
-                android:layout_marginRight="@dimen/value_w32"
-                android:layout_marginTop="@dimen/value_h31"
-                android:background="@android:color/transparent"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="Walk on beach"
-                android:textColor="@color/c_464646"
-                android:textSize="@dimen/values_txt_16"
-                app:customFont="@string/proxima_bold"
-                />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="6dp"
-                android:background="@color/c_e8e6e7"
-                />
-
-            <com.hadippa.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/value_w32"
-                android:layout_marginRight="@dimen/value_w32"
-                android:layout_marginTop="@dimen/value_h64"
-                android:text="@string/address"
-                android:textColor="@color/c_464646"
-                android:textSize="@dimen/values_txt_14"
-                app:customFont="@string/proxima_reg"/>
-
-            <com.hadippa.CustomEditText
-                android:id="@+id/etAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/value_w32"
-                android:layout_marginRight="@dimen/value_w32"
-                android:layout_marginTop="@dimen/value_h31"
-                android:background="@android:color/transparent"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="Juhu Beach, Mumbai"
-                android:textColor="@color/c_464646"
-                android:textSize="@dimen/values_txt_14"
-                app:customFont="@string/proxima_reg"
-                />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="6dp"
-                android:background="@color/c_e8e6e7"
-                />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/value_h64"
+                android:background="@drawable/rounded_visiting_activity"
+                android:orientation="vertical">
+
+                <com.hadippa.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/value_w32"
+                    android:layout_marginRight="@dimen/value_w32"
+                    android:layout_marginTop="@dimen/value_h27"
+                    android:text="Guitar"
+                    android:textColor="@color/c_605e5f"
+                    android:textSize="@dimen/values_txt_18"
+                    app:customFont="@string/proxima_reg"/>
+
+
+                <com.hadippa.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/value_h27"
+                    android:layout_marginTop="@dimen/value_h21"
+                    android:text="Ashim class, Andheri west"
+                    android:textColor="@color/c_605e5f"
+                    android:textSize="@dimen/values_txt_12"
+                    app:customFont="@string/proxima_reg"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_h42"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -162,42 +124,41 @@
                     android:layout_weight="1">
 
                     <com.hadippa.CustomTextView
-                        android:id="@+id/tvVisDate"
+                        android:id="@+id/tvSelectDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="@dimen/value_w32"
                         android:layout_marginRight="@dimen/value_w32"
-                        android:text="@string/visiting_date"
+                        android:text="@string/select_date"
                         android:textColor="@color/c_464646"
                         android:textSize="@dimen/values_txt_14"
                         app:customFont="@string/proxima_reg"/>
 
                     <com.hadippa.CustomEditText
-                        android:id="@+id/etVisitingDate"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/etSelectDate"
+                        android:layout_width="@dimen/value_w144"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvVisDate"
+                        android:layout_below="@+id/tvSelectDate"
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="@dimen/value_w32"
                         android:layout_marginRight="@dimen/value_w32"
                         android:layout_marginTop="@dimen/value_h31"
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
+                        android:gravity="center"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="12th July"
+                        android:text="Tap here"
                         android:textColor="@color/c_454545"
                         android:textSize="@dimen/values_txt_16"
                         app:customFont="@string/proxima_bold"
                         />
 
                     <View
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/value_w144"
                         android:layout_height="1dp"
-                        android:layout_alignLeft="@+id/etVisitingDate"
-                        android:layout_alignRight="@+id/etVisitingDate"
-                        android:layout_below="@+id/etVisitingDate"
+                        android:layout_below="@+id/etSelectDate"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="3dp"
@@ -214,42 +175,41 @@
                     android:layout_weight="1">
 
                     <com.hadippa.CustomTextView
-                        android:id="@+id/tvVisTime"
+                        android:id="@+id/tvSelectTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="@dimen/value_w32"
                         android:layout_marginRight="@dimen/value_w32"
-                        android:text="@string/visiting_date"
+                        android:text="Select Time"
                         android:textColor="@color/c_464646"
                         android:textSize="@dimen/values_txt_14"
                         app:customFont="@string/proxima_reg"/>
 
                     <com.hadippa.CustomEditText
-                        android:id="@+id/etVisitingTime"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/etSelectTime"
+                        android:layout_width="@dimen/value_w144"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvVisTime"
+                        android:layout_below="@+id/tvSelectTime"
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="@dimen/value_w32"
                         android:layout_marginRight="@dimen/value_w32"
                         android:layout_marginTop="@dimen/value_h31"
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
+                        android:gravity="center"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="11:30 PM"
+                        android:text="Tap here"
                         android:textColor="@color/c_454545"
                         android:textSize="@dimen/values_txt_16"
                         app:customFont="@string/proxima_bold"
                         />
 
                     <View
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/value_w144"
                         android:layout_height="1dp"
-                        android:layout_alignLeft="@+id/etVisitingTime"
-                        android:layout_alignRight="@+id/etVisitingTime"
-                        android:layout_below="@+id/etVisitingTime"
+                        android:layout_below="@+id/etSelectTime"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="3dp"
@@ -265,7 +225,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/value_h48">
+                android:layout_marginTop="@dimen/value_w85">
 
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvAvaTill"
@@ -274,17 +234,10 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="@dimen/value_w32"
                     android:layout_marginRight="@dimen/value_w32"
-                    android:text="Available till"
+                    android:text="@string/cut_off_time_to_join_you"
                     android:textColor="@color/c_464646"
                     android:textSize="@dimen/values_txt_14"
                     app:customFont="@string/proxima_reg"/>
-
-                <ImageView
-                    android:layout_width="@dimen/value_w17"
-                    android:layout_height="@dimen/value_h10"
-                    android:layout_marginTop="@dimen/value_5"
-                    android:layout_toRightOf="@+id/tvAvaTill"
-                    android:src="@color/bel_grey_text"/>
 
                 <com.hadippa.CustomEditText
                     android:id="@+id/etAvaTill"
@@ -316,8 +269,6 @@
                     android:layout_marginTop="3dp"
                     android:background="@color/c_e8e6e7"
                     />
-
-
             </RelativeLayout>
 
             <com.hadippa.CustomTextView
@@ -416,7 +367,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/value_h64"
-                    android:text="@string/want_to_receive_notification_for_same_activity"
+                    android:text="Notify to get the same activity\npost alert"
                     android:textColor="@color/c_464646"
                     android:textSize="@dimen/values_txt_14"
                     app:customFont="@string/proxima_reg"/>
@@ -428,8 +379,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/value_h27"/>
 
+
         </LinearLayout>
     </ScrollView>
+
 
     <View
         android:layout_width="match_parent"

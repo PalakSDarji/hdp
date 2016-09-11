@@ -33,6 +33,7 @@
             android:paddingTop="@dimen/value_h27"
             android:paddingBottom="@dimen/value_h27"
             android:paddingLeft="@dimen/value_w75"
+            android:layout_marginTop="@dimen/value_h31"
             android:paddingRight="@dimen/value_w75"
             android:layout_centerInParent="true"
             android:background="@drawable/rounded_list_with"

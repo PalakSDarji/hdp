@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:rsb="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/pref_bg"
-              android:orientation="vertical">
+              android:background="@color/pref_bg">
 
     <RelativeLayout
         android:id="@+id/top"
@@ -16,25 +15,52 @@
 
         <ImageView
             android:id="@+id/imageBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
             android:layout_centerVertical="true"
-            android:padding="7.5dp"
+            android:padding="4dp"
             android:src="@drawable/ic_back"/>
 
 
-        <TextView
+        <com.hadippa.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/preference"
-            android:textStyle="bold"/>
+            android:textColor="@color/c_2f2f2f"
+            android:textSize="@dimen/values_txt_18"
+            app:customFont="@string/proxima_bold"/>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal"
+            android:visibility="invisible"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/value_w40"
+                android:layout_height="@dimen/value_w40"
+                android:src="@drawable/my_plan_history"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/imageFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="History"
+                android:textColor="@color/c_b7b3b4"
+                android:textSize="@dimen/values_txt_8"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_below="@+id/top"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -65,16 +91,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TextView
+                        <com.hadippa.CustomTextView
+                            app:customFont="@string/proxima_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/show_age"
                             android:textColor="@color/pink_text"
                             android:textSize="@dimen/pref_card_title_size"
-                            android:textStyle="bold"
                             />
 
-                        <TextView
+                        <com.hadippa.CustomTextView
+                            app:customFont="@string/proxima_bold"
                             android:id="@+id/tvAge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -140,7 +167,8 @@
                     android:paddingRight="@dimen/pref_card_padding_right"
                     android:paddingTop="@dimen/pref_card_padding_vertical">
 
-                    <TextView
+                    <com.hadippa.CustomTextView
+                        app:customFont="@string/proxima_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/pref_card_title_size"
@@ -201,7 +229,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TextView
+                        <com.hadippa.CustomTextView
+                            app:customFont="@string/proxima_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/search_distance"
@@ -210,7 +239,8 @@
                             android:textStyle="bold"
                             />
 
-                        <TextView
+                        <com.hadippa.CustomTextView
+                            app:customFont="@string/proxima_bold"
                             android:id="@+id/tvDistance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -240,26 +270,39 @@
 
             </android.support.v7.widget.CardView>
 
-            <TextView
+            <com.hadippa.CustomTextView
+                app:customFont="@string/proxima_bold"
                 android:id="@+id/tvDone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/rounded_done"
                 android:gravity="center"
-                android:paddingBottom="@dimen/card_title_textsize"
-                android:paddingLeft="@dimen/home_drawer_title1_padding_horizontal"
-                android:paddingRight="@dimen/home_drawer_title1_padding_horizontal"
-                android:paddingTop="@dimen/card_title_textsize"
+                android:paddingBottom="@dimen/value_h21"
+                android:paddingTop="@dimen/value_h21"
+                android:paddingLeft="@dimen/value_w40"
+                android:paddingRight="@dimen/value_w40"
                 android:text="DONE"
                 android:textColor="@color/white"
-                android:textSize="@dimen/pref_card_title_size"
+                android:textSize="@dimen/values_txt_16"
                 android:textStyle="bold"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_below="@+id/tvDone"/>
         </LinearLayout>
 
     </ScrollView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/top"
+        android:background="@drawable/header_gredient"/>
 
 
-</LinearLayout>
+
+
+
+</RelativeLayout>

@@ -42,6 +42,14 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.ivCoffee).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
+                startActivity(intent);
+            }
+        });
+
         findViewById(R.id.ivGlass).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

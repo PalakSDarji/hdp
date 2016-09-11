@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -14,21 +15,53 @@
 
         <ImageView
             android:id="@+id/imageBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
             android:layout_centerVertical="true"
-            android:padding="7.5dp"
+            android:padding="4dp"
             android:src="@drawable/ic_back"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawablePadding="5dp"
-            android:drawableRight="@drawable/ic_info"
-            android:text="@string/choose_activity"
-            android:textColor="@color/title_light"
-            android:textStyle="bold"/>
+            android:layout_centerInParent="true">
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvHeader1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/choose_activity_small"
+                android:textColor="@color/c_2f2f2f"
+                android:textSize="@dimen/values_txt_18"
+                app:customFont="@string/proxima_bold"/>
+
+            <ImageView
+                android:id="@+id/imageInfo"
+                android:layout_width="@dimen/value_w26"
+                android:layout_height="@dimen/value_w26"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/value_5"
+                android:layout_toRightOf="@+id/tvHeader1"
+                android:src="@drawable/ic_info"/>
+
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/value_w17"
+                android:text="DONE"
+                android:textColor="@color/c_6A67CD"
+                android:textSize="@dimen/values_txt_16"
+                app:customFont="@string/proxima_bold"/>
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 
@@ -61,48 +94,52 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvMovie"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
-                        style="@style/activity_name"
                         android:background="@drawable/rounded_entertainment"
                         android:text="@string/movie"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvTheatrePlay"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="31"
                         android:background="@drawable/rounded_entertainment"
-                        style="@style/activity_name"
                         android:text="@string/theatre_play"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvEvent"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="19"
                         android:background="@drawable/rounded_entertainment"
-                        style="@style/activity_name"
                         android:text="@string/event"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvFestival"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="24"
                         android:background="@drawable/rounded_entertainment"
-                        style="@style/activity_name"
                         android:text="@string/festival"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
 
                 </LinearLayout>
@@ -114,49 +151,53 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvNightClub"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="24"
                         android:background="@drawable/rounded_hotel"
-                        style="@style/activity_name"
                         android:text="@string/night_club"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvLongue"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="19"
                         android:background="@drawable/rounded_hotel"
-                        style="@style/activity_name"
                         android:text="@string/lounge"
                         android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"
                         />
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvParty"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="16"
                         android:background="@drawable/rounded_hotel"
-                        style="@style/activity_name"
                         android:text="@string/party"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvStandUpComedy"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="35"
                         android:background="@drawable/rounded_hotel"
-                        style="@style/activity_name"
                         android:text="@string/standup_comedy"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
                 </LinearLayout>
 
@@ -167,49 +208,53 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvCoffee"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="21"
                         android:background="@drawable/rounded_coffee"
-                        style="@style/activity_name"
                         android:text="@string/coffee"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvAirplane"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="33"
                         android:background="@drawable/rounded_transport"
-                        style="@style/activity_name"
                         android:text="@string/airplane"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvCar"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="16"
                         android:background="@drawable/rounded_transport"
-                        style="@style/activity_name"
                         android:text="@string/car"
                         android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"
                         />
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvTrain"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="24"
                         android:background="@drawable/rounded_transport"
-                        style="@style/activity_name"
                         android:text="@string/train"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
                 </LinearLayout>
 
@@ -217,42 +262,45 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/tab_search_padding_vertical"
-                    android:orientation="horizontal"
                     android:gravity="center"
+                    android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvBus"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="13"
                         android:background="@drawable/rounded_transport"
-                        style="@style/activity_name"
                         android:text="@string/bus"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvAdventure"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_weight="24"
                         android:background="@drawable/rounded_sports"
-                        style="@style/activity_name"
                         android:text="@string/adventure"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvIndoor"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_weight="35"
                         android:background="@drawable/rounded_sports"
-                        style="@style/activity_name"
                         android:text="@string/indoor_sports"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
                 </LinearLayout>
 
@@ -264,40 +312,43 @@
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvOutdoor"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="35"
                         android:background="@drawable/rounded_sports"
-                        style="@style/activity_name"
                         android:text="@string/outdoor_sports"
                         android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"
                         />
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvHobby"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_weight="30"
                         android:background="@drawable/rounded_hobby"
-                        style="@style/activity_name"
                         android:text="@string/hobby_class"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
 
-                    <TextView
+                    <com.hadippa.CustomTextView
                         android:id="@+id/tvOtherActivity"
+                        style="@style/activity_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_weight="35"
                         android:background="@drawable/rounded_other"
-                        style="@style/activity_name"
                         android:text="@string/other_activity"
-                        android:textColor="@color/filter_text"/>
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
 
 
                 </LinearLayout>
@@ -325,35 +376,49 @@
             <View
                 android:id="@+id/sep"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="@dimen/filter_seperator_margin"
-                android:background="@color/filter_seperator"></View>
+                android:layout_height="5dp"
+                android:background="@drawable/header_gredient"/>
 
-            <TextView
-
-                android:id="@+id/choo"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/rlHeader2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sep"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/filter_seperator_margin"
-                android:drawablePadding="5dp"
-                android:drawableRight="@drawable/ic_info"
-                android:text="@string/choose_date"
-                android:textColor="@color/title_light"
-                android:textSize="@dimen/signup_button_padding_vertical"
-                android:textStyle="bold"/>
+                android:layout_centerInParent="true">
+
+                <com.hadippa.CustomTextView
+                    android:id="@+id/tvHeader2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/filter_seperator_margin"
+                    android:text="@string/choose_date"
+                    android:gravity="center"
+                    android:textColor="@color/c_2f2f2f"
+                    android:textSize="@dimen/values_txt_18"
+                    app:customFont="@string/proxima_bold"/>
+
+
+                <ImageView
+                    android:id="@+id/imageInfo1"
+                    android:layout_width="@dimen/value_w26"
+                    android:layout_height="@dimen/value_w26"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:layout_toRightOf="@+id/tvHeader2"
+                    android:src="@drawable/ic_info"/>
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/dateList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/l"
-                android:layout_below="@+id/choo"
+                android:layout_below="@+id/rlHeader2"
                 ></android.support.v7.widget.RecyclerView>
 
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/l"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -377,7 +442,14 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/pref_card_title_size"
                     android:textStyle="bold"/>
-            </LinearLayout>
+            </LinearLayout>-->
         </RelativeLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/top"
+        android:background="@drawable/header_gredient"/>
+
 </RelativeLayout>

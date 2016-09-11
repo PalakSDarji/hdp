@@ -26,6 +26,18 @@ public class FollowingModel {
 
     //TODO This is for testing..
     private boolean isFollowing;
+
+    public FollowingModel() {
+        this.id = "97";
+        this.follower_id = "Kartik";
+        this.followed_id = "Mistry";
+        this.follow_accepted = "";
+        this.created_at = "";
+        this.updated_at = "";
+        this.isFollowing = true;
+        this.followed = new FollowedBean();
+    }
+
     /**
      * id : 1
      * first_name : Ranjeet
@@ -107,6 +119,16 @@ public class FollowingModel {
         private String profile_photo;
         private String photo_uploaded;
         private String profile_photo_thumbnail;
+
+        public FollowedBean() {
+            this.id = "97";
+            this.first_name = "kartick";
+            this.last_name = "Mistry";
+            this.profile_photo = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41";
+            this.photo_uploaded = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41";
+            this.profile_photo_thumbnail = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41";
+        }
+
 
         public String getId() {
             return id;

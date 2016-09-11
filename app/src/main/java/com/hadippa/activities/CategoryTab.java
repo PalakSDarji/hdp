@@ -32,7 +32,7 @@ public class CategoryTab extends AppCompatActivity implements View.OnClickListen
     TextView tvTabMovie,tvTabNightclub,tvTabLounge,tvTabCoffee,tabMovie,tabCinema;
     LinearLayout linearMovie;
     EditText edtSearch;
-    ImageView icon;
+    //ImageView icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class CategoryTab extends AppCompatActivity implements View.OnClickListen
         tabMovie = (TextView)findViewById(R.id.tabMovie);
         tabCinema = (TextView)findViewById(R.id.tabCinema);
 
-        icon = (ImageView)findViewById(R.id.icon);
+        //icon = (ImageView)findViewById(R.id.icon);
         linearMovie = (LinearLayout)findViewById(R.id.linearMovie);
         tabMovie.setOnClickListener(this);
         tabCinema.setOnClickListener(this);
@@ -134,7 +134,7 @@ public class CategoryTab extends AppCompatActivity implements View.OnClickListen
 
             case R.id.tabCinema:
 
-                icon.setImageResource(R.drawable.ic_zomato);
+               // icon.setImageResource(R.drawable.ic_zomato);
                 edtSearch.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.mysearch),null,null,null);
                 edtSearch.setHint(getResources().getString(R.string.search_theatre));
                 changeTabs(tabCinema,tabMovie);
@@ -145,7 +145,7 @@ public class CategoryTab extends AppCompatActivity implements View.OnClickListen
 
             case R.id.tvTabMovie:
 
-                icon.setImageResource(R.drawable.ic_bookmyshow);
+                //icon.setImageResource(R.drawable.ic_bookmyshow);
                 edtSearch.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.mysearch),null,null,null);
                 edtSearch.setHint(getResources().getString(R.string.search_movies));
 
@@ -172,7 +172,7 @@ public class CategoryTab extends AppCompatActivity implements View.OnClickListen
 
                 edtSearch.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.mysearch),null,null,null);
                 edtSearch.setHint(getResources().getString(R.string.search_club));
-                icon.setImageResource(R.drawable.ic_zomato);
+                //icon.setImageResource(R.drawable.ic_zomato);
 
                 tvTabMovie.setBackground(getResources().getDrawable(R.drawable.rounded_entertainment));
                 tvTabMovie.setTextColor(getResources().getColor(R.color.filter_text));
@@ -197,7 +197,7 @@ public class CategoryTab extends AppCompatActivity implements View.OnClickListen
 
                 edtSearch.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.mysearch),null,null,null);
                 edtSearch.setHint(getResources().getString(R.string.search_longue));
-                icon.setImageResource(R.drawable.ic_zomato);
+                //icon.setImageResource(R.drawable.ic_zomato);
 
                 tvTabMovie.setBackground(getResources().getDrawable(R.drawable.rounded_entertainment));
                 tvTabMovie.setTextColor(getResources().getColor(R.color.filter_text));
@@ -222,7 +222,7 @@ public class CategoryTab extends AppCompatActivity implements View.OnClickListen
 
                 edtSearch.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.mysearch),null,null,null);
                 edtSearch.setHint(getResources().getString(R.string.search_coffee));
-                icon.setImageResource(R.drawable.ic_zomato);
+               // icon.setImageResource(R.drawable.ic_zomato);
 
                 tvTabMovie.setBackground(getResources().getDrawable(R.drawable.rounded_entertainment));
                 tvTabMovie.setTextColor(getResources().getColor(R.color.filter_text));

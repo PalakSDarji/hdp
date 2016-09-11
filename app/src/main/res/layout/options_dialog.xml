@@ -69,7 +69,7 @@
                       android:layout_marginLeft="@dimen/logout_padding_vertical"
                       android:orientation="vertical">
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:id="@+id/rlMyPlan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_my_plan"/>
 
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <RelativeLayout
                 android:id="@+id/rlFollowling"

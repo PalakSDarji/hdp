@@ -1,144 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:paddingBottom="@dimen/connect_with_facebook_padding_top"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:card_view="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/connect_with_facebook_padding_top">
 
-    >
-
-    <android.support.v7.widget.CardView android:background="@drawable/rounded_caard"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="5dp"
+        android:background="@drawable/rounded_white_bg_corner"
+        >
 
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android">
-
-        <FrameLayout
+        <RelativeLayout
+            android:id="@+id/linearData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_movie_deselect"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/sign_up_padding"
+            android:paddingLeft="@dimen/card_title1_textsize"
+            android:paddingRight="@dimen/card_title1_textsize"
+            android:paddingTop="@dimen/card_title1_textsize"
             >
 
-            <RelativeLayout
-                android:background="@drawable/rounded_movie_deselect"
-                android:id="@+id/linearData"
-                android:paddingBottom="@dimen/sign_up_padding"
-                android:paddingRight="@dimen/card_title1_textsize"
-                android:paddingLeft="@dimen/card_title1_textsize"
-                android:paddingTop="@dimen/card_title1_textsize"
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/profileImage"
+                android:layout_width="@dimen/value_w160"
+                android:layout_height="@dimen/value_h180"
+                android:scaleType="centerCrop"
+                android:src="@drawable/imageprof"
+                app:riv_border_color="@color/c_b4b2b3"
+                app:riv_border_width="@dimen/value_1"
+                app:riv_corner_radius="@dimen/value_5"/>
+
+            <LinearLayout
+                android:id="@+id/llMovieDetails"
+                android:layout_toRightOf="@+id/profileImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/card_title1_textsize"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sarabajit (2016)"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/c_f31755"
+                        android:textSize="@dimen/values_txt_13"
+                        app:customFont="@string/proxima_bold"/>
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/tvFollowUnfollow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/rounded_following_parrot"
+                        android:paddingBottom="@dimen/value_5"
+                        android:paddingLeft="@dimen/value_w17"
+                        android:paddingRight="@dimen/value_w17"
+                        android:paddingTop="@dimen/value_5"
+                        android:text="@string/star"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/values_txt_11"
+                        app:customFont="@string/proxima_bold"/>
+
+                </RelativeLayout>
 
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/card"
-                    android:background="@drawable/rounded_caard"
-                    android:layout_width="@dimen/list_image_dimen1"
-                    android:layout_height="@dimen/list_image_dimen1"
-                    card_view:cardCornerRadius="5dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:scaleType="centerCrop"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/imageprof"
-                            android:id="@+id/profileImage"/>
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-
-                <LinearLayout
-                    android:layout_marginLeft="@dimen/textview_or_margin_top"
-                    android:layout_toRightOf="@+id/card"
+                <com.hadippa.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
+                    android:text="Biography,Drama | Hindi"
+                    android:textColor="#9b9697"
+                    android:textSize="@dimen/values_txt_11"
+                    app:customFont="@string/proxima_reg"/>
 
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/name"
-                        android:textColor="#ff0000"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/home_drawer_profile_image_margin_bottom"
-                        android:text="Sarabajit (2016)"/>
-
-                    <TextView
-                        android:textColor="#9b9697"
-                        android:layout_marginTop="5dp"
-                        android:textSize="@dimen/tab_search_textsize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Biography,Drama | Hindi"/>
-
-                    <TextView
-                        android:textColor="#9b9697"
-                        android:layout_marginTop="3dp"
-                        android:textSize="@dimen/tab_search_textsize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Aishwariya Rai Bachan,Randeep"/>
-
-                    <TextView
-                        android:textColor="#9b9697"
-                        android:layout_marginTop="3dp"
-                        android:textSize="@dimen/tab_search_textsize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Length : 2hrs 12 Minuts"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_alignParentRight="true"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/home_drawer_username_textsize"
-                    android:id="@+id/tvFollowUnfollow"
-                    android:paddingRight="@dimen/tab_search_textsize"
-                    android:paddingLeft="@dimen/tab_search_textsize"
-                    android:background="@drawable/rounded_following_parrot"
-                    android:textSize="@dimen/tab_search_padding_vertical"
-                    android:gravity="center"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:layout_width="@dimen/follow_width_layout_3"
+                <com.hadippa.CustomTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="@string/star"/>
-            </RelativeLayout>
+                    android:layout_marginTop="@dimen/value_3"
+                    android:text="Aishwariya Rai Bachan,Randeep"
+                    android:textColor="#9b9697"
+                    android:textSize="@dimen/values_txt_11"
+                    app:customFont="@string/proxima_reg"/>
 
-            <ImageView
-                android:id="@+id/frame"
-                android:src="@drawable/rounded_movie_deselect"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></ImageView>
-        </FrameLayout>
+                <com.hadippa.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/value_3"
+                    android:text="Length : 2hrs 12 Minuts"
+                    android:textColor="#9b9697"
+                    android:textSize="@dimen/values_txt_11"
+                    app:customFont="@string/proxima_reg"/>
+
+            </LinearLayout>
 
 
-</android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+    </FrameLayout>
+
     <TextView
-        android:visibility="gone"
+        android:id="@+id/tvId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvId"/>
+        android:visibility="gone"/>
 
     <TextView
-        android:visibility="gone"
+        android:id="@+id/tvPickId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvPickId"/>
+        android:visibility="gone"/>
 </LinearLayout>
 

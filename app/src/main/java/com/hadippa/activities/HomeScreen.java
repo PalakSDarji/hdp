@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hadippa.R;
+import com.hadippa.fragments.following.Followers;
 import com.hadippa.fragments.main_screen.ShowCards;
 import com.hadippa.fragments.main_screen.ShowCardsNew;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -36,6 +38,8 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     ImageView profileImage;
     LinearLayout linearNotification, linearPreference, linearHome, linearFeedback;
     EditText edtSearch;
+    private LinearLayout linearMyPlan;
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,30 +87,42 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                     Intent intent1 = new Intent(HomeScreen.this, SearchActivity.class);
                     startActivity(intent1);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
                 }
             }
         });
 
-        findViewById(R.id.profile).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.rlProfile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+     /*   findViewById(R.id.tvUserName).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
                 startActivity(intent);
             }
-        });
-        findViewById(R.id.profileImage).setOnClickListener(new View.OnClickListener() {
+        });*/
+
+        findViewById(R.id.rlFollowers).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
+                Intent intent = new Intent(HomeScreen.this,FollowingMain.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-        findViewById(R.id.tvUserName).setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.rlFollowing).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
+                Intent intent = new Intent(HomeScreen.this,FollowingMain.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -115,6 +131,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             public void onClick(View v) {
                 Intent intent = new Intent(HomeScreen.this,PostActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -126,10 +143,10 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         linearHome.setOnClickListener(this);
         linearNotification = (LinearLayout) findViewById(R.id.linearNotification);
         linearNotification.setOnClickListener(this);
+        linearMyPlan = (LinearLayout) findViewById(R.id.linearMyPlan);
+        linearMyPlan.setOnClickListener(this);
         linearPreference = (LinearLayout) findViewById(R.id.linearPreference);
         linearPreference.setOnClickListener(this);
-        /*linearFollowling = (LinearLayout) findViewById(R.id.linearFollowling);
-        linearFollowling.setOnClickListener(this);*/
         linearFeedback = (LinearLayout) findViewById(R.id.linearFeedback);
         linearFeedback.setOnClickListener(this);
 
@@ -139,11 +156,28 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         fragmentTransaction.replace(R.id.frame, fragment, "home_fragment");
         fragmentTransaction.commit();
 
+        findViewById(R.id.linearHome).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
+
         findViewById(R.id.linearListWithHadipaa).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent2 = new Intent(HomeScreen.this, ListHadipaaActivity.class);
                 startActivity(intent2);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        findViewById(R.id.linearMyPlan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(HomeScreen.this, MyPlan.class);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });

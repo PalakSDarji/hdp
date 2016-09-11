@@ -475,7 +475,7 @@ public class ShowCardsNew extends Fragment {
 
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
 
-        RelativeLayout rlMyPlan = (RelativeLayout) dialog1.findViewById(R.id.rlMyPlan);
+        /*RelativeLayout rlMyPlan = (RelativeLayout) dialog1.findViewById(R.id.rlMyPlan);
         rlMyPlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -486,7 +486,7 @@ public class ShowCardsNew extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-
+*/
         RelativeLayout rlFollowling = (RelativeLayout) dialog1.findViewById(R.id.rlFollowling);
         rlFollowling.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -22,5 +22,6 @@
     <dimen name="value_1">1dp</dimen>
     <dimen name="value_5">5dp</dimen>
     <dimen name="value_8">8dp</dimen>
+    <dimen name="value_3">3dp</dimen>
 
 </resources>

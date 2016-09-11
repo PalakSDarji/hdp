@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:text="Edit Profile"
-            android:textColor="#2e2e2e"
+            android:textColor="@color/c_2f2f2f"
             android:textSize="@dimen/values_txt_18"
             android:textStyle="bold"
             app:customFont="@string/proxima_bold"/>
