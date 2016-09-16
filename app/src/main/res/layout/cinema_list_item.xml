@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="wrap_content">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/white"
+              android:layout_height="wrap_content">
 
-    <TextView
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_reg"
         android:paddingTop="@dimen/pref_card_side_margin"
         android:paddingBottom="@dimen/pref_card_side_margin"
         android:paddingLeft="@dimen/card_bottom_drawer_radius"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/values_txt_12"
         android:text="PVR Cinema: Juhu"/>
 </LinearLayout>

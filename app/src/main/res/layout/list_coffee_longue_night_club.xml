@@ -4,11 +4,10 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/card_height_longue"
+    android:layout_height="290dp"
     android:gravity="bottom"
-    android:paddingBottom="@dimen/connect_with_facebook_padding_top"
-
-    >
+    android:paddingBottom="@dimen/connect_with_facebook_padding_top">
+    <!--android:layout_height="@dimen/value_h290"-->
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
