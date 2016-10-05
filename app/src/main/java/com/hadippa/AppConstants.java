@@ -28,7 +28,7 @@ public class AppConstants {
     public static final String DEBUG_TAG = "Hadippa";
     public static final int SOCKET_TIMEOUT = 60;
     public static final int CONNECTION_TIMEOUT = 60;
-    public static final String BASE_URL = "http://www.hadipaa.folives.com/api/android/";
+    public static final String BASE_URL = "http://hadipaa.dev.tnxlabs.com/";
     //LOGIN PAGE
     public static final String LOGIN = "/oauth-user/login";
     public static final String FORGOT_PASSWORD = "/user/forgot_password";
