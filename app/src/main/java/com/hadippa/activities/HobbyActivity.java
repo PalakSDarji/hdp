@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.hadippa.AppConstants;
 import com.hadippa.R;
 
 public class HobbyActivity extends AppCompatActivity {
@@ -31,8 +32,9 @@ public class HobbyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intentPreference = new Intent(HobbyActivity.this, VistingActivity.class);
-                startActivity(intentPreference);
+                Intent intent = new Intent(HobbyActivity.this, CreateActivityActvity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_HOBBY);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
             }

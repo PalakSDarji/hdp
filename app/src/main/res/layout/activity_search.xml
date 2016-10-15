@@ -1,77 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#ffffff"
-    android:id="@+id/linearMain">
+<RelativeLayout android:id="@+id/linearMain"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:orientation="vertical">
 
     <RelativeLayout
-        android:background="#ffffff"
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
         android:padding="10dp">
 
         <ImageView
-            android:layout_centerVertical="true"
             android:id="@+id/imageBack"
-            android:layout_width="wrap_content"
-            android:padding="7.5dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_back" />
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
 
-
-        <EditText
-            android:id="@+id/edtSearch"
-            android:textColor="#2a2a2a"
-android:theme="@style/editTextTheme"
-            android:imeOptions="actionSearch"
-            android:drawablePadding="@dimen/pref_card_padding_left"
-            android:drawableLeft="@drawable/ic_search"
-            android:layout_marginLeft="@dimen/home_drawer_option3_margin_bottom"
-            android:layout_toRightOf="@+id/imageBack"
-            android:textSize="@dimen/card_bottom_text_size"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/search"
-            />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/value_w66"
+            android:layout_toRightOf="@+id/imageBack">
 
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="@dimen/value_h21"
+                android:layout_height="@dimen/value_h21"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_search"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/edtSearch"
+                android:layout_marginTop="@dimen/value_h10"
+                android:background="#d1cdce"/>
+
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Search"
+                android:textColor="@color/c_a39fa0"
+                android:textColorHint="#a39fa0"
+                android:layout_marginLeft="@dimen/value_w17"
+                android:layout_toRightOf="@+id/ivSearch"
+                android:textSize="@dimen/values_txt_12"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
 
-
     <com.SlidingTab.SlidingTabLayout
 
-        android:elevation="0.5dp"
-        android:layout_below="@+id/top"
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/top"
         android:background="#ffffff"
+        android:elevation="0.5dp"
         >
 
 
     </com.SlidingTab.SlidingTabLayout>
 
     <android.support.v4.view.ViewPager
-        android:layout_below="@+id/tabs"
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/tabs"
         />
 
     <ProgressBar
-        android:visibility="gone"
         android:id="@+id/loading_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:indeterminateTint="@color/abc_input_method_navigation_guard"
-        android:indeterminateTintMode="src_atop" />
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"/>
 
     <!--  <FrameLayout
           android:layout_width="match_parent"

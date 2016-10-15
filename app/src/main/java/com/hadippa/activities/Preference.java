@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -31,10 +33,9 @@ import cz.msebera.android.httpclient.entity.mime.content.StringBody;
 
 public class Preference extends Activity implements View.OnClickListener {
 
-    RangeSeekBar rangeSeekBar;
-    DiscreteSeekBar discreteBarkms;
+    SeekBar discreteBarkms;
     TextView tvAge, tvDistance,tvDone;
-    Switch switchMale, switchFemale;
+    SwitchCompat switchMale, switchFemale;
     ImageView imageBack;
 
     String interested_in = "both",age_from = "18",age_to = "99",radius = "3";
@@ -49,10 +50,9 @@ public class Preference extends Activity implements View.OnClickListener {
         sp = PreferenceManager.getDefaultSharedPreferences(Preference.this);
         editor = sp.edit();
 
-        switchMale = (Switch) findViewById(R.id.switchMale);
-        switchFemale = (Switch) findViewById(R.id.switchFemale);
-        //rangeSeekBar = (RangeSeekBar) findViewById(R.id.ageRange);
-        discreteBarkms = (DiscreteSeekBar) findViewById(R.id.discreteBarkms);
+        switchMale = (SwitchCompat) findViewById(R.id.switchMale);
+        switchFemale = (SwitchCompat) findViewById(R.id.switchFemale);
+        discreteBarkms = (SeekBar) findViewById(R.id.discreteBarkms);
         imageBack = (ImageView)findViewById(R.id.imageBack);
         tvDone = (TextView) findViewById(R.id.tvDone);
         tvAge = (TextView) findViewById(R.id.tvAge);
@@ -67,20 +67,20 @@ public class Preference extends Activity implements View.OnClickListener {
             }
         });*/
 
-        discreteBarkms.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
+        discreteBarkms.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-                tvDistance.setText(String.valueOf(value) + " km");
-                radius = String.valueOf(value);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvDistance.setText(String.valueOf(progress) + " km");
+                radius = String.valueOf(progress);
             }
 
             @Override
-            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });

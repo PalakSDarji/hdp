@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.hadippa.AppConstants;
 import com.hadippa.R;
 
 public class PostActivity extends AppCompatActivity {
@@ -46,7 +47,9 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_COFFEE);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -60,8 +63,10 @@ public class PostActivity extends AppCompatActivity {
         findViewById(R.id.ivHobby).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PostActivity.this, HobbyActivity.class);
+                Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_HOBBY);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -69,7 +74,29 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_CREATE_ACTIVITY);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        findViewById(R.id.ivTravel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostActivity.this, TravelActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        findViewById(R.id.ivEntertainment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostActivity.this, EntertainmentActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
@@ -108,6 +135,30 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 showSportsAdveDialog();
+            }
+        });
+
+        ImageView ivIndoor = (ImageView) dialog1.findViewById(R.id.ivIndoor);
+        ivIndoor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_INDOOR_SPORTS);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        ImageView outIndoor = (ImageView) dialog1.findViewById(R.id.ivOutdoor);
+        outIndoor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_OUTDOOR_SPORTS);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -177,6 +228,54 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
+            }
+        });
+
+        ImageView ivNightClub = (ImageView) dialog1.findViewById(R.id.ivNightClub);
+        ivNightClub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_NIGHTCLUB);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        ImageView ivLounge = (ImageView) dialog1.findViewById(R.id.ivLounge);
+        ivLounge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_LOUNGE);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        ImageView ivParty = (ImageView) dialog1.findViewById(R.id.ivParty);
+        ivParty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_PARTY);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        ImageView ivStandup = (ImageView) dialog1.findViewById(R.id.ivStandup);
+        ivStandup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_PARTY);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 

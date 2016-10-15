@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_play_detail"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_efefef"
+    tools:context="com.hadippa.activities.PlayDetailActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/you_have_selected"
+            android:textColor="@color/c_2f2f2f"
+            android:textSize="@dimen/values_txt_16"
+            app:customFont="@string/proxima_bold"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/player"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/value_h320"
+                android:background="@color/bel_grey_text"
+                />
+
+            <FrameLayout
+                android:id="@+id/flMovie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/player"
+                android:layout_margin="@dimen/value_20"
+                android:background="@drawable/rounded_white_bg_corner">
+
+                <RelativeLayout
+                    android:id="@+id/rlData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_movie_deselect"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/sign_up_padding"
+                    android:paddingLeft="@dimen/card_title1_textsize"
+                    android:paddingRight="@dimen/card_title1_textsize"
+                    android:paddingTop="@dimen/card_title1_textsize"
+                    >
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="@dimen/value_w160"
+                        android:layout_height="@dimen/value_h180"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/imageprof"
+                        app:riv_border_color="@color/c_b4b2b3"
+                        app:riv_border_width="@dimen/value_1"
+                        app:riv_corner_radius="@dimen/value_5"/>
+
+                    <LinearLayout
+                        android:id="@+id/llMovieDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/card_title1_textsize"
+                        android:layout_toRightOf="@+id/profileImage"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.hadippa.CustomTextView
+                                android:id="@+id/name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="Sarabajit (2016)"
+                                android:textColor="@color/c_f31755"
+                                android:textSize="@dimen/values_txt_13"
+                                app:customFont="@string/proxima_bold"/>
+
+                            <com.hadippa.CustomTextView
+                                android:id="@+id/tvFollowUnfollow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/rounded_following_parrot"
+                                android:paddingBottom="@dimen/value_5"
+                                android:paddingLeft="@dimen/value_w17"
+                                android:paddingRight="@dimen/value_w17"
+                                android:paddingTop="@dimen/value_5"
+                                android:text="@string/star"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/values_txt_11"
+                                app:customFont="@string/proxima_bold"/>
+
+                        </RelativeLayout>
+
+
+                        <com.hadippa.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Biography,Drama | Hindi"
+                            android:textColor="#9b9697"
+                            android:textSize="@dimen/values_txt_11"
+                            app:customFont="@string/proxima_reg"/>
+
+                        <com.hadippa.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/value_3"
+                            android:text="Aishwariya Rai Bachan,Randeep"
+                            android:textColor="#9b9697"
+                            android:textSize="@dimen/values_txt_11"
+                            app:customFont="@string/proxima_reg"/>
+
+                        <com.hadippa.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/value_3"
+                            android:text="Length : 2hrs 12 Minuts"
+                            android:textColor="#9b9697"
+                            android:textSize="@dimen/values_txt_11"
+                            app:customFont="@string/proxima_reg"/>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+            </FrameLayout>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/flMovie"
+                android:layout_marginBottom="@dimen/value_10"
+                android:layout_marginLeft="@dimen/value_20"
+                android:layout_marginTop="@dimen/value_10"
+                android:text="@string/synopsis"
+                android:textColor="@color/c_716f70"
+                android:textSize="@dimen/values_txt_14"
+                app:customFont="@string/proxima_bold"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvMovieText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_marginBottom="@dimen/value_10"
+                android:layout_marginLeft="@dimen/value_20"
+                android:layout_marginTop="@dimen/value_10"
+                android:text="@string/sultan_is_a_story_of_sultan_ali_khan_a_local_champion"
+                android:textColor="@color/c_716f70"
+                android:textSize="@dimen/values_txt_12"
+                app:customFont="@string/proxima_reg"/>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/vSep"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/ll"
+        android:background="@color/c_8e8e8e"/>
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:weightSum="2">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/value_16">
+
+            <ImageView
+                android:id="@+id/ivViewMore"
+                android:layout_width="15dp"
+                android:layout_height="10dp"
+                android:layout_centerVertical="true"
+                android:background="@color/c_8e8e8e"
+                />
+
+            <com.hadippa.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/ivViewMore"
+                android:text="@string/view_more"
+                app:customFont="@string/proxima_bold"
+                android:textColor="@color/follow_color"
+                android:textSize="@dimen/values_txt_14"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlNext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/value_10">
+
+            <ImageView
+                android:id="@+id/ivNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <com.hadippa.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ivNext"
+                android:text="@string/next"
+                app:customFont="@string/proxima_bold"
+                android:textColor="@color/follow_color"
+                android:textSize="@dimen/values_txt_14"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

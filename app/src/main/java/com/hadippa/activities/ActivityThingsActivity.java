@@ -38,8 +38,6 @@ public class ActivityThingsActivity extends AppCompatActivity {
         myRecycler.setLayoutManager(mLayoutManager);
 
         myRecycler.setAdapter(new CustomAdapter());
-
-
     }
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {

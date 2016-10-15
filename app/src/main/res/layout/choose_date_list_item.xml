@@ -5,62 +5,52 @@
               android:gravity="center_vertical"
               android:orientation="horizontal"
               android:paddingBottom="@dimen/home_drawer_menu_text_size"
-              android:paddingLeft="17dp"
-    >
+              android:paddingLeft="17dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:gravity="center_vertical"
-                  android:orientation="vertical"
-        >
+    <LinearLayout
+        android:id="@+id/linearDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_date"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/value_h15"
+        android:paddingLeft="@dimen/value_w29"
+        android:paddingRight="@dimen/value_w29"
+        android:paddingTop="@dimen/value_h15">
 
-
-        <LinearLayout
-            android:id="@+id/linearDate"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_date"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/value_h15"
-            android:paddingLeft="@dimen/value_w29"
-            android:paddingRight="@dimen/value_w29"
-            android:paddingTop="@dimen/value_h15">
+            android:layout_gravity="center_vertical"
+            android:text="14"
+            android:textColor="@color/c_433d3d"
+            android:textSize="@dimen/values_txt_16"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="14"
-                android:textColor="@color/c_433d3d"
-                android:textSize="@dimen/values_txt_16"/>
+                android:layout_gravity="center_horizontal"
+                android:text="June"
+                android:textColor="@color/c_443e3e"
+                android:textSize="@dimen/values_txt_10"/>
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:orientation="vertical">
+                android:layout_gravity="center_horizontal"
+                android:text="Mon"
+                android:textColor="@color/c_443e3e"
+                android:textSize="@dimen/values_txt_10"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="June"
-                    android:textColor="@color/c_443e3e"
-                    android:textSize="@dimen/values_txt_10"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Mon"
-                    android:textColor="@color/c_443e3e"
-                    android:textSize="@dimen/values_txt_10"/>
-
-
-            </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
     <HorizontalScrollView
@@ -119,14 +109,14 @@
 
             <ImageView
                 android:layout_width="@dimen/value_w66"
-                android:layout_marginLeft="@dimen/value_w24"
                 android:layout_height="@dimen/value_w66"
+                android:layout_marginLeft="@dimen/value_w24"
                 android:src="@drawable/ic_movies"/>
 
             <ImageView
                 android:layout_width="@dimen/value_w66"
-                android:layout_marginLeft="@dimen/value_w24"
                 android:layout_height="@dimen/value_w66"
+                android:layout_marginLeft="@dimen/value_w24"
                 android:src="@drawable/ic_movies"/>
 
 

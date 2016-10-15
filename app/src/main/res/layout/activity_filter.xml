@@ -43,9 +43,9 @@
                 android:layout_width="@dimen/value_w26"
                 android:layout_height="@dimen/value_w26"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/value_5"
+                android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/tvHeader1"
-                android:src="@drawable/ic_info"/>
+                android:src="@drawable/info"/>
 
 
             <com.hadippa.CustomTextView
@@ -398,15 +398,14 @@
                     android:textSize="@dimen/values_txt_18"
                     app:customFont="@string/proxima_bold"/>
 
-
                 <ImageView
                     android:id="@+id/imageInfo1"
                     android:layout_width="@dimen/value_w26"
                     android:layout_height="@dimen/value_w26"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/value_5"
+                    android:layout_marginLeft="8dp"
                     android:layout_toRightOf="@+id/tvHeader2"
-                    android:src="@drawable/ic_info"/>
+                    android:src="@drawable/info"/>
 
             </RelativeLayout>
 

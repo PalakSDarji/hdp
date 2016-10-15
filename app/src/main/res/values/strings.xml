@@ -84,7 +84,9 @@
     <string name="bus">Bus</string>
     <string name="adventure">Adventure</string>
     <string name="indoor_sports">Indoor Sports</string>
+    <string name="indoor_game">Indoor Game</string>
     <string name="outdoor_sports">Outdoor Sports</string>
+    <string name="outdoor_game">Outdoor Game</string>
     <string name="hobby_class">Hobby Class</string>
     <string name="other_activity">Other Activity</string>
 
@@ -93,6 +95,7 @@
     <string name="search_club">Search Club or Area</string>
     <string name="search_theatre">Search Theatre</string>
     <string name="search_coffee">Search Coffee Bar</string>
+    <string name="coffee_cafe">Coffee Cafe</string>
     <string name="search_longue">Search Longue</string>
 
 
@@ -137,6 +140,8 @@
     <string name="expired">Expired</string>
     <string name="hobby">Hobby</string>
     <string name="name_of_hobby_class">Name of hobby class</string>
+    <string name="travelling_date_and_time">Travelling date and time</string>
+    <string name="name_of_hobby">Name of the Hobby</string>
     <string name="place">Place</string>
     <string name="area">Area</string>
     <string name="city">City</string>
@@ -145,6 +150,7 @@
     <string name="address">Address</string>
     <string name="name_of_the_activity">Name of the activity</string>
     <string name="visiting_date">Visiting Date</string>
+    <string name="visiting_time">Visiting Time</string>
     <string name="hide_post_from">Hide Post from</string>
     <string name="public_following"><![CDATA[Public & Following]]></string>
     <string name="following">Following</string>
@@ -171,5 +177,35 @@
     <string name="cut_off_time_to_join_you">Cut off time to join you</string>
     <string name="nightlife">Nightlife</string>
     <string name="search_cafe_or_area">Search Cafe or Area</string>
+    <string name="write_your_route">Write your Route</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="available_till">Available till</string>
+    <string name="select_time">Select Time</string>
+    <string name="write_plane_route">Write plane route</string>
+    <string name="select_fight">Select Flight</string>
+    <string name="where">Where</string>
+    <string name="on_button_to_get_notify">\"ON\" button to get notify\nfor the same Activity</string>
+    <string name="party_name">Party Name</string>
+    <string name="standup_comedy_name">Standup Comedy Name</string>
+    <string name="game_name">Game Name</string>
+    <string name="movies">Movies</string>
+    <string name="search_for_movie">Search for Movie</string>
+    <string name="you_have_selected">You have selected</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="sultan_is_a_story_of_sultan_ali_khan_a_local_champion">Sultan is a story of sultan ali khan a local champion</string>
+    <string name="view_more">VIEW MORE</string>
+    <string name="select_theater">Select Theater</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="chat">Chat</string>
+    <string name="msg_loading_messages">Please wait, We are loading messages</string>
+
+    <string name="permission_rationale">Permissions are needed to continue.</string>
+    <string name="permission_denied">Permissions were denied. Please consider granting it in order to continue!</string>
+    <string name="permission_neverask">Permissions were denied with never ask again.</string>
+    <string name="button_allow">Allow</string>
+    <string name="button_deny">Deny</string>
+    <string name="lbl_OK">OK</string>
 
 </resources>

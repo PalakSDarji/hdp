@@ -1,0 +1,346 @@
+<RelativeLayout
+    android:id="@+id/activity_visting"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.hadippa.activities.VistingActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/value_w17"
+            android:text="NEXT"
+            android:paddingTop="@dimen/value_5"
+            android:paddingLeft="@dimen/value_5"
+            android:paddingBottom="@dimen/value_5"
+            android:textColor="@color/c_f25e5e"
+            android:textSize="@dimen/values_txt_16"
+            app:customFont="@string/proxima_bold"/>
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_activity"
+            android:textColor="@color/c_2f2f2f"
+            android:textSize="@dimen/values_txt_16"
+            android:layout_centerVertical="true"
+            app:customFont="@string/proxima_bold"
+            android:layout_alignBaseline="@+id/tvNext"
+            android:layout_alignBottom="@+id/tvNext"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/customTextView2"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvPost"
+        android:layout_below="@+id/top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <HorizontalScrollView
+                android:id="@+id/horScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/value_w26"
+                android:paddingRight="@dimen/value_w26"
+                android:paddingTop="@dimen/value_h55"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/tvAirplane"
+                        style="@style/activity_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:background="@drawable/rounded_transport"
+                        android:paddingBottom="@dimen/value_h18"
+                        android:paddingLeft="@dimen/value_w50"
+                        android:paddingRight="@dimen/value_w50"
+                        android:textSize="@dimen/values_txt_13"
+                        android:paddingTop="@dimen/value_h18"
+                        android:text="@string/airplane"
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/tvCar"
+                        style="@style/activity_name"
+                        android:layout_width="wrap_content"
+                        android:clickable="true"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/rounded_transport"
+                        android:paddingBottom="@dimen/value_h18"
+                        android:paddingLeft="@dimen/value_w50"
+                        android:textSize="@dimen/values_txt_13"
+                        android:paddingRight="@dimen/value_w50"
+                        android:paddingTop="@dimen/value_h18"
+                        android:text="@string/car"
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/tvTrain"
+                        style="@style/activity_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:clickable="true"
+                        android:background="@drawable/rounded_transport"
+                        android:paddingBottom="@dimen/value_h18"
+                        android:paddingLeft="@dimen/value_w50"
+                        android:textSize="@dimen/values_txt_13"
+                        android:paddingRight="@dimen/value_w50"
+                        android:paddingTop="@dimen/value_h18"
+                        android:text="@string/train"
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/tvBus"
+                        style="@style/activity_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/rounded_transport"
+                        android:paddingBottom="@dimen/value_h18"
+                        android:paddingLeft="@dimen/value_w50"
+                        android:paddingRight="@dimen/value_w50"
+                        android:clickable="true"
+                        android:textSize="@dimen/values_txt_13"
+                        android:paddingTop="@dimen/value_h18"
+                        android:text="@string/bus"
+                        android:textColor="@color/filter_text"
+                        app:customFont="@string/proxima_reg"/>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <RelativeLayout
+                android:id="@+id/rlSubHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_h42">
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tvWriteRoute"
+                    android:background="@color/c_e3e3e3"/>
+
+                <com.hadippa.CustomTextView
+                    android:id="@+id/tvWriteRoute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/write_your_route"
+                    android:textColor="@color/filter_text"
+                    android:textSize="@dimen/values_txt_12"
+                    app:customFont="@string/proxima_reg"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tvWriteRoute"
+                    android:background="@color/c_e3e3e3"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/value_w105"
+                android:layout_marginRight="@dimen/value_w105"
+                android:layout_marginTop="@dimen/value_h90"
+                android:orientation="vertical">
+
+                <com.hadippa.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/from"
+                    android:textColor="@color/filter_text"
+                    android:textSize="@dimen/values_txt_12"
+                    app:customFont="@string/proxima_reg"/>
+
+                <com.hadippa.CustomEditText
+                    android:id="@+id/etFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/value_h64"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Mumbai"
+                    android:textColor="@color/c_454545"
+                    android:textSize="@dimen/values_txt_16"
+                    app:customFont="@string/proxima_bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/value_h10"
+                    android:background="@color/c_e8e6e7"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/value_h50">
+
+                    <com.hadippa.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/to"
+                        android:textColor="@color/filter_text"
+                        android:textSize="@dimen/values_txt_12"
+                        app:customFont="@string/proxima_reg"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/value_w56"
+                        android:layout_height="@dimen/value_h48"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/adve"/>
+
+                </RelativeLayout>
+
+                <com.hadippa.CustomEditText
+                    android:id="@+id/etTo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/value_h55"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Delhi"
+                    android:textColor="@color/c_454545"
+                    android:textSize="@dimen/values_txt_16"
+                    app:customFont="@string/proxima_bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/value_h10"
+                    android:background="@color/c_e8e6e7"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/llSelectFlight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/value_h50"
+                    android:orientation="vertical">
+
+                    <com.hadippa.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_fight"
+                        android:textColor="@color/filter_text"
+                        android:textSize="@dimen/values_txt_12"
+                        app:customFont="@string/proxima_reg"/>
+
+                    <com.hadippa.CustomEditText
+                        android:id="@+id/etSelectFlight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/value_h55"
+                        android:background="@android:color/transparent"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="Spice Jet"
+                        android:textColor="@color/c_454545"
+                        android:textSize="@dimen/values_txt_16"
+                        app:customFont="@string/proxima_bold"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/value_h10"
+                        android:background="@color/c_e8e6e7"
+                        />
+
+
+                </LinearLayout>
+
+
+                <com.hadippa.CustomTextView
+                    android:id="@+id/tvDone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_done"
+                    android:paddingBottom="@dimen/value_h21"
+                    android:paddingLeft="@dimen/value_w40"
+                    android:paddingRight="@dimen/value_w40"
+                    android:paddingTop="@dimen/value_h21"
+                    android:text="DONE"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/values_txt_16"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/value_h15"
+                    android:layout_marginTop="@dimen/value_h110"
+                    app:customFont="@string/proxima_bold"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/top"
+        android:background="@drawable/header_gredient"/>
+
+</RelativeLayout>

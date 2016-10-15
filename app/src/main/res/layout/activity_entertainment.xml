@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_entertainment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.hadippa.activities.EntertainmentActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/movies"
+            android:textColor="@color/c_2f2f2f"
+            android:textSize="@dimen/values_txt_16"
+            app:customFont="@string/proxima_bold"/>
+
+        <RelativeLayout
+            android:id="@+id/llInvite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/value_w17">
+
+
+            <ImageView
+                android:id="@+id/ivArrow"
+                android:layout_width="@dimen/value_w17"
+                android:layout_height="@dimen/value_h10"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/value_5"
+                android:layout_toRightOf="@+id/imageFilter"
+                android:src="@color/bel_grey_text"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/imageFilter"
+                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mumbai"
+                android:layout_centerVertical="true"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_11"
+                app:customFont="@string/proxima_reg"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlSearch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/value_h55"
+        android:layout_below="@+id/top"
+        android:layout_marginLeft="@dimen/value_w26"
+        android:layout_marginRight="@dimen/value_w26"
+        android:background="@drawable/rounded_edittext_search">
+
+        <ImageView
+            android:id="@+id/tvBookMyShowIcon"
+            android:layout_width="@dimen/value_w32"
+            android:layout_height="@dimen/value_w32"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/value_w17"
+            android:src="@drawable/mysearch"/>
+
+        <com.hadippa.CustomEditText
+            android:id="@+id/edtSearch"
+            style="@style/App_EditTextStyle_Search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/tvBookMyShowIcon"
+            android:background="@android:color/transparent"
+            android:hint="@string/search_for_movie"
+            android:paddingRight="10dp"
+            android:textColor="@color/c_b2aead"
+            android:textColorHint="@color/c_b2aead"
+            android:textSize="@dimen/values_txt_11"
+            app:customFont="@string/proxima_reg"
+            />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listPlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_efefef"
+        android:layout_marginTop="@dimen/value_h15"
+        android:layout_below="@+id/rlSearch"
+        android:paddingLeft="@dimen/sign_up_padding"
+        android:paddingRight="@dimen/sign_up_padding"
+        android:paddingTop="@dimen/sign_up_padding" />
+
+
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_marginLeft="@dimen/value_w26"
+              android:layout_marginRight="@dimen/value_w29"
+              android:layout_marginTop="@dimen/value_w17">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image_view"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="@dimen/value_w85"
+        android:layout_height="@dimen/value_w85"
+        android:layout_marginBottom="4dp"
+        android:layout_marginRight="@dimen/value_w24"
+        android:src="@drawable/ic_avatar3"
+        app:riv_border_color="@color/c_b7b3b4"
+        app:riv_border_width="@dimen/value_1"
+        app:riv_corner_radius="@dimen/value_5"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/image_view"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/tvDate"
+            android:layout_alignLeft="@+id/tvText"
+            android:layout_alignBottom="@+id/tvText"
+            android:layout_alignTop="@+id/tvText"
+            android:background="@drawable/chat_left"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvText"
+            android:paddingTop="@dimen/value_h21"
+            android:paddingLeft="@dimen/value_w29"
+            android:paddingBottom="@dimen/value_h21"
+            android:paddingRight="@dimen/value_w29"
+            android:minWidth="130dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asdasd"
+            android:textColor="@color/black"
+            app:customFont="@string/proxima_reg"
+            android:textSize="@dimen/values_txt_11"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvDate"
+            android:paddingRight="@dimen/value_w17"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tvText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.33 PM"
+            android:textColor="@color/c_787473"
+            app:customFont="@string/proxima_reg"
+            android:textSize="@dimen/values_txt_10"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

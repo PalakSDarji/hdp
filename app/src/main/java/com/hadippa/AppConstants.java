@@ -96,6 +96,25 @@ public class AppConstants {
 
     public static ProgressDialog PROGRESS_DIALOG = null;
 
+    public static final String ACTIVITY_KEY = "activity_key";
+    public static final int ACTIVITY_CREATE_ACTIVITY = 1;
+    public static final int ACTIVITY_FROM_COFFEE = 2;
+    public static final int ACTIVITY_HOBBY = 5;
+    public static final int ACTIVITY_TRAVEL_SCHEDULE = 6;
+    public static final int ACTIVITY_PARTY =10;
+    public static final int ACTIVITY_STANDUP_COMEDY =11;
+    public static final int ACTIVITY_INDOOR_SPORTS =12;
+    public static final int ACTIVITY_ENTERTAINMENT =13;
+    public static final int ACTIVITY_OUTDOOR_SPORTS =14;
+
+
+    public static final int ACTIVITY_TRAVEL_FROM_POST = 3;
+    public static final int ACTIVITY_TRAVEL_FROM_FILTER = 4;
+
+    public static final int ACTIVITY_COFFEE = 7;
+    public static final int ACTIVITY_NIGHTCLUB = 8;
+    public static final int ACTIVITY_LOUNGE = 9;
+
     public static String USER = "user";
     public static Bitmap takeScreenShot(Activity activity)
     {

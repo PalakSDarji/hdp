@@ -24,11 +24,14 @@
                 android:id="@+id/drawerOpen"
                 android:layout_width="@dimen/value_w40"
                 android:layout_height="@dimen/value_w40"
+                android:clickable="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_drawer"/>
 
             <ImageView
+                android:id="@+id/ivIcon"
                 android:layout_width="@dimen/value_w40"
+                android:clickable="true"
                 android:layout_height="@dimen/value_w40"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="3dp"
@@ -38,6 +41,7 @@
             <RelativeLayout
                 android:id="@+id/relChat"
                 android:layout_width="@dimen/value_w50"
+                android:clickable="true"
                 android:layout_height="@dimen/value_h42"
                 android:layout_alignParentRight="true">
 
@@ -72,6 +76,8 @@
                 android:src="@drawable/filter"/>
 
             <RelativeLayout
+                android:id="@+id/rlSearch"
+                android:clickable="true"
                 android:layout_width="@dimen/value_w215"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

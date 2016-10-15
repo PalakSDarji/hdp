@@ -64,6 +64,7 @@
         android:layout_height="@dimen/value_w100"
         android:src="@drawable/indoor"
         android:layout_marginRight="@dimen/home_drawer_title1_padding_horizontal"
+        android:clickable="true"
         android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
         android:layout_toLeftOf="@+id/ivAdve"
         android:layout_alignTop="@+id/ivAdve"/>

@@ -1,7 +1,9 @@
 package com.hadippa.activities;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -11,6 +13,7 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +42,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hadippa.AppConstants;
+import com.hadippa.Hadippa;
 import com.hadippa.R;
 import com.hadippa.model.DataModel;
 import com.loopj.android.http.AsyncHttpClient;
@@ -54,10 +58,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class LoginActivity extends AppCompatActivity {
 
-
+    private static final String TAG = LoginActivity.class.getSimpleName();
     EditText edtUsername,edtPassword;
     LinearLayout linearFacebook;
     private LoginButton loginButton;
@@ -77,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(LoginActivity.this);
         setContentView(R.layout.activity_login);
 
+        LoginActivityPermissionsDispatcher.showAllPermissionWithCheck(this);
         sp = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         editor = sp.edit();
 
@@ -117,12 +129,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                /*Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
+                Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();*/
+                finish();
 
-                if(edtUsername.getText().toString().trim().equals("") ||
+                /*if(edtUsername.getText().toString().trim().equals("") ||
                 edtPassword.getText().toString().trim().equals("")){
 
                     if(edtUsername.getText().toString().trim().equals("")){
@@ -147,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                         edtUsername.setError("Invalid Email.");
                         return;
                     }
-                }
+                }*/
             }
         });
 
@@ -222,15 +234,47 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showAllPermission() {
+        Log.d(TAG, " showAll permission ");
+        Hadippa.getApplicationCreds(this);
+    }
+
+    @OnShowRationale({Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showRationaleForAllPermission(final PermissionRequest request) {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.permission_rationale)
+                .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        request.proceed();
+                    }
+                })
+                .setNegativeButton(R.string.button_deny, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        request.cancel();
+                    }
+                })
+                .show();
+    }
+
+    @OnPermissionDenied({Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showDeniedForAllPermission() {
+        Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnNeverAskAgain({Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void showNeverAskForAllPermission() {
+        Toast.makeText(this, R.string.permission_neverask, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
 
     protected void startRegistration() {
 

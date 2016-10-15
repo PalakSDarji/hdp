@@ -290,14 +290,12 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/value_5"
+                    android:layout_marginRight="@dimen/value_w17"
                     android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/radio0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"/>
+                        style="@style/radio_style"/>
 
                     <com.hadippa.CustomTextView
                         android:layout_width="wrap_content"
@@ -314,14 +312,12 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/value_5"
+                    android:layout_marginRight="@dimen/value_w17"
                     android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/radio1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"/>
+                        style="@style/radio_style"/>
 
                     <com.hadippa.CustomTextView
                         android:layout_width="wrap_content"
@@ -342,9 +338,7 @@
 
                     <RadioButton
                         android:id="@+id/radio2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"/>
+                        style="@style/radio_style"/>
 
                     <com.hadippa.CustomTextView
                         android:layout_width="wrap_content"
@@ -361,17 +355,29 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_h64">
 
                 <com.hadippa.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/value_h64"
                     android:text="Notify to get the same activity\npost alert"
                     android:textColor="@color/c_464646"
                     android:textSize="@dimen/values_txt_14"
                     app:customFont="@string/proxima_reg"/>
 
+
+                <ToggleButton
+                    android:id="@+id/toggle2"
+                    android:layout_width="@dimen/value_w105"
+                    android:layout_height="@dimen/value_h42"
+                    android:textOff=""
+                    android:textOn=""
+                    android:checked="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/toggle_selector"
+                    android:layout_alignParentRight="true"
+                    />
 
             </RelativeLayout>
 

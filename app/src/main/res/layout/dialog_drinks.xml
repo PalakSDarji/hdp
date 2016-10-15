@@ -46,6 +46,7 @@
 
             <ImageView
                 android:id="@+id/ivLounge"
+                android:clickable="true"
                 android:layout_width="@dimen/value_w100"
                 android:layout_height="@dimen/value_w100"
                 android:layout_above="@+id/tvLounge"
@@ -76,6 +77,7 @@
                 android:id="@+id/ivParty"
                 android:layout_width="@dimen/value_w100"
                 android:layout_height="@dimen/value_w100"
+                android:clickable="true"
                 android:src="@drawable/party_nughtclub"/>
 
             <com.hadippa.CustomTextView
@@ -97,6 +99,7 @@
         android:id="@+id/ivNightClub"
         android:layout_width="@dimen/value_w100"
         android:layout_height="@dimen/value_w100"
+        android:clickable="true"
         android:layout_alignRight="@+id/tvNightClub"
         android:src="@drawable/nightlife_nughtclub"
         android:layout_above="@+id/tvNightClub"/>
@@ -120,6 +123,7 @@
     <ImageView
         android:id="@+id/ivStandup"
         android:layout_width="@dimen/value_w100"
+        android:clickable="true"
         android:layout_height="@dimen/value_w100"
         android:layout_alignLeft="@+id/tvStandup"
         android:src="@drawable/nightclun_standupcomedy"

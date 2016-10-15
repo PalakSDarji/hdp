@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:rsb="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/pref_bg">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/pref_bg">
 
     <RelativeLayout
         android:id="@+id/top"
@@ -36,8 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:gravity="center_horizontal"
-            android:visibility="invisible"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="invisible">
 
             <ImageView
                 android:layout_width="@dimen/value_w40"
@@ -60,8 +59,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/top"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,45 +70,45 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/pref_card_side_margin"
-                android:layout_marginRight="@dimen/pref_card_side_margin"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:layout_marginRight="@dimen/value_w24"
                 android:layout_marginTop="@dimen/pref_card_1_margin_top"
                 app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="3dp"
                 >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/pref_card_padding_vertical"
-                    android:paddingLeft="@dimen/pref_card_padding_left"
-                    android:paddingRight="@dimen/pref_card_padding_right"
-                    android:paddingTop="@dimen/pref_card_padding_vertical">
+                    android:paddingBottom="@dimen/value_h48"
+                    android:paddingLeft="@dimen/value_w32"
+                    android:paddingRight="@dimen/value_w32"
+                    android:paddingTop="@dimen/value_h38">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.hadippa.CustomTextView
-                            app:customFont="@string/proxima_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/show_age"
-                            android:textColor="@color/pink_text"
+                            android:textColor="@color/follow_color"
                             android:textSize="@dimen/pref_card_title_size"
+                            app:customFont="@string/proxima_bold"
                             />
 
                         <com.hadippa.CustomTextView
-                            app:customFont="@string/proxima_bold"
                             android:id="@+id/tvAge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:text="18 - 99"
-                            android:textColor="@color/pref_sub_text"
+                            android:textColor="@color/c_727071"
                             android:textSize="@dimen/pref_card_title_size"
                             android:textStyle="bold"
+                            app:customFont="@string/proxima_bold"
                             />
 
                     </RelativeLayout>
@@ -117,13 +116,15 @@
 
                     <org.florescu.android.rangeseekbar.RangeSeekBar
                         android:id="@+id/ageRange"
+                        xmlns:rsb="http://schemas.android.com/apk/res-auto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         rsb:absoluteMaxValue="76"
+                        android:layout_marginTop="@dimen/value_h42"
                         rsb:absoluteMinValue="25"
-                        rsb:activeColor="@color/colorAccent"
-                        rsb:barHeight="13dp"
+                        rsb:activeColor="@color/follow_color"
+                        rsb:barHeight="@dimen/value_8"
                         rsb:defaultColor="@color/blue_off"
                         rsb:showLabels="false"
                         rsb:thumbDisabled="@drawable/fab"
@@ -131,20 +132,7 @@
                         rsb:thumbPressed="@drawable/fab"
                         rsb:valuesAboveThumbs="false"/>
 
-                    <!--
-                                <com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar
-                                    android:id="@+id/ageRange"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/tvAge"
-
-                                    rsb:absoluteMinValue="18"
-                                    rsb:absoluteMaxValue="99"
-                                    android:layout_marginTop="-20dp"
-
-                                    />-->
                 </LinearLayout>
-
 
             </android.support.v7.widget.CardView>
 
@@ -153,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/pref_card_side_margin"
                 android:layout_marginRight="@dimen/pref_card_side_margin"
-                android:layout_marginTop="@dimen/pref_card_1_margin_top"
+                android:layout_marginTop="@dimen/value_h42"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="5dp"
                 >
@@ -168,35 +156,39 @@
                     android:paddingTop="@dimen/pref_card_padding_vertical">
 
                     <com.hadippa.CustomTextView
-                        app:customFont="@string/proxima_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/pref_card_title_size"
                         android:text="@string/show_me"
-                        android:textColor="@color/pink_text"
+                        android:textColor="@color/follow_color"
                         android:textSize="@dimen/pref_card_title_size"
                         android:textStyle="bold"
+                        app:customFont="@string/proxima_bold"
                         />
 
-                    <Switch
+                    <android.support.v7.widget.SwitchCompat
                         android:id="@+id/switchMale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/pref_card_switch_margin"
-                        android:backgroundTint="@color/pink"
-                        android:buttonTint="@color/pink"
+                        android:backgroundTint="@color/follow_color"
+                        android:buttonTint="@color/follow_color"
                         android:checked="true"
                         android:text="Men"
+                        android:theme="@style/switchStyle"
+                        app:theme="@style/switchStyle"
                         android:textColor="@color/pref_sub_text"/>
 
-                    <Switch
+                    <android.support.v7.widget.SwitchCompat
                         android:id="@+id/switchFemale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/pink"
-                        android:buttonTint="@color/pink"
+                        android:backgroundTint="@color/follow_color"
+                        android:buttonTint="@color/follow_color"
                         android:checked="true"
                         android:text="Women"
+                        android:theme="@style/switchStyle"
+                        app:theme="@style/switchStyle"
                         android:textColor="@color/pref_sub_text"/>
 
                 </LinearLayout>
@@ -205,16 +197,13 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/pref_card_bottom_margin"
                 android:layout_marginLeft="@dimen/pref_card_side_margin"
                 android:layout_marginRight="@dimen/pref_card_side_margin"
                 android:layout_marginTop="@dimen/pref_card_1_margin_top"
                 app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="5dp"
-                >
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -230,17 +219,16 @@
                         android:layout_height="wrap_content">
 
                         <com.hadippa.CustomTextView
-                            app:customFont="@string/proxima_bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/search_distance"
-                            android:textColor="@color/pink_text"
+                            android:textColor="@color/follow_color"
                             android:textSize="@dimen/pref_card_title_size"
                             android:textStyle="bold"
+                            app:customFont="@string/proxima_bold"
                             />
 
                         <com.hadippa.CustomTextView
-                            app:customFont="@string/proxima_bold"
                             android:id="@+id/tvDistance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -249,21 +237,24 @@
                             android:textColor="@color/pref_sub_text"
                             android:textSize="@dimen/pref_card_title_size"
                             android:textStyle="bold"
+                            app:customFont="@string/proxima_bold"
                             />
 
                     </RelativeLayout>
 
 
-                    <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                    <SeekBar
                         android:id="@+id/discreteBarkms"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        app:dsb_indicatorColor="@color/pink_text"
-                        app:dsb_max="100"
-                        app:dsb_min="18"
-                        app:dsb_progressColor="@color/pink_text"
-                        app:dsb_value="3"
+                        android:layout_marginTop="@dimen/value_h42"
+                        android:thumb="@drawable/fab"
+                        android:splitTrack="false"
+                        android:minHeight="@dimen/value_8"
+                        android:layout_marginBottom="@dimen/value_h64"
+                        android:maxHeight="@dimen/value_8"
+                        android:progressDrawable="@drawable/seekbar_pink"
+
                         />
                 </LinearLayout>
 
@@ -271,7 +262,6 @@
             </android.support.v7.widget.CardView>
 
             <com.hadippa.CustomTextView
-                app:customFont="@string/proxima_bold"
                 android:id="@+id/tvDone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -279,13 +269,15 @@
                 android:background="@drawable/rounded_done"
                 android:gravity="center"
                 android:paddingBottom="@dimen/value_h21"
-                android:paddingTop="@dimen/value_h21"
+                android:layout_marginTop="@dimen/value_h64"
                 android:paddingLeft="@dimen/value_w40"
                 android:paddingRight="@dimen/value_w40"
+                android:paddingTop="@dimen/value_h21"
                 android:text="DONE"
                 android:textColor="@color/white"
                 android:textSize="@dimen/values_txt_16"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                app:customFont="@string/proxima_bold"/>
 
             <View
                 android:layout_width="match_parent"
@@ -300,9 +292,6 @@
         android:layout_height="5dp"
         android:layout_below="@+id/top"
         android:background="@drawable/header_gredient"/>
-
-
-
 
 
 </RelativeLayout>

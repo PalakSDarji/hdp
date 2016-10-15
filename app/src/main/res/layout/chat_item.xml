@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:background="@color/white"
+              android:paddingBottom="@dimen/value_h18"
+              android:paddingTop="@dimen/value_h18">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/value_w24"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/rlNameContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/value_w32"
+            android:layout_toRightOf="@+id/profileImage"
+            android:orientation="vertical">
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="David Beckham"
+                android:textColor="#464646"
+                android:textSize="@dimen/values_txt_14"
+                android:textStyle="bold"
+                app:customFont="@string/proxima_bold"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/value_h13"
+                android:text="What time are you guys coming"
+                android:textColor="@color/black"
+                android:textSize="@dimen/values_txt_11"
+                android:visibility="visible"
+                app:customFont="@string/proxima_reg"/>
+
+        </LinearLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/profileImage"
+            android:layout_width="@dimen/value_w90"
+            android:layout_height="@dimen/value_w90"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_avatar3"
+            app:riv_border_color="@color/c_b7b3b4"
+            app:riv_border_width="@dimen/value_1"
+            app:riv_corner_radius="@dimen/value_5"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/rlNameContainer"
+            android:layout_marginRight="@dimen/value_w32"
+            android:layout_marginTop="@dimen/value_h18"
+            android:text="02:35 PM"
+            android:textColor="@color/c_787475"
+            android:textSize="@dimen/values_txt_10"
+            android:visibility="visible"
+            app:customFont="@string/proxima_reg"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

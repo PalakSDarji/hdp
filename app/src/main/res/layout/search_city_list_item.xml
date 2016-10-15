@@ -11,7 +11,7 @@
 
 
     <RelativeLayout
-        android:layout_width="@dimen/follow_width_layout_1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >

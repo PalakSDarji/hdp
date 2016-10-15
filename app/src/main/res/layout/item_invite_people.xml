@@ -8,9 +8,8 @@
     android:padding="@dimen/value_w17">
 
     <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/rbButton"
+        style="@style/radio_style"
         android:layout_centerVertical="true"/>
 
     <com.makeramen.roundedimageview.RoundedImageView

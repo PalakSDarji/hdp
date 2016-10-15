@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.FacebookRequestError;
+import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.model.FilterModel;
 
@@ -81,14 +82,16 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         tvCoffee.setOnClickListener(this);
         tvAirplane = (TextView) findViewById(R.id.tvAirplane);
         tvAirplane.setOnClickListener(this);
+        tvAirplane.setOnLongClickListener(this);
         tvCar = (TextView) findViewById(R.id.tvCar);
         tvCar.setOnClickListener(this);
+        tvCar.setOnLongClickListener(this);
         tvTrain = (TextView) findViewById(R.id.tvTrain);
         tvTrain.setOnClickListener(this);
+        tvTrain.setOnLongClickListener(this);
         tvBus = (TextView) findViewById(R.id.tvBus);
         tvBus.setOnClickListener(this);
-        tvCar = (TextView) findViewById(R.id.tvCar);
-        tvCar.setOnClickListener(this);
+        tvBus.setOnLongClickListener(this);
         tvAdventure = (TextView) findViewById(R.id.tvAdventure);
         tvAdventure.setOnClickListener(this);
         tvIndoor = (TextView) findViewById(R.id.tvIndoor);
@@ -277,6 +280,38 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
                 Intent intent = new Intent(this, CategoryTab.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            case R.id.tvAirplane:
+
+                Intent intent1 = new Intent(this, TravelActivity.class);
+                intent1.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                startActivity(intent1);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            case R.id.tvBus:
+
+                Intent intent2 = new Intent(this, TravelActivity.class);
+                intent2.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            case R.id.tvCar:
+
+                Intent intent3 = new Intent(this, TravelActivity.class);
+                intent3.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                startActivity(intent3);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+
+            case R.id.tvTrain:
+
+                Intent intent4 = new Intent(this, TravelActivity.class);
+                intent4.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                startActivity(intent4);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 

@@ -1,147 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="290dp"
-    android:gravity="bottom"
-    android:paddingBottom="@dimen/connect_with_facebook_padding_top">
-    <!--android:layout_height="@dimen/value_h290"-->
+              xmlns:card_view="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_height="@dimen/value_h320"
+              android:gravity="bottom"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/connect_with_facebook_padding_top">
 
     <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="5dp"
         card_view:cardBackgroundColor="@null"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        card_view:cardCornerRadius="5dp">
 
         <FrameLayout
-            android:background="@drawable/foof"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:background="@drawable/foof">
 
             <RelativeLayout
-                android:gravity="bottom"
                 android:id="@+id/linearData"
-                android:paddingBottom="@dimen/sign_up_padding"
-                android:paddingRight="@dimen/card_title1_textsize"
-                android:paddingLeft="@dimen/card_title1_textsize"
-                android:paddingTop="@dimen/card_title1_textsize"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="bottom"
                 android:orientation="horizontal"
-                >
+                android:paddingBottom="@dimen/value_w32"
+                android:paddingLeft="@dimen/value_w32"
+                android:paddingRight="@dimen/value_w32">
 
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="@dimen/tab_search_textsize"
-                    android:layout_height="wrap_content"
+                <com.hadippa.CustomTextView
+                    app:customFont="@string/proxima_bold"
                     android:id="@+id/name"
-
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/home_drawer_menu_text_size"
-                    android:text="Amigos Cafe"/>
-                <LinearLayout
-                    android:layout_below="@+id/name"
-                    android:layout_marginLeft="@dimen/tab_search_textsize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Amigos Cafe"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/values_txt_13"/>
+
+                <com.hadippa.CustomTextView
+                    app:customFont="@string/proxima_reg"
+                    android:id="@+id/tvFollowUnfollow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/value_w17"
+                    android:layout_toRightOf="@+id/name"
+                    android:layout_alignBaseline="@+id/name"
+                    android:background="@drawable/rounded_following_parrot"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/value_h10"
+                    android:paddingLeft="@dimen/value_w17"
+                    android:paddingRight="@dimen/value_w17"
+                    android:paddingTop="@dimen/value_h10"
+                    android:text="@string/star"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/values_txt_13"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name"
                     android:layout_centerVertical="true"
                     android:orientation="vertical">
 
 
-
-                    <TextView
-                        android:textColor="@color/white"
+                    <com.hadippa.CustomTextView
+                        app:customFont="@string/proxima_reg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textSize="@dimen/tab_search_padding_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nightclub"/>
-
-                    <TextView
+                        android:text="Nightclub"
                         android:textColor="@color/white"
-                        android:layout_marginTop="3dp"
-                        android:textSize="@dimen/tab_search_padding_vertical"
+                        android:textSize="@dimen/values_txt_10"/>
+
+                    <com.hadippa.CustomTextView
+                        app:customFont="@string/proxima_reg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bandra, Mumbai"/>
+                        android:layout_marginTop="3dp"
+                        android:text="Bandra, Mumbai"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/values_txt_10"/>
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:gravity="end"
                     android:layout_marginRight="10dp"
+                    android:gravity="end"
                     android:orientation="vertical">
 
 
-
-                    <TextView
-                        android:textColor="@color/white"
+                    <com.hadippa.CustomTextView
+                        app:customFont="@string/proxima_reg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textSize="@dimen/tab_search_padding_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1 Km"/>
-
-                    <TextView
+                        android:text="1 Km"
                         android:textColor="@color/white"
-                        android:layout_marginTop="3dp"
-                        android:textSize="@dimen/tab_search_padding_vertical"
+                        android:textSize="@dimen/values_txt_10"/>
+
+                    <com.hadippa.CustomTextView
+                        app:customFont="@string/proxima_reg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="8 Pm to 1 am"/>
+                        android:layout_marginTop="3dp"
+                        android:text="8 Pm to 1 am"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/values_txt_10"/>
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_marginLeft="7dp"
-                    android:layout_toRightOf="@+id/name"
-                    android:textStyle="bold"
-                    android:id="@+id/tvFollowUnfollow"
-                    android:paddingRight="@dimen/tab_search_textsize"
-                    android:paddingLeft="@dimen/tab_search_textsize"
-                    android:background="@drawable/rounded_following_parrot"
-                    android:textSize="@dimen/tab_search_padding_vertical"
-                    android:gravity="center"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="@string/star"/>
+
             </RelativeLayout>
 
             <ImageView
                 android:id="@+id/frame"
-                android:src="@drawable/rounded_movie_deselect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ImageView>
+                android:layout_height="match_parent"
+                android:src="@drawable/rounded_movie_deselect"></ImageView>
         </FrameLayout>
 
 
-</android.support.v7.widget.CardView>
-    <TextView
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvId"/>
+    </android.support.v7.widget.CardView>
 
     <TextView
-        android:visibility="gone"
+        android:id="@+id/tvId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvPickId"/>
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tvPickId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 </LinearLayout>
 

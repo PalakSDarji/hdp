@@ -76,12 +76,10 @@ public class SearchCity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return null;
-        //TODO commented by palak
-        //return inflater.inflate(R.layout.follownew, container, false);
+       //return inflater.inflate(R.layout.follownew, container, false);
 
-/*
-        View view = inflater.inflate(R.layout.follownew, container, false);
+
+        View view = inflater.inflate(R.layout.follow, container, false);
 
         Log.v("view",""+ view);
 
@@ -89,7 +87,7 @@ public class SearchCity extends Fragment {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
-       // progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         relMain = (RelativeLayout) view.findViewById(R.id.relMain);
@@ -104,9 +102,7 @@ public class SearchCity extends Fragment {
             fetchCities(SearchActivity.edtSearch.getText().toString());
         }
 
-        return view;*/
-
-        //ok textviewe aayu
+        return view;
     }
 
     @Override
@@ -117,9 +113,9 @@ public class SearchCity extends Fragment {
         editor = sp.edit();
 
         //TODO commented by palak
-        /*((TextView)getView().findViewById(R.id.tvSample)).setText("OK");
+        /*((TextView)getView().findViewById(R.id.tvSample)).setText("OK");*/
 
-        progressBar = (ProgressBar)getView().findViewById(R.id.tempProgress);*/
+        progressBar = (ProgressBar)getView().findViewById(R.id.progressBar);
 
         mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
         relMain = (RelativeLayout) getView().findViewById(R.id.relMain);
