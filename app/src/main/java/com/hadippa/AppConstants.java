@@ -29,6 +29,9 @@ public class AppConstants {
     public static final int SOCKET_TIMEOUT = 60;
     public static final int CONNECTION_TIMEOUT = 60;
     public static final String BASE_URL = "http://hadipaa.dev.tnxlabs.com/";
+    public static final String BASE_URL_VERSION = "";
+    public static final String API_VERSION = "api/android/v1";
+
     //LOGIN PAGE
     public static final String LOGIN = "/oauth-user/login";
     public static final String FORGOT_PASSWORD = "/user/forgot_password";
@@ -80,7 +83,6 @@ public class AppConstants {
 
     public static final String CLIENT_ID= "HADIPAA_USER";
     public static final String CLIENT_SECRET="HADIPAA@2016";
-    public static final String API_VERSION = "v1";
     public static final String LOGIN_STATUS_EMAIL="1";
     public static final String LOGIN_STATUS_FB="2";
     public static final String LOGIN_STATUS_NA="0";
