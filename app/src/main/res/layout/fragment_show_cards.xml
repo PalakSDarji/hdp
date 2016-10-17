@@ -45,6 +45,7 @@
                     android:clickable="true">
 
                     <ImageView
+                        android:id="@+id/landing_pages_refresh"
                         android:layout_width="@dimen/value_w24"
                         android:layout_height="@dimen/value_w24"
                         android:layout_centerInParent="true"

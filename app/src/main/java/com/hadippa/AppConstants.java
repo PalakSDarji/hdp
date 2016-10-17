@@ -43,6 +43,7 @@ public class AppConstants {
     public static final String ACTIVITY_REQUEST_DECLINE = "/activity/decline";
     public static final String ACTIVITY_OTHER_REQUEST_DECLINE = "/activity/request/decline";
     public static final String ACTIVITY_OTHER_REQUEST_ACCEPT = "/activity/request/accept";
+    public static final String ACTIVITY_ROLLBACK = "/activity/rollback";
 
     //SIGN UP
     public static final String SIGN_UP_STEP_1 = "/register/step_1";
