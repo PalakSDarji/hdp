@@ -29,7 +29,6 @@ public class AppConstants {
     public static final int SOCKET_TIMEOUT = 60;
     public static final int CONNECTION_TIMEOUT = 60;
     public static final String BASE_URL = "http://hadipaa.dev.tnxlabs.com/";
-    public static final String BASE_URL_VERSION = "";
     public static final String API_VERSION = "api/android/v1";
 
     //LOGIN PAGE

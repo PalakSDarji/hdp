@@ -233,7 +233,8 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
                     editor.commit();
 
                     Intent intent = new Intent(getActivity(), HomeScreen.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
 
