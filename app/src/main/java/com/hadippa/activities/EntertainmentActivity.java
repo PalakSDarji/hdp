@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,16 +18,29 @@ import android.widget.TextView;
 
 import com.hadippa.R;
 
+import java.util.ArrayList;
+
 public class EntertainmentActivity extends AppCompatActivity {
 
     private RecyclerView listPlay;
     private TextView tvHeader;
     CustomAdapter customAdapter = new CustomAdapter();
+    private ArrayList<String> alCities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entertainment);
+
+        alCities = new ArrayList<>();
+        alCities.add("Mumbai");
+        alCities.add("Vadodara");
+        alCities.add("Ahmedabad");
+        alCities.add("Surat");
+        alCities.add("Banglore");
+        alCities.add("Jaipur");
+        alCities.add("Chennai");
+        alCities.add("Pune");
 
         tvHeader = (TextView) findViewById(R.id.tvHeader);
 
@@ -42,6 +57,19 @@ public class EntertainmentActivity extends AppCompatActivity {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listPlay.setLayoutManager(mLayoutManager);
         listPlay.setAdapter(customAdapter);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        //MyObject obj = (MyObject) alCities.getItemAtPosition(info.position);
+
+        for(int i=0;i<alCities.size();i++){
+            menu.add(alCities.get(i));
+        }
+
     }
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {

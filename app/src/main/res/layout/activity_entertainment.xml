@@ -49,11 +49,12 @@
             <ImageView
                 android:id="@+id/ivArrow"
                 android:layout_width="@dimen/value_w17"
-                android:layout_height="@dimen/value_h10"
+                android:layout_height="@dimen/value_w17"
+                android:padding="2dp"
+                android:src="@drawable/available_till_arrow"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/value_5"
-                android:layout_toRightOf="@+id/imageFilter"
-                android:src="@color/bel_grey_text"/>
+                android:layout_toRightOf="@+id/imageFilter"/>
 
             <com.hadippa.CustomTextView
                 android:id="@+id/imageFilter"
@@ -110,10 +111,8 @@
         android:layout_height="match_parent"
         android:background="@color/c_efefef"
         android:layout_marginTop="@dimen/value_h15"
-        android:layout_below="@+id/rlSearch"
-        android:paddingLeft="@dimen/sign_up_padding"
-        android:paddingRight="@dimen/sign_up_padding"
-        android:paddingTop="@dimen/sign_up_padding" />
+        android:paddingTop="@dimen/value_h27"
+        android:layout_below="@+id/rlSearch"/>
 
 
 </RelativeLayout>

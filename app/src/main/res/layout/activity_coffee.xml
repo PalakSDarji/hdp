@@ -59,9 +59,10 @@
                 <ImageView
                     android:layout_width="@dimen/value_w17"
                     android:layout_height="@dimen/value_w17"
+                    android:padding="2dp"
+                    android:src="@drawable/available_till_arrow"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/tvHeader2"
-                    android:src="@drawable/ic_info"/>
+                    android:layout_toRightOf="@+id/tvHeader2"/>
 
             </RelativeLayout>
 
@@ -95,7 +96,7 @@
         android:background="@drawable/rounded_edittext_search">
 
         <ImageView
-            android:id="@+id/tvBookMyShowIcon"
+            android:id="@+id/ivActivityIcon"
             android:layout_width="@dimen/value_w32"
             android:layout_height="@dimen/value_w32"
             android:layout_centerVertical="true"
@@ -108,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_toRightOf="@+id/tvBookMyShowIcon"
+            android:layout_toRightOf="@+id/ivActivityIcon"
             android:background="@android:color/transparent"
             android:hint="@string/search_cafe_or_area"
             android:paddingRight="10dp"

@@ -25,9 +25,10 @@
             <RelativeLayout
                 android:id="@+id/linearData"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="bottom"
                 android:orientation="horizontal"
+                android:layout_gravity="bottom"
                 android:paddingBottom="@dimen/value_w32"
                 android:paddingLeft="@dimen/value_w32"
                 android:paddingRight="@dimen/value_w32">
@@ -38,6 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Amigos Cafe"
+                    android:paddingTop="@dimen/value_h10"
                     android:textColor="@color/white"
                     android:textSize="@dimen/values_txt_13"/>
 
@@ -121,11 +123,6 @@
 
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/rounded_movie_deselect"></ImageView>
         </FrameLayout>
 
 

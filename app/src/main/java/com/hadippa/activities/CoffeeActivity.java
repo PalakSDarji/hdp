@@ -15,19 +15,23 @@ import android.widget.TextView;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class CoffeeActivity extends AppCompatActivity {
 
     private RecyclerView listShops;
     private ImageView imageBack;
     private TextView tvHeader1;
     private int activityKey;
+    @BindView(R.id.ivActivityIcon) ImageView ivActivityIcon;
     CustomAdapter customAdapter = new CustomAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coffee);
-
+        ButterKnife.bind(this);
         activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY,0);
 
         imageBack = (ImageView)findViewById(R.id.imageBack);
@@ -39,6 +43,7 @@ public class CoffeeActivity extends AppCompatActivity {
             }
         });
 
+        ivActivityIcon.setImageResource(R.drawable.zomato_spoon);
         tvHeader1 = (TextView) findViewById(R.id.tvHeader1);
         listShops = (RecyclerView) findViewById(R.id.listShops);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -70,7 +75,6 @@ public class CoffeeActivity extends AppCompatActivity {
             tvHeader1.setText(getString(R.string.lounge));
         }
     }
-
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
