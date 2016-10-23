@@ -4,7 +4,8 @@
               android:layout_height="wrap_content"
               android:gravity="center_vertical"
               android:orientation="horizontal"
-              android:paddingBottom="@dimen/home_drawer_menu_text_size"
+              android:paddingTop="7dp"
+              android:paddingBottom="7dp"
               android:paddingLeft="17dp">
 
     <LinearLayout

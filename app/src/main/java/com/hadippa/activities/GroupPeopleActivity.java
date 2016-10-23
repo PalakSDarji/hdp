@@ -1,9 +1,9 @@
 package com.hadippa.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,24 +19,21 @@ import com.hadippa.model.Contact;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChatListActivity extends AppCompatActivity {
-
-    private static final String TAG = ChatListActivity.class.getSimpleName();
+public class GroupPeopleActivity extends AppCompatActivity {
 
     public static RecyclerView mRecyclerView;
     ArrayList<Contact> contacts;
     ProgressBar progressBar;
     CustomAdapter customAdapter;
     private ImageView imageBack;
-    @BindView(R.id.ivPlus) ImageView ivPlus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_list);
+        setContentView(R.layout.activity_group_people);
+
         ButterKnife.bind(this);
 
         contacts = new ArrayList<>();
@@ -64,22 +61,14 @@ public class ChatListActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        final GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         customAdapter = new CustomAdapter(this,contacts);
         mRecyclerView.setAdapter(customAdapter);
-
-        ivPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(ChatListActivity.this, ChatPlusActivity.class);
-                startActivity(intent1);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
     }
+
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
@@ -94,7 +83,7 @@ public class ChatListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-            View v = inflator.inflate(R.layout.chat_item, viewGroup, false);
+            View v = inflator.inflate(R.layout.joined_people_item, viewGroup, false);
 
             return new ViewHolder(v);
         }
@@ -123,15 +112,14 @@ public class ChatListActivity extends AppCompatActivity {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
-                    Intent intent1 = new Intent(ChatListActivity.this, ChatActivity.class);
+                    /*Intent intent1 = new Intent(ChatPlusActivity.this, ChatActivity.class);
                     intent1.putExtra("contact",contacts.get(getAdapterPosition()));
                     startActivity(intent1);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
                 }
             });
 
             name = (TextView) v.findViewById(R.id.name);
         }
     }
-
 }

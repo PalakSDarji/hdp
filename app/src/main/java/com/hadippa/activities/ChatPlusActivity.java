@@ -19,24 +19,24 @@ import com.hadippa.model.Contact;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChatListActivity extends AppCompatActivity {
+public class ChatPlusActivity extends AppCompatActivity {
 
-    private static final String TAG = ChatListActivity.class.getSimpleName();
+
+    private static final String TAG = ChatPlusActivity.class.getSimpleName();
 
     public static RecyclerView mRecyclerView;
     ArrayList<Contact> contacts;
     ProgressBar progressBar;
     CustomAdapter customAdapter;
     private ImageView imageBack;
-    @BindView(R.id.ivPlus) ImageView ivPlus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_list);
+        setContentView(R.layout.activity_chat_plus);
+
         ButterKnife.bind(this);
 
         contacts = new ArrayList<>();
@@ -71,15 +71,8 @@ public class ChatListActivity extends AppCompatActivity {
         customAdapter = new CustomAdapter(this,contacts);
         mRecyclerView.setAdapter(customAdapter);
 
-        ivPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(ChatListActivity.this, ChatPlusActivity.class);
-                startActivity(intent1);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
     }
+
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
@@ -94,7 +87,7 @@ public class ChatListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-            View v = inflator.inflate(R.layout.chat_item, viewGroup, false);
+            View v = inflator.inflate(R.layout.contact_item, viewGroup, false);
 
             return new ViewHolder(v);
         }
@@ -123,15 +116,14 @@ public class ChatListActivity extends AppCompatActivity {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
-                    Intent intent1 = new Intent(ChatListActivity.this, ChatActivity.class);
+                    /*Intent intent1 = new Intent(ChatPlusActivity.this, ChatActivity.class);
                     intent1.putExtra("contact",contacts.get(getAdapterPosition()));
                     startActivity(intent1);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
                 }
             });
 
             name = (TextView) v.findViewById(R.id.name);
         }
     }
-
 }

@@ -198,7 +198,7 @@
                                     android:layout_above="@+id/tvFollowers"
                                     android:text="100"
                                     android:textColor="#ffffff"
-                                    android:textSize="@dimen/values_txt_16"
+                                    android:textSize="@dimen/values_txt_18"
                                     android:textStyle="bold"
                                     app:customFont="@string/proxima_bold"/>
 
@@ -267,7 +267,7 @@
                                     android:layout_marginBottom="@dimen/value_8"
                                     android:text="50"
                                     android:textColor="#ffffff"
-                                    android:textSize="@dimen/values_txt_16"
+                                    android:textSize="@dimen/values_txt_18"
                                     android:textStyle="bold"
                                     app:customFont="@string/proxima_bold"/>
 

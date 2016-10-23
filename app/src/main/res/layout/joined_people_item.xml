@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="13dp"
+    android:paddingBottom="8dp"
+    android:paddingRight="13dp"
+    android:paddingLeft="13dp">
+
+    <com.hadippa.SquareImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_avatar5"
+        app:riv_border_color="@color/c_b7b3b4"
+        app:riv_border_width="@dimen/value_1"
+        app:riv_corner_radius="@dimen/value_5"/>
+
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/image_view"
+        android:layout_centerHorizontal="true"
+        android:text="Sania Mirza"
+        android:textColor="@color/c_454545"
+        android:textSize="@dimen/values_txt_13"
+        app:customFont="@string/proxima_reg"/>
+
+</RelativeLayout>

@@ -21,6 +21,7 @@
             android:layout_width="@dimen/value_w85"
             android:layout_height="@dimen/value_w85"
             android:layout_toRightOf="@+id/rbButton"
+            android:background="@drawable/profile_bg"
             android:src="@drawable/ic_avatar3"
             app:riv_border_color="@color/c_b7b3b4"
             app:riv_border_width="@dimen/value_1"

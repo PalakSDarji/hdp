@@ -30,9 +30,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
     TextView tvMovie, tvTheatrePlay, tvEvent, tvFestival, tvNightClub,
             tvLongue, tvParty, tvStandUpComedy, tvCoffee, tvAirplane, tvCar, tvTrain, tvBus, tvAdventure, tvIndoor, tvOutdoor, tvHobby, tvOtherActivity;
-    FlowLayout flow_layout;
-    ArrayList<FilterModel> filters = new ArrayList<>();
-    CustomAdapter customAdapter = new CustomAdapter();
     RecyclerView dateList;
     LayoutInflater inflater;
 
@@ -55,11 +52,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
         });
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(FilterActivity.this);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dateList.setLayoutManager(mLayoutManager);
-
-        dateList.setAdapter(customAdapter);
 
         tvMovie = (TextView) findViewById(R.id.tvMovie);
         tvMovie.setOnClickListener(this);
@@ -103,6 +95,14 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         tvOtherActivity = (TextView) findViewById(R.id.tvOtherActivity);
         tvOtherActivity.setOnClickListener(this);
 
+        findViewById(R.id.tvNext).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(FilterActivity.this, FilterChooserActivity.class);
+                startActivity(intent1);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
         // TODO This code is to make activity list dynamic. Not needed now, but in case in future.
         /*filters.add(new FilterModel("Movie",R.color.pink,false));
         filters.add(new FilterModel("Theatre Play",R.color.pink,false));
@@ -412,79 +412,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             textView.setBackground(getResources().getDrawable(R.drawable.rounded_other));
             textView.setTextColor(getResources().getColor(R.color.filter_text));
         }
-
-    }
-
-    class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private static final String TAG = "CustomAdapter";
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-
-            View v = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.choose_date_list_item, viewGroup, false);
-
-            return new ViewHolder(v);
-        }
-
-
-        @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-            Log.d(TAG, "Element " + position + " set.");
-
-        }
-
-        @Override
-        public int getItemCount() {
-
-            return 10;
-        }
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-     /*  private final TextView id;
-        private final ImageView foodImage;
-        private final TextView tvDonarName;
-        private final TextView tvDonarPh, tvAddress, tvFoodfor, tvStatus;
-        private final View typeView;*/
-
-        private final LinearLayout linearDate;
-
-        public ViewHolder(final View v) {
-            super(v);
-
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                }
-            });
-
-            linearDate = (LinearLayout)v.findViewById(R.id.linearDate);
-
-
-
-            linearDate.setOnClickListener(new View.OnClickListener() {
-                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                @Override
-                public void onClick(View v) {
-
-                    Drawable drawable = linearDate.getBackground();
-                    if(drawable.getConstantState()==(getResources().getDrawable(R.drawable.rounded_date)).getConstantState()){
-                        v.setBackgroundResource(R.drawable.rounded_date_selected);
-                    }else{
-                        v.setBackgroundResource(R.drawable.rounded_date);
-                    }
-                }
-            });
-        }
-
-
-        public LinearLayout getLinearDate() {
-            return linearDate;
-        }
-
 
     }
 

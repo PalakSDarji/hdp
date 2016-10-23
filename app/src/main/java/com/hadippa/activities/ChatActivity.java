@@ -1,5 +1,7 @@
 package com.hadippa.activities;
 
+import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hadippa.R;
@@ -27,6 +30,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ChatActivity extends AppCompatActivity {
 
     public static RecyclerView mRecyclerView;
@@ -40,15 +46,52 @@ public class ChatActivity extends AppCompatActivity {
     private long userID;
     private HadippaDatabase mDB;
     private PreferencesHelper preferencesHelper;
+    private boolean isGroupChat;
+    @BindView(R.id.ivMore) ImageView ivMore;
+    @BindView(R.id.ivMoreDetail) ImageView ivMoreDetail;
+    @BindView(R.id.rlGroupDetail) RelativeLayout rlGroupDetail;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
+        ButterKnife.bind(this);
+        getWindow().setBackgroundDrawableResource(R.drawable.chat_bg);
         userID = 10125;//Long.parseLong(preferencesHelper.getString(PreferencesHelper.PREF_USER_ID_KEY));
+        isGroupChat = getIntent().getBooleanExtra("isGroupChat",true);
 
+        if(isGroupChat){
+            ivMore.setImageResource(R.drawable.group_icon);
+            ivMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent1 = new Intent(ChatActivity.this, GroupPeopleActivity.class);
+                    startActivity(intent1);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
+            ivMoreDetail.setVisibility(View.VISIBLE);
+            ivMoreDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(rlGroupDetail.getVisibility() == View.VISIBLE){
+                        rlGroupDetail.setVisibility(View.GONE);
+                        ivMoreDetail.setImageResource(R.drawable.group_chat_more);
+                    }
+                    else{
+                        rlGroupDetail.setVisibility(View.VISIBLE);
+                        ivMoreDetail.setImageResource(R.drawable.group_chat_less);
+                    }
+                }
+            });
+        }
+        else{
+            ivMore.setImageResource(R.drawable.overflow_pink);
+            ivMoreDetail.setVisibility(View.GONE);
+            rlGroupDetail.setVisibility(View.GONE);
+        }
         mDB = HadippaDatabase.getInstance(this);
         preferencesHelper = PreferencesHelper.getInstance(this);
         contact = getIntent().getParcelableExtra("contact");
@@ -97,6 +140,7 @@ public class ChatActivity extends AppCompatActivity {
 
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+       // mLayoutManager.setReverseLayout(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         chatAdapter = new ChatAdapter(alMessages);
@@ -109,6 +153,15 @@ public class ChatActivity extends AppCompatActivity {
                 if(etChat.getText().toString().trim().length() > 0) sendNewMessage();
             }
         });
+
+        findViewById(R.id.etChat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+            }
+        });
+
+        mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
     }
 
     /**
@@ -122,7 +175,7 @@ public class ChatActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(message)) {
 
             Message newMessage = new Message();
-            newMessage.setMessageID(String.valueOf(Utils.nextMessageId(this)));
+            newMessage.setMessageID(Utils.randomNum());
             newMessage.setUserID(userID);
             newMessage.setMessageStateID(0);
             newMessage.setMessageTypeID(3); // Instant Message
@@ -195,8 +248,15 @@ public class ChatActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_msg_left, parent, false);
-            return new ViewHolder(v);
+            switch (viewType) {
+                case 0:
+                    View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_msg_left, parent, false);
+                    return new ViewHolder(v);
+                case 1:
+                    View v1 = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_msg_right, parent, false);
+                    return new ViewHolder(v1);
+                default: return null;
+            }
         }
 
         @Override public void onBindViewHolder(ViewHolder holder, int position) {
@@ -206,6 +266,13 @@ public class ChatActivity extends AppCompatActivity {
             /*Picasso.with(holder.image.getContext()).cancelRequest(holder.image);
             Picasso.with(holder.image.getContext()).load(item.getImage()).into(holder.image);*/
             holder.itemView.setTag(item);
+
+            if(isGroupChat){
+                holder.tvName.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.tvName.setVisibility(View.GONE);
+            }
         }
 
         @Override public int getItemCount() {
@@ -215,11 +282,13 @@ public class ChatActivity extends AppCompatActivity {
         public class ViewHolder extends RecyclerView.ViewHolder {
             public ImageView image;
             public TextView tvText;
+            TextView tvName;
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 image = (ImageView) itemView.findViewById(R.id.image);
                 tvText = (TextView) itemView.findViewById(R.id.tvText);
+                tvName = (TextView) itemView.findViewById(R.id.tvName);
             }
         }
 
@@ -229,6 +298,13 @@ public class ChatActivity extends AppCompatActivity {
             notifyDataSetChanged();
         }
 
+        @Override
+        public int getItemViewType(int position) {
+
+            return items.get(position).getLeft() ? 0 : 1;
+        }
     }
+
+
 
 }

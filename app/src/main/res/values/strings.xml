@@ -107,6 +107,9 @@
     <string name="star">2.5</string>
 
     <string name="select_activity">Select Activity</string>
+    <string name="select_lounge">Select Lounge or Area</string>
+    <string name="select_club">Select Club or Area</string>
+    <string name="select_cafe">Select Cafe or Area</string>
     <string name="title_activity_category_tab">CategoryTab</string>
 
     <string name="cimena">Cinema</string>

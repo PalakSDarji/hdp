@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -68,6 +69,16 @@ public class Utils {
         }
 
         return String.valueOf(messageSequence.incrementAndGet());
+    }
+
+    public static String randomNum(){
+        int min = 10000;
+        int max = 1000000000;
+
+        Random r = new Random();
+        int i1 = r.nextInt(max - min + 1) + min;
+
+        return ""+System.nanoTime()+i1;
     }
 
     public static Date timestampStringToDate(String inDate) {

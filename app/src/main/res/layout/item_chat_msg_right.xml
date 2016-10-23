@@ -13,8 +13,9 @@
         android:layout_width="@dimen/value_w85"
         android:layout_height="@dimen/value_w85"
         android:layout_marginBottom="4dp"
-        android:layout_marginRight="@dimen/value_w24"
+        android:layout_alignParentRight="true"
         android:background="@drawable/profile_bg"
+        android:layout_marginLeft="@dimen/value_w24"
         android:src="@drawable/ic_avatar3"
         app:riv_border_color="@color/c_b7b3b4"
         app:riv_border_width="@dimen/value_1"
@@ -22,7 +23,7 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/image_view"
+        android:layout_toLeftOf="@+id/image_view"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -32,7 +33,8 @@
             android:layout_alignLeft="@+id/tvText"
             android:layout_alignBottom="@+id/tvText"
             android:layout_alignTop="@+id/vTopMargin"
-            android:background="@drawable/chat_left1"/>
+            android:background="@drawable/chat_right1"/>
+
 
         <View
             android:id="@+id/vTopMargin"
@@ -48,35 +50,36 @@
             android:layout_below="@+id/vTopMargin"
             android:textColor="@color/c_fd636b"
             android:visibility="visible"
-            android:paddingLeft="@dimen/value_w29"
+            android:layout_alignLeft="@+id/tvText"
+            android:paddingLeft="@dimen/value_w17"
             app:customFont="@string/proxima_bold"
             android:textSize="@dimen/values_txt_11"/>
 
-
         <com.hadippa.CustomTextView
             android:id="@+id/tvText"
-            android:paddingLeft="@dimen/value_w29"
+            android:paddingRight="@dimen/value_w17"
+            android:paddingLeft="@dimen/value_w17"
             android:paddingBottom="@dimen/value_h21"
-            android:layout_below="@+id/tvName"
-            android:paddingRight="@dimen/value_w29"
+            android:layout_toLeftOf="@+id/tvDate"
             android:minWidth="130dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="@dimen/max_limit_for_chat_txt"
-            android:text="asdasd"
+            android:layout_below="@+id/tvName"
+            android:text="dasasd"
             android:textColor="@color/black"
             app:customFont="@string/proxima_reg"
             android:textSize="@dimen/values_txt_11"/>
 
         <com.hadippa.CustomTextView
             android:id="@+id/tvDate"
-            android:paddingRight="@dimen/value_w17"
-            android:paddingBottom="@dimen/value_h21"
-            android:layout_alignBottom="@+id/tvText"
-            android:layout_toRightOf="@+id/tvText"
+            android:paddingRight="@dimen/value_w29"
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3.33 PM"
+            android:paddingBottom="@dimen/value_h21"
+            android:layout_alignBottom="@+id/tvText"
             android:textColor="@color/c_787473"
             app:customFont="@string/proxima_reg"
             android:textSize="@dimen/values_txt_10"/>

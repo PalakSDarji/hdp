@@ -30,30 +30,20 @@
             android:textSize="@dimen/values_txt_18"
             app:customFont="@string/proxima_bold"/>
 
-        <LinearLayout
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-            <ImageView
-                android:layout_width="@dimen/value_w40"
-                android:layout_height="@dimen/value_w40"
-                android:src="@drawable/my_plan_history"/>
-
-            <com.hadippa.CustomTextView
-                android:id="@+id/imageFilter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="History"
-                android:textColor="@color/c_b7b3b4"
-                android:textSize="@dimen/values_txt_8"/>
-
-        </LinearLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/value_w17"
+            android:text="DONE"
+            android:paddingTop="@dimen/value_5"
+            android:paddingLeft="@dimen/value_5"
+            android:paddingBottom="@dimen/value_5"
+            android:textColor="@color/c_f25e5e"
+            android:textSize="@dimen/values_txt_16"
+            app:customFont="@string/proxima_bold"/>
 
     </RelativeLayout>
 
@@ -201,6 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/pref_card_side_margin"
                 android:layout_marginRight="@dimen/pref_card_side_margin"
+                android:layout_marginBottom="14dp"
                 android:layout_marginTop="@dimen/pref_card_1_margin_top"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="5dp">
@@ -261,28 +252,6 @@
 
             </android.support.v7.widget.CardView>
 
-            <com.hadippa.CustomTextView
-                android:id="@+id/tvDone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/rounded_done"
-                android:gravity="center"
-                android:paddingBottom="@dimen/value_h21"
-                android:layout_marginTop="@dimen/value_h64"
-                android:paddingLeft="@dimen/value_w40"
-                android:paddingRight="@dimen/value_w40"
-                android:paddingTop="@dimen/value_h21"
-                android:text="DONE"
-                android:textColor="@color/white"
-                android:textSize="@dimen/values_txt_16"
-                android:textStyle="bold"
-                app:customFont="@string/proxima_bold"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_below="@+id/tvDone"/>
         </LinearLayout>
 
     </ScrollView>

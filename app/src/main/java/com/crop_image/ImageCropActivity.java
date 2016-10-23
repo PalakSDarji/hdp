@@ -24,12 +24,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+/*
 import com.albinmathew.photocrop.cropoverlay.CropOverlayView;
 import com.albinmathew.photocrop.cropoverlay.edge.Edge;
 import com.albinmathew.photocrop.cropoverlay.utils.ImageViewUtil;
 import com.albinmathew.photocrop.photoview.PhotoView;
-import com.albinmathew.photocrop.photoview.PhotoViewAttacher;
+import com.albinmathew.photocrop.photoview.PhotoViewAttacher;*/
 import com.hadippa.R;
 
 import java.io.Closeable;
@@ -59,8 +59,8 @@ public class
     private static final int PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE = 218;
     private final int IMAGE_MAX_SIZE = 1024;
     private final Bitmap.CompressFormat mOutputFormat = Bitmap.CompressFormat.JPEG;
-    private PhotoView mImageView;
-    private CropOverlayView mCropOverlayView;
+   // private PhotoView mImageView;
+    //private CropOverlayView mCropOverlayView;
     private Button btnCancel;
     private Button btnSend;
     private ContentResolver mContentResolver;
@@ -71,6 +71,7 @@ public class
     private Uri mImageUri = null;
     //File for capturing camera images
     private File mFileTemp;
+    /*
     private View.OnClickListener btnCancelListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -137,7 +138,7 @@ public class
                 return new Rect((int) Edge.LEFT.getCoordinate(), (int) Edge.TOP.getCoordinate(), (int) Edge.RIGHT.getCoordinate(), (int) Edge.BOTTOM.getCoordinate());
             }
         });
-      /*  if (Build.VERSION.SDK_INT >= 23) {
+      *//*  if (Build.VERSION.SDK_INT >= 23) {
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -147,7 +148,7 @@ public class
             }else{
                 proceedToCrop(savedInstanceState);
             }
-        } else {*/
+        } else {*//*
             proceedToCrop(savedInstanceState);
       //  }
     }
@@ -219,7 +220,7 @@ public class
         }
     }
 
- /*   @Override
+ *//*   @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -234,7 +235,7 @@ public class
             }
         }
     }
-*/
+*//*
     private void createTempFile()
     {
         String state = Environment.getExternalStorageState();
@@ -261,9 +262,9 @@ public class
             }
             else
             {
-                /*
+                *//*
                  * The solution is taken from here: http://stackoverflow.com/questions/10042695/how-to-get-camera-result-as-a-uri-in-data-folder
-	        	 */
+	        	 *//*
                 mImageCaptureUri = InternalStorageContentProvider.CONTENT_URI;
             }
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
@@ -282,7 +283,7 @@ public class
     }
 
     private void pickImage() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT).setType("image/*");
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT).setType("image*//*");
         try {
             startActivityForResult(intent, REQUEST_CODE_PICK_GALLERY);
         } catch (ActivityNotFoundException e) {
@@ -483,5 +484,5 @@ public class
         finish();
     }
 
-
+*/
 }

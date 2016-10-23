@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hadippa.AppConstants;
 import com.hadippa.R;
@@ -26,6 +29,8 @@ public class CoffeeActivity extends AppCompatActivity {
     private int activityKey;
     @BindView(R.id.ivActivityIcon) ImageView ivActivityIcon;
     CustomAdapter customAdapter = new CustomAdapter();
+    @BindView(R.id.edtSearch)
+    EditText edtSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +70,17 @@ public class CoffeeActivity extends AppCompatActivity {
         if(activityKey == AppConstants.ACTIVITY_COFFEE){
 
             tvHeader1.setText(getString(R.string.coffee_cafe));
+            edtSearch.setHint(getString(R.string.select_cafe));
         }
         else if(activityKey == AppConstants.ACTIVITY_NIGHTCLUB){
 
             tvHeader1.setText(getString(R.string.night_club));
+            edtSearch.setHint(getString(R.string.select_club));
         }
         else if(activityKey == AppConstants.ACTIVITY_LOUNGE){
 
             tvHeader1.setText(getString(R.string.lounge));
+            edtSearch.setHint(getString(R.string.select_lounge));
         }
     }
 
@@ -103,25 +111,27 @@ public class CoffeeActivity extends AppCompatActivity {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        //private final LinearLayout linearDate;
+        private RelativeLayout rlContainer;
 
         public ViewHolder(final View v) {
             super(v);
 
-            /*v.setOnClickListener(new View.OnClickListener() {
+            v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    ImageView relativeLayout = (ImageView) v.findViewById(R.id.frame);
+                    /*ImageView relativeLayout = (ImageView) v.findViewById(R.id.frame);
                     if(relativeLayout.getDrawable().getConstantState()==(getResources().getDrawable(R.drawable.rounded_movie_deselect).getConstantState())){
                         relativeLayout.setImageResource(R.drawable.rounded_movie_select);
                     }else {
                         relativeLayout.setImageResource(R.drawable.rounded_movie_deselect);
-                    }
-                }
-            });*/
+                    }*/
 
-            //linearDate = (LinearLayout)v.findViewById(R.id.linearDate);
+                    Toast.makeText(getApplicationContext(), "clicked", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
         }
 
         /*public LinearLayout getLinearDate() {

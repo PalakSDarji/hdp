@@ -47,6 +47,7 @@
             android:layout_height="@dimen/value_w130"
             android:layout_marginRight="@dimen/tab_search_textsize"
             android:scaleType="centerCrop"
+            android:background="@drawable/profile_bg"
             android:src="@drawable/ic_avatar1"
             app:riv_border_color="@color/c_b7b3b4"
             app:riv_border_width="@dimen/value_1"

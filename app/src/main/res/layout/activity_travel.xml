@@ -243,7 +243,7 @@
                         android:layout_width="@dimen/value_w56"
                         android:layout_height="@dimen/value_h48"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/adve"/>
+                        android:src="@drawable/updown"/>
 
                 </RelativeLayout>
 
@@ -325,6 +325,7 @@
                     android:paddingRight="@dimen/value_w40"
                     android:paddingTop="@dimen/value_h21"
                     android:text="DONE"
+                    android:visibility="invisible"
                     android:textColor="@color/white"
                     android:textSize="@dimen/values_txt_16"
                     android:textStyle="bold"

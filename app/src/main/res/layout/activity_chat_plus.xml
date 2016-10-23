@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_chat_plus"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent"
+    tools:context="com.hadippa.activities.ChatPlusActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/c_fd636b"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/white_arrow"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/value_w29"
+            android:layout_toRightOf="@+id/imageBack">
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="@dimen/value_h21"
+                android:layout_height="@dimen/value_h21"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_search"
+                android:tint="@color/white"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/edtSearch"
+                android:layout_marginTop="@dimen/value_h10"
+                android:background="@color/white"/>
+
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="Type name"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:layout_marginLeft="@dimen/value_w17"
+                android:layout_toRightOf="@+id/ivSearch"
+                android:textSize="@dimen/values_txt_12"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/top"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <View
+        android:id="@+id/vSep2"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@+id/top"
+        android:background="@drawable/header_gredient"/>
+
+
+</RelativeLayout>

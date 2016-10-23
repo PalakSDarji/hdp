@@ -4,6 +4,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/white"
                 tools:context="com.hadippa.activities.FilterActivity">
 
     <RelativeLayout
@@ -55,13 +56,16 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/value_w17"
-                android:text="DONE"
-                android:textColor="@color/c_6A67CD"
+                android:paddingBottom="@dimen/value_5"
+                android:paddingLeft="@dimen/value_5"
+                android:clickable="true"
+                android:paddingTop="@dimen/value_5"
+                android:text="NEXT"
+                android:textColor="@color/c_f25e5e"
                 android:textSize="@dimen/values_txt_16"
                 app:customFont="@string/proxima_bold"/>
 
         </RelativeLayout>
-
 
     </RelativeLayout>
 
@@ -69,17 +73,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/top"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:weightSum="10">
+        android:orientation="vertical">
 
         <ScrollView
             android:id="@+id/sc_linear_filter"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/value_12"
-            android:layout_weight="4"
-            android:background="@android:color/white">
+            android:layout_weight="4">
 
             <LinearLayout
                 android:id="@+id/linear_filter"
@@ -354,95 +355,9 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <!-- <org.apmem.tools.layouts.FlowLayout
-                 android:id="@+id/flow_layout"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 >
-             </org.apmem.tools.layouts.FlowLayout>-->
 
         </ScrollView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_below="@+id/sc_linear_filter"
-            android:layout_marginBottom="7dp"
-            android:layout_weight="6"
-            android:background="@color/white"
-            android:orientation="vertical"
-            >
-
-            <View
-                android:id="@+id/sep"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@drawable/header_gredient"/>
-
-            <RelativeLayout
-                android:id="@+id/rlHeader2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/sep"
-                android:layout_centerInParent="true">
-
-                <com.hadippa.CustomTextView
-                    android:id="@+id/tvHeader2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginBottom="@dimen/filter_seperator_margin"
-                    android:text="@string/choose_date"
-                    android:gravity="center"
-                    android:textColor="@color/c_2f2f2f"
-                    android:textSize="@dimen/values_txt_18"
-                    app:customFont="@string/proxima_bold"/>
-
-                <ImageView
-                    android:id="@+id/imageInfo1"
-                    android:layout_width="@dimen/value_w26"
-                    android:layout_height="@dimen/value_w26"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@+id/tvHeader2"
-                    android:src="@drawable/info"/>
-
-            </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/dateList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/rlHeader2"
-                ></android.support.v7.widget.RecyclerView>
-
-
-            <!--<LinearLayout
-                android:id="@+id/l"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="7dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvDone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/rounded_done"
-                    android:gravity="center"
-                    android:paddingBottom="@dimen/card_padding_side"
-                    android:paddingLeft="@dimen/home_drawer_profile_image_margin_top"
-                    android:paddingRight="@dimen/home_drawer_profile_image_margin_top"
-                    android:paddingTop="@dimen/card_padding_side"
-                    android:text="@string/done"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/pref_card_title_size"
-                    android:textStyle="bold"/>
-            </LinearLayout>-->
-        </RelativeLayout>
     </LinearLayout>
 
     <View

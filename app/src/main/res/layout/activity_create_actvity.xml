@@ -493,6 +493,7 @@
                         app:customFont="@string/proxima_reg"/>
 
                     <ImageView
+                        android:id="@+id/ivArrow"
                         android:layout_gravity="center"
                         android:layout_width="10dp"
                         android:layout_height="wrap_content"

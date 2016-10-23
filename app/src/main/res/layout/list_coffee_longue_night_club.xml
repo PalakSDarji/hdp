@@ -1,132 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:card_view="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_height="@dimen/value_h320"
-              android:gravity="bottom"
+              android:background="@color/c_efefef"
               android:orientation="horizontal"
               android:paddingBottom="@dimen/connect_with_facebook_padding_top">
 
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
+        android:id="@+id/rlContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardBackgroundColor="@null"
-        card_view:cardCornerRadius="5dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_movie_deselect"
+        android:clickable="true">
 
-        <FrameLayout
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/profileImage"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:focusable="false"
+            android:scaleType="centerCrop"
+            android:src="@drawable/foof"
+            android:padding="2dp"
+            app:riv_corner_radius="9dp"/>
+
+        <RelativeLayout
+            android:id="@+id/linearData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/foof">
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/value_w32"
+            android:paddingLeft="@dimen/value_w32"
+            android:paddingRight="@dimen/value_w32">
 
-            <RelativeLayout
-                android:id="@+id/linearData"
-                android:layout_width="match_parent"
+            <com.hadippa.CustomTextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
-                android:orientation="horizontal"
-                android:layout_gravity="bottom"
-                android:paddingBottom="@dimen/value_w32"
-                android:paddingLeft="@dimen/value_w32"
-                android:paddingRight="@dimen/value_w32">
+                android:paddingTop="@dimen/value_h10"
+                android:text="Amigos Cafe"
+                android:textColor="@color/white"
+                android:textSize="@dimen/values_txt_13"
+                app:customFont="@string/proxima_bold"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvFollowUnfollow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/name"
+                android:layout_marginLeft="@dimen/value_w17"
+                android:layout_toRightOf="@+id/name"
+                android:background="@drawable/rounded_following_parrot"
+                android:gravity="center"
+                android:paddingBottom="@dimen/value_h10"
+                android:paddingLeft="@dimen/value_w17"
+                android:paddingRight="@dimen/value_w17"
+                android:paddingTop="@dimen/value_h10"
+                android:text="@string/star"
+                android:textColor="@color/white"
+                android:textSize="@dimen/values_txt_13"
+                app:customFont="@string/proxima_reg"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
 
                 <com.hadippa.CustomTextView
-                    app:customFont="@string/proxima_bold"
-                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amigos Cafe"
-                    android:paddingTop="@dimen/value_h10"
+                    android:layout_marginTop="5dp"
+                    android:text="Nightclub"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/values_txt_13"/>
+                    android:textSize="@dimen/values_txt_10"
+                    app:customFont="@string/proxima_reg"/>
 
                 <com.hadippa.CustomTextView
-                    app:customFont="@string/proxima_reg"
-                    android:id="@+id/tvFollowUnfollow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/value_w17"
-                    android:layout_toRightOf="@+id/name"
-                    android:layout_alignBaseline="@+id/name"
-                    android:background="@drawable/rounded_following_parrot"
-                    android:gravity="center"
-                    android:paddingBottom="@dimen/value_h10"
-                    android:paddingLeft="@dimen/value_w17"
-                    android:paddingRight="@dimen/value_w17"
-                    android:paddingTop="@dimen/value_h10"
-                    android:text="@string/star"
+                    android:layout_marginTop="3dp"
+                    android:text="Bandra, Mumbai"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/values_txt_13"/>
+                    android:textSize="@dimen/values_txt_10"
+                    app:customFont="@string/proxima_reg"/>
 
-                <LinearLayout
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/name"
+                android:layout_centerVertical="true"
+                android:gravity="end"
+                android:orientation="vertical">
+
+
+                <com.hadippa.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/name"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:text="1 Km"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/values_txt_10"
+                    app:customFont="@string/proxima_reg"/>
 
-
-                    <com.hadippa.CustomTextView
-                        app:customFont="@string/proxima_reg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="Nightclub"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/values_txt_10"/>
-
-                    <com.hadippa.CustomTextView
-                        app:customFont="@string/proxima_reg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="Bandra, Mumbai"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/values_txt_10"/>
-
-                </LinearLayout>
-
-                <LinearLayout
+                <com.hadippa.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/name"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:gravity="end"
-                    android:orientation="vertical">
+                    android:layout_marginTop="3dp"
+                    android:text="8 Pm to 1 am"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/values_txt_10"
+                    app:customFont="@string/proxima_reg"/>
 
+            </LinearLayout>
 
-                    <com.hadippa.CustomTextView
-                        app:customFont="@string/proxima_reg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="1 Km"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/values_txt_10"/>
+        </RelativeLayout>
 
-                    <com.hadippa.CustomTextView
-                        app:customFont="@string/proxima_reg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="8 Pm to 1 am"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/values_txt_10"/>
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-        </FrameLayout>
-
-
-    </android.support.v7.widget.CardView>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tvId"

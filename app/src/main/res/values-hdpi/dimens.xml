@@ -202,6 +202,7 @@
     <dimen name="value_h290">145dp</dimen>
     <dimen name="value_h320">160dp</dimen>
     <dimen name="value_h18">9dp</dimen>
+    <dimen name="max_limit_for_chat_txt">190dp</dimen>
 
 
 </resources>

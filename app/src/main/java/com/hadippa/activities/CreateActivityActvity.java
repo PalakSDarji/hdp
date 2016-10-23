@@ -9,6 +9,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -70,6 +71,7 @@ public class CreateActivityActvity extends AppCompatActivity {
     private SimpleDateFormat dateFormatter;
 
     @BindView(R.id.vSepAddress) View vSepAddress;
+    @BindView(R.id.ivArrow) ImageView ivArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.select_date));
             tvVisTime.setText(getResources().getString(R.string.select_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
+            ivArrow.setVisibility(View.GONE);
         }
         else if (activityKey == AppConstants.ACTIVITY_CREATE_ACTIVITY) {
 
@@ -104,6 +107,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
+            ivArrow.setVisibility(View.VISIBLE);
 
         }
         else if (activityKey == AppConstants.ACTIVITY_HOBBY) {
@@ -119,6 +123,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
             tvNotify.setText(getResources().getString(R.string.on_button_to_get_notify));
+            ivArrow.setVisibility(View.GONE);
         }
         else if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
 
@@ -131,6 +136,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisTime.setText(getResources().getString(R.string.select_time));
             tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
             tvNotify.setText(getResources().getString(R.string.want_to_receive_notification_for_same_activity));
+            ivArrow.setVisibility(View.GONE);
         }
         else if (activityKey == AppConstants.ACTIVITY_PARTY) {
 
@@ -144,6 +150,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
+            ivArrow.setVisibility(View.GONE);
         }
         else if (activityKey == AppConstants.ACTIVITY_STANDUP_COMEDY) {
 
@@ -157,6 +164,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
+            ivArrow.setVisibility(View.GONE);
         }
         else if (activityKey == AppConstants.ACTIVITY_INDOOR_SPORTS) {
 
@@ -170,6 +178,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
+            ivArrow.setVisibility(View.GONE);
         }
         else if (activityKey == AppConstants.ACTIVITY_OUTDOOR_SPORTS) {
 
@@ -183,6 +192,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
+            ivArrow.setVisibility(View.GONE);
         }
         else if (activityKey == AppConstants.ACTIVITY_ENTERTAINMENT) {
 
@@ -198,6 +208,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.date));
             tvVisTime.setText(getResources().getString(R.string.time));
             tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
+            ivArrow.setVisibility(View.GONE);
         }
 
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
