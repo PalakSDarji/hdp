@@ -129,12 +129,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
+                /*Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
+                finish();*/
 
-                /*if(edtUsername.getText().toString().trim().equals("") ||
+                if(edtUsername.getText().toString().trim().equals("") ||
                 edtPassword.getText().toString().trim().equals("")){
 
                     if(edtUsername.getText().toString().trim().equals("")){
@@ -159,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                         edtUsername.setError("Invalid Email.");
                         return;
                     }
-                }*/
+                }
             }
         });
 

@@ -6,8 +6,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/sign_up_padding"
-                android:layout_marginLeft="@dimen/card_title1_textsize"
-                android:layout_marginRight="@dimen/card_title1_textsize"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 

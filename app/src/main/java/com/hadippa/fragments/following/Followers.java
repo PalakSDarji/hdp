@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -116,8 +117,6 @@ public class Followers extends Fragment {
 
             final FollowersModel followers_following = followersFollowings.get(position);
 
-            Log.d(TAG, "Element " + position + " set." + followers_following);
-            Log.d(TAG, "Element " + position + " set." + followers_following);
             if(followers_following != null && followers_following.getFollower() != null){
                 viewHolder.name.setText(followers_following.getFollower().getFirst_name()+" "+
                         followers_following.getFollower().getLast_name());
@@ -127,27 +126,32 @@ public class Followers extends Fragment {
                         .into(viewHolder.foodImage);
             }
 
-            viewHolder.tvFollowUnfollow.setOnClickListener(new View.OnClickListener() {
+            viewHolder.llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                  //  followers_following.setFollowing(!followers_following.isFollowing());
+                    Log.v("Followers","clicked " + position);
+                    followers_following.setFollow_accepted("1");
                     notifyDataSetChanged();
                 }
             });
 
-        /*    if(followers_following.isFollowing()){
-                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
+
+            //TODO check this equals.. checking 1 to make it look like "Followed" is temp. I have no idea what returns from api call.. just wanted to demo the design
+            if(followers_following.getFollow_accepted().equalsIgnoreCase("1")){
+                viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
+                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.following));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
-                viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
-                viewHolder.tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_following),null,null,null);
+                //viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
+                viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
             }
             else{
-                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.followers));
+                viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
-                viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
-                viewHolder.tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow),null,null,null);
-            }*/
+               // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
+            }
 
         }
 
@@ -166,6 +170,9 @@ public class Followers extends Fragment {
 
 
         TextView tvFollowUnfollow;
+        ImageView ivFollowUnfollow;
+        LinearLayout llFollowUnfollow;
+
         public ViewHolder(final View v) {
             super(v);
 
@@ -176,32 +183,12 @@ public class Followers extends Fragment {
                 }
             });
 
+            ivFollowUnfollow = (ImageView) v.findViewById(R.id.ivFollowUnfollow);
             tvFollowUnfollow = (TextView) v.findViewById(R.id.tvFollowUnfollow);
+            llFollowUnfollow  = (LinearLayout) v.findViewById(R.id.llFollowUnfollow);
             name = (TextView) v.findViewById(R.id.name);
             title2 = (TextView) v.findViewById(R.id.title2);
             foodImage = (ImageView) v.findViewById(R.id.profileImage);
-
-            /*tvFollowUnfollow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    *//*if(tvFollowUnfollow.getText().toString().trim().equals(getResources().getString(R.string.followers))){
-                        tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
-                        tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
-                        tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
-                        tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_following),null,null,null);
-                    }else{
-                        tvFollowUnfollow.setText(getResources().getString(R.string.followers));
-                        tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
-                        tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
-                        tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow),null,null,null);
-
-
-                    }*//*
-                }
-            });
-*/
         }
 
     }

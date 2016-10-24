@@ -29,6 +29,15 @@ public class CityModel {
     private int state_id;
     private String state_name;
     private String state_code;
+    private long lastSearchedDate;
+
+    public long getLastSearchedDate() {
+        return lastSearchedDate;
+    }
+
+    public void setLastSearchedDate(long lastSearchedDate) {
+        this.lastSearchedDate = lastSearchedDate;
+    }
 
     public int getId() {
         return id;

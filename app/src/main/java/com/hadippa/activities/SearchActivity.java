@@ -13,11 +13,14 @@ import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.SlidingTab.SlidingTabLayout;
 import com.SlidingTab.SlidingTabStrip;
@@ -94,7 +97,30 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
 
         edtSearch = (EditText)findViewById(R.id.edtSearch);
-        edtSearch.addTextChangedListener(new TextWatcher() {
+        edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    //performSearch();
+                    String s = v.getText().toString();
+                    if(v.getText().length()>=2){
+
+                        Log.v("searchCity","searchCity"+searchCity);
+
+                        if(pager.getCurrentItem()==2){
+                            searchTag.fetchByTags(String.valueOf(s));
+                            searchPeople.fetchPeople(String.valueOf(s));
+                        }else{
+                            searchCity.fetchCities(String.valueOf(s));
+                            searchPeople.fetchPeople(String.valueOf(s));
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+        /*edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -123,7 +149,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
     }
 
     @Override

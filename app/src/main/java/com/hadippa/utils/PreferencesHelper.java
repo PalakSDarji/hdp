@@ -32,6 +32,7 @@ public class PreferencesHelper {
     public static final String PREF_SERVER_ID_KEY = "KEY_SERVER_ID";
     public static final String PREF_CREDENTIALS_VALIDATED_KEY = "KEY_CREDENTIALS_VALIDATED";
     public static final String PREF_BACKOFF_MS = "backoff_ms";
+    public static final String CITY_MODEL_HISTORY = "city_model_history";
 
 
     public static PreferencesHelper getInstance(Context context){

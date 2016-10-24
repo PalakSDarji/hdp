@@ -157,6 +157,7 @@
     <string name="hide_post_from">Hide Post from</string>
     <string name="public_following"><![CDATA[Public & Following]]></string>
     <string name="following">Following</string>
+    <string name="follow">Follow</string>
     <string name="public_activity">Public</string>
     <string name="want_to_receive_notification_for_same_activity">Want to receive notification\nfor same activity</string>
     <string name="invite_to_join_you">Invite to join you</string>

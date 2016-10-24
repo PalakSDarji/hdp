@@ -308,30 +308,7 @@
                         android:background="@color/c_e8e6e7"
                         />
 
-
                 </LinearLayout>
-
-
-                <com.hadippa.CustomTextView
-                    android:id="@+id/tvDone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/rounded_done"
-                    android:paddingBottom="@dimen/value_h21"
-                    android:paddingLeft="@dimen/value_w40"
-                    android:paddingRight="@dimen/value_w40"
-                    android:paddingTop="@dimen/value_h21"
-                    android:text="DONE"
-                    android:visibility="invisible"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/values_txt_16"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="@dimen/value_h15"
-                    android:layout_marginTop="@dimen/value_h110"
-                    app:customFont="@string/proxima_bold"/>
 
             </LinearLayout>
 

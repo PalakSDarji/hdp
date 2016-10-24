@@ -55,6 +55,8 @@
                 android:layout_marginLeft="@dimen/value_w17"
                 android:layout_toRightOf="@+id/ivSearch"
                 android:textSize="@dimen/values_txt_12"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"/>

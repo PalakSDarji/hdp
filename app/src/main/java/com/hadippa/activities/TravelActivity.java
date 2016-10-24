@@ -20,7 +20,6 @@ public class TravelActivity extends AppCompatActivity {
     private HorizontalScrollView horScrollView;
     private RelativeLayout rlSubHeader;
     private TextView tvNext;
-    private TextView tvDone;
     private int activityKey;
     private TextView customTextView2;
     private LinearLayout llSelectFlight;
@@ -35,7 +34,6 @@ public class TravelActivity extends AppCompatActivity {
         horScrollView = (HorizontalScrollView) findViewById(R.id.horScrollView);
         rlSubHeader = (RelativeLayout) findViewById(R.id.rlSubHeader);
         tvNext = (TextView) findViewById(R.id.tvNext);
-        tvDone = (TextView) findViewById(R.id.tvDone);
         customTextView2 = (TextView) findViewById(R.id.customTextView2);
         llSelectFlight = (LinearLayout) findViewById(R.id.llSelectFlight);
 
@@ -56,7 +54,6 @@ public class TravelActivity extends AppCompatActivity {
             horScrollView.setVisibility(View.GONE);
             rlSubHeader.setVisibility(View.GONE);
             tvNext.setVisibility(View.VISIBLE);
-            tvDone.setVisibility(View.GONE);
             llSelectFlight.setVisibility(View.VISIBLE);
             customTextView2.setText(getResources().getString(R.string.write_plane_route));
 
@@ -74,8 +71,7 @@ public class TravelActivity extends AppCompatActivity {
 
             horScrollView.setVisibility(View.VISIBLE);
             rlSubHeader.setVisibility(View.VISIBLE);
-            tvNext.setVisibility(View.GONE);
-            tvDone.setVisibility(View.VISIBLE);
+            tvNext.setVisibility(View.VISIBLE);
             llSelectFlight.setVisibility(View.GONE);
             customTextView2.setText(getResources().getString(R.string.select_activity));
         }

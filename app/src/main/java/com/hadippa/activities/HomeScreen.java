@@ -9,7 +9,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -79,6 +81,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
         edtSearch = (EditText)findViewById(R.id.edtSearch);
         edtSearch.setOnClickListener(this);
+
 
         edtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
