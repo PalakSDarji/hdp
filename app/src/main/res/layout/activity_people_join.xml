@@ -8,7 +8,8 @@
     android:gravity="bottom"
     sothree:umanoOverlay="false"
     sothree:umanoPanelHeight="0dp"
-    sothree:umanoShadowHeight="4dp">
+    sothree:umanoShadowHeight="4dp"
+    xmlns:app="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:id="@+id/activity_people_join"
@@ -197,7 +198,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/slidingpanel_height">
 
-        <TextView
+        <com.hadippa.CustomTextView
+            app:customFont="@string/proxima_reg"
             android:id="@+id/tvPp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

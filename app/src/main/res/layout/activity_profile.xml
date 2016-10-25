@@ -39,6 +39,16 @@
             app:customFont="@string/proxima_bold"/>
 
         <ImageView
+            android:id="@+id/ivChat"
+            android:clickable="true"
+            android:layout_width="@dimen/value_w50"
+            android:layout_height="@dimen/value_w50"
+            android:layout_marginRight="@dimen/value_10"
+            android:layout_toLeftOf="@+id/ivMore"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_chat"/>
+
+        <ImageView
             android:id="@+id/ivMore"
             android:layout_width="@dimen/value_h31"
             android:layout_height="@dimen/value_h31"
@@ -166,50 +176,46 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_weight="1">
 
                     <LinearLayout
-                        android:id="@+id/llAppr"
+                        android:id="@+id/llFollowUnfollow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/value_w29"
+                        android:paddingTop="@dimen/value_h15"
+                        android:paddingRight="@dimen/value_w29"
+                        android:paddingBottom="@dimen/value_h15"
+                        android:background="@drawable/rounded_followers"
+                        android:gravity="center"
+                        android:clickable="true"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/value_w32"
-                            android:layout_height="@dimen/value_w32"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/ic_approaching"
-                            />
+                            android:id="@+id/ivFollowUnfollow"
+                            android:layout_width="@dimen/value_w24"
+                            android:layout_height="@dimen/value_w24"
+                            android:clickable="false"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_user_follow"/>
 
-                        <com.hadippa.CustomTextView
-                            android:id="@+id/tvApproachingVal"
+                        <TextView
+                            android:id="@+id/tvFollowUnfollow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:text="100"
-                            android:textColor="@color/c_312f30"
-                            android:textSize="@dimen/values_txt_18"
-                            app:customFont="@string/proxima_bold"/>
-
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:clickable="false"
+                            android:text="Follow"
+                            android:textColor="@color/selector_txt_follower_following"
+                            android:textSize="@dimen/values_txt_11"/>
 
                     </LinearLayout>
 
-
-                    <com.hadippa.CustomTextView
-                        android:id="@+id/tvApproaching"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/llAppr"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/value_h15"
-                        android:text="Approaching"
-                        android:textColor="@color/c_2f2f2f"
-                        android:textSize="@dimen/values_txt_11"
-                        app:customFont="@string/proxima_reg"/>
 
                 </RelativeLayout>
 
@@ -344,35 +350,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/vSep2"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/tvConnect"
                 android:layout_marginLeft="@dimen/value_w24"
                 android:layout_marginRight="@dimen/value_w24"
                 android:layout_marginTop="@dimen/value_h42"
-                android:layout_marginBottom="@dimen/value_h42"
-                android:text="My Instagram Picture"
+                android:text="Mutual Friend"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_16"
                 app:customFont="@string/proxima_bold"/>
 
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvMyInsta"
+                android:id="@+id/rvMutualFriend">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:id="@+id/vSep3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/rvMutualFriend"
+                android:layout_marginTop="10dp"
+                android:background="#efefef"/>
+
             <com.hadippa.CustomTextView
-                android:id="@+id/tvConnect"
+                android:id="@+id/tvRecentInstagram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tvMyInsta"
-                android:layout_alignParentRight="true"
+                android:layout_below="@+id/vSep3"
                 android:layout_marginLeft="@dimen/value_w24"
-                android:text="Connect"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:layout_marginRight="@dimen/value_w26"
-                android:paddingBottom="8dp"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:background="@drawable/bg_connect"
-                android:textColor="@color/white"
-                android:textSize="@dimen/values_txt_14"
+                android:layout_marginRight="@dimen/value_w24"
+                android:layout_marginTop="@dimen/value_h42"
+                android:layout_marginBottom="@dimen/value_h10"
+                android:text="Her Recent Instagram photo"
+                android:textColor="@color/c_2f2f2f"
+                android:textSize="@dimen/values_txt_16"
                 app:customFont="@string/proxima_bold"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvRecentInstagram"
+                android:id="@+id/rvRecentInstagram">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:id="@+id/vSep4"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@+id/rvRecentInstagram"
+                android:background="@color/white"/>
 
         </RelativeLayout>
 

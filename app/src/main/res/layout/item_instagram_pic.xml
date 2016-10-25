@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hadippa.SquareImageView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/iv_photo"
+              android:layout_width="match_parent"
+                             android:padding="5dp"
+              android:layout_height="match_parent"
+                             android:src="#efefef"
+    >
+
+</com.hadippa.SquareImageView>

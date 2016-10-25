@@ -53,6 +53,9 @@ import com.hadippa.R;
 import com.hadippa.activities.HomeScreen;
 import com.hadippa.activities.LoginActivity;
 import com.hadippa.activities.MyPlan;
+import com.hadippa.activities.PostActivity;
+import com.hadippa.activities.ProfileActivity;
+import com.hadippa.activities.TravelActivity;
 import com.hadippa.fragments.signup.SignUp_Step1;
 import com.hadippa.fragments.signup.SignUp_Step3;
 import com.hadippa.model.DataModel;
@@ -233,6 +236,16 @@ public class ShowCardsNew extends Fragment {
             viewHolder.tvName_Age.setText(dataModel.getUser().getFirst_name()
                     + " " + dataModel.getUser().getLast_name() + ", " +
                     "" + dataModel.getUser().getAge());
+
+            viewHolder.tvName_Age.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                    intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
 
             viewHolder.tvActivityName.setText(dataModel.getActivity_details().getActivity_name());
             viewHolder.tvActivtyTime.setText(dataModel.getActivity_time());

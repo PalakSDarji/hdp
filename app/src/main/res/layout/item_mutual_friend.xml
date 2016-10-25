@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="13dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image_view"
+        android:layout_width="@dimen/value_w100"
+        android:layout_height="@dimen/value_w100"
+        android:src="@drawable/ic_avatar5"
+        app:riv_border_color="@color/c_b7b3b4"
+        app:riv_border_width="@dimen/value_1"
+        app:riv_corner_radius="100dp"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/image_view"
+        android:layout_alignRight="@+id/image_view"
+        android:layout_alignEnd="@+id/image_view"
+        android:layout_alignStart="@+id/image_view"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/image_view"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="Sania Mirza"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/c_454545"
+        android:textSize="@dimen/values_txt_13"
+        app:customFont="@string/proxima_reg"/>
+
+</RelativeLayout>
