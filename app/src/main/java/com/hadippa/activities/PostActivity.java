@@ -83,10 +83,11 @@ public class PostActivity extends AppCompatActivity {
         findViewById(R.id.ivTravel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PostActivity.this, TravelActivity.class);
+                showTravelDialog();
+               /* Intent intent = new Intent(PostActivity.this, TravelActivity.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
             }
         });
 
@@ -101,6 +102,69 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
+
+    void showTravelDialog() {
+
+        dialog1 = new Dialog(this, R.style.DialogSlideAnim);
+        dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog1.setContentView(R.layout.dialog_travel);
+        dialog1.setCanceledOnTouchOutside(false);
+        dialog1.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //style id
+        WindowManager.LayoutParams params = dialog1.getWindow().getAttributes();
+
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+        dialog1.getWindow().setAttributes(params);
+
+        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
+
+        ImageView ivClose = (ImageView) dialog1.findViewById(R.id.ivClose);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+            }
+        });
+
+        ImageView ivAir = (ImageView) dialog1.findViewById(R.id.ivAir);
+        ivAir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                Intent intent = new Intent(PostActivity.this, TravelActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        ImageView ivBus = (ImageView) dialog1.findViewById(R.id.ivBus);
+        ivBus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                Intent intent = new Intent(PostActivity.this, TravelActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        ImageView ivTrain = (ImageView) dialog1.findViewById(R.id.ivTrain);
+        ivTrain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.dismiss();
+                Intent intent = new Intent(PostActivity.this, TravelActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        dialog1.show();
+    }
 
     void showSportsDialog() {
 
@@ -164,6 +228,8 @@ public class PostActivity extends AppCompatActivity {
 
         dialog1.show();
     }
+
+
 
     void showSportsAdveDialog() {
 

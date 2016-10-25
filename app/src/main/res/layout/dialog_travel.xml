@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="#bb000000">
+
+    <ImageView
+        android:id="@+id/ivTravel"
+        android:layout_width="@dimen/value_w140"
+        android:layout_height="@dimen/value_w140"
+        android:layout_centerInParent="true"
+        android:src="@drawable/sports"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/ivGlass"/>
+
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/travel"
+        android:textSize="@dimen/values_txt_12"
+        android:gravity="center_horizontal"
+        android:textColor="#fff"
+        android:id="@+id/tvTravel"
+        android:layout_marginTop="@dimen/value_5"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ivTravel"/>
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="@dimen/value_w90"
+        android:layout_height="@dimen/value_w90"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_close"
+        android:layout_marginTop="@dimen/value_h42"
+        android:layout_below="@+id/tvTravel"/>
+
+    <ImageView
+        android:id="@+id/ivBus"
+        android:layout_width="@dimen/value_w100"
+        android:layout_height="@dimen/value_w100"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/adve"
+        android:layout_above="@+id/tvBus"/>
+
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
+        android:id="@+id/tvBus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bus"
+        android:textSize="@dimen/values_txt_12"
+        android:layout_marginTop="@dimen/value_5"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:gravity="center_horizontal"
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/ivTravel"/>
+
+    <ImageView
+        android:id="@+id/ivAir"
+        android:layout_width="@dimen/value_w100"
+        android:layout_height="@dimen/value_w100"
+        android:src="@drawable/indoor"
+        android:layout_marginRight="@dimen/home_drawer_title1_padding_horizontal"
+        android:clickable="true"
+        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
+        android:layout_toLeftOf="@+id/ivBus"
+        android:layout_alignTop="@+id/ivBus"/>
+
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/airplain"
+        android:layout_marginTop="@dimen/value_5"
+        android:gravity="center_horizontal"
+        android:layout_alignRight="@+id/ivAir"
+        android:textSize="@dimen/values_txt_12"
+        android:textColor="#fff"
+        android:layout_below="@+id/ivAir"/>
+
+    <ImageView
+        android:id="@+id/ivTrain"
+        android:layout_width="@dimen/value_w100"
+        android:layout_height="@dimen/value_w100"
+        android:src="@drawable/outdoor"
+        android:layout_marginLeft="@dimen/home_drawer_title1_padding_horizontal"
+        android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
+        android:layout_toRightOf="@+id/ivBus"
+        android:layout_alignTop="@+id/ivBus"/>
+
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/train"
+        android:gravity="center_horizontal"
+        android:layout_alignLeft="@+id/ivTrain"
+        android:layout_alignRight="@+id/ivTrain"
+        android:layout_marginTop="@dimen/value_5"
+        android:textSize="@dimen/values_txt_12"
+        android:textColor="#fff"
+        android:layout_below="@+id/ivTrain"/>
+
+</RelativeLayout>

@@ -211,5 +211,7 @@
     <string name="button_allow">Allow</string>
     <string name="button_deny">Deny</string>
     <string name="lbl_OK">OK</string>
+    <string name="airplain">Airplain</string>
+    <string name="travel">Travel</string>
 
 </resources>
