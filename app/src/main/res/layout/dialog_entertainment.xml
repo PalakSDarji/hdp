@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="#bb000000"
+                android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivEntertainment"
+        android:layout_width="@dimen/value_w140"
+        android:layout_height="@dimen/value_w140"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/glass"/>
+
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
+        android:id="@+id/tvNightLife"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivEntertainment"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="@string/entertainment"
+        android:textColor="#fff"
+        android:layout_marginTop="@dimen/value_5"
+        android:textSize="@dimen/values_txt_12"/>
+
+    <LinearLayout
+        android:id="@+id/llTheaterEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ivEntertainment"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <LinearLayout
+            android:id="@+id/llPlay"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivPlay"
+                android:clickable="true"
+                android:layout_width="@dimen/value_w100"
+                android:layout_height="@dimen/value_w100"
+                android:layout_above="@+id/tvPlay"
+                android:src="@drawable/nightlife_lounge"/>
+
+            <com.hadippa.CustomTextView
+                app:customFont="@string/proxima_bold"
+                android:id="@+id/tvPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/value_10"
+                android:text="@string/theater_play"
+                android:textColor="#fff"
+                android:textSize="@dimen/values_txt_12"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivEvent"
+                android:layout_width="@dimen/value_w100"
+                android:layout_height="@dimen/value_w100"
+                android:clickable="true"
+                android:src="@drawable/party_nughtclub"/>
+
+            <com.hadippa.CustomTextView
+                app:customFont="@string/proxima_bold"
+                android:id="@+id/tvEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/value_10"
+                android:text="@string/event"
+                android:textColor="#fff"
+                android:textSize="@dimen/values_txt_12"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivMovie"
+        android:layout_width="@dimen/value_w100"
+        android:layout_height="@dimen/value_w100"
+        android:clickable="true"
+        android:layout_alignRight="@+id/tvMovie"
+        android:src="@drawable/nightlife_nughtclub"
+        android:layout_above="@+id/tvMovie"/>
+
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
+        android:id="@+id/tvMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/movie"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/value_5"
+        android:textSize="@dimen/values_txt_12"
+        android:layout_toLeftOf="@+id/llTheaterEvent"
+        android:layout_alignTop="@+id/ivEntertainment"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/value_w17"
+        android:layout_marginBottom="@dimen/card_bottom_drawer"
+        android:textColor="#fff"/>
+
+
+    <ImageView
+        android:id="@+id/ivFestival"
+        android:layout_width="@dimen/value_w100"
+        android:clickable="true"
+        android:layout_height="@dimen/value_w100"
+        android:layout_alignLeft="@+id/tvFestival"
+        android:src="@drawable/nightclun_standupcomedy"
+        android:layout_above="@+id/tvFestival"/>
+
+    <com.hadippa.CustomTextView
+        app:customFont="@string/proxima_bold"
+        android:id="@+id/tvFestival"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Festival"
+        android:textSize="@dimen/values_txt_12"
+        android:layout_marginTop="@dimen/value_5"
+        android:layout_toRightOf="@+id/llTheaterEvent"
+        android:layout_alignTop="@+id/ivEntertainment"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/card_bottom_drawer"
+        android:textColor="#fff"/>
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="@dimen/value_w90"
+        android:layout_height="@dimen/value_w90"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_close"
+        android:layout_marginTop="@dimen/value_h42"
+        android:layout_below="@+id/tvNightLife"/>
+
+</RelativeLayout>

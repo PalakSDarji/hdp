@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_event_list"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.hadippa.activities.EventListActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/theatre_play"
+            android:textColor="@color/c_2f2f2f"
+            android:textSize="@dimen/values_txt_16"
+            app:customFont="@string/proxima_bold"/>
+
+        <RelativeLayout
+            android:id="@+id/llInvite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/value_w17">
+
+
+            <ImageView
+                android:id="@+id/ivArrow"
+                android:layout_width="@dimen/value_w17"
+                android:layout_height="@dimen/value_w17"
+                android:padding="2dp"
+                android:src="@drawable/available_till_arrow"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/value_5"
+                android:layout_toRightOf="@+id/imageFilter"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/imageFilter"
+                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mumbai"
+                android:layout_centerVertical="true"
+                android:textColor="@color/c_464646"
+                android:textSize="@dimen/values_txt_11"
+                app:customFont="@string/proxima_reg"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@color/white"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        android:layout_below="@+id/top"
+        app:tabMaxWidth="0dp"
+        android:paddingLeft="@dimen/value_10"
+        android:paddingRight="@dimen/value_10"
+        app:tabSelectedTextColor="#3c3c3c"
+        app:tabTextAppearance="@style/AppTabTextAppearance"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tabs"
+        android:background="@android:color/white" />
+
+</RelativeLayout>

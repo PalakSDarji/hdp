@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+                android:clickable="true"
+              android:layout_marginLeft="@dimen/value_10"
+              android:layout_marginRight="@dimen/value_10"
+              android:layout_marginBottom="@dimen/value_10"
+              android:background="@drawable/rounded_bottom_shape">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/profileImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/values_w235"
+        android:clickable="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/imageprof"
+        app:riv_corner_radius_bottom_left="0dp"
+        app:riv_corner_radius_bottom_right="0dp"
+        app:riv_corner_radius_top_left="@dimen/value_5"
+        app:riv_corner_radius_top_right="@dimen/value_5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvEventName"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/profileImage"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="Event Name"
+        android:layout_marginLeft="@dimen/value_10"
+        android:layout_marginTop="@dimen/value_10"
+        android:textColor="@color/c_f31755"
+        android:textSize="@dimen/values_txt_13"
+        app:customFont="@string/proxima_bold"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvAddress"
+        android:layout_below="@+id/tvEventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="Address"
+        android:textColor="#585858"
+        android:layout_marginLeft="@dimen/value_10"
+        android:layout_marginTop="@dimen/value_5"
+        android:textSize="@dimen/values_txt_11"
+        app:customFont="@string/proxima_reg"/>
+
+    <com.hadippa.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAddress"
+        android:text="12 Nov Wed, 6 Pm to 12 Am"
+        android:layout_marginBottom="@dimen/value_16"
+        android:textColor="#585858"
+        android:layout_marginLeft="@dimen/value_10"
+        android:layout_marginTop="@dimen/value_5"
+        android:textSize="@dimen/values_txt_11"
+        app:customFont="@string/proxima_reg"/>
+
+    <RelativeLayout
+        android:id="@+id/rlContainer"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:paddingRight="@dimen/value_10"
+        android:layout_below="@+id/profileImage"
+        android:layout_height="wrap_content">
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:text="Rs 2000"
+            android:layout_marginLeft="@dimen/value_10"
+            android:layout_marginTop="@dimen/value_10"
+            android:textColor="#585858"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:textSize="@dimen/values_txt_13"
+            app:customFont="@string/proxima_bold"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvOnwards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:text="Onwards"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tvPrice"
+            android:textColor="#585858"
+            android:layout_marginLeft="@dimen/value_10"
+            android:layout_marginTop="@dimen/value_5"
+            android:textSize="@dimen/values_txt_10"
+            app:customFont="@string/proxima_reg"/>
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvOnwards"
+            android:text="2 Km"
+            android:layout_marginBottom="@dimen/value_16"
+            android:layout_centerHorizontal="true"
+            android:textColor="#585858"
+            android:layout_marginLeft="@dimen/value_10"
+            android:layout_marginTop="@dimen/value_5"
+            android:textSize="@dimen/values_txt_11"
+            app:customFont="@string/proxima_bold"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:background="#efefef"
+        android:layout_alignTop="@+id/rlContainer"
+        android:layout_alignBottom="@+id/rlContainer"
+        android:layout_toLeftOf="@+id/rlContainer"
+        android:layout_marginRight="@dimen/value_10"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <stroke android:width="@dimen/value_2" android:color="@color/c_f41653"/>
+            <solid android:color="#fff"/>
+            <corners android:bottomLeftRadius="@dimen/value_5"
+                     android:bottomRightRadius="@dimen/value_5"
+                     android:radius="@dimen/value_5"
+                     android:topLeftRadius="@dimen/value_5"
+                     android:topRightRadius="@dimen/value_5"/>
+        </shape>
+
+    </item>
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle">
+            <stroke android:width="@dimen/value_2" android:color="@color/white"/>
+            <solid android:color="#fff"/>
+            <corners android:bottomLeftRadius="@dimen/value_5"
+                     android:bottomRightRadius="@dimen/value_5"
+                     android:radius="@dimen/value_5"
+                     android:topLeftRadius="@dimen/value_5"
+                     android:topRightRadius="@dimen/value_5"/>
+        </shape>
+    </item>
+    <item >
+        <shape android:shape="rectangle">
+            <stroke android:width="@dimen/value_2" android:color="@color/white"/>
+            <solid android:color="#fff"/>
+            <corners android:bottomLeftRadius="@dimen/value_5"
+                     android:bottomRightRadius="@dimen/value_5"
+                     android:radius="@dimen/value_5"
+                     android:topLeftRadius="@dimen/value_5"
+                     android:topRightRadius="@dimen/value_5"/>
+        </shape>
+
+    </item>
+
+</selector>

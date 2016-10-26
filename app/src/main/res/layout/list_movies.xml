@@ -6,6 +6,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/sign_up_padding"
+                android:layout_marginLeft="@dimen/sign_up_padding"
+                android:layout_marginRight="@dimen/sign_up_padding"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -20,17 +22,6 @@
         android:background="@drawable/rounded_movie_deselect"
         android:clickable="true"
         android:orientation="horizontal">
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/profileImage"
-            android:layout_width="@dimen/value_w160"
-            android:layout_height="@dimen/value_h180"
-            android:clickable="false"
-            android:scaleType="centerCrop"
-            android:src="@drawable/imageprof"
-            app:riv_border_color="@color/c_b4b2b3"
-            app:riv_border_width="@dimen/value_1"
-            app:riv_corner_radius="@dimen/value_5"/>
 
         <LinearLayout
             android:id="@+id/llMovieDetails"
@@ -106,6 +97,20 @@
                 app:customFont="@string/proxima_reg"/>
 
         </LinearLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/profileImage"
+            android:layout_width="@dimen/value_w160"
+            android:layout_height="@dimen/value_h180"
+            android:clickable="false"
+            android:scaleType="centerCrop"
+            android:src="@drawable/imageprof"
+            app:riv_border_color="@color/c_b4b2b3"
+            app:riv_border_width="@dimen/value_1"
+            app:riv_corner_radius="@dimen/value_5"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
     </RelativeLayout>
 

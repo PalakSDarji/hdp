@@ -51,6 +51,14 @@
         <item name="android:layout_marginBottom">@dimen/login_button_margin_bottom</item>
     </style>
 
+    <!-- for text -->
+    <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">17sp</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:textColor">#d6d6d6</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">#202020</item>
