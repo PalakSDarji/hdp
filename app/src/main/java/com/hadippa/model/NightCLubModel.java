@@ -1,12 +1,13 @@
 package com.hadippa.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by HP on 27-10-2016.
  */
 
-public class NightCLubModel {
+public class NightCLubModel implements Serializable {
 
 
     /**
@@ -40,7 +41,7 @@ public class NightCLubModel {
         this.response = response;
     }
 
-    public static class ResponseBean {
+    public static class ResponseBean implements Serializable {
         private int results_found;
         private int results_start;
         private int results_shown;
@@ -82,7 +83,7 @@ public class NightCLubModel {
             this.restaurants = restaurants;
         }
 
-        public static class RestaurantsBean {
+        public static class RestaurantsBean implements Serializable{
             /**
              * R : {"res_id":36956}
              * apikey : 46e6ea43117f6c2850e7c65e99ce128c
@@ -118,7 +119,7 @@ public class NightCLubModel {
                 this.restaurant = restaurant;
             }
 
-            public static class RestaurantBean {
+            public static class RestaurantBean implements Serializable {
                 /**
                  * res_id : 36956
                  */
@@ -340,7 +341,7 @@ public class NightCLubModel {
                     this.establishment_types = establishment_types;
                 }
 
-                public static class RBean {
+                public static class RBean implements Serializable{
                     private int res_id;
 
                     public int getRes_id() {
@@ -352,7 +353,7 @@ public class NightCLubModel {
                     }
                 }
 
-                public static class LocationBean {
+                public static class LocationBean implements Serializable {
                     private String address;
                     private String locality;
                     private String city;
@@ -427,7 +428,7 @@ public class NightCLubModel {
                     }
                 }
 
-                public static class UserRatingBean {
+                public static class UserRatingBean implements Serializable {
                     private String aggregate_rating;
                     private String rating_text;
                     private String rating_color;

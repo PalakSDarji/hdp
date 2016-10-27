@@ -47,7 +47,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_COFFEE);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_FROM_COFFEE);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

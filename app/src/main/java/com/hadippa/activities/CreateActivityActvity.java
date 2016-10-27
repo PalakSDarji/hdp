@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -15,8 +16,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.bumptech.glide.Glide;
 import com.hadippa.AppConstants;
+import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.model.NightCLubModel;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,6 +44,25 @@ public class CreateActivityActvity extends AppCompatActivity {
 
 
     private int activityKey = 0;
+
+    @BindView(R.id.profileImage)
+    RoundedImageView profileImage;
+
+    @BindView(R.id.address)
+    CustomTextView address;
+
+    @BindView(R.id.name)
+    CustomTextView name;
+
+    @BindView(R.id.rating)
+    CustomTextView rating;
+
+    /*@BindView(R.id.distance)
+    CustomTextView distance;*/
+
+    @BindView(R.id.time)
+    CustomTextView time;
+
     @BindView(R.id.cvVisitingCard) CardView cvVisitingCard;
     @BindView(R.id.llNameAddress) LinearLayout llNameAddress;
     @BindView(R.id.llActivityBrief) LinearLayout llActivityBrief;
@@ -65,9 +89,11 @@ public class CreateActivityActvity extends AppCompatActivity {
 
     @BindView(R.id.tvVisitingDate) TextView tvVisitingDate;
     @BindView(R.id.tvVisitingTime) TextView tvVisitingTime;
+    @BindView(R.id.tvAvailableTill) TextView tvAvailableTill;
+
 
     private DatePickerDialog datePickerDialog;
-    private TimePickerDialog timePickerDialog;
+    private TimePickerDialog timePickerDialog,timePickerDialog1;
     private SimpleDateFormat dateFormatter;
 
     @BindView(R.id.vSepAddress) View vSepAddress;
@@ -83,7 +109,26 @@ public class CreateActivityActvity extends AppCompatActivity {
 
         activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY, 0);
 
+      //  Log.d("getIntent().",getIntent().getExtras().getString("data"));
+        Log.d("getIntent().",activityKey+"");
+        Log.d("getIntent().",AppConstants.ACTIVITY_FROM_COFFEE+"");
         if (activityKey == AppConstants.ACTIVITY_FROM_COFFEE) {
+
+
+            NightCLubModel.ResponseBean.RestaurantsBean restaurantsBean =
+                    (NightCLubModel.ResponseBean.RestaurantsBean) getIntent().getExtras().getSerializable("data");
+
+            address.setText(restaurantsBean.getRestaurant().getLocation().getAddress());
+            name.setText(restaurantsBean.getRestaurant().getName());
+            rating.setText(restaurantsBean.getRestaurant().getUser_rating().getAggregate_rating());
+            ((CustomTextView)(findViewById(R.id.distance))).setText(AppConstants.distanceMeasure(Double.parseDouble(getIntent().getExtras().getString("latitude")),
+                    Double.parseDouble(getIntent().getExtras().getString("longitude")),
+                    Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLatitude()),
+                    Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLongitude()))+ " kms");
+
+            Glide.with(CreateActivityActvity.this)
+                    .load(restaurantsBean.getRestaurant().getFeatured_image())
+                    .into(profileImage);
 
             tvHeader.setText(getResources().getString(R.string.visiting_date_and_time));
             cvVisitingCard.setVisibility(View.VISIBLE);
@@ -275,6 +320,13 @@ public class CreateActivityActvity extends AppCompatActivity {
             }
         });
 
+        tvAvailableTill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePickerDialog.show();
+            }
+        });
+
     }
 
     private void setDateTimePicker() {
@@ -311,6 +363,27 @@ public class CreateActivityActvity extends AppCompatActivity {
                 String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
 
                 tvVisitingTime.setText( strHrsToShow+":"+datetime.get(Calendar.MINUTE)+" "+am_pm );
+            }
+        },newCalendar.get(Calendar.HOUR_OF_DAY),newCalendar.get(Calendar.MONTH),false);
+
+        timePickerDialog1 = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+
+                String am_pm = "";
+
+                Calendar datetime = Calendar.getInstance();
+                datetime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                datetime.set(Calendar.MINUTE, selectedMinute);
+
+                if (datetime.get(Calendar.AM_PM) == Calendar.AM)
+                    am_pm = "AM";
+                else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
+                    am_pm = "PM";
+
+                String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
+
+                tvAvailableTill.setText( strHrsToShow+":"+datetime.get(Calendar.MINUTE)+" "+am_pm );
             }
         },newCalendar.get(Calendar.HOUR_OF_DAY),newCalendar.get(Calendar.MONTH),false);
     }

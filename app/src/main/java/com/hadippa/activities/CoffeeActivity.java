@@ -5,12 +5,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -40,6 +42,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -83,6 +86,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 latitude = String.valueOf(location.getLatitude());
                 longitude = String.valueOf(location.getLongitude());
 
+                prepareThings(pageNumber);
                 Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
 
@@ -110,6 +114,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 if (lastKnownLocation != null) {
                     latitude = String.valueOf(lastKnownLocation.getLatitude());
                     longitude = String.valueOf(lastKnownLocation.getLongitude());
+                    prepareThings(pageNumber);
                     if (gps == null) {
                         gps = new GPSTracker(CoffeeActivity.this);
 
@@ -134,6 +139,8 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         if (gps.canGetLocation()) {
             latitude = String.valueOf(gps.getLatitude());
             longitude = String.valueOf(gps.getLongitude());
+
+            prepareThings(pageNumber);
             Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
         } else {
@@ -142,6 +149,9 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             gps = new GPSTracker(CoffeeActivity.this);
             latitude = String.valueOf(gps.getLatitude());
             longitude = String.valueOf(gps.getLongitude());
+
+            prepareThings(pageNumber);
+
             Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
         }
@@ -154,11 +164,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (checkPermission()) {
-            getLocation();
-        } else {
-            requestPermission();
-        }
+
 
         setContentView(R.layout.activity_coffee);
         ButterKnife.bind(this);
@@ -180,6 +186,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listShops.setLayoutManager(mLayoutManager);
+
 
 
 
@@ -220,29 +227,44 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             }
         });
 
-        prepareThings(pageNumber);
+        if (checkPermission()) {
+            getLocation();
+        } else {
+            requestPermission();
+        }
+
 
     }
 
+
     void prepareThings(int pageNumber){
 
-        if (activityKey == AppConstants.ACTIVITY_COFFEE) {
+        JSONObject user_preference = null;
+        int dist = 0;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(CoffeeActivity.this);
+        try {
+            user_preference = new JSONObject(sharedPreferences.getString("user_preference", ""));
+            dist = Integer.parseInt(user_preference.getString("radius"))*1000;
+        if (activityKey == AppConstants.ACTIVITY_FROM_COFFEE) {
 
             tvHeader1.setText(getString(R.string.coffee_cafe));
             edtSearch.setHint(getString(R.string.select_cafe));
-            prepareZomato(AppConstants.CAFES, latitude, longitude, "5000", String.valueOf(pageNumber));
+            prepareZomato(AppConstants.CAFES, latitude, longitude, String.valueOf(dist)
+                    , String.valueOf(pageNumber));
         } else if (activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
 
             tvHeader1.setText(getString(R.string.night_club));
             edtSearch.setHint(getString(R.string.select_club));
-            prepareZomato(AppConstants.NIGHTCLUB, latitude, longitude, "5000", String.valueOf(pageNumber));
+            prepareZomato(AppConstants.NIGHTCLUB, latitude, longitude, String.valueOf(dist), String.valueOf(pageNumber));
         } else if (activityKey == AppConstants.ACTIVITY_LOUNGE) {
 
             tvHeader1.setText(getString(R.string.lounge));
             edtSearch.setHint(getString(R.string.select_lounge));
-            prepareZomato(AppConstants.LOUNGE, latitude, longitude, "5000", String.valueOf(pageNumber));
+            prepareZomato(AppConstants.LOUNGE, latitude, longitude,  String.valueOf(dist), String.valueOf(pageNumber));
         }
-
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean checkPermission() {
@@ -316,22 +338,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
     }
 
-    private String distance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        return String.valueOf(Math.round(dist));
-    }
 
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI);
-    }
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
@@ -354,7 +361,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             viewHolder.address.setText(restaurantsBean.getRestaurant().getLocation().getAddress());
             viewHolder.name.setText(restaurantsBean.getRestaurant().getName());
             viewHolder.rating.setText(restaurantsBean.getRestaurant().getUser_rating().getAggregate_rating());
-            viewHolder.distance.setText(distance(Double.parseDouble(latitude),
+            viewHolder.distance.setText(AppConstants.distanceMeasure(Double.parseDouble(latitude),
                     Double.parseDouble(longitude),
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLatitude()),
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLongitude()))+ " kms");
@@ -363,7 +370,23 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                     .load(restaurantsBean.getRestaurant().getFeatured_image())
                     .into(viewHolder.profileImage);
 
+            viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(CoffeeActivity.this, CreateActivityActvity.class);
+                    Log.d("getIntent().",activityKey+"");
+                    intent.putExtra(AppConstants.ACTIVITY_KEY,getIntent().getIntExtra(AppConstants.ACTIVITY_KEY,0));
+                    intent.putExtra("data",restaurantsBean);
+                    intent.putExtra("latitude",latitude);
+                    intent.putExtra("longitude",longitude);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
+
         }
+
 
         @Override
         public int getItemCount() {
@@ -391,16 +414,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             profileImage = (RoundedImageView) v.findViewById(R.id.profileImage);
 
             rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
-            rlContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    Intent intent = new Intent(CoffeeActivity.this, CreateActivityActvity.class);
-                    intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_FROM_COFFEE);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                }
-            });
         }
 
         //,,
@@ -420,8 +434,8 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
         try {
 
-            requestParams.add("lat", "19.0760");
-            requestParams.add("lon", "72.8777");
+            requestParams.add("lat", lat);
+            requestParams.add("lon", lon);
             requestParams.add("radius", radius);
             requestParams.add("start", start);
 

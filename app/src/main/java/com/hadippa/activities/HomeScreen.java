@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.fragments.main_screen.ShowCardsNew;
 
@@ -35,13 +36,21 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     DrawerLayout drawerLayout;
     ImageView drawerOpen,imageFilter;
     LinearLayout leftDrawer;
-    TextView tvUserName;
     ImageView profileImage;
     LinearLayout linearNotification, linearPreference, linearHome, linearFeedback;
     EditText edtSearch;
     private LinearLayout linearMyPlan;
     @BindView(R.id.rlSearch) RelativeLayout rlSearch;
     @BindView(R.id.ivIcon) ImageView ivIcon;
+
+    @BindView(R.id.tvFollowersCount)
+    CustomTextView tvFollowersCount;
+
+    @BindView(R.id.tvUserName)
+    CustomTextView tvUserName;
+
+    @BindView(R.id.tvFollowingCount)
+    CustomTextView tvFollowingCount;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -150,7 +159,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         });
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         leftDrawer = (LinearLayout) findViewById(R.id.leftDrawer);
-        tvUserName = (TextView) findViewById(R.id.tvUserName);
+
         profileImage = (ImageView)findViewById(R.id.profileImage);
 
         linearHome = (LinearLayout) findViewById(R.id.linearHome);
