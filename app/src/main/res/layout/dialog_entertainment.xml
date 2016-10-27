@@ -12,7 +12,7 @@
         android:layout_height="@dimen/value_w140"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:src="@drawable/glass"/>
+        android:src="@drawable/entertainment"/>
 
     <com.hadippa.CustomTextView
         app:customFont="@string/proxima_bold"
@@ -49,7 +49,7 @@
                 android:layout_width="@dimen/value_w100"
                 android:layout_height="@dimen/value_w100"
                 android:layout_above="@+id/tvPlay"
-                android:src="@drawable/nightlife_lounge"/>
+                android:src="@drawable/theatre_button"/>
 
             <com.hadippa.CustomTextView
                 app:customFont="@string/proxima_bold"
@@ -77,7 +77,7 @@
                 android:layout_width="@dimen/value_w100"
                 android:layout_height="@dimen/value_w100"
                 android:clickable="true"
-                android:src="@drawable/party_nughtclub"/>
+                android:src="@drawable/event_button"/>
 
             <com.hadippa.CustomTextView
                 app:customFont="@string/proxima_bold"
@@ -100,7 +100,7 @@
         android:layout_height="@dimen/value_w100"
         android:clickable="true"
         android:layout_alignRight="@+id/tvMovie"
-        android:src="@drawable/nightlife_nughtclub"
+        android:src="@drawable/movie_button"
         android:layout_above="@+id/tvMovie"/>
 
     <com.hadippa.CustomTextView
@@ -126,7 +126,7 @@
         android:clickable="true"
         android:layout_height="@dimen/value_w100"
         android:layout_alignLeft="@+id/tvFestival"
-        android:src="@drawable/nightclun_standupcomedy"
+        android:src="@drawable/festival_button"
         android:layout_above="@+id/tvFestival"/>
 
     <com.hadippa.CustomTextView

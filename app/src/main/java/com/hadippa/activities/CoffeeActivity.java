@@ -381,7 +381,6 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         public ViewHolder(final View v) {
             super(v);
 
-
             address = (CustomTextView) v.findViewById(R.id.address);
             name = (CustomTextView) v.findViewById(R.id.name);
             rating = (CustomTextView) v.findViewById(R.id.rating);
@@ -391,23 +390,17 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
             profileImage = (RoundedImageView) v.findViewById(R.id.profileImage);
 
-
-            v.setOnClickListener(new View.OnClickListener() {
+            rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
+            rlContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    /*ImageView relativeLayout = (ImageView) v.findViewById(R.id.frame);
-                    if(relativeLayout.getDrawable().getConstantState()==(getResources().getDrawable(R.drawable.rounded_movie_deselect).getConstantState())){
-                        relativeLayout.setImageResource(R.drawable.rounded_movie_select);
-                    }else {
-                        relativeLayout.setImageResource(R.drawable.rounded_movie_deselect);
-                    }*/
-
-                    Toast.makeText(getApplicationContext(), "clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CoffeeActivity.this, CreateActivityActvity.class);
+                    intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_FROM_COFFEE);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             });
-
-            rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
         }
 
         //,,

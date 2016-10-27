@@ -1,6 +1,7 @@
 package com.hadippa.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,9 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.activities.EntertainmentActivity;
+import com.hadippa.activities.EventDetailsActivity;
+import com.hadippa.activities.PostActivity;
 import com.hadippa.model.Contact;
 import com.hadippa.model.Event;
 
@@ -96,6 +101,14 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
         @Override
         public void onBindViewHolder(EventHolder holder, int position) {
 
+            holder.rlContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), EventDetailsActivity.class);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
         }
 
         public Event getItem(int position){
@@ -115,10 +128,11 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
         public class EventHolder extends RecyclerView.ViewHolder {
 
             CustomTextView tvEventName;
+            RelativeLayout rlContainer;
 
             public EventHolder(View view) {
                 super(view);
-
+                rlContainer = (RelativeLayout) view.findViewById(R.id.rlContainer);
                 tvEventName = (CustomTextView) view.findViewById(R.id.tvEventName);
             }
         }

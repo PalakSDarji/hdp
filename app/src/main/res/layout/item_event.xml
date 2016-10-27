@@ -3,6 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
+                android:id="@+id/rlContainer"
               android:layout_height="wrap_content"
                 android:clickable="true"
               android:layout_marginLeft="@dimen/value_10"
@@ -16,6 +17,9 @@
         android:layout_height="@dimen/values_w235"
         android:clickable="false"
         android:scaleType="centerCrop"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginLeft="1dp"
         android:src="@drawable/imageprof"
         app:riv_corner_radius_bottom_left="0dp"
         app:riv_corner_radius_bottom_right="0dp"
@@ -96,7 +100,6 @@
             android:layout_below="@+id/tvPrice"
             android:textColor="#585858"
             android:layout_marginLeft="@dimen/value_10"
-            android:layout_marginTop="@dimen/value_5"
             android:textSize="@dimen/values_txt_10"
             app:customFont="@string/proxima_reg"/>
 
@@ -109,7 +112,7 @@
             android:layout_centerHorizontal="true"
             android:textColor="#585858"
             android:layout_marginLeft="@dimen/value_10"
-            android:layout_marginTop="@dimen/value_5"
+            android:layout_marginTop="@dimen/value_8"
             android:textSize="@dimen/values_txt_11"
             app:customFont="@string/proxima_bold"/>
 

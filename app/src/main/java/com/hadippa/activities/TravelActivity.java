@@ -23,6 +23,7 @@ public class TravelActivity extends AppCompatActivity {
     private int activityKey;
     private TextView customTextView2;
     private LinearLayout llSelectFlight;
+    private TextView tvSelectType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class TravelActivity extends AppCompatActivity {
         tvNext = (TextView) findViewById(R.id.tvNext);
         customTextView2 = (TextView) findViewById(R.id.customTextView2);
         llSelectFlight = (LinearLayout) findViewById(R.id.llSelectFlight);
+        tvSelectType  = (TextView) findViewById(R.id.tvSelectType);
 
         imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
@@ -49,12 +51,51 @@ public class TravelActivity extends AppCompatActivity {
 
         horScrollView.setHorizontalScrollBarEnabled(false);
 
-        if(activityKey == AppConstants.ACTIVITY_TRAVEL_FROM_POST){
+        if(activityKey == AppConstants.ACTIVITY_TRAVEL_FROM_POST_AIR){
 
             horScrollView.setVisibility(View.GONE);
             rlSubHeader.setVisibility(View.GONE);
             tvNext.setVisibility(View.VISIBLE);
             llSelectFlight.setVisibility(View.VISIBLE);
+            tvSelectType.setText(getString(R.string.select_fight));
+            customTextView2.setText(getResources().getString(R.string.write_plane_route));
+
+            tvNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(TravelActivity.this, CreateActivityActvity.class);
+                    intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
+        }
+        else if(activityKey == AppConstants.ACTIVITY_TRAVEL_FROM_POST_BUS){
+
+            horScrollView.setVisibility(View.GONE);
+            rlSubHeader.setVisibility(View.GONE);
+            tvNext.setVisibility(View.VISIBLE);
+            llSelectFlight.setVisibility(View.VISIBLE);
+            tvSelectType.setText(getString(R.string.select_bus));
+            customTextView2.setText(getResources().getString(R.string.write_plane_route));
+
+            tvNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(TravelActivity.this, CreateActivityActvity.class);
+                    intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
+        }
+        else if(activityKey == AppConstants.ACTIVITY_TRAVEL_FROM_POST_TRAIN){
+
+            horScrollView.setVisibility(View.GONE);
+            rlSubHeader.setVisibility(View.GONE);
+            tvNext.setVisibility(View.VISIBLE);
+            llSelectFlight.setVisibility(View.VISIBLE);
+            tvSelectType.setText(getString(R.string.select_train));
             customTextView2.setText(getResources().getString(R.string.write_plane_route));
 
             tvNext.setOnClickListener(new View.OnClickListener() {

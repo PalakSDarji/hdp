@@ -204,6 +204,8 @@
         </activity>
         <activity android:name=".activities.EventListActivity">
         </activity>
+        <activity android:name=".activities.EventDetailsActivity">
+        </activity>
     </application>
 
 </manifest>

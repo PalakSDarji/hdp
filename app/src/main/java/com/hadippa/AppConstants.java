@@ -116,13 +116,19 @@ public class AppConstants {
     public static final int ACTIVITY_ENTERTAINMENT =13;
     public static final int ACTIVITY_OUTDOOR_SPORTS =14;
 
-
-    public static final int ACTIVITY_TRAVEL_FROM_POST = 3;
     public static final int ACTIVITY_TRAVEL_FROM_FILTER = 4;
+    public static final int ACTIVITY_TRAVEL_FROM_POST_AIR = 15;
+    public static final int ACTIVITY_TRAVEL_FROM_POST_TRAIN =16;
+    public static final int ACTIVITY_TRAVEL_FROM_POST_BUS = 17;
 
     public static final int ACTIVITY_COFFEE = 7;
     public static final int ACTIVITY_NIGHTCLUB = 8;
     public static final int ACTIVITY_LOUNGE = 9;
+
+    public static final int ACTIVITY_EVENT_PARTY = 18;
+    public static final int ACTIVITY_EVENT_THEATER = 19;
+    public static final int ACTIVITY_EVENT_EVENT = 20;
+    public static final int ACTIVITY_EVENT_FESTIVAL = 21;
 
     public static String USER = "user";
     public static Bitmap takeScreenShot(Activity activity)
