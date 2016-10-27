@@ -426,6 +426,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 requestParams.add("code", accessTokenFb);
 
+                editor.putString("code",accessTokenFb);
+                editor.commit();
 
             }else {
                 requestParams.add( "username", email);

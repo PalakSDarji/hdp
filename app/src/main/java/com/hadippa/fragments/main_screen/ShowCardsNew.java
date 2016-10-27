@@ -439,9 +439,6 @@ public class ShowCardsNew extends Fragment {
             }
         });
 
-        //multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
-       // multiple_actions = (FloatingActionsMenu) view.findViewById(R.id.multiple_actions);
-
         return view;
     }
 

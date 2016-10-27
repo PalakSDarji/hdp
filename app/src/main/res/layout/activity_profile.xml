@@ -46,7 +46,7 @@
             android:layout_marginRight="@dimen/value_10"
             android:layout_toLeftOf="@+id/ivMore"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_chat"/>
+           />
 
         <ImageView
             android:id="@+id/ivMore"

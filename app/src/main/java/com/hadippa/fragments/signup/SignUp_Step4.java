@@ -170,10 +170,12 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
 
             requestParams.add("dob", SignUp_Step3.date.getText().toString().trim());
 
-            requestParams.add("username", SignUp_Step1.edtEmail.getText().toString().trim());
-
-            requestParams.add("password", SignUp_Step1.edtPassword.getText().toString().trim());
-
+            if(sp.getString("grantType","").equals("facebook")){
+                requestParams.add("code",sp.getString("code",""));
+            }else {
+                requestParams.add("username", SignUp_Step1.edtEmail.getText().toString().trim());
+                requestParams.add("password", SignUp_Step1.edtPassword.getText().toString().trim());
+            }
 
             Log.d("request>>", requestParams.toString());
         } catch (Exception e) {
