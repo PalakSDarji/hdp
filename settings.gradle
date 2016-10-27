@@ -1,1 +1,1 @@
-include ':app', ':cardstack', ':dialogplus', ':library', ':rangeseekbar', ':photo-crop-library'
+include ':app', ':cardstack', ':dialogplus', ':library', ':rangeseekbar'
