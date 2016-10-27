@@ -410,6 +410,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
         }
 
+        //,,
         /*public LinearLayout getLinearDate() {
             return linearDate;
         }*/
