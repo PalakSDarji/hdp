@@ -34,6 +34,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
@@ -206,6 +207,8 @@ public class LoginActivity extends AppCompatActivity {
                 request.executeAsync();*/
 
                 login("facebook","","",loginResult.getAccessToken().getToken());
+
+              //  LoginManager.getInstance().logOut();
                 Log.d("accesstoken>>",loginResult.getAccessToken().getToken());
              //   new LoginFb("facebook","","",loginResult.getAccessToken().getToken()).execute();
 
@@ -228,7 +231,7 @@ public class LoginActivity extends AppCompatActivity {
                 login("password", sp.getString("username",""),
                             sp.getString("password",""), "");
             }else{
-                login("facebook","","",sp.getString("code",""));
+                login("facebook","","", sp.getString("code",""));
             }
         }
 
@@ -488,7 +491,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("response>>",response);
                     //post json stored g\here
                     editor.putBoolean("loginStatus",true);
-                    editor.putString("grantType",grant);
+                    editor.putString("grant_type",grant);
                     if(grant.equals("facebook")){
                         editor.putString("code",code);
 
@@ -496,6 +499,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("username",username);
                         editor.putString("password",password_);
                     }
+                    editor.commit();
 
                     if(jsonObject.has("registration_incomplete")){
                         editor.putInt("user",Integer.parseInt(jsonObject.getString("user")));
@@ -517,7 +521,6 @@ public class LoginActivity extends AppCompatActivity {
                         finish();
                     }
                 }else{
-
 
                     AppConstants.showSnackBar(mainRel,"Invalid username or password");
 

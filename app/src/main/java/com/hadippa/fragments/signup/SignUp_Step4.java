@@ -158,7 +158,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
 
             requestParams.add("device_os_version", String.valueOf(Build.VERSION.SDK_INT));
 
-            requestParams.add("grant_type",sp.getString("grantType",""));
+            requestParams.add("grant_type",sp.getString("grant_type",""));
 
             requestParams.add("device_type", "android");
 
@@ -170,7 +170,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
 
             requestParams.add("dob", SignUp_Step3.date.getText().toString().trim());
 
-            if(sp.getString("grantType","").equals("facebook")){
+            if(sp.getString("grant_type","").equals("facebook")){
                 requestParams.add("code",sp.getString("code",""));
             }else {
                 requestParams.add("username", SignUp_Step1.edtEmail.getText().toString().trim());
@@ -226,7 +226,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
 
                     editor.putBoolean("loginStatus", true);
 
-                    if(sp.getString("grantType","").equals("password")) {
+                    if(sp.getString("grant_type","").equals("password")) {
                         editor.putString("username", SignUp_Step1.edtEmail.getText().toString().trim());
                         editor.putString("password", SignUp_Step1.edtPassword.getText().toString().trim());
                     }
