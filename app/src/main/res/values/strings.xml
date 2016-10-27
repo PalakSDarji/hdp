@@ -220,4 +220,10 @@
     <string name="lbl_tomorrow">Tomorrow</string>
     <string name="lbl_weekend">Weekend</string>
     <string name="lbl_custom">Custom</string>
+
+    <string name="gps_not_found_title">GPS not found</string>
+    <string name="gps_not_found_message">Want to enable?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>

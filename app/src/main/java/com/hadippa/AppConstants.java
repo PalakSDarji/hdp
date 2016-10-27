@@ -81,6 +81,13 @@ public class AppConstants {
     public static final String MY_PLANS_DELETE_MY_ACTIVITY = "/my_plans/delete_my_activity";
     public static final String MY_PLANS_DELETE_FROM_OTHER_ACTIVITY = "/my_plans/delete_from_other_activity";
 
+    //ZOMATO
+    public static final String ZOMATO = "zomato/restaurant/search/";
+    public static final String CAFES = "cafes";
+    public static final String NIGHTCLUB = "nightclub";
+    public static final String LOUNGE = "lounge";
+
+
     public static final String CLIENT_ID= "HADIPAA_USER";
     public static final String CLIENT_SECRET="HADIPAA@2016";
     public static final String LOGIN_STATUS_EMAIL="1";

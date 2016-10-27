@@ -7,15 +7,20 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.commonclasses.notification.ServerUtilities;
+import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.activities.HomeScreen;
 import com.hadippa.activities.Preference;
+import com.hadippa.model.NightCLubModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -27,6 +32,7 @@ public class APIClass {
 
 
     SharedPreferences sp;
+
 
     //GET PREFERENCS
     private void getPreferences() {
@@ -920,8 +926,7 @@ public class APIClass {
                 new FetchMyPlansHistory());
     }
 
-    class FetchMyPlansHistory extends AsyncHttpResponseHandler
-    {
+    class FetchMyPlansHistory extends AsyncHttpResponseHandler {
 
         @Override
         public void onStart() {
@@ -1213,7 +1218,7 @@ public class APIClass {
 
     //Accept others request to our activity
 
-    private void acceptRequest(String activity_id,String requester_id) {
+    private void acceptRequest(String activity_id, String requester_id) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -1293,7 +1298,7 @@ public class APIClass {
 
     //decline others request to our activity
 
-    private void declineRequest(String activity_id,String requester_id) {
+    private void declineRequest(String activity_id, String requester_id) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -1372,7 +1377,7 @@ public class APIClass {
 
     //rollback activity
 
-    private void rollbackActivity(String activity_id,String requester_id) {
+    private void rollbackActivity(String activity_id, String requester_id) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -1447,4 +1452,8 @@ public class APIClass {
         }
 
     }
+
+
+
 }
+

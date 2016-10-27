@@ -109,6 +109,8 @@ public class GPSTracker extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         Log.d("OnStatusChanged!","OnLocationChanged");
+
+        getLocation();
     }
 
     @Override
@@ -197,6 +199,8 @@ public class GPSTracker extends Service implements LocationListener {
             public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
+                dialog.cancel();
+
             }
         });
 
