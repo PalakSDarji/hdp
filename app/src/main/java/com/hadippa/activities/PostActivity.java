@@ -134,7 +134,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, TravelActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST_AIR);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -146,7 +146,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, TravelActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST_BUS);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -158,7 +158,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, TravelActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST_TRAIN);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -208,7 +208,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, EventListActivity.class);
-                //intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_EVENT_THEATER);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -220,7 +220,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, EventListActivity.class);
-               // intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_EVENT_EVENT);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -233,7 +233,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, EventListActivity.class);
-               // intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_EVENT_FESTIVAL);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -402,8 +402,8 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
-                Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_PARTY);
+                Intent intent = new Intent(PostActivity.this, EventListActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_EVENT_PARTY);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -415,7 +415,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_PARTY);
+                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_STANDUP_COMEDY);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

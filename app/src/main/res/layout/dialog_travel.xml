@@ -10,7 +10,7 @@
         android:layout_width="@dimen/value_w140"
         android:layout_height="@dimen/value_w140"
         android:layout_centerInParent="true"
-        android:src="@drawable/sports"
+        android:src="@drawable/travel"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_below="@+id/ivGlass"/>
 
@@ -41,7 +41,7 @@
         android:layout_width="@dimen/value_w100"
         android:layout_height="@dimen/value_w100"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/adve"
+        android:src="@drawable/bus_button"
         android:layout_above="@+id/tvBus"/>
 
     <com.hadippa.CustomTextView
@@ -62,7 +62,7 @@
         android:id="@+id/ivAir"
         android:layout_width="@dimen/value_w100"
         android:layout_height="@dimen/value_w100"
-        android:src="@drawable/indoor"
+        android:src="@drawable/airplane_button"
         android:layout_marginRight="@dimen/home_drawer_title1_padding_horizontal"
         android:clickable="true"
         android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
@@ -85,7 +85,7 @@
         android:id="@+id/ivTrain"
         android:layout_width="@dimen/value_w100"
         android:layout_height="@dimen/value_w100"
-        android:src="@drawable/outdoor"
+        android:src="@drawable/train_button"
         android:layout_marginLeft="@dimen/home_drawer_title1_padding_horizontal"
         android:layout_marginTop="@dimen/home_drawer_option1_margin_bottom"
         android:layout_toRightOf="@+id/ivBus"

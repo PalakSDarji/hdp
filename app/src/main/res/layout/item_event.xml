@@ -3,6 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
+                android:id="@+id/rlContainer"
               android:layout_height="wrap_content"
                 android:clickable="true"
               android:layout_marginLeft="@dimen/value_10"

@@ -1,6 +1,7 @@
 package com.hadippa.activities;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,8 +11,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.fragments.EventListFragment;
 
@@ -22,14 +26,42 @@ public class EventListActivity extends AppCompatActivity {
 
     private PagerAdapter viewPagerAdapter;
     private String[] tabs;
+    private TabLayout tabLayout;
+    private int activityKey;
+    private TextView tvHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
 
+        activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY,0);
+
+        tvHeader = (TextView) findViewById(R.id.tvHeader);
+
+        findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+            }
+        });
+
+        if(activityKey == AppConstants.ACTIVITY_EVENT_PARTY) {
+            tvHeader.setText(getString(R.string.party));
+        }
+        else if(activityKey == AppConstants.ACTIVITY_EVENT_THEATER) {
+            tvHeader.setText(getString(R.string.theater_play));
+        }
+        else if(activityKey == AppConstants.ACTIVITY_EVENT_EVENT) {
+            tvHeader.setText(getString(R.string.event));
+        }
+        else if(activityKey == AppConstants.ACTIVITY_EVENT_FESTIVAL) {
+            tvHeader.setText(getString(R.string.festival));
+        }
+
         //set tab view
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         tabs = new String[]{getString(R.string.lbl_today), getString(R.string.lbl_tomorrow),getString(R.string.lbl_weekend),getString(R.string.lbl_custom)};
@@ -72,6 +104,35 @@ public class EventListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                changeTabsFont();
+            }
+        });
+    }
+
+    private void changeTabsFont() {
+
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildsCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    ((TextView) tabViewChild).setTextSize(12);
+                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(),getString(R.string.proxima_bold)), Typeface.NORMAL);
+                }
+            }
+        }
     }
 
     class PagerAdapter extends FragmentStatePagerAdapter {
