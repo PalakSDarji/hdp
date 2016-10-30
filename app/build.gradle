@@ -48,7 +48,6 @@ dependencies {
     compile project(':cardstack')
     compile project(':dialogplus')
     compile project(':library')
-    compile project(':rangeseekbar')
     compile files('libs/gson-2.5.jar')
     compile files('libs/gcm.jar')
     compile 'com.android.support:appcompat-v7:23.4.0'

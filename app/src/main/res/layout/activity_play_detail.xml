@@ -67,7 +67,6 @@
                     android:id="@+id/rlData"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_movie_deselect"
                     android:clickable="true"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/sign_up_padding"

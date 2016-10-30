@@ -38,32 +38,6 @@
             app:customFont="@string/proxima_bold"/>
 
 
-        <LinearLayout
-            android:id="@+id/llInvite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/value_w17"
-            android:visibility="invisible"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/value_w40"
-                android:layout_height="@dimen/value_w40"
-                android:src="@drawable/my_plan_history"/>
-
-            <com.hadippa.CustomTextView
-                android:id="@+id/imageFilter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="@string/invite"
-                android:textColor="@color/c_464646"
-                android:textSize="@dimen/values_txt_10"/>
-
-        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -93,10 +67,11 @@
 
 
             <com.hadippa.CustomEditText
+                android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 app:customFont="@string/proxima_reg"
                 android:background="@android:color/transparent"
-                android:text="@string/search"
+                android:hint="@string/search"
                 android:textSize="@dimen/values_txt_11"
                 android:layout_toRightOf="@+id/imageSearch"
                 android:textColor="@color/c_a19fa0"

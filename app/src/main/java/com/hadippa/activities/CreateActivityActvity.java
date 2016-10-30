@@ -77,7 +77,6 @@ public class CreateActivityActvity extends AppCompatActivity {
 
     @BindView(R.id.etActivityName) EditText etActivityName;
     @BindView(R.id.etAddress) EditText etAddress;
-    @BindView(R.id.etAvaTill) EditText etAvaTill;
 
     @BindView(R.id.llPublicAndFollowing) LinearLayout llPublicAndFollowing;
     @BindView(R.id.llFollowing) LinearLayout llFollowing;
@@ -97,6 +96,7 @@ public class CreateActivityActvity extends AppCompatActivity {
     private SimpleDateFormat dateFormatter;
 
     @BindView(R.id.vSepAddress) View vSepAddress;
+    @BindView(R.id.ivLocation) ImageView ivLocation;
     @BindView(R.id.ivArrow) ImageView ivArrow;
 
     @Override
@@ -248,6 +248,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvAddress.setVisibility(View.GONE);
             etAddress.setVisibility(View.GONE);
             vSepAddress.setVisibility(View.GONE);
+            ivLocation.setVisibility(View.GONE);
 
             tvActivityName.setText(getResources().getString(R.string.select_theater));
             tvVisDate.setText(getResources().getString(R.string.date));

@@ -101,7 +101,7 @@ public class EntertainmentActivity extends AppCompatActivity {
         public ViewHolder(final View v) {
             super(v);
             rlData = (RelativeLayout)v.findViewById(R.id.rlData);
-            v.setOnClickListener(new View.OnClickListener() {
+            rlData.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

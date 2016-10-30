@@ -29,6 +29,7 @@ public class PeopleModel {
     private String profile_photo_thumbnail;
     private String mutual_friends;
     private String user_relationship_status;
+    private boolean isChecked;
     /**
      * id : 330
      * follower_id : 97
@@ -43,6 +44,11 @@ public class PeopleModel {
      */
 
     private List<FollowingBean> following;
+
+    //Temp
+    public PeopleModel(String first_name) {
+        this.first_name = first_name;
+    }
 
     public String getId() {
         return id;
@@ -122,6 +128,14 @@ public class PeopleModel {
 
     public void setFollowing(List<FollowingBean> following) {
         this.following = following;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 
     public static class FollowerBean {
