@@ -115,12 +115,26 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                     latitude = String.valueOf(lastKnownLocation.getLatitude());
                     longitude = String.valueOf(lastKnownLocation.getLongitude());
                     prepareThings(pageNumber);
-                    if (gps == null) {
-                        gps = new GPSTracker(CoffeeActivity.this);
 
-                    }
                     Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
+                }else{
+
+                    if (gps == null) {
+                        gps = new GPSTracker(CoffeeActivity.this);
+                    }
+
+                    if (gps.canGetLocation()) {
+                        latitude = String.valueOf(gps.getLatitude());
+                        longitude = String.valueOf(gps.getLongitude());
+
+                        prepareThings(pageNumber);
+
+                    } else {
+
+                        gps.showSettingsAlert();
+
+                    }
                 }
 
             }
@@ -132,29 +146,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         mLocationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 500, 10, mLocationListener);
 
-        if (gps == null) {
-            gps = new GPSTracker(CoffeeActivity.this);
-        }
 
-        if (gps.canGetLocation()) {
-            latitude = String.valueOf(gps.getLatitude());
-            longitude = String.valueOf(gps.getLongitude());
-
-            prepareThings(pageNumber);
-            Log.d("locaGPS>>", latitude + ">>>" + longitude);
-
-        } else {
-
-            gps.showSettingsAlert();
-            gps = new GPSTracker(CoffeeActivity.this);
-            latitude = String.valueOf(gps.getLatitude());
-            longitude = String.valueOf(gps.getLongitude());
-
-            prepareThings(pageNumber);
-
-            Log.d("locaGPS>>", latitude + ">>>" + longitude);
-
-        }
 
 
     }

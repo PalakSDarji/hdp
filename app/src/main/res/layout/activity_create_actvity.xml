@@ -540,9 +540,9 @@ android:hint="@string/date"
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_alignLeft="@+id/etAvaTill"
-                    android:layout_alignRight="@+id/etAvaTill"
-                    android:layout_below="@+id/etAvaTill"
+                    android:layout_alignLeft="@+id/tvAvailableTill"
+                    android:layout_alignRight="@+id/tvAvailableTill"
+                    android:layout_below="@+id/tvAvailableTill"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:layout_marginTop="3dp"
@@ -720,6 +720,5 @@ android:hint="@string/date"
         android:textColor="@android:color/white"
         android:textSize="@dimen/values_txt_18"
         app:customFont="@string/proxima_bold"/>
-
 
 </RelativeLayout>

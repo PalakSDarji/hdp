@@ -39,6 +39,7 @@ public class AppConstants {
     public static final String RESET_PASSWORD = "/reset_password_new";
 
     //ACTIVITY
+    public static final String ACTIVITY_TYPE = "/activities";
     public static final String ACTIVITY_REQUEST_JOIN = "/activity/request/join";
     public static final String ACTIVITY_REQUEST_DECLINE = "/activity/decline";
     public static final String ACTIVITY_OTHER_REQUEST_DECLINE = "/activity/request/decline";

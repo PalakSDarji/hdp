@@ -2,28 +2,61 @@ package com.hadippa.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.hadippa.fragments.main_screen.ShowCardsNew;
+import com.hadippa.model.Activities;
+import com.hadippa.model.DataModel;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class PostActivity extends AppCompatActivity {
 
     Dialog dialog1;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+
+    List<Activities.ActivitiesBean> activitiesBeanList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post2);
 
+        sp = PreferenceManager.getDefaultSharedPreferences(PostActivity.this);
+        editor = sp.edit();
+
+        Gson gson = new Gson();
+        Activities dataModel = gson.fromJson(sp.getString("activityType", ""), Activities.class);
+        activitiesBeanList = dataModel.getActivities();
+
         initUi();
+
     }
 
     private void initUi() {
@@ -47,7 +80,8 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_FROM_COFFEE);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_FROM_COFFEE);
+                intent.putExtra("activity_id", activitiesBeanList.get(11).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -65,6 +99,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_HOBBY);
+                intent.putExtra("activity_id", activitiesBeanList.get(15).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -74,7 +109,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_CREATE_ACTIVITY);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_CREATE_ACTIVITY);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -134,7 +169,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, TravelActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST_AIR);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_POST_AIR);
+                intent.putExtra("activity_id", activitiesBeanList.get(7).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -146,7 +182,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, TravelActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST_BUS);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_POST_BUS);
+                intent.putExtra("activity_id", activitiesBeanList.get(9).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -158,7 +195,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, TravelActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST_TRAIN);
+                intent.putExtra("activity_id", activitiesBeanList.get(8).getId());
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_POST_TRAIN);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -197,6 +235,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, EntertainmentActivity.class);
+                intent.putExtra("activity_id", activitiesBeanList.get(0).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -208,7 +247,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, EventListActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_EVENT_THEATER);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_THEATER);
+                intent.putExtra("activity_id", activitiesBeanList.get(1).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -220,7 +260,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, EventListActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_EVENT_EVENT);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_EVENT);
+                intent.putExtra("activity_id", activitiesBeanList.get(2).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -233,7 +274,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, EventListActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_EVENT_FESTIVAL);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_FESTIVAL);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -284,7 +325,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_INDOOR_SPORTS);
+                intent.putExtra("activity_id", activitiesBeanList.get(12).getId());
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_INDOOR_SPORTS);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -296,7 +338,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_OUTDOOR_SPORTS);
+                intent.putExtra("activity_id", activitiesBeanList.get(13).getId());
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_OUTDOOR_SPORTS);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -304,7 +347,6 @@ public class PostActivity extends AppCompatActivity {
 
         dialog1.show();
     }
-
 
 
     void showSportsAdveDialog() {
@@ -379,7 +421,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_NIGHTCLUB);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_NIGHTCLUB);
+                intent.putExtra("activity_id", activitiesBeanList.get(3).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -391,7 +434,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_LOUNGE);
+                intent.putExtra("activity_id", activitiesBeanList.get(4).getId());
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_LOUNGE);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -403,7 +447,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, EventListActivity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_EVENT_PARTY);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_PARTY);
+                intent.putExtra("activity_id", activitiesBeanList.get(5).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -415,7 +460,8 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_STANDUP_COMEDY);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_STANDUP_COMEDY);
+                intent.putExtra("activity_id", activitiesBeanList.get(6).getId());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -423,4 +469,6 @@ public class PostActivity extends AppCompatActivity {
 
         dialog1.show();
     }
+
+
 }
