@@ -33,7 +33,6 @@ public class APIClass {
 
     SharedPreferences sp;
 
-
     //GET PREFERENCS
     private void getPreferences() {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -1214,7 +1213,6 @@ public class APIClass {
         }
 
     }
-
 
     //Accept others request to our activity
 

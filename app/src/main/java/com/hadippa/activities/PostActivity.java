@@ -422,7 +422,7 @@ public class PostActivity extends AppCompatActivity {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_NIGHTCLUB);
-                intent.putExtra("activity_id", activitiesBeanList.get(3).getId());
+                intent.putExtra("activity_id", String.valueOf(activitiesBeanList.get(3).getId()));
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
