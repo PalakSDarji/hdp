@@ -2,8 +2,10 @@ package com.hadippa.activities;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +20,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.fragments.main_screen.ShowCardsNew;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +38,9 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     android.support.v4.app.Fragment fragment;
     android.support.v4.app.FragmentManager fm;
     android.support.v4.app.FragmentTransaction fragmentTransaction;
+
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
     DrawerLayout drawerLayout;
     ImageView drawerOpen,imageFilter;
@@ -62,9 +71,10 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             getWindow().setStatusBarColor(getResources().getColor(R.color.purple_light));
         }
 
+        sp = PreferenceManager.getDefaultSharedPreferences(HomeScreen.this);
+        editor = sp.edit();
+
         initUI();
-
-
 
     }
 
@@ -90,6 +100,25 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
         edtSearch = (EditText)findViewById(R.id.edtSearch);
         edtSearch.setOnClickListener(this);
+
+
+        tvFollowersCount.setText(sp.getInt("follower",0));
+        tvFollowingCount.setText(sp.getInt("following",0));
+
+
+        try {
+            JSONObject jsonObject = new JSONObject(sp.getString("userData",""));
+            tvUserName.setText(jsonObject.getString("first_name")+" "+jsonObject.getString("last_name"));
+            if(jsonObject.getString("profile_photo").equals(null) || jsonObject.getString("profile_photo").equals("")){
+
+            }else {
+                Glide.with(HomeScreen.this)
+                        .load(jsonObject.getString("profile_photo"))
+                        .into(profileImage);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
         edtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {

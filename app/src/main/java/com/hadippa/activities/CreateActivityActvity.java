@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.APIClass;
@@ -527,6 +528,13 @@ public class CreateActivityActvity extends AppCompatActivity {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
 
+                if(jsonObject.getBoolean("success")) {
+                    Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
+                }
                 Log.d("date>>", "success" + response);
             } catch (Exception e) {
                 e.printStackTrace();

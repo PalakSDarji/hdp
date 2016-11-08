@@ -486,6 +486,7 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 String response = new String(responseBody, "UTF-8");
+                Log.d("response>>",response);
                 JSONObject jsonObject = new JSONObject(response);
                 if(jsonObject.has("access_token")) {
 
@@ -493,9 +494,11 @@ public class LoginActivity extends AppCompatActivity {
                     //post json stored g\here
                     editor.putBoolean("loginStatus",true);
                     editor.putString("grant_type",grant);
+                    editor.putString("userData",jsonObject.getJSONObject("user").toString());
+                    editor.putInt("following",jsonObject.getInt("following"));
+                    editor.putInt("follower",jsonObject.getInt("follower"));
                     if(grant.equals("facebook")){
                         editor.putString("code",code);
-
                     }else {
                         editor.putString("username",username);
                         editor.putString("password",password_);
