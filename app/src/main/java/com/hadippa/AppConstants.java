@@ -89,6 +89,15 @@ public class AppConstants {
     public static final String NIGHTCLUB = "nightclub";
     public static final String LOUNGE = "lounge";
 
+    //MERAEVENTS
+    public static final String MERAEVENTS = "meraevents/";
+    public static final String MERAEVENTS_PARTY  = "event/party";
+    public static final String MERAEVENTS_SPORTS_INDOOR = "sports/indoor";
+    public static final String MERAEVENTS_SPORTS_OUTDOOR = "sports/indoor";
+    public static final String MERAEVENTS_SPORTS_ADV = "sports/adventure";
+    public static final String MERAEVENTS_ENTERTAINMENT_EVENT = "entertainment/event";
+    public static final String MERAEVENTS_ENTERTAINMENT_THEATER = "event/theater";
+
 
     public static final String CLIENT_ID= "HADIPAA_USER";
     public static final String CLIENT_SECRET="HADIPAA@2016";

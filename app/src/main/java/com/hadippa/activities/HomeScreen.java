@@ -45,7 +45,10 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     DrawerLayout drawerLayout;
     ImageView drawerOpen,imageFilter;
     LinearLayout leftDrawer;
+
+    @BindView(R.id.profileImage)
     ImageView profileImage;
+
     LinearLayout linearNotification, linearPreference, linearHome, linearFeedback;
     EditText edtSearch;
     private LinearLayout linearMyPlan;
@@ -101,11 +104,9 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         edtSearch = (EditText)findViewById(R.id.edtSearch);
         edtSearch.setOnClickListener(this);
 
-
-        tvFollowersCount.setText(sp.getInt("follower",0));
-        tvFollowingCount.setText(sp.getInt("following",0));
-
-
+        tvFollowersCount.setText(sp.getInt("follower",0)+"");
+        tvFollowingCount.setText(sp.getInt("following",0)+"");
+        
         try {
             JSONObject jsonObject = new JSONObject(sp.getString("userData",""));
             tvUserName.setText(jsonObject.getString("first_name")+" "+jsonObject.getString("last_name"));

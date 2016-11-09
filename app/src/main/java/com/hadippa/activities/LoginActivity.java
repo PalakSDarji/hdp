@@ -130,12 +130,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
+               /* Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
+                finish();*/
 
-                /*if(edtUsername.getText().toString().trim().equals("") ||
+                if(edtUsername.getText().toString().trim().equals("") ||
                 edtPassword.getText().toString().trim().equals("")){
 
                     if(edtUsername.getText().toString().trim().equals("")){
@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                         edtUsername.setError("Invalid Email.");
                         return;
                     }
-                }*/
+                }
             }
         });
 
@@ -486,11 +486,11 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 String response = new String(responseBody, "UTF-8");
-                Log.d("response>>",response);
+                Log.d("async>>",response);
                 JSONObject jsonObject = new JSONObject(response);
                 if(jsonObject.has("access_token")) {
 
-                    Log.d("response>>",response);
+                    Log.d("async`>>",response);
                     //post json stored g\here
                     editor.putBoolean("loginStatus",true);
                     editor.putString("grant_type",grant);
@@ -529,16 +529,16 @@ public class LoginActivity extends AppCompatActivity {
                     AppConstants.showSnackBar(mainRel,"Invalid username or password");
 
                 }
-                    Log.d("async","success"+response);
+                    Log.d("async>>","success"+response);
             }catch (Exception e){
                 e.printStackTrace();
-                Log.d("async","success exc  >>"+ e.toString());
+                Log.d("async>>","success exc  >>"+ e.toString());
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+            Log.d("async>>","success exc  >>"+ error.toString());
             AppConstants.showSnackBar(mainRel,"Try again!");
         }
 
