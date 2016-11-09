@@ -105,6 +105,7 @@
             app:customFont="@string/proxima_reg"/>
 
         <com.hadippa.CustomTextView
+            android:id="@+id/tvDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvOnwards"

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.activities.CoffeeActivity;
@@ -136,6 +137,11 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
 
             holder.tvEventName.setText(EventListActivity.postBeanList.get(position).getTitle());
             holder.tvAddress.setText(EventListActivity.postBeanList.get(position).getAddress1());
+            holder.timings.setText(EventListActivity.postBeanList.get(position).getStartDate()+" - "+EventListActivity.postBeanList.get(position).getEndDate());
+            holder.tvDistance.setText(AppConstants.distanceMeasure(Double.parseDouble(getArguments().getString("latitude")),
+                    Double.parseDouble(getArguments().getString("longitude")),
+                    (EventListActivity.postBeanList.get(position).getLatitude()),
+                    (EventListActivity.postBeanList.get(position).getLongitude())) + " kms");
 
             Glide.with(getActivity())
                     .load(EventListActivity.postBeanList.get(position).getBannerPath())
@@ -159,7 +165,7 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
 
         public class EventHolder extends RecyclerView.ViewHolder {
 
-            CustomTextView tvEventName,tvAddress;
+            CustomTextView tvEventName,tvAddress,tvOnwards,timings,tvDistance;
             RelativeLayout rlContainer;
             RoundedImageView profileImage;
 
@@ -168,6 +174,9 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
                 rlContainer = (RelativeLayout) view.findViewById(R.id.rlContainer);
                 tvEventName = (CustomTextView) view.findViewById(R.id.tvEventName);
                 tvAddress = (CustomTextView) view.findViewById(R.id.tvAddress);
+                tvOnwards = (CustomTextView) view.findViewById(R.id.tvOnwards);
+                timings = (CustomTextView) view.findViewById(R.id.timings);
+                tvDistance = (CustomTextView)view.findViewById(R.id.tvDistance);
                 profileImage = (RoundedImageView)view.findViewById(R.id.profileImage);
             }
         }

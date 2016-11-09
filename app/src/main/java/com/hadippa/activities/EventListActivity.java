@@ -52,6 +52,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
     private String[] tabs;
     private TabLayout tabLayout;
     private int activityKey;
+
     private TextView tvHeader;
     GPSTracker gps;
     private LocationManager mLocationManager;
@@ -253,7 +254,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         //get all tab count
         @Override
         public int getCount() {
-            return tabs.length;
+            return mFragmentList.size();
         }
 
         // Register the fragment when the item is instantiated
@@ -295,15 +296,21 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 prepareMeraEvents(AppConstants.MERAEVENTS_ENTERTAINMENT_THEATER, latitude, longitude, String.valueOf(dist)
                         , String.valueOf(pageNumber));
 
-            }
-            else if(activityKey == AppConstants.ACTIVITY_EVENT_EVENT) {
+            }else if(activityKey == AppConstants.ACTIVITY_EVENT_EVENT) {
                 tvHeader.setText(getString(R.string.event));
                 prepareMeraEvents(AppConstants.MERAEVENTS_ENTERTAINMENT_EVENT, latitude, longitude, String.valueOf(dist)
                         , String.valueOf(pageNumber));
-            }
-            else if(activityKey == AppConstants.ACTIVITY_EVENT_FESTIVAL) {
+            }            else if(activityKey == AppConstants.ACTIVITY_EVENT_FESTIVAL) {
                 tvHeader.setText(getString(R.string.festival));
                 prepareMeraEvents(AppConstants.MERAEVENTS_PARTY, latitude, longitude, String.valueOf(dist)
+                        , String.valueOf(pageNumber));
+            }else if(activityKey == AppConstants.ACTIVITY_INDOOR_SPORTS) {
+                tvHeader.setText(getString(R.string.indoor_sports));
+                prepareMeraEvents(AppConstants.MERAEVENTS_SPORTS_INDOOR, latitude, longitude, String.valueOf(dist)
+                        , String.valueOf(pageNumber));
+            }else if(activityKey == AppConstants.ACTIVITY_OUTDOOR_SPORTS) {
+                tvHeader.setText(getString(R.string.outdoor_sports));
+                prepareMeraEvents(AppConstants.MERAEVENTS_SPORTS_OUTDOOR, latitude, longitude, String.valueOf(dist)
                         , String.valueOf(pageNumber));
             }
         } catch (JSONException e) {
@@ -446,11 +453,17 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
                     postBeanList.addAll(meraEventPartyModel.getData());
                     if (pageNumber == 0) {
+                        EventListFragment eventListFragment = new EventListFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("activity_id", getIntent().getExtras().getInt("activity_id"));
+                        bundle.putString("latitude",latitude);
+                        bundle.putString("longitude",longitude);
+                        eventListFragment.setArguments(bundle);
+                        fragments.add(eventListFragment);
+                    /*    fragments.add(new EventListFragment());
                         fragments.add(new EventListFragment());
                         fragments.add(new EventListFragment());
-                        fragments.add(new EventListFragment());
-                        fragments.add(new EventListFragment());
-
+*/
                         viewPagerAdapter=new PagerAdapter(EventListActivity.this,getSupportFragmentManager(),fragments,tabs);
                         viewPager.setAdapter(viewPagerAdapter);
                         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

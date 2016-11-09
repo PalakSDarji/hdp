@@ -324,7 +324,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
-                Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
+                Intent intent = new Intent(PostActivity.this, EventListActivity.class);
                 intent.putExtra("activity_id", activitiesBeanList.get(12).getId());
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_INDOOR_SPORTS);
                 startActivity(intent);
@@ -337,7 +337,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
-                Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
+                Intent intent = new Intent(PostActivity.this, EventListActivity.class);
                 intent.putExtra("activity_id", activitiesBeanList.get(13).getId());
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_OUTDOOR_SPORTS);
                 startActivity(intent);
