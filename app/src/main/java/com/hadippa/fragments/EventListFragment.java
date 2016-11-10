@@ -124,17 +124,21 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
         }
 
         @Override
-        public void onBindViewHolder(EventHolder holder, int position) {
+        public void onBindViewHolder(EventHolder holder,final int position) {
 
             holder.rlContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), EventDetailsActivity.class);
+                    intent.putExtra("activity_id", getArguments().getInt("activity_id"));
+                    intent.putExtra("data", EventListActivity.postBeanList.get(position));
+                    intent.putExtra("latitude", getArguments().getString("latitude"));
+                    intent.putExtra("longitude", getArguments().getString("longitude"));
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             });
-
+            holder.tvPrice.setText(EventListActivity.postBeanList.get(position).getTicket_currencyCode()+" "+EventListActivity.postBeanList.get(position).getTicket_price());
             holder.tvEventName.setText(EventListActivity.postBeanList.get(position).getTitle());
             holder.tvAddress.setText(EventListActivity.postBeanList.get(position).getAddress1());
             holder.timings.setText(EventListActivity.postBeanList.get(position).getStartDate()+" - "+EventListActivity.postBeanList.get(position).getEndDate());
@@ -165,7 +169,7 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
 
         public class EventHolder extends RecyclerView.ViewHolder {
 
-            CustomTextView tvEventName,tvAddress,tvOnwards,timings,tvDistance;
+            CustomTextView tvEventName,tvAddress,tvOnwards,timings,tvDistance,tvPrice;
             RelativeLayout rlContainer;
             RoundedImageView profileImage;
 
@@ -177,6 +181,7 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
                 tvOnwards = (CustomTextView) view.findViewById(R.id.tvOnwards);
                 timings = (CustomTextView) view.findViewById(R.id.timings);
                 tvDistance = (CustomTextView)view.findViewById(R.id.tvDistance);
+                tvPrice = (CustomTextView) view.findViewById(R.id.tvPrice);
                 profileImage = (RoundedImageView)view.findViewById(R.id.profileImage);
             }
         }

@@ -36,6 +36,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -55,8 +56,11 @@ public class CreateActivityActvity extends AppCompatActivity {
                     //    30    31
                     "th", "st"};
 
+    public static ArrayList<String> selectedList = new ArrayList<>();
 
     private int activityKey = 0;
+
+
 
     String hide_from = "public", notification = "1";
 
@@ -145,6 +149,7 @@ public class CreateActivityActvity extends AppCompatActivity {
         setContentView(R.layout.activity_create_actvity);
         ButterKnife.bind(this);
 
+        selectedList.clear();
         dateFormatter = new SimpleDateFormat("MMM", Locale.US);
 
         activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY, 0);
@@ -300,7 +305,8 @@ public class CreateActivityActvity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateActivityActvity.this, InviteToJoinActivity.class);
-                startActivity(intent);
+                intent.putExtra("selectedId",selectedList);
+                startActivityForResult(intent,555);
             }
         });
 
@@ -374,6 +380,37 @@ public class CreateActivityActvity extends AppCompatActivity {
             }
         });
 
+    }
+
+    ArrayList<String> getSelectedList = new ArrayList<>();
+    boolean aBoolean = false;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 555){
+
+            selectedList = data.getStringArrayListExtra("selectedId");
+
+
+            Log.d("selectedId >> 0*",selectedList.toString());
+
+        }else{
+            Log.d("selectedId >> 0*","req != 555");
+
+        }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(aBoolean== true){
+            selectedList =  getSelectedList;
+            Log.d("selectedId >> 1*",selectedList.toString());
+        }
     }
 
     private void setDateTimePicker() {
@@ -458,6 +495,7 @@ public class CreateActivityActvity extends AppCompatActivity {
     }
 
 
+
     private void post() {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(CreateActivityActvity.this);
@@ -475,12 +513,12 @@ public class CreateActivityActvity extends AppCompatActivity {
             requestParams.add("activity_location", address.getText().toString());
             requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
             requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
-            if (getIntent().getExtras().getInt("activity_id")==1 && getIntent().getExtras().getInt("activity_id") == 2) {
+            if (getIntent().getExtras().getInt("activity_id")==1 || getIntent().getExtras().getInt("activity_id") == 2) {
                 requestParams.add("cut_off_time", name.getText().toString());
-            } else if (getIntent().getExtras().getInt("activity_id") == 3 &&
-                    getIntent().getExtras().getInt("activity_id") == 4 &&
-                    getIntent().getExtras().getInt("activity_id") == 5 &&
-                    getIntent().getExtras().getInt("activity_id") == 6 &&
+            } else if (getIntent().getExtras().getInt("activity_id") == 3 ||
+                    getIntent().getExtras().getInt("activity_id") == 4 ||
+                    getIntent().getExtras().getInt("activity_id") == 5 ||
+                    getIntent().getExtras().getInt("activity_id") == 6 ||
                     getIntent().getExtras().getInt("activity_id") == 7) {
                 requestParams.add("available_till", tvAvailableTill.getText().toString());
             }
