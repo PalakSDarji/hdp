@@ -443,6 +443,7 @@ public class LoginActivity extends AppCompatActivity {
 
             Log.d("request>>",requestParams.toString());
             Log.d("request>>",requestParams.toString());
+            Log.d("request>>",AppConstants.BASE_URL+AppConstants.API_VERSION + AppConstants.LOGIN);
         }
         catch (Exception e)
         {
