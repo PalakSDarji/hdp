@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:id="@+id/rlContainer"
     android:clickable="true"
@@ -16,31 +17,34 @@
         android:background="@drawable/bg_invite_check"
         android:button="@android:color/transparent"
         android:layout_centerVertical="true"/>
+        style="@style/radio_style"
+        android:layout_centerVertical="true" />
 
-    <com.makeramen.roundedimageview.RoundedImageView
+    <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/image_view"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="@dimen/value_w85"
         android:layout_height="@dimen/value_w85"
         android:layout_marginBottom="4dp"
-        android:src="@drawable/ic_avatar3"
-        android:background="@drawable/profile_bg"
-        android:layout_toRightOf="@+id/rbButton"
         android:layout_marginLeft="@dimen/value_w24"
+        android:layout_toRightOf="@+id/rbButton"
+        android:background="@drawable/profile_bg"
+        android:src="@drawable/ic_avatar3"
         app:riv_border_color="@color/c_b7b3b4"
         app:riv_border_width="@dimen/value_1"
-        app:riv_corner_radius="@dimen/value_5"/>
+        app:riv_corner_radius="@dimen/value_5" />
 
     <com.hadippa.CustomTextView
         app:customFont="@string/proxima_bold"
         android:id="@+id/tvName"
+        android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/image_view"
         android:layout_centerVertical="true"
-        android:text="Sania Mirza"
         android:layout_marginLeft="@dimen/value_w24"
+        android:layout_toRightOf="@+id/image_view"
+        android:text="Sania Mirza"
         android:textColor="@color/c_454545"
-        android:textSize="@dimen/values_txt_13"/>
+        android:textSize="@dimen/values_txt_13"
+        app:customFont="@string/proxima_reg" />
 
 </RelativeLayout>

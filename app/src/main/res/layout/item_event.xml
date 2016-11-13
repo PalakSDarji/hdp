@@ -56,6 +56,7 @@
         app:customFont="@string/proxima_reg"/>
 
     <com.hadippa.CustomTextView
+        android:id="@+id/timings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvAddress"
@@ -68,7 +69,7 @@
         app:customFont="@string/proxima_reg"/>
 
     <RelativeLayout
-        android:id="@+id/rlContainer"
+        android:id="@+id/rlContainer1"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:paddingRight="@dimen/value_10"
@@ -104,6 +105,7 @@
             app:customFont="@string/proxima_reg"/>
 
         <com.hadippa.CustomTextView
+            android:id="@+id/tvDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvOnwards"
@@ -121,9 +123,9 @@
     <View
         android:layout_width="1dp"
         android:background="#efefef"
-        android:layout_alignTop="@+id/rlContainer"
-        android:layout_alignBottom="@+id/rlContainer"
-        android:layout_toLeftOf="@+id/rlContainer"
+        android:layout_alignTop="@+id/rlContainer1"
+        android:layout_alignBottom="@+id/rlContainer1"
+        android:layout_toLeftOf="@+id/rlContainer1"
         android:layout_marginRight="@dimen/value_10"
         android:layout_height="wrap_content"/>
 

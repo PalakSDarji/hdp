@@ -115,11 +115,11 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                     latitude = String.valueOf(lastKnownLocation.getLatitude());
                     longitude = String.valueOf(lastKnownLocation.getLongitude());
                     prepareThings(pageNumber);
-                    if (gps == null) {
-                        gps = new GPSTracker(CoffeeActivity.this);
 
-                    }
                     Log.d("locaGPS>>", latitude + ">>>" + longitude);
+
+                } else {
+
 
                 }
 
@@ -141,29 +141,19 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             longitude = String.valueOf(gps.getLongitude());
 
             prepareThings(pageNumber);
-            Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
         } else {
 
             gps.showSettingsAlert();
-            gps = new GPSTracker(CoffeeActivity.this);
-            latitude = String.valueOf(gps.getLatitude());
-            longitude = String.valueOf(gps.getLongitude());
-
-            prepareThings(pageNumber);
-
-            Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
         }
 
 
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
 
         setContentView(R.layout.activity_coffee);
@@ -188,23 +178,17 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         listShops.setLayoutManager(mLayoutManager);
 
 
-
-
-        listShops.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        listShops.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                if(dy > 0) //check for scroll down
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
                 {
                     visibleItemCount = mLayoutManager.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
 
-                    if (loading)
-                    {
-                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
-                        {
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
                             Log.v("...", "Last Item Wow !");
 
@@ -237,31 +221,31 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
     }
 
 
-    void prepareThings(int pageNumber){
+    void prepareThings(int pageNumber) {
 
         JSONObject user_preference = null;
         int dist = 0;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(CoffeeActivity.this);
         try {
             user_preference = new JSONObject(sharedPreferences.getString("user_preference", ""));
-            dist = Integer.parseInt(user_preference.getString("radius"))*1000;
-        if (activityKey == AppConstants.ACTIVITY_FROM_COFFEE) {
+            dist = Integer.parseInt(user_preference.getString("radius")) * 1000;
+            if (activityKey == AppConstants.ACTIVITY_FROM_COFFEE) {
 
-            tvHeader1.setText(getString(R.string.coffee_cafe));
-            edtSearch.setHint(getString(R.string.select_cafe));
-            prepareZomato(AppConstants.CAFES, latitude, longitude, String.valueOf(dist)
-                    , String.valueOf(pageNumber));
-        } else if (activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
+                tvHeader1.setText(getString(R.string.coffee_cafe));
+                edtSearch.setHint(getString(R.string.select_cafe));
+                prepareZomato(AppConstants.CAFES, latitude, longitude, String.valueOf(dist)
+                        , String.valueOf(pageNumber));
+            } else if (activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
 
-            tvHeader1.setText(getString(R.string.night_club));
-            edtSearch.setHint(getString(R.string.select_club));
-            prepareZomato(AppConstants.NIGHTCLUB, latitude, longitude, String.valueOf(dist), String.valueOf(pageNumber));
-        } else if (activityKey == AppConstants.ACTIVITY_LOUNGE) {
+                tvHeader1.setText(getString(R.string.night_club));
+                edtSearch.setHint(getString(R.string.select_club));
+                prepareZomato(AppConstants.NIGHTCLUB, latitude, longitude, String.valueOf(dist), String.valueOf(pageNumber));
+            } else if (activityKey == AppConstants.ACTIVITY_LOUNGE) {
 
-            tvHeader1.setText(getString(R.string.lounge));
-            edtSearch.setHint(getString(R.string.select_lounge));
-            prepareZomato(AppConstants.LOUNGE, latitude, longitude,  String.valueOf(dist), String.valueOf(pageNumber));
-        }
+                tvHeader1.setText(getString(R.string.lounge));
+                edtSearch.setHint(getString(R.string.select_lounge));
+                prepareZomato(AppConstants.LOUNGE, latitude, longitude, String.valueOf(dist), String.valueOf(pageNumber));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -339,7 +323,6 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
     }
 
 
-
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
 
@@ -364,7 +347,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             viewHolder.distance.setText(AppConstants.distanceMeasure(Double.parseDouble(latitude),
                     Double.parseDouble(longitude),
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLatitude()),
-                    Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLongitude()))+ " kms");
+                    Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLongitude())) + " kms");
 
             Glide.with(CoffeeActivity.this)
                     .load(restaurantsBean.getRestaurant().getFeatured_image())
@@ -375,11 +358,12 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 public void onClick(View v) {
 
                     Intent intent = new Intent(CoffeeActivity.this, CreateActivityActvity.class);
-                    Log.d("getIntent().",activityKey+"");
-                    intent.putExtra(AppConstants.ACTIVITY_KEY,getIntent().getIntExtra(AppConstants.ACTIVITY_KEY,0));
-                    intent.putExtra("data",restaurantsBean);
-                    intent.putExtra("latitude",latitude);
-                    intent.putExtra("longitude",longitude);
+                    Log.d("getIntent().", activityKey + "");
+                    intent.putExtra(AppConstants.ACTIVITY_KEY, getIntent().getIntExtra(AppConstants.ACTIVITY_KEY, 0));
+                    intent.putExtra("activity_id", getIntent().getExtras().getInt("activity_id"));
+                    intent.putExtra("data", restaurantsBean);
+                    intent.putExtra("latitude", latitude);
+                    intent.putExtra("longitude", longitude);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
@@ -484,11 +468,11 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 NightCLubModel nightCLubModel = gson.fromJson(obj.toString(), NightCLubModel.class);
                 if (nightCLubModel.isSuccess()) {
 
-                    if(pageNumber == 0){
+                    if (pageNumber == 0) {
                         restaurantsBeanList = nightCLubModel.getResponse().getRestaurants();
                         customAdapter = new CustomAdapter();
                         listShops.setAdapter(customAdapter);
-                    }else{
+                    } else {
                         loading = true;
                         restaurantsBeanList.addAll(nightCLubModel.getResponse().getRestaurants());
                         customAdapter.notifyDataSetChanged();

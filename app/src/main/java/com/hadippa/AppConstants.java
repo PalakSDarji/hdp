@@ -39,6 +39,8 @@ public class AppConstants {
     public static final String RESET_PASSWORD = "/reset_password_new";
 
     //ACTIVITY
+    public static final String ACTIVITY_TYPE = "/activities";
+    public static final String CREATE_POST = "/post/create";
     public static final String ACTIVITY_REQUEST_JOIN = "/activity/request/join";
     public static final String ACTIVITY_REQUEST_DECLINE = "/activity/decline";
     public static final String ACTIVITY_OTHER_REQUEST_DECLINE = "/activity/request/decline";
@@ -86,6 +88,15 @@ public class AppConstants {
     public static final String CAFES = "cafes";
     public static final String NIGHTCLUB = "nightclub";
     public static final String LOUNGE = "lounge";
+
+    //MERAEVENTS
+    public static final String MERAEVENTS = "meraevents/";
+    public static final String MERAEVENTS_PARTY  = "event/party";
+    public static final String MERAEVENTS_SPORTS_INDOOR = "sports/indoor";
+    public static final String MERAEVENTS_SPORTS_OUTDOOR = "sports/outdoor";
+    public static final String MERAEVENTS_SPORTS_ADV = "sports/adventure";
+    public static final String MERAEVENTS_ENTERTAINMENT_EVENT = "entertainment/event";
+    public static final String MERAEVENTS_ENTERTAINMENT_THEATER = "event/theater";
 
 
     public static final String CLIENT_ID= "HADIPAA_USER";

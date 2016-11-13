@@ -158,7 +158,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
 
             requestParams.add("device_os_version", String.valueOf(Build.VERSION.SDK_INT));
 
-            requestParams.add("grant_type",sp.getString("grant_type",""));
+            requestParams.add("grant_type",sp.getString("grant_type","password"));
 
             requestParams.add("device_type", "android");
 
@@ -226,16 +226,18 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
 
                     editor.putBoolean("loginStatus", true);
 
-                    if(sp.getString("grant_type","").equals("password")) {
+                    if(sp.getString("grant_type","password").equals("password")) {
                         editor.putString("username", SignUp_Step1.edtEmail.getText().toString().trim());
                         editor.putString("password", SignUp_Step1.edtPassword.getText().toString().trim());
                     }
                     editor.putString("access_token", jsonObject.getString("access_token"));
+                    editor.putString("userData",jsonObject.getJSONObject("user").toString());
+                    editor.putInt("following",jsonObject.getInt("following"));
+                    editor.putInt("follower",jsonObject.getInt("follower"));
                     editor.putString("posts", jsonObject.getString("posts"));
                     editor.commit();
 
                     Intent intent = new Intent(getActivity(), HomeScreen.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);

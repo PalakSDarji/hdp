@@ -306,7 +306,7 @@ public class SignUp_Step1 extends Fragment implements PicModeSelectDialogFragmen
 
             requestParams.add("device_os_version", String.valueOf(Build.VERSION.SDK_INT));
 
-            requestParams.add("grant_type",sp.getString("grantType",""));
+            requestParams.add("grant_type",sp.getString("grantType","password"));
 
             requestParams.add( "device_type","android");
 
