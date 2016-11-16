@@ -349,9 +349,16 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLatitude()),
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLongitude())) + " kms");
 
-            Glide.with(CoffeeActivity.this)
-                    .load(restaurantsBean.getRestaurant().getFeatured_image())
-                    .into(viewHolder.profileImage);
+            if(restaurantsBean.getRestaurant().getThumb().isEmpty() || restaurantsBean.getRestaurant().getThumb().equals("")){
+                viewHolder.profileImage.setImageResource(R.drawable.place_holder);
+            }else{
+                Glide.with(CoffeeActivity.this)
+                        .load(restaurantsBean.getRestaurant().getThumb())
+                        .into(viewHolder.profileImage);
+            }
+
+
+            Log.d("image>>>", position+ " Postion Url >> "+restaurantsBean.getRestaurant().getThumb());
 
             viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -411,19 +418,25 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
     //zomato activity
 
+    SharedPreferences sp;
+
+
     private void prepareZomato(String searchFor, String lat, String lon, String radius, String start) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(CoffeeActivity.this);
 
         RequestParams requestParams = new RequestParams();
 
         try {
 
+            requestParams.add("access_token", sp.getString("access_token",""));
             requestParams.add("lat", lat);
             requestParams.add("lon", lon);
             requestParams.add("radius", radius);
             requestParams.add("start", start);
 
-            Log.d("request>>", requestParams.toString());
+            Log.d("prepareZomato>>", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -438,22 +451,23 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(CoffeeActivity.this, "Please Wait");
-
+          //  AppConstants.showProgressDialog(CoffeeActivity.this, "Please Wait");
+            Log.d("prepareZomato>>", "success exc  >> start");
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+          //  AppConstants.dismissDialog();
+            Log.d("prepareZomato>>", "success exc  >> finish");
         }
 
         @Override
         public void onProgress(long bytesWritten, long totalSize) {
             super.onProgress(bytesWritten, totalSize);
-            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+           /* Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
                     bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
-
+*/
         }
 
 
@@ -478,19 +492,26 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                         customAdapter.notifyDataSetChanged();
                     }
 
+                    if(nightCLubModel.getResponse().getRestaurants().size() == 0){
+
+                    }
+
                     pageNumber = pageNumber + 20;
+                }else {
+                    Toast.makeText(CoffeeActivity.this,nightCLubModel.getErrors(),Toast.LENGTH_SHORT).show();
                 }
-                Log.d("restaurantsBeanList", "Size >> " + response);
-                Log.d("restaurantsBeanList", "Size >> " + restaurantsBeanList.size());
+                Log.d("prepareZomato>>", "Size >> " + response);
+                Log.d("prepareZomato>>", "Size >> " + restaurantsBeanList.size());
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("async", "success exc  >>" + e.toString());
+                Log.d("prepareZomato>>", "success exc  >>" + e.toString());
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
+            Log.d("prepareZomato>>", "success exc  >>" + error.toString());
             //  AppConstants.showSnackBar(mainRel,"Try again!");
         }
 

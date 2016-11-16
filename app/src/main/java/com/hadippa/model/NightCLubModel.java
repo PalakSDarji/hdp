@@ -16,6 +16,18 @@ public class NightCLubModel implements Serializable {
      */
 
     private boolean success;
+    private String errors;
+    public String getErrors() {
+        return errors;
+    }
+
+    public void setErrors(String errors) {
+        this.errors = errors;
+    }
+
+
+
+
     /**
      * results_found : 1
      * results_start : 0
@@ -46,7 +58,23 @@ public class NightCLubModel implements Serializable {
         private int results_start;
         private int results_shown;
         /**
-         * restaurant : {"R":{"res_id":36956},"apikey":"46e6ea43117f6c2850e7c65e99ce128c","id":"36956","name":"Wink - Vivanta By Taj President","url":"https://www.zomato.com/mumbai/wink-vivanta-by-taj-president-cuffe-parade?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1","location":{"address":"Vivanta by Taj President, 90, Cuffe Parade, Mumbai","locality":"Cuffe Parade","city":"Mumbai","city_id":3,"latitude":"18.9144164590","longitude":"72.8208847716","zipcode":"","country_id":1},"cuisines":"Finger Food, Japanese","average_cost_for_two":4500,"price_range":4,"currency":"Rs.","offers":[],"thumb":"https://b.zmtcdn.com/data/pictures/6/36956/c07e6b39deffb73e38f06c0ddb4336e2_featured_v2.jpeg","user_rating":{"aggregate_rating":"4.1","rating_text":"Very Good","rating_color":"5BA829","votes":"159"},"photos_url":"https://www.zomato.com/mumbai/wink-vivanta-by-taj-president-cuffe-parade/photos#tabtop?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1","menu_url":"https://www.zomato.com/mumbai/wink-vivanta-by-taj-president-cuffe-parade/menu#tabtop?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1","featured_image":"https://b.zmtcdn.com/data/pictures/6/36956/c07e6b39deffb73e38f06c0ddb4336e2.jpeg","has_online_delivery":0,"is_delivering_now":0,"deeplink":"zomato://r/36956","has_table_booking":0,"events_url":"https://www.zomato.com/mumbai/wink-vivanta-by-taj-president-cuffe-parade/events#tabtop?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1","establishment_types":[]}
+         * restaurant : {"R":{"res_id":36956},"apikey":"46e6ea43117f6c2850e7c65e99ce128c",
+         * "id":"36956","name":"Wink - Vivanta By Taj President",
+         * "url":"https://www.zomato.com/mumbai/wink-vivanta-by-taj-president-cuffe-parade?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1",
+         * "location":{"address":"Vivanta by Taj President, 90, Cuffe Parade, Mumbai",
+         * "locality":"Cuffe Parade","city":"Mumbai","city_id":3,"latitude":"18.9144164590","longitude":"72.8208847716",
+         * "zipcode":"","country_id":1},
+         * "cuisines":"Finger Food, Japanese","average_cost_for_two":4500,
+         * "price_range":4,"currency":"Rs.","offers":[],
+         * "thumb":"https://b.zmtcdn.com/data/pictures/6/36956/c07e6b39deffb73e38f06c0ddb4336e2_featured_v2.jpeg",
+         * "user_rating":{"aggregate_rating":"4.1","rating_text":"Very Good","rating_color":"5BA829","votes":"159"},
+         * "photos_url":"https://www.zomato.com/mumbai/wink-vivanta-by-taj-president-cuffe-parade/photos#tabtop?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1",
+         * "menu_url":"https://www.zomato.com/mumbai/wink-vivanta-by-taj-president-cuffe-parade/menu#tabtop?utm_source=api_basic_\
+         * user&utm_medium=api&utm_campaign=v2.1",
+         * "featured_image":"https://b.zmtcdn.com/data/pictures/6/36956/c07e6b39deffb73e38f06c0ddb4336e2.jpeg",
+         * \"has_online_delivery":0,"is_delivering_now":0,"deeplink":"zomato://r/36956","has_table_booking":0,
+         * "events_url":"https://www.zomato.com/mumbai/wink-vivanta-by-taj-president-cuffe-parade/events#tabtop?utm_
+         * source=api_basic_user&utm_medium=api&utm_campaign=v2.1","establishment_types":[]}
          */
 
         private List<RestaurantsBean> restaurants;
