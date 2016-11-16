@@ -149,9 +149,10 @@
 
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvDate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/value_10"
+                    android:layout_toLeftOf="@+id/rlCal"
                     android:layout_toRightOf="@+id/ivCal"
                     android:text="Wed, 12 Nov"
                     android:textColor="#585858"
@@ -160,21 +161,24 @@
 
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvTime"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvDate"
                     android:layout_marginLeft="@dimen/value_10"
                     android:layout_marginTop="@dimen/value_5"
                     android:layout_toRightOf="@+id/ivCal"
+                    android:layout_toLeftOf="@+id/rlCal"
                     android:text="6 Pm to 12 Am"
                     android:textColor="#585858"
                     android:textSize="@dimen/values_txt_14"
                     app:customFont="@string/proxima_reg"/>
 
                 <RelativeLayout
+                    android:id="@+id/rlCal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/value_10"
                     android:layout_centerVertical="true">
 
                     <ImageView
@@ -222,10 +226,12 @@
 
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvAddress"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/value_10"
+                    android:layout_toLeftOf="@+id/rlKm"
+                    android:layout_marginRight="@dimen/value_10"
                     android:layout_toRightOf="@+id/ivLocation"
                     android:text="Address"
                     android:textColor="#585858"
@@ -233,6 +239,7 @@
                     app:customFont="@string/proxima_reg"/>
 
                 <RelativeLayout
+                    android:id="@+id/rlKm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -385,33 +392,6 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/value_h48">
 
-                <LinearLayout
-                    android:id="@+id/rlAvaTill"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <com.hadippa.CustomTextView
-                        android:id="@+id/tvAvaTill"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/value_w32"
-                        android:layout_marginRight="@dimen/value_w32"
-                        android:text="@string/available_till"
-                        android:textColor="@color/c_464646"
-                        android:textSize="@dimen/values_txt_14"
-                        app:customFont="@string/proxima_reg"/>
-
-                    <ImageView
-                        android:id="@+id/ivArrow"
-                        android:layout_gravity="center"
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:src="@drawable/available_till_arrow"/>
-
-                </LinearLayout>
-
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvAvailableTill"
                     android:layout_width="wrap_content"
@@ -440,6 +420,34 @@
                     android:layout_marginTop="3dp"
                     android:background="@color/c_e8e6e7"
                     />
+
+                <LinearLayout
+                    android:id="@+id/rlAvaTill"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/tvAvaTill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/value_w32"
+                        android:layout_marginRight="@dimen/value_w32"
+                        android:text="@string/available_till"
+                        android:textColor="@color/c_464646"
+                        android:textSize="@dimen/values_txt_14"
+                        app:customFont="@string/proxima_reg"/>
+
+                    <ImageView
+                        android:id="@+id/ivArrow"
+                        android:layout_gravity="center"
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:src="@drawable/available_till_arrow"/>
+
+                </LinearLayout>
 
 
             </RelativeLayout>

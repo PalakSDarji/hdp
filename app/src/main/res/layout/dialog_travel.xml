@@ -73,7 +73,7 @@
         app:customFont="@string/proxima_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/airplain"
+        android:text="@string/airplane"
         android:layout_marginTop="@dimen/value_5"
         android:gravity="center_horizontal"
         android:layout_alignRight="@+id/ivAir"

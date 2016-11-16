@@ -211,7 +211,6 @@
     <string name="button_allow">Allow</string>
     <string name="button_deny">Deny</string>
     <string name="lbl_OK">OK</string>
-    <string name="airplain">Airplain</string>
     <string name="travel">Travel</string>
     <string name="entertainment">Entertainment</string>
     <string name="theater_play">Theater Play</string>
@@ -229,4 +228,7 @@
     <string name="event_name">Event Name</string>
     <string name="select_bus">Select bus</string>
     <string name="select_train">Select train</string>
+    <string name="i_don_t_believe">I don\'t believe</string>
+    <string name="lbl_i_dont_know">I don\'t know</string>
+    <string name="zodiac">Zodiac</string>
 </resources>

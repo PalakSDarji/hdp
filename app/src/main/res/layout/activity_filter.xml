@@ -59,6 +59,7 @@
                 android:paddingBottom="@dimen/value_5"
                 android:paddingLeft="@dimen/value_5"
                 android:clickable="true"
+                android:visibility="gone"
                 android:paddingTop="@dimen/value_5"
                 android:text="NEXT"
                 android:textColor="@color/c_f25e5e"
@@ -206,6 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/tab_search_padding_vertical"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal"
                     android:weightSum="100">
 
@@ -232,19 +234,6 @@
                         android:text="@string/airplane"
                         android:textColor="@color/filter_text"
                         app:customFont="@string/proxima_reg"/>
-
-                    <com.hadippa.CustomTextView
-                        android:id="@+id/tvCar"
-                        style="@style/activity_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="16"
-                        android:background="@drawable/rounded_transport"
-                        android:text="@string/car"
-                        android:textColor="@color/filter_text"
-                        app:customFont="@string/proxima_reg"
-                        />
 
                     <com.hadippa.CustomTextView
                         android:id="@+id/tvTrain"

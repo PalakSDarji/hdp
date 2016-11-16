@@ -232,7 +232,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
                     editor.putString("myFollowers", jsonObject.getJSONArray("followers").toString());
                     editor.commit();
 
-                    customAdapter = new CustomAdapter();
+                    customAdapter = new CustomAdapter(peopleModels);
                     myRecycler.setAdapter(customAdapter);
                 } else {
                     AppConstants.showSnackBar(relMain, "Could not refresh feed");
@@ -266,14 +266,12 @@ public class InviteToJoinActivity extends AppCompatActivity {
             Gson gson = gsonBuilder.create();
             followersFollowings.addAll((ArrayList<FollowersModel>) gson.fromJson(String.valueOf(sp.getString("myFollowers", "")), listType));
 
-            customAdapter = new CustomAdapter();
+            customAdapter = new CustomAdapter(peopleModels);
             myRecycler.setAdapter(customAdapter);
         }
 
     }
 
-
-    public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> implements Filterable {
 
         private static final String TAG = "CustomAdapter";
@@ -298,7 +296,6 @@ public class InviteToJoinActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             Log.d(TAG, "Element " + position + " set.");
             final FollowersModel followers_following = followersFollowings.get(position);
@@ -413,7 +410,6 @@ public class InviteToJoinActivity extends AppCompatActivity {
         public int getItemCount() {
 
             return filteredData.size();
-            return followersFollowings.size();
         }
 
         public Filter getFilter() {
@@ -467,7 +463,6 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
         RoundedImageView image_view;
         CustomTextView name;
-        RadioButton rbButton;
 
         RelativeLayout rlContainer;
         RadioButton rbButton;
@@ -479,7 +474,6 @@ public class InviteToJoinActivity extends AppCompatActivity {
             //  rbButton = (RadioButton)v.findViewById(R.id.rbButton);
             name = (CustomTextView) v.findViewById(R.id.text_view);
             image_view = (RoundedImageView) v.findViewById(R.id.image_view);
-            rbButton = (RadioButton) v.findViewById(R.id.rbButton);
             tvName = (TextView) v.findViewById(R.id.tvName);
             rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
             rbButton = (RadioButton) v.findViewById(R.id.rbButton);

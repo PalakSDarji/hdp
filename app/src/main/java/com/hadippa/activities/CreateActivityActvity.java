@@ -109,10 +109,6 @@ public class CreateActivityActvity extends AppCompatActivity {
 
     @BindView(R.id.etActivityName) EditText etActivityName;
     @BindView(R.id.etAddress) EditText etAddress;
-    @BindView(R.id.etActivityName)
-    EditText etActivityName;
-    @BindView(R.id.etAddress)
-    EditText etAddress;
 
     @BindView(R.id.llPublicAndFollowing)
     LinearLayout llPublicAndFollowing;
