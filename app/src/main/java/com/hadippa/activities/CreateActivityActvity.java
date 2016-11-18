@@ -56,7 +56,7 @@ public class CreateActivityActvity extends AppCompatActivity {
                     //    30    31
                     "th", "st"};
 
-    public static ArrayList<String> selectedList = new ArrayList<>();
+    public ArrayList<String> selectedList = new ArrayList<>();
 
     private int activityKey = 0;
 
@@ -171,9 +171,13 @@ public class CreateActivityActvity extends AppCompatActivity {
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLatitude()),
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLongitude())) + " kms");
 
-            Glide.with(CreateActivityActvity.this)
-                    .load(restaurantsBean.getRestaurant().getFeatured_image())
-                    .into(profileImage);
+            if(restaurantsBean.getRestaurant().getThumb().isEmpty() || restaurantsBean.getRestaurant().getThumb().equals("")){
+                profileImage.setImageResource(R.drawable.place_holder);
+            }else{
+                Glide.with(CreateActivityActvity.this)
+                        .load(restaurantsBean.getRestaurant().getThumb())
+                        .into(profileImage);
+            }
 
             tvHeader.setText(getResources().getString(R.string.visiting_date_and_time));
             cvVisitingCard.setVisibility(View.VISIBLE);
@@ -525,6 +529,7 @@ public class CreateActivityActvity extends AppCompatActivity {
 
             requestParams.add("notification", notification);
             requestParams.add("hide_from", hide_from);
+            requestParams.add("invite_list", selectedList.toString().replace("[","").replace("]",""));
             Log.d("date>>", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
