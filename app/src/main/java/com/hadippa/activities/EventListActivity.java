@@ -389,18 +389,20 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
     }
 
+    SharedPreferences sp;
+
     private void prepareMeraEvents(String searchFor, String lat, String lon, String radius, String start) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
-
+        sp = PreferenceManager.getDefaultSharedPreferences(EventListActivity.this);
         try {
 
             requestParams.add("lat", lat);
             requestParams.add("lon", lon);
             requestParams.add("radius", radius);
             requestParams.add("start", start);
-
+            requestParams.add("access_token", sp.getString("access_token",""));
             Log.d("prepareMeraEvents", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();

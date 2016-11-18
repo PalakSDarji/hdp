@@ -187,6 +187,8 @@
     <string name="available_till">Available till</string>
     <string name="select_time">Select Time</string>
     <string name="write_plane_route">Write plane route</string>
+    <string name="write_bus_route">Write bus route</string>
+    <string name="write_train_route">Write train route</string>
     <string name="select_fight">Select Flight</string>
     <string name="where">Where</string>
     <string name="on_button_to_get_notify">\"ON\" button to get notify\nfor the same Activity</string>

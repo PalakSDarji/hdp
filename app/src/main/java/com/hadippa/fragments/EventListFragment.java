@@ -147,10 +147,15 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
                     (EventListActivity.postBeanList.get(position).getLatitude()),
                     (EventListActivity.postBeanList.get(position).getLongitude())) + " kms");
 
-            Glide.with(getActivity())
-                    .load(EventListActivity.postBeanList.get(position).getBannerPath())
-                    .into(holder.profileImage);
-
+            if(EventListActivity.postBeanList.get(position).getBannerPath().isEmpty() || EventListActivity.postBeanList.get(position).getBannerPath().equals("")){
+                holder.profileImage.setImageResource(R.drawable.place_holder);
+            }else {
+                Glide.with(getActivity())
+                        .load(EventListActivity.postBeanList.get(position).getBannerPath())
+                        .error(R.drawable.place_holder)
+                        .placeholder(R.drawable.place_holder)
+                        .into(holder.profileImage);
+            }
         }
 
         public MeraEventPartyModel.DataBean getItem(int position){

@@ -117,6 +117,10 @@ public class AppConstants {
     public static ProgressDialog PROGRESS_DIALOG = null;
 
     public static final String ACTIVITY_KEY = "activity_key";
+    public static final String TRAVEL_FROM_KEY = "travel_from";
+    public static final String TRAVEL_TO_KEY = "travel_to";
+    public static final String TRAVEL_BY_KEY = "travel_by";
+
     public static final int ACTIVITY_CREATE_ACTIVITY = 1;
     public static final int ACTIVITY_FROM_COFFEE = 2;
     public static final int ACTIVITY_HOBBY = 5;

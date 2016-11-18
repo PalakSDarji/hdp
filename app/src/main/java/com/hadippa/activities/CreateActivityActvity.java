@@ -56,10 +56,9 @@ public class CreateActivityActvity extends AppCompatActivity {
                     //    30    31
                     "th", "st"};
 
-    public static ArrayList<String> selectedList = new ArrayList<>();
+    public ArrayList<String> selectedList = new ArrayList<>();
 
     private int activityKey = 0;
-
 
 
     String hide_from = "public", notification = "1";
@@ -136,6 +135,17 @@ public class CreateActivityActvity extends AppCompatActivity {
     private TimePickerDialog timePickerDialog, timePickerDialog1;
     private SimpleDateFormat dateFormatter;
 
+    @BindView(R.id.tvFrom)
+    CustomTextView tvFrom;
+
+
+    @BindView(R.id.tvTo)
+    CustomTextView tvTo;
+
+
+    @BindView(R.id.tvBy)
+    CustomTextView tvBy;
+
     @BindView(R.id.vSepAddress)
     View vSepAddress;
     @BindView(R.id.ivArrow)
@@ -170,9 +180,15 @@ public class CreateActivityActvity extends AppCompatActivity {
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLatitude()),
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLongitude())) + " kms");
 
-            Glide.with(CreateActivityActvity.this)
-                    .load(restaurantsBean.getRestaurant().getFeatured_image())
-                    .into(profileImage);
+            if (restaurantsBean.getRestaurant().getThumb().isEmpty() || restaurantsBean.getRestaurant().getThumb().equals("")) {
+                profileImage.setImageResource(R.drawable.place_holder);
+            } else {
+                Glide.with(CreateActivityActvity.this)
+                        .load(restaurantsBean.getRestaurant().getThumb())
+                        .error(R.drawable.place_holder)
+                        .placeholder(R.drawable.place_holder)
+                        .into(profileImage);
+            }
 
             tvHeader.setText(getResources().getString(R.string.visiting_date_and_time));
             cvVisitingCard.setVisibility(View.VISIBLE);
@@ -222,6 +238,11 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisTime.setText(getResources().getString(R.string.select_time));
             tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
             tvNotify.setText(getResources().getString(R.string.want_to_receive_notification_for_same_activity));
+
+            tvFrom.setText(getIntent().getExtras().getString(AppConstants.TRAVEL_FROM_KEY));
+            tvTo.setText(getIntent().getExtras().getString(AppConstants.TRAVEL_TO_KEY));
+            tvBy.setText(getIntent().getExtras().getString(AppConstants.TRAVEL_BY_KEY));
+
             ivArrow.setVisibility(View.GONE);
         } else if (activityKey == AppConstants.ACTIVITY_PARTY) {
 
@@ -305,15 +326,15 @@ public class CreateActivityActvity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateActivityActvity.this, InviteToJoinActivity.class);
-                intent.putExtra("selectedId",selectedList);
-                startActivityForResult(intent,555);
+                intent.putExtra("selectedId", selectedList);
+                startActivityForResult(intent, 551);
             }
         });
 
         findViewById(R.id.tvPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               post();
+                post();
             }
         });
 
@@ -349,9 +370,9 @@ public class CreateActivityActvity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked){
+                if (isChecked) {
                     notification = "1";
-                }else{
+                } else {
                     notification = "0";
                 }
             }
@@ -389,15 +410,15 @@ public class CreateActivityActvity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 555){
+        if (requestCode == 551) {
 
             selectedList = data.getStringArrayListExtra("selectedId");
 
 
-            Log.d("selectedId >> 0*",selectedList.toString());
+            Log.d("selectedId >> 0*", selectedList.toString());
 
-        }else{
-            Log.d("selectedId >> 0*","req != 555");
+        } else {
+            Log.d("selectedId >> 0*", "req != 555");
 
         }
     }
@@ -407,9 +428,9 @@ public class CreateActivityActvity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if(aBoolean== true){
-            selectedList =  getSelectedList;
-            Log.d("selectedId >> 1*",selectedList.toString());
+        if (aBoolean == true) {
+            selectedList = getSelectedList;
+            Log.d("selectedId >> 1*", selectedList.toString());
         }
     }
 
@@ -426,18 +447,18 @@ public class CreateActivityActvity extends AppCompatActivity {
                 String dayStr = day + suffixes[day];
 
                 String ddd = "";
-                String newday = String.valueOf(day),newmonth = String.valueOf(monthOfYear+1);
+                String newday = String.valueOf(day), newmonth = String.valueOf(monthOfYear + 1);
 
-                if(String.valueOf(monthOfYear).length() == 1){
-                    newmonth = "0"+newmonth;
+                if (String.valueOf(monthOfYear).length() == 1) {
+                    newmonth = "0" + newmonth;
                 }
 
-                if(String.valueOf(day).length() == 1){
-                    newday = "0"+day;
+                if (String.valueOf(day).length() == 1) {
+                    newday = "0" + day;
                 }
 
-                Log.d("date>>",year+"-"+newmonth+"-"+newday);
-                tvVisitingDate.setText(year+"-"+newmonth+"-"+newday);
+                Log.d("date>>", year + "-" + newmonth + "-" + newday);
+                tvVisitingDate.setText(year + "-" + newmonth + "-" + newday);
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -449,15 +470,15 @@ public class CreateActivityActvity extends AppCompatActivity {
 
                 String newHour = String.valueOf(selectedHour);
                 String newMin = String.valueOf(selectedMinute);
-                if(String.valueOf(newHour).length() == 1){
-                    newHour = "0"+newHour;
+                if (String.valueOf(newHour).length() == 1) {
+                    newHour = "0" + newHour;
                 }
 
-                if(String.valueOf(selectedMinute).length() == 1){
-                    newMin = "0"+newMin;
+                if (String.valueOf(selectedMinute).length() == 1) {
+                    newMin = "0" + newMin;
                 }
 
-                tvVisitingTime.setText(newHour + ":" + newMin+":"+"00");
+                tvVisitingTime.setText(newHour + ":" + newMin + ":" + "00");
 
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MONTH), true);
@@ -481,19 +502,18 @@ public class CreateActivityActvity extends AppCompatActivity {
 
                 String newHour = String.valueOf(selectedHour);
                 String newMin = String.valueOf(selectedMinute);
-                if(String.valueOf(newHour).length() == 1){
-                    newHour = "0"+newHour;
+                if (String.valueOf(newHour).length() == 1) {
+                    newHour = "0" + newHour;
                 }
 
-                if(String.valueOf(selectedMinute).length() == 1){
-                    newMin = "0"+newMin;
+                if (String.valueOf(selectedMinute).length() == 1) {
+                    newMin = "0" + newMin;
                 }
 
-                tvAvailableTill.setText(newHour + ":" + newMin+":"+"00");
+                tvAvailableTill.setText(newHour + ":" + newMin + ":" + "00");
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MONTH), true);
     }
-
 
 
     private void post() {
@@ -511,9 +531,16 @@ public class CreateActivityActvity extends AppCompatActivity {
             requestParams.add("activity_name", name.getText().toString());
             requestParams.add("activity_date", tvVisitingDate.getText().toString() + " " + tvVisitingTime.getText().toString());
             requestParams.add("activity_location", address.getText().toString());
+
+            if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
+
+                requestParams.add("from", tvFrom.getText().toString());
+                requestParams.add("to", tvTo.getText().toString());
+            }
+
             requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
             requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
-            if (getIntent().getExtras().getInt("activity_id")==1 || getIntent().getExtras().getInt("activity_id") == 2) {
+            if (getIntent().getExtras().getInt("activity_id") == 1 || getIntent().getExtras().getInt("activity_id") == 2) {
                 requestParams.add("cut_off_time", name.getText().toString());
             } else if (getIntent().getExtras().getInt("activity_id") == 3 ||
                     getIntent().getExtras().getInt("activity_id") == 4 ||
@@ -525,6 +552,7 @@ public class CreateActivityActvity extends AppCompatActivity {
 
             requestParams.add("notification", notification);
             requestParams.add("hide_from", hide_from);
+            requestParams.add("invite_list", selectedList.toString().replace("[", "").replace("]", ""));
             Log.d("date>>", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -540,7 +568,7 @@ public class CreateActivityActvity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-              AppConstants.showProgressDialog(CreateActivityActvity.this, "Please Wait");
+            AppConstants.showProgressDialog(CreateActivityActvity.this, "Please Wait");
 
         }
 
@@ -563,15 +591,19 @@ public class CreateActivityActvity extends AppCompatActivity {
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
             try {
+                AppConstants.dismissDialog();
+
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
 
-                if(jsonObject.getBoolean("success")) {
+                if (jsonObject.getBoolean("success")) {
+                    AppConstants.dismissDialog();
+                    Toast.makeText(getApplicationContext(), "Post created", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                }else{
-                    Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
                 }
                 Log.d("date>>", "success" + response);
             } catch (Exception e) {

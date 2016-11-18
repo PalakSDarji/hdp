@@ -81,9 +81,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/value_h290"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/foof"
+                    android:padding="2dp"
+                    app:riv_corner_radius="9dp"/>
                 <android.support.v4.view.ViewPager
                     android:id="@+id/vpSlider"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="@dimen/value_h290">
 
                 </android.support.v4.view.ViewPager>
@@ -552,7 +563,7 @@
                         android:layout_marginLeft="@dimen/value_w17"
                         android:background="@drawable/custom_radio"
                         android:button="@android:color/transparent"
-                        android:checked="false"/>
+                        android:checked="true"/>
 
                     <com.hadippa.CustomTextView
                         android:layout_width="wrap_content"

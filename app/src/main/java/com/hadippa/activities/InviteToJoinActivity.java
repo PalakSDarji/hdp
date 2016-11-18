@@ -67,6 +67,8 @@ public class InviteToJoinActivity extends AppCompatActivity {
     RelativeLayout relMain;
 
     public CustomAdapter customAdapter;
+    
+    ArrayList<String> selectedList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +119,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
 
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("selectedId", CreateActivityActvity.selectedList);
+                resultIntent.putExtra("selectedId", selectedList);
 
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
@@ -129,7 +131,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(InviteToJoinActivity.this);
         editor = sp.edit();
 
-
+        selectedList = getIntent().getStringArrayListExtra("selectedId");
         myRecycler = (RecyclerView) findViewById(R.id.myRecycler);
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -144,11 +146,10 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
-        Log.d("selectedId >> 4", CreateActivityActvity.selectedList.toString());
+        Log.d("selectedId >> 4", selectedList.toString());
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("selectedId", CreateActivityActvity.selectedList);
+        resultIntent.putExtra("selectedId", selectedList);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
@@ -350,9 +351,9 @@ public class InviteToJoinActivity extends AppCompatActivity {
                         .into(viewHolder.image_view);
 
                 boolean found = false;
-                for (int i = 0; i < CreateActivityActvity.selectedList.size(); i++) {
+                for (int i = 0; i < selectedList.size(); i++) {
 
-                    if (CreateActivityActvity.selectedList.get(i).equals(followersFollowings.get(position).getId())) {
+                    if (selectedList.get(i).equals(followersFollowings.get(position).getId())) {
 
                         found = true;
                         viewHolder.rbButton.setChecked(true);
@@ -377,10 +378,10 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
 
                     boolean found = false;
-                        for (int i = 0; i < CreateActivityActvity.selectedList.size(); i++) {
+                        for (int i = 0; i < selectedList.size(); i++) {
 
-                            if (CreateActivityActvity.selectedList.get(i).equals(followersFollowings.get(position).getId())) {
-                                CreateActivityActvity.selectedList.remove(i);
+                            if (selectedList.get(i).equals(followersFollowings.get(position).getId())) {
+                                selectedList.remove(i);
                                 found = true;
                                 viewHolder.rbButton.setChecked(false);
                                 break;
@@ -391,7 +392,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
                     if(!found) {
                         viewHolder.rbButton.setChecked(true);
-                        CreateActivityActvity.selectedList.add(followersFollowings.get(position).getId());
+                        selectedList.add(followersFollowings.get(position).getId());
                     }
 
 

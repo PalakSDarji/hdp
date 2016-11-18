@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.hadippa.model.MeraEventPartyModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONObject;
 
@@ -72,6 +74,9 @@ public class EventDetailsActivity extends AppCompatActivity {
     
     @BindView(R.id.tvAvailableTill)
     TextView tvAvailableTill;
+
+    @BindView(R.id.profileImage)
+    RoundedImageView profileImage;
     
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog, timePickerDialog1;
@@ -101,12 +106,17 @@ public class EventDetailsActivity extends AppCompatActivity {
                 (dataBean.getLatitude()),
                 (dataBean.getLongitude())) + " kms");
 
-    /*    Glide.with(EventDetailsActivity.this)
-                .load(dataBean.getBannerPath())
-                .into(profileImage);
-*/
+        if(dataBean.getBannerPath().isEmpty() || dataBean.getBannerPath().equals("")){
 
+            profileImage.setImageResource(R.drawable.place_holder);
+        }else {
 
+            Glide.with(EventDetailsActivity.this)
+                    .load(dataBean.getBannerPath())
+                    .error(R.drawable.place_holder)
+                    .placeholder(R.drawable.place_holder)
+                    .into(profileImage);
+        }
 
 
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
@@ -322,7 +332,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     getIntent().getExtras().getInt("activity_id") == 5 ||
                     getIntent().getExtras().getInt("activity_id") == 6 ||
                     getIntent().getExtras().getInt("activity_id") == 7) {
-                requestParams.add("available_till", tvAvailableTill.getText().toString());
+                requestParams.add("available_till", tvVisitingDate.getText().toString() + " " +tvAvailableTill.getText().toString());
             }
 
             requestParams.add("notification", notification);
@@ -369,8 +379,9 @@ public class EventDetailsActivity extends AppCompatActivity {
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-
+                AppConstants.dismissDialog();
                 if(jsonObject.getBoolean("success")) {
+                    Toast.makeText(getApplicationContext(),"Post created",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
