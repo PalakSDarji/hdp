@@ -168,6 +168,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
+                Log.d("activity_id>>",activitiesBeanList.get(7).getId()+"");
                 Intent intent = new Intent(PostActivity.this, TravelActivity.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_POST_AIR);
                 intent.putExtra("activity_id", activitiesBeanList.get(7).getId());
@@ -181,6 +182,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
+                Log.d("activity_id>>",activitiesBeanList.get(9).getId()+"");
                 Intent intent = new Intent(PostActivity.this, TravelActivity.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_POST_BUS);
                 intent.putExtra("activity_id", activitiesBeanList.get(9).getId());
@@ -194,6 +196,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
+                Log.d("activity_id>>",activitiesBeanList.get(8).getId()+"");
                 Intent intent = new Intent(PostActivity.this, TravelActivity.class);
                 intent.putExtra("activity_id", activitiesBeanList.get(8).getId());
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_POST_TRAIN);
