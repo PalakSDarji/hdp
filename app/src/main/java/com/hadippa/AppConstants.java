@@ -145,6 +145,24 @@ public class AppConstants {
     public static final int ACTIVITY_EVENT_EVENT = 20;
     public static final int ACTIVITY_EVENT_FESTIVAL = 21;
 
+    public static final int API_ACTIVITY_ID_MOVIE = 1;
+    public static final int API_ACTIVITY_ID_THEATER = 2;
+    public static final int API_ACTIVITY_ID_EVENT = 3;
+    public static final int API_ACTIVITY_ID_NIGHTCLUB = 4;
+    public static final int API_ACTIVITY_ID_LOUNGE = 5;
+    public static final int API_ACTIVITY_ID_PARTY = 6;
+    public static final int API_ACTIVITY_ID_STAND_UP_COMEDY = 7;
+    public static final int API_ACTIVITY_ID_FLIGHT = 8;
+    public static final int API_ACTIVITY_ID_TRAIN = 9;
+    public static final int API_ACTIVITY_ID_BUS = 10;
+    public static final int API_ACTIVITY_ID_COFFEE = 12;
+    public static final int API_ACTIVITY_ID_INDOOR = 13;
+    public static final int API_ACTIVITY_ID_OUTDOOR = 14;
+    public static final int API_ACTIVITY_ID_AVD_SPORTS = 15;
+    public static final int API_ACTIVITY_ID_HOBBY = 20;
+
+
+
     public static String USER = "user";
     public static Bitmap takeScreenShot(Activity activity)
     {
