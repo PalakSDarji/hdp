@@ -152,6 +152,8 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
             }else {
                 Glide.with(getActivity())
                         .load(EventListActivity.postBeanList.get(position).getBannerPath())
+                        .error(R.drawable.place_holder)
+                        .placeholder(R.drawable.place_holder)
                         .into(holder.profileImage);
             }
         }

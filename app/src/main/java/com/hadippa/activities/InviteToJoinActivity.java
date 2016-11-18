@@ -93,7 +93,6 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
         Log.d("selectedId >> 4", selectedList.toString());
         Intent resultIntent = new Intent();

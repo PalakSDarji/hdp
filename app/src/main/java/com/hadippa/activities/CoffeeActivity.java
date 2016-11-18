@@ -354,6 +354,8 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             }else{
                 Glide.with(CoffeeActivity.this)
                         .load(restaurantsBean.getRestaurant().getThumb())
+                        .error(R.drawable.place_holder)
+                        .placeholder(R.drawable.place_holder)
                         .into(viewHolder.profileImage);
             }
 

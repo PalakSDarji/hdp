@@ -176,6 +176,8 @@ public class CreateActivityActvity extends AppCompatActivity {
             }else{
                 Glide.with(CreateActivityActvity.this)
                         .load(restaurantsBean.getRestaurant().getThumb())
+                        .error(R.drawable.place_holder)
+                        .placeholder(R.drawable.place_holder)
                         .into(profileImage);
             }
 
@@ -310,7 +312,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CreateActivityActvity.this, InviteToJoinActivity.class);
                 intent.putExtra("selectedId",selectedList);
-                startActivityForResult(intent,555);
+                startActivityForResult(intent,551);
             }
         });
 
@@ -393,7 +395,7 @@ public class CreateActivityActvity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 555){
+        if(requestCode == 551){
 
             selectedList = data.getStringArrayListExtra("selectedId");
 
@@ -568,10 +570,14 @@ public class CreateActivityActvity extends AppCompatActivity {
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
             try {
+                AppConstants.dismissDialog();
+
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
 
                 if(jsonObject.getBoolean("success")) {
+                    AppConstants.dismissDialog();
+                    Toast.makeText(getApplicationContext(),"Post created",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

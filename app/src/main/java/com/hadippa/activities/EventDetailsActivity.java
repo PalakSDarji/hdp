@@ -332,7 +332,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     getIntent().getExtras().getInt("activity_id") == 5 ||
                     getIntent().getExtras().getInt("activity_id") == 6 ||
                     getIntent().getExtras().getInt("activity_id") == 7) {
-                requestParams.add("available_till", tvAvailableTill.getText().toString());
+                requestParams.add("available_till", tvVisitingDate.getText().toString() + " " +tvAvailableTill.getText().toString());
             }
 
             requestParams.add("notification", notification);
@@ -379,8 +379,9 @@ public class EventDetailsActivity extends AppCompatActivity {
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-
+                AppConstants.dismissDialog();
                 if(jsonObject.getBoolean("success")) {
+                    Toast.makeText(getApplicationContext(),"Post created",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
