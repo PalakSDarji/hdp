@@ -13,13 +13,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.hadippa.AppConstants;
+import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.model.MyPlansModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -30,6 +38,8 @@ public class MyPlan extends AppCompatActivity {
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+
+    List<MyPlansModel.MyPlansBean> myPlansBeen = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +65,7 @@ public class MyPlan extends AppCompatActivity {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         myPlanRecycler.setLayoutManager(mLayoutManager);
 
-        myPlanRecycler.setAdapter(new CustomAdapter());
+
 
         myPlans();
     }
@@ -76,12 +86,41 @@ public class MyPlan extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder viewHolder, final int position) {
             Log.d(TAG, "Element " + position + " set.");
 
+            MyPlansModel.MyPlansBean myPlansBean = myPlansBeen.get(position);
+
+            if(myPlansBean.getPeople_approaching_count().size() == 0){
+                viewHolder.recyclerView.setVisibility(View.GONE);
+            }else {
+                viewHolder.recyclerView.setVisibility(View.VISIBLE);
+                viewHolder.recyclerView.setAdapter(new Approved(myPlansBean.getPeople_approaching_count()));
+            }
+            viewHolder.activityname.setText(myPlansBean.getActivity_details().getActivity_name());
+            viewHolder.tvAddress.setText(myPlansBean.getActivity_location());
+            viewHolder.tvActivityDate.setText(myPlansBean.getActivity_date());
+            viewHolder.tvActivityTime.setText(myPlansBean.getActivity_time());
+            viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size()+"");
+            viewHolder.tvCount.setText(myPlansBean.getPeople_going_count()+"");
+
+            if(myPlansBean.getUser().getProfile_photo().isEmpty() ||
+                    myPlansBean.getUser().getProfile_photo().equals("") ){
+
+                viewHolder.profileImage.setImageResource(R.drawable.place_holder);
+            }else{
+
+                Glide.with(MyPlan.this)
+                        .load(myPlansBean.getUser().getProfile_photo())
+                        .error(R.drawable.place_holder)
+                        .placeholder(R.drawable.place_holder)
+                        .into(viewHolder.profileImage);
+            }
+
+
         }
 
         @Override
         public int getItemCount() {
 
-            return 10;
+            return myPlansBeen.size();
         }
     }
 
@@ -90,6 +129,8 @@ public class MyPlan extends AppCompatActivity {
 
 
         private final RecyclerView recyclerView;
+        CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount;
+        RoundedImageView profileImage;
 
         public ViewHolder(final View v) {
             super(v);
@@ -110,12 +151,22 @@ public class MyPlan extends AppCompatActivity {
             });
 
             recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+            activityname = (CustomTextView)v.findViewById(R.id.activityname);
+            tvAddress = (CustomTextView)v.findViewById(R.id.tvAddress);
+            tvActivityDate = (CustomTextView)v.findViewById(R.id.tvActivityDate);
+            tvActivityTime = (CustomTextView)v.findViewById(R.id.tvActivityTime);
+            tvGoing = (CustomTextView)v.findViewById(R.id.tvGoing);
+            tvCount = (CustomTextView)v.findViewById(R.id.tvCount);
+
+            profileImage = (RoundedImageView)v.findViewById(R.id.profileImage);
 
             final LinearLayoutManager mLayoutManager = new LinearLayoutManager(MyPlan.this);
             mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             recyclerView.setLayoutManager(mLayoutManager);
 
-            recyclerView.setAdapter(new Approved());
+           // recyclerView.setAdapter(new Approved());
+
+
 
            /*  linearDate.setOnClickListener(new View.OnClickListener() {
                 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -143,6 +194,13 @@ public class MyPlan extends AppCompatActivity {
     class Approved extends RecyclerView.Adapter<ViewHolderApproved> {
         private static final String TAG = "CustomAdapter";
 
+        List<?>
+        activityDetailsBeen;
+
+        public Approved(List<?> activityDetailsBeen) {
+            this.activityDetailsBeen = activityDetailsBeen;
+        }
+
         @Override
         public ViewHolderApproved onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
@@ -161,7 +219,7 @@ public class MyPlan extends AppCompatActivity {
         @Override
         public int getItemCount() {
 
-            return 10;
+            return activityDetailsBeen.size();
         }
     }
 
@@ -224,7 +282,7 @@ public class MyPlan extends AppCompatActivity {
 
             requestParams.add("access_token", sp.getString("access_token", ""));
 
-            Log.d("request>>", requestParams.toString());
+            Log.d("myplan>> req", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -239,7 +297,7 @@ public class MyPlan extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+              AppConstants.showProgressDialog(MyPlan.this, "Please Wait");
 
         }
 
@@ -252,8 +310,6 @@ public class MyPlan extends AppCompatActivity {
         @Override
         public void onProgress(long bytesWritten, long totalSize) {
             super.onProgress(bytesWritten, totalSize);
-            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
 
         }
 
@@ -263,11 +319,16 @@ public class MyPlan extends AppCompatActivity {
 
             try {
                 String response = new String(responseBody, "UTF-8");
-                Log.d("response>>", response);
+                Log.d("myplan>>", response);
                 JSONObject jsonObject = new JSONObject(response);
-                if (jsonObject.has("access_token")) {
 
-                    Log.d("response>>", response);
+                Gson gson = new Gson();
+                MyPlansModel myPlansModel = gson.fromJson(jsonObject.toString(), MyPlansModel.class);
+                if (myPlansModel.isSuccess()) {
+
+                    Log.d("myplan>>", response);
+                    myPlansBeen = myPlansModel.getMy_plans();
+                    myPlanRecycler.setAdapter(new CustomAdapter());
                     //post json stored g\here
 
                 } else {
