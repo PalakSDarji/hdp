@@ -551,7 +551,7 @@ public class CreateActivityActvity extends AppCompatActivity {
                     getIntent().getExtras().getInt("activity_id") == 5 ||
                     getIntent().getExtras().getInt("activity_id") == 6 ||
                     getIntent().getExtras().getInt("activity_id") == 7) {
-                requestParams.add("available_till", tvAvailableTill.getText().toString());
+                requestParams.add("available_till", tvVisitingDate.getText().toString() + " " + tvAvailableTill.getText().toString());
             }
 
             requestParams.add("notification", notification);

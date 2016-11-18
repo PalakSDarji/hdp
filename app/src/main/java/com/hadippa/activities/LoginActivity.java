@@ -225,7 +225,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        activityType();
+
         if(sp.getBoolean("loginStatus",false)){
 
             if(sp.getString("grant_type","password").equals("password")){
@@ -516,15 +516,15 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }else {
+
                         editor.putString("access_token", jsonObject.getString("access_token"));
                         editor.putString("posts", jsonObject.getString("posts"));
                         editor.commit();
 
                         ServerUtilities.register(LoginActivity.this, "", "", sp.getString("gcmId", ""), AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.LOGIN);
-                        Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
+
+                        activityType();
+
                     }
                 }else{
 
@@ -598,6 +598,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 editor.putString("activityType",jsonObject.toString());
                 editor.commit();
+
+                Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+
+
                 Log.d("activityType", "success" + response);
             } catch (Exception e) {
                 e.printStackTrace();

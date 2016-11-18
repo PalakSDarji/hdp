@@ -453,14 +453,14 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         public void onStart() {
             super.onStart();
 
-          //  AppConstants.showProgressDialog(CoffeeActivity.this, "Please Wait");
+            AppConstants.showProgressDialog(CoffeeActivity.this, "Please Wait");
             Log.d("prepareZomato>>", "success exc  >> start");
         }
 
 
         @Override
         public void onFinish() {
-          //  AppConstants.dismissDialog();
+            AppConstants.dismissDialog();
             Log.d("prepareZomato>>", "success exc  >> finish");
         }
 
@@ -478,7 +478,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
             try {
                 String response = new String(responseBody, "UTF-8");
-
+                AppConstants.dismissDialog();
                 JSONObject obj = new JSONObject(response);
                 Gson gson = new Gson();
                 NightCLubModel nightCLubModel = gson.fromJson(obj.toString(), NightCLubModel.class);
