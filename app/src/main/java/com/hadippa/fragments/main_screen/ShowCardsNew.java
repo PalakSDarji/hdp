@@ -256,6 +256,8 @@ public class ShowCardsNew extends Fragment {
 
             Glide.with(context)
                     .load(dataModel.getUser().getProfile_photo())
+                    .placeholder(R.drawable.place_holder)
+                    .error(R.drawable.place_holder)
                     .into(viewHolder.coverImage);
 
             viewHolder.llGoing.setOnClickListener(new View.OnClickListener() {
