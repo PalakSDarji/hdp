@@ -165,8 +165,8 @@ public class CreateActivityActvity extends AppCompatActivity {
         activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY, 0);
 
         //  Log.d("getIntent().",getIntent().getExtras().getString("data"));
-        Log.d("getIntent().", activityKey + "");
-        Log.d("getIntent().", AppConstants.ACTIVITY_FROM_COFFEE + "");
+
+
         if (activityKey == AppConstants.ACTIVITY_FROM_COFFEE ||
                 activityKey == AppConstants.ACTIVITY_LOUNGE ||
                 activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
@@ -202,8 +202,6 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisTime.setText(getResources().getString(R.string.select_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
             ivArrow.setVisibility(View.GONE);
-        } else if (activityKey == AppConstants.ACTIVITY_LOUNGE) {
-
         }else if (activityKey == AppConstants.ACTIVITY_CREATE_ACTIVITY) {
 
             tvHeader.setText(getResources().getString(R.string.create_activity));

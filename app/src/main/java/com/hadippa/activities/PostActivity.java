@@ -1,10 +1,18 @@
 package com.hadippa.activities;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.commonclasses.location.GPSTracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -35,13 +44,164 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-public class PostActivity extends AppCompatActivity {
+public class PostActivity extends AppCompatActivity implements LocationListener {
 
     Dialog dialog1;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
     List<Activities.ActivitiesBean> activitiesBeanList = new ArrayList<>();
+
+    GPSTracker gps;
+    private LocationManager mLocationManager;
+    private LocationListener mLocationListener;
+    String latitude = "", longitude = "";
+    
+    void getLocation() {
+
+        mLocationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+        mLocationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+                latitude = String.valueOf(location.getLatitude());
+                longitude = String.valueOf(location.getLongitude());
+
+
+                Log.d("locaGPS>>", latitude + ">>>" + longitude);
+
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+                if (ActivityCompat.checkSelfPermission(PostActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(PostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+
+                    requestPermission();
+                    return;
+                }
+                Location lastKnownLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if (lastKnownLocation != null) {
+                    latitude = String.valueOf(lastKnownLocation.getLatitude());
+                    longitude = String.valueOf(lastKnownLocation.getLongitude());
+
+
+                    Log.d("locaGPS>>", latitude + ">>>" + longitude);
+
+                } else {
+
+
+                }
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+        mLocationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 500, 10, mLocationListener);
+
+        if (gps == null) {
+            gps = new GPSTracker(PostActivity.this);
+        }
+
+        if (gps.canGetLocation()) {
+            latitude = String.valueOf(gps.getLatitude());
+            longitude = String.valueOf(gps.getLongitude());
+
+
+
+        } else {
+
+            gps.showSettingsAlert();
+
+        }
+
+
+    }
+    private boolean checkPermission() {
+
+        int CAMERA = ContextCompat.checkSelfPermission(PostActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        int read_external = ContextCompat.checkSelfPermission(PostActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
+
+
+        if (CAMERA == PackageManager.PERMISSION_GRANTED && read_external == PackageManager.PERMISSION_GRANTED
+                ) {
+
+            return true;
+
+
+        } else {
+
+
+            return false;
+
+        }
+
+    }
+
+    private void requestPermission() {
+
+
+        ActivityCompat.requestPermissions(PostActivity.this, new String[]{
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+        }, 10001);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 10001:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    //  Snackbar.make(rel, "Permission Granted.", Snackbar.LENGTH_LONG).show();
+
+                    getLocation();
+                } else {
+
+                    //  Snackbar.make(rel, "Permission Denied.", Snackbar.LENGTH_LONG).show();
+
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        latitude = String.valueOf(location.getLatitude());
+        longitude = String.valueOf(location.getLongitude());
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +211,11 @@ public class PostActivity extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(PostActivity.this);
         editor = sp.edit();
 
+        if(checkPermission()){
+            getLocation();
+        }else{
+            requestPermission();
+        }
         Gson gson = new Gson();
         Activities dataModel = gson.fromJson(sp.getString("activityType", ""), Activities.class);
         activitiesBeanList = dataModel.getActivities();
@@ -100,6 +265,8 @@ public class PostActivity extends AppCompatActivity {
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_HOBBY);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_HOBBY);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -110,6 +277,7 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_CREATE_ACTIVITY);
+
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -464,6 +632,8 @@ public class PostActivity extends AppCompatActivity {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CreateActivityActvity.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_STANDUP_COMEDY);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_STAND_UP_COMEDY);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

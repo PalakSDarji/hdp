@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.APIClass;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -131,8 +132,13 @@ public class Followers extends Fragment {
                 public void onClick(View v) {
 
                     Log.v("Followers","clicked " + position);
-                    followers_following.setFollow_accepted("1");
-                    notifyDataSetChanged();
+                    if(viewHolder.tvFollowUnfollow.getText().toString().equals(getResources().getString(R.string.following))){
+                        follow_Unfollow(followers_following,AppConstants.CONNECTION_UNFOLLOW);
+                    }else{
+                        follow_Unfollow(followers_following,AppConstants.CONNECTION_FOLLOW);
+                    }
+
+
                 }
             });
 
@@ -325,6 +331,99 @@ public class Followers extends Fragment {
         JsonArray jsonArray = element.getAsJsonArray();
         editor.putString("myFollowers", jsonArray.toString());
         editor.commit();
+    }
+
+    private void follow_Unfollow(FollowersModel followersModel,String type) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("followed_id", followersModel.getFollower_id());
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + type, requestParams,
+                new Follow_Unfollow(followersModel,type));
+    }
+
+    class Follow_Unfollow extends AsyncHttpResponseHandler {
+
+        FollowersModel followersModel;
+        String type;
+
+        public Follow_Unfollow(FollowersModel followersModel,String type) {
+            this.followersModel = followersModel;
+            this.type = type;
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+              AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+          /*  Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+*/
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.getBoolean("success")) {
+
+                    if(jsonObject.getString("status").equals("Following")){
+                        followersModel.setFollow_accepted("1");
+                    }else{
+                        followersModel.setFollow_accepted("0");
+                    }
+
+                    customAdapter.notifyDataSetChanged();
+
+                    Log.d("response>>", response);
+                    //post json stored g\here
+
+                } else {
+
+
+                    //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
+
+                }
+                Log.d("async", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
     }
 
 }
