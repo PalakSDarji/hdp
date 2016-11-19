@@ -96,7 +96,8 @@ public class AppConstants {
     public static final String MERAEVENTS_SPORTS_OUTDOOR = "sports/outdoor";
     public static final String MERAEVENTS_SPORTS_ADV = "sports/adventure";
     public static final String MERAEVENTS_ENTERTAINMENT_EVENT = "entertainment/event";
-    public static final String MERAEVENTS_ENTERTAINMENT_THEATER = "event/theater";
+    public static final String MERAEVENTS_ENTERTAINMENT_THEATER = "entertainment/theater";
+    public static final String MERAEVENTS_FESTIVAL = "event/fastival";
 
 
     public static final String CLIENT_ID= "HADIPAA_USER";
@@ -130,6 +131,7 @@ public class AppConstants {
     public static final int ACTIVITY_INDOOR_SPORTS =12;
     public static final int ACTIVITY_ENTERTAINMENT =13;
     public static final int ACTIVITY_OUTDOOR_SPORTS =14;
+    public static final int ACTIVITY_ADV_SPORTS =88;
 
     public static final int ACTIVITY_TRAVEL_FROM_FILTER = 4;
     public static final int ACTIVITY_TRAVEL_FROM_POST_AIR = 15;
@@ -160,7 +162,7 @@ public class AppConstants {
     public static final int API_ACTIVITY_ID_OUTDOOR = 14;
     public static final int API_ACTIVITY_ID_AVD_SPORTS = 15;
     public static final int API_ACTIVITY_ID_HOBBY = 20;
-
+    public static final int API_ACTIVITY_ID_FESTIVAL = 9;
 
 
     public static String USER = "user";

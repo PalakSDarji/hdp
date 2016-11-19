@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -11,6 +12,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -19,24 +21,34 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.commonclasses.location.GPSTracker;
 import com.google.gson.Gson;
 import com.hadippa.AppConstants;
+import com.hadippa.CustomTextView;
 import com.hadippa.R;
-import com.hadippa.fragments.EventListFragment;
 import com.hadippa.model.MeraEventPartyModel;
 import com.hadippa.model.NightCLubModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +56,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class EventListActivity extends AppCompatActivity implements LocationListener {
@@ -59,11 +73,19 @@ public class EventListActivity extends AppCompatActivity implements LocationList
     private LocationListener mLocationListener;
     String latitude = "", longitude = "";
     public int pageNumber = 0;
-    private boolean loading = true;
-    ViewPager viewPager;
-    List<Fragment> fragments=new ArrayList<>();
 
-    public static List<MeraEventPartyModel.DataBean> postBeanList = new ArrayList<>();
+    @Nullable
+    @BindView(R.id.rv_event_list)
+    public RecyclerView rvEventList;
+
+    @Nullable @BindView(R.id.srl_event_list)
+    public SwipeRefreshLayout srlEventList;
+
+    public static EventAdapter adapter;
+
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private boolean loading = true;
+    List<MeraEventPartyModel.DataBean> postBeanList = new ArrayList<>();
 
     void getLocation() {
 
@@ -145,7 +167,12 @@ public class EventListActivity extends AppCompatActivity implements LocationList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+        ButterKnife.bind(this);
 
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(EventListActivity.this);
+        rvEventList.setLayoutManager(mLayoutManager);
+        rvEventList.setItemAnimator(new DefaultItemAnimator());
+        rvEventList.setAdapter(adapter);
         postBeanList = new ArrayList<>();
 
         activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY,0);
@@ -159,20 +186,6 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
         });
-
-
-
-        //set tab view
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-
-        tabs = new String[]{getString(R.string.lbl_today), getString(R.string.lbl_tomorrow),getString(R.string.lbl_weekend),getString(R.string.lbl_custom)};
-
-        //add tabs to tabLayout
-        tabLayout.addTab(tabLayout.newTab().setText(tabs[0]));
-        tabLayout.addTab(tabLayout.newTab().setText(tabs[1]));
-        tabLayout.addTab(tabLayout.newTab().setText(tabs[2]));
-        tabLayout.addTab(tabLayout.newTab().setText(tabs[3]));
 
         //load fragment do display in the tab
 
@@ -188,17 +201,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                changeTabsFont();
-            }
-        });
-    }
 
     private void changeTabsFont() {
 
@@ -215,6 +218,13 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+
     }
 
     class PagerAdapter extends FragmentStatePagerAdapter {
@@ -302,7 +312,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                         , String.valueOf(pageNumber));
             }            else if(activityKey == AppConstants.ACTIVITY_EVENT_FESTIVAL) {
                 tvHeader.setText(getString(R.string.festival));
-                prepareMeraEvents(AppConstants.MERAEVENTS_PARTY, latitude, longitude, String.valueOf(dist)
+                prepareMeraEvents(AppConstants.MERAEVENTS_FESTIVAL, latitude, longitude, String.valueOf(dist)
                         , String.valueOf(pageNumber));
             }else if(activityKey == AppConstants.ACTIVITY_INDOOR_SPORTS) {
                 tvHeader.setText(getString(R.string.indoor_sports));
@@ -312,7 +322,12 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 tvHeader.setText(getString(R.string.outdoor_sports));
                 prepareMeraEvents(AppConstants.MERAEVENTS_SPORTS_OUTDOOR, latitude, longitude, String.valueOf(dist)
                         , String.valueOf(pageNumber));
+            }else if(activityKey == AppConstants.ACTIVITY_ADV_SPORTS) {
+                tvHeader.setText(getString(R.string.adventure_sports));
+                prepareMeraEvents(AppConstants.MERAEVENTS_SPORTS_ADV, latitude, longitude, String.valueOf(dist)
+                        , String.valueOf(pageNumber));
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -453,49 +468,25 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 if (meraEventPartyModel.isSuccess()) {
                     Log.d("prepareMeraEvents", "Size >> " + response);
 
+                    if(meraEventPartyModel.getData().size() > 0){
                     postBeanList.addAll(meraEventPartyModel.getData());
                     if (pageNumber == 0) {
-                        EventListFragment eventListFragment = new EventListFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("activity_id", getIntent().getExtras().getInt("activity_id"));
-                        bundle.putString("latitude",latitude);
-                        bundle.putString("longitude",longitude);
-                        eventListFragment.setArguments(bundle);
-                        fragments.add(eventListFragment);
-                    /*    fragments.add(new EventListFragment());
-                        fragments.add(new EventListFragment());
-                        fragments.add(new EventListFragment());
-*/
-                        viewPagerAdapter=new PagerAdapter(EventListActivity.this,getSupportFragmentManager(),fragments,tabs);
-                        viewPager.setAdapter(viewPagerAdapter);
-                        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-                        viewPager.setOffscreenPageLimit(4);
-                        tabLayout.setupWithViewPager(viewPager);
-                        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-                        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
-                            @Override
-                            public void onTabSelected(TabLayout.Tab tab) {
-                                viewPager.setCurrentItem(tab.getPosition());
-                            }
+                        adapter = new EventAdapter(EventListActivity.this,postBeanList);
+                        rvEventList.setAdapter(adapter);
 
-                            @Override
-                            public void onTabUnselected(TabLayout.Tab tab) {
 
-                            }
-
-                            @Override
-                            public void onTabReselected(TabLayout.Tab tab) {
-
-                            }
-                        });
                     } else {
-                        EventListFragment.adapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
                         loading = true;
 
                     }
 
                     pageNumber = pageNumber + 20;
+                }else{
+
+                        Toast.makeText(EventListActivity.this,"No data",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 Log.d("restaurantsBeanList", "Size >> " + response);
             } catch (Exception e) {
@@ -508,6 +499,96 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
             //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
+
+    public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>{
+
+        private List<MeraEventPartyModel.DataBean> list;
+
+        private Context mContext;
+
+        RequestManager requestManager = Glide.with(EventListActivity.this);
+        public EventAdapter(Context context, List<MeraEventPartyModel.DataBean> events) {
+            this.list = events;
+            mContext = context;
+        }
+
+        @Override
+        public EventAdapter.EventHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+
+            return new EventAdapter.EventHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(EventAdapter.EventHolder holder, final int position) {
+
+            holder.rlContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(EventListActivity.this, EventDetailsActivity.class);
+                    intent.putExtra("activity_id", getIntent().getExtras().getInt("activity_id"));
+                    intent.putExtra("data", postBeanList.get(position));
+                    intent.putExtra("latitude", latitude);
+                    intent.putExtra("longitude",longitude);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
+            holder.tvPrice.setText(postBeanList.get(position).getTicket_currencyCode()+" "+postBeanList.get(position).getTicket_price());
+            holder.tvEventName.setText(postBeanList.get(position).getTitle());
+            holder.tvAddress.setText(postBeanList.get(position).getAddress1());
+            holder.timings.setText(postBeanList.get(position).getStartDate()+" - "+postBeanList.get(position).getEndDate());
+            holder.tvDistance.setText(AppConstants.distanceMeasure(Double.parseDouble(latitude),
+                    Double.parseDouble(longitude),
+                    (postBeanList.get(position).getLatitude()),
+                    (postBeanList.get(position).getLongitude())) + " kms");
+
+            if(postBeanList.get(position).getBannerPath().isEmpty() || postBeanList.get(position).getBannerPath().equals("")){
+                holder.profileImage.setImageResource(R.drawable.place_holder);
+            }else {
+                requestManager
+                        .load(postBeanList.get(position).getBannerPath())
+                        .error(R.drawable.place_holder)
+                        .placeholder(R.drawable.place_holder)
+                        .into(holder.profileImage);
+            }
+        }
+
+        public MeraEventPartyModel.DataBean getItem(int position){
+            return list.get(position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        public void setData(List<MeraEventPartyModel.DataBean> data) {
+            list = data;
+            notifyDataSetChanged();
+        }
+
+        public class EventHolder extends RecyclerView.ViewHolder {
+
+            CustomTextView tvEventName,tvAddress,tvOnwards,timings,tvDistance,tvPrice;
+            RelativeLayout rlContainer;
+            RoundedImageView profileImage;
+
+            public EventHolder(View view) {
+                super(view);
+                rlContainer = (RelativeLayout) view.findViewById(R.id.rlContainer);
+                tvEventName = (CustomTextView) view.findViewById(R.id.tvEventName);
+                tvAddress = (CustomTextView) view.findViewById(R.id.tvAddress);
+                tvOnwards = (CustomTextView) view.findViewById(R.id.tvOnwards);
+                timings = (CustomTextView) view.findViewById(R.id.timings);
+                tvDistance = (CustomTextView)view.findViewById(R.id.tvDistance);
+                tvPrice = (CustomTextView) view.findViewById(R.id.tvPrice);
+                profileImage = (RoundedImageView)view.findViewById(R.id.profileImage);
+            }
         }
 
     }

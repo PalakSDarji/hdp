@@ -44,6 +44,8 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.hadippa.AppConstants.ACTIVITY_ADV_SPORTS;
+
 public class PostActivity extends AppCompatActivity implements LocationListener {
 
     Dialog dialog1;
@@ -486,7 +488,11 @@ public class PostActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
-                showSportsAdveDialog();
+                Intent intent = new Intent(PostActivity.this, EventListActivity.class);
+                intent.putExtra("activity_id",AppConstants.API_ACTIVITY_ID_AVD_SPORTS);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, ACTIVITY_ADV_SPORTS);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -605,7 +611,7 @@ public class PostActivity extends AppCompatActivity implements LocationListener 
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
-                intent.putExtra("activity_id", activitiesBeanList.get(4).getId());
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_COFFEE);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_LOUNGE);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
