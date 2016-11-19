@@ -254,6 +254,7 @@ public class ShowCardsNew extends Fragment {
             viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size()) + " Going");
             viewHolder.tvCount.setText(String.valueOf(dataModel.getId()));
 
+
             Glide.with(context)
                     .load(dataModel.getUser().getProfile_photo())
                     .placeholder(R.drawable.place_holder)
