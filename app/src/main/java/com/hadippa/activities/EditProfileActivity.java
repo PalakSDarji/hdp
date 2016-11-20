@@ -1,12 +1,20 @@
 package com.hadippa.activities;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hadippa.AppConstants;
@@ -16,6 +24,10 @@ import com.hadippa.model.UserProfile;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +57,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
     @BindView(R.id.switchPrivateProfile)
     Switch switchPrivateProfile;
+
+    @BindView(R.id.ivSave)
+    ImageView ivSave;
     UserProfile.UserBean userBean;
+
+    private DatePickerDialog datePickerDialog;
+
+    String gender = "male";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +80,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        setDateTimePicker();
         etName.setText(userBean.getFirst_name()+" "+userBean.getLast_name());
         etCompany.setText(userBean.getCompany());
         etLiveIn.setText(userBean.getCity());
@@ -70,6 +91,29 @@ public class EditProfileActivity extends AppCompatActivity {
         etGender.setText(userBean.getGender());
         etDateOfBirth.setText(userBean.getDob()+"");
         etOccupation.setText(userBean.getOccupation());
+
+        etDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog.show();
+            }
+        });
+
+        etDateOfBirth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    datePickerDialog.show();
+                }
+            }
+        });
+
+        ivSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editProfile();
+            }
+        });
     }
 
     //MY Profile
@@ -90,7 +134,7 @@ public class EditProfileActivity extends AppCompatActivity {
             requestParams.add("zodiac", etZodiac.getText().toString());
             requestParams.add("lanuage_known", etLang.getText().toString());
             requestParams.add("mobile", etPhone.getText().toString());
-            requestParams.add("gender", etGender.getText().toString());
+            requestParams.add("gender", gender);
             requestParams.add("dob", etDateOfBirth.getText().toString());
 
             Log.d("fetchProfile>>", requestParams.toString());
@@ -132,12 +176,23 @@ public class EditProfileActivity extends AppCompatActivity {
 
             try {
                 String response = new String(responseBody, "UTF-8");
-                Gson gson = new Gson();
-                UserProfile userProfile = gson.fromJson(response,UserProfile.class);
-
-                if(userProfile.isSuccess()){
 
 
+                JSONObject jsonObject = new JSONObject(response);
+
+                if(jsonObject.getBoolean("success")){
+
+                  /*  Gson gson = new Gson();
+                    UserProfile userProfile = gson.fromJson(response,UserProfile.class);
+*/
+                   /* Intent resultIntent = new Intent();
+                    resultIntent.putExtra("data", userProfile.getUser());
+                    setResult(Activity.RESULT_OK, resultIntent);*/
+                    finish();
+                    overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+
+                }else{
+                    Toast.makeText(EditProfileActivity.this,"Failed Update",Toast.LENGTH_SHORT).show();
                 }
 
                 Log.d("fetchProfile>>", "success" + response);
@@ -157,6 +212,39 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
     }
+
+    private void setDateTimePicker() {
+
+        Calendar newCalendar = Calendar.getInstance();
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+
+                int day = newDate.get(Calendar.DAY_OF_MONTH);
+
+
+                String ddd = "";
+                String newday = String.valueOf(day), newmonth = String.valueOf(monthOfYear + 1);
+
+                if (String.valueOf(monthOfYear).length() == 1) {
+                    newmonth = "0" + newmonth;
+                }
+
+                if (String.valueOf(day).length() == 1) {
+                    newday = "0" + day;
+                }
+
+                Log.d("date>>", year + "-" + newmonth + "-" + newday);
+                etDateOfBirth.setText(year + "-" + newmonth + "-" + newday);
+            }
+
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+
+    }
+
 
 
 }

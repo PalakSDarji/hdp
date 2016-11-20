@@ -18,7 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.APIClass;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
@@ -32,6 +35,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -75,6 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
 
+
         if(getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)){
             llFollowUnfollow.setVisibility(View.GONE);
             rvMutualFriend.setVisibility(View.GONE);
@@ -83,6 +88,26 @@ public class ProfileActivity extends AppCompatActivity {
             rvRecentInstagram.setVisibility(View.GONE);
             vSep2.setVisibility(View.GONE);
             vSep3.setVisibility(View.GONE);
+
+            try {
+                JSONObject jsonObject = new JSONObject(sp.getString("userData",""));
+                UserProfile.UserBean userBean = new UserProfile.UserBean();
+                userBean.setFirst_name(jsonObject.getString("first_name"));
+                userBean.setLast_name(jsonObject.getString("last_name"));
+                userBean.setOccupation(jsonObject.getString("occupation"));
+                userBean.setInterested_in(jsonObject.getString("interested_in"));
+                userBean.setLanuage_known(jsonObject.getString("lanuage_known"));
+                userBean.setCity(jsonObject.getString("city"));
+                userBean.setAge_range_from(jsonObject.getInt("age_range_from"));
+                userBean.setAge_range_to(jsonObject.getInt("age_range_to"));
+                userBean.setMobile(jsonObject.getLong("mobile"));
+                userBean.setProfile_photo(jsonObject.getString("profile_photo"));
+                userBean.setPrivate_account(jsonObject.getInt("private_account"));
+
+                setData(userBean);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }else{
             ivEdit.setVisibility(View.GONE);
         }
@@ -92,6 +117,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent intent = new Intent(ProfileActivity.this,EditProfileActivity.class);
                 intent.putExtra("data",userBean);
                 startActivity(intent);
+              //  startActivityForResult(intent,239);
             }
         });
 
@@ -141,8 +167,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         InstagramAdapter instaAdapter = new InstagramAdapter(instaContacts);
         //rvRecentInstagram.setAdapter(instaAdapter);
-
-        fetchProfile();
     }
 
 
@@ -249,7 +273,7 @@ public class ProfileActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-              AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+            //  AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
 
         }
 
@@ -262,9 +286,7 @@ public class ProfileActivity extends AppCompatActivity {
         @Override
         public void onProgress(long bytesWritten, long totalSize) {
             super.onProgress(bytesWritten, totalSize);
-          /*  Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
-*/
+
         }
 
 
@@ -277,14 +299,8 @@ public class ProfileActivity extends AppCompatActivity {
                 UserProfile userProfile = gson.fromJson(response,UserProfile.class);
 
                 if(userProfile.isSuccess()){
-                    userBean = userProfile.getUser();
-                    tvTitleName.setText(userBean.getFirst_name()+" "+userBean.getLast_name()+", "+userBean.getDob());
 
-                    setTextifNotEmpty(userBean.getOccupation(),tvOccupation);
-                    setTextifNotEmpty(userBean.getCity(),tvCity);
-                    setTextifNotEmpty(userBean.getCompany(),tvCompany);
-                    setTextifNotEmpty(userBean.getLanuage_known(),tvLangSub);
-                    setTextifNotEmpty(userBean.getZodiac(),tvZodiac);
+                    setData(userProfile.getUser());
 
                 }
 
@@ -312,9 +328,44 @@ public class ProfileActivity extends AppCompatActivity {
         if(!data.equals("")){
             customTextView.setText(data);
         }else{
-            customTextView.setVisibility(View.GONE);
+          //  customTextView.setVisibility(View.GONE);
         }
     }
 
 
+    void setData(UserProfile.UserBean userBean){
+
+        tvTitleName.setText(userBean.getFirst_name()+" "+userBean.getLast_name()+", "+userBean.getDob());
+
+        setTextifNotEmpty(userBean.getOccupation(),tvOccupation);
+        setTextifNotEmpty(userBean.getCity(),tvCity);
+        setTextifNotEmpty(userBean.getCompany(),tvCompany);
+        setTextifNotEmpty(userBean.getLanuage_known(),tvLangSub);
+        setTextifNotEmpty(userBean.getZodiac(),tvZodiac);
+
+        RequestManager requestManager = Glide.with(ProfileActivity.this);
+        requestManager.load(userBean.getProfile_photo())
+                .placeholder(R.drawable.place_holder)
+                .error(R.drawable.place_holder)
+                .into(ivProfilePic);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        fetchProfile();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            if(requestCode == 239){
+                userBean = (UserProfile.UserBean) data.getExtras().getSerializable("data");
+                setData(userBean);
+            }
+        }
+    }
 }

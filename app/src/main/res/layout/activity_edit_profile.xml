@@ -37,7 +37,7 @@
             app:customFont="@string/proxima_bold"/>
 
         <ImageView
-            android:id="@+id/ivMore"
+            android:id="@+id/ivSave"
             android:layout_width="@dimen/value_w40"
             android:layout_height="@dimen/value_h31"
             android:layout_alignParentRight="true"
