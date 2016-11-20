@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.fragments.main_screen.ShowCardsNew;
@@ -63,6 +64,8 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
     @BindView(R.id.tvFollowingCount)
     CustomTextView tvFollowingCount;
+
+    JSONObject jsonObject;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -108,7 +111,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         tvFollowingCount.setText(sp.getInt("following",0)+"");
         
         try {
-            JSONObject jsonObject = new JSONObject(sp.getString("userData",""));
+            jsonObject = new JSONObject(sp.getString("userData",""));
             tvUserName.setText(jsonObject.getString("first_name")+" "+jsonObject.getString("last_name"));
             if(jsonObject.getString("profile_photo").equals(null) || jsonObject.getString("profile_photo").equals("")){
 
@@ -147,9 +150,17 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         findViewById(R.id.rlProfile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                try {
+                    Intent intent = new Intent(HomeScreen.this,ProfileActivity.class);
+                    intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.MY_PROFILE);
+                    intent.putExtra(AppConstants.FETCH_USER_KEY, String.valueOf(jsonObject.getInt("id")));
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 

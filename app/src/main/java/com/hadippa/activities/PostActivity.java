@@ -218,9 +218,6 @@ public class PostActivity extends AppCompatActivity implements LocationListener 
         }else{
             requestPermission();
         }
-        Gson gson = new Gson();
-        Activities dataModel = gson.fromJson(sp.getString("activityType", ""), Activities.class);
-        activitiesBeanList = dataModel.getActivities();
 
         initUi();
 

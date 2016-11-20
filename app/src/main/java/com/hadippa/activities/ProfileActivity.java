@@ -1,6 +1,8 @@
 package com.hadippa.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,31 +13,55 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.APIClass;
+import com.hadippa.AppConstants;
+import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.SquareImageView;
 import com.hadippa.fragments.main_screen.DoublePeople;
 import com.hadippa.fragments.main_screen.People;
 import com.hadippa.fragments.main_screen.ShowCardsNew;
 import com.hadippa.model.Contact;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 
 public class ProfileActivity extends AppCompatActivity {
 
     @BindView(R.id.rvMutualFriend) RecyclerView rvMutualFriend;
     @BindView(R.id.rvRecentInstagram) RecyclerView rvRecentInstagram;
+    @BindView(R.id.ivEdit) ImageView ivEdit;
+    @BindView(R.id.tvTitleName) CustomTextView tvTitleName;
+    @BindView(R.id.ivChat) ImageView ivChat;
+    @BindView(R.id.ivMore) ImageView ivMore;
+    @BindView(R.id.ivProfilePic) SquareImageView ivProfilePic;
+    @BindView(R.id.tvActivityVal) CustomTextView tvActivityVal;
+    @BindView(R.id.tvApproaching2Val) CustomTextView tvApproaching2Val;
+    @BindView(R.id.llFollowUnfollow) LinearLayout llFollowUnfollow;
+    @BindView(R.id.ivFollowUnfollow) ImageView ivFollowUnfollow;
+    @BindView(R.id.tvFollowUnfollow) CustomTextView tvFollowUnfollow;
 
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+
+        sp = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
 
         findViewById(R.id.ivEdit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
         contacts.add(new Contact());
 
         MutualFriendAdapter adapter = new MutualFriendAdapter(contacts);
-        rvMutualFriend.setAdapter(adapter);
+      //  rvMutualFriend.setAdapter(adapter);
 
 
         GridLayoutManager instagramLayoutManagaer = new GridLayoutManager(ProfileActivity.this, 4);
@@ -90,8 +116,9 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         InstagramAdapter instaAdapter = new InstagramAdapter(instaContacts);
-        rvRecentInstagram.setAdapter(instaAdapter);
+        //rvRecentInstagram.setAdapter(instaAdapter);
 
+        fetchProfile();
     }
 
 
@@ -170,5 +197,74 @@ public class ProfileActivity extends AppCompatActivity {
             return horizontalList.size();
         }
     }
+
+    //MY Profile
+    private void fetchProfile() {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("id", getIntent().getExtras().getString(AppConstants.FETCH_USER_KEY));
+
+            Log.d("fetchProfile>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + getIntent().getExtras().getString(AppConstants.PROFILE_KEY), requestParams,
+                new FetchProfile());
+    }
+
+    class FetchProfile extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+              AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+          /*  Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+*/
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+
+                Log.d("fetchProfile>>", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
 
 }
