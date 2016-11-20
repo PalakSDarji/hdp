@@ -231,7 +231,7 @@ public class ShowCardsNew extends Fragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            DataModel dataModel = parkingList.get(position);
+            final DataModel dataModel = parkingList.get(position);
 
             viewHolder.tvName_Age.setText(dataModel.getUser().getFirst_name()
                     + " " + dataModel.getUser().getLast_name() + ", " +
@@ -242,6 +242,8 @@ public class ShowCardsNew extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), ProfileActivity.class);
                     //intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                    intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.OTHERS_PROFILE);
+                    intent.putExtra(AppConstants.FETCH_USER_KEY, dataModel.getUser().getId());
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }

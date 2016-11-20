@@ -121,6 +121,8 @@ public class AppConstants {
     public static final String TRAVEL_FROM_KEY = "travel_from";
     public static final String TRAVEL_TO_KEY = "travel_to";
     public static final String TRAVEL_BY_KEY = "travel_by";
+    public static final String PROFILE_KEY = "PROFILE_KEY";
+    public static final String FETCH_USER_KEY = "id";
 
     public static final int ACTIVITY_CREATE_ACTIVITY = 1;
     public static final int ACTIVITY_FROM_COFFEE = 2;
@@ -163,6 +165,8 @@ public class AppConstants {
     public static final int API_ACTIVITY_ID_AVD_SPORTS = 15;
     public static final int API_ACTIVITY_ID_HOBBY = 20;
     public static final int API_ACTIVITY_ID_FESTIVAL = 9;
+
+
 
 
     public static String USER = "user";

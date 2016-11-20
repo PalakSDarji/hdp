@@ -491,7 +491,7 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(response);
                 if(jsonObject.has("access_token")) {
 
-                    Log.d("async`>>",response);
+                    Log.d("async`>>",jsonObject.getJSONObject("user").toString());
                     //post json stored g\here
                     editor.putBoolean("loginStatus",true);
                     editor.putString("grant_type",grant);
@@ -523,7 +523,10 @@ public class LoginActivity extends AppCompatActivity {
 
                         ServerUtilities.register(LoginActivity.this, "", "", sp.getString("gcmId", ""), AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.LOGIN);
 
-                        activityType();
+                        Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
 
                     }
                 }else{
@@ -599,10 +602,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("activityType",jsonObject.toString());
                 editor.commit();
 
-                Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
+
 
 
                 Log.d("activityType", "success" + response);
