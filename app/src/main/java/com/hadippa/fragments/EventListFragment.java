@@ -1,3 +1,4 @@
+/*
 package com.hadippa.fragments;
 
 import android.content.Context;
@@ -36,9 +37,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+*/
 /**
  * Created by Palak on 26-10-2016.
- */
+ *//*
+
 
 public class EventListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -65,7 +68,6 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
 
         srlEventList.setOnRefreshListener(this);
 
-        adapter = new EventAdapter(getActivity(),EventListActivity.postBeanList);
 
 
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -73,7 +75,8 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
         rvEventList.setItemAnimator(new DefaultItemAnimator());
         rvEventList.setAdapter(adapter);
 
-        /*rvEventList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        */
+/*rvEventList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (dy > 0) //check for scroll down
@@ -94,7 +97,8 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
                     }
                 }
             }
-        });*/
+        });*//*
+
 
 
         return view;
@@ -194,3 +198,4 @@ public class EventListFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
 }
+*/
