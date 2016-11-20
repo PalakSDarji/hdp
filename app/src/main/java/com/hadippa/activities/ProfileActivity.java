@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.APIClass;
+import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
@@ -26,6 +27,7 @@ import com.hadippa.fragments.main_screen.DoublePeople;
 import com.hadippa.fragments.main_screen.People;
 import com.hadippa.fragments.main_screen.ShowCardsNew;
 import com.hadippa.model.Contact;
+import com.hadippa.model.UserProfile;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -53,8 +55,18 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.llFollowUnfollow) LinearLayout llFollowUnfollow;
     @BindView(R.id.ivFollowUnfollow) ImageView ivFollowUnfollow;
     @BindView(R.id.tvFollowUnfollow) CustomTextView tvFollowUnfollow;
-
+    @BindView(R.id.tvOccupation) CustomTextView tvOccupation;
+    @BindView(R.id.tvCompany) CustomTextView tvCompany;
+    @BindView(R.id.tvCity) CustomTextView tvCity;
+    @BindView(R.id.tvZodiac) CustomTextView tvZodiac;
+    @BindView(R.id.tvLangSub) CustomTextView tvLangSub;
+    @BindView(R.id.tvRecentInstagram) CustomTextView tvRecentInstagram;
+    @BindView(R.id.tvMutual) CustomTextView tvMutual;
+    @BindView(R.id.vSep2) View vSep2;
+    @BindView(R.id.vSep3) View vSep3;
     SharedPreferences sp;
+
+    UserProfile.UserBean userBean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +75,22 @@ public class ProfileActivity extends AppCompatActivity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
 
+        if(getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)){
+            llFollowUnfollow.setVisibility(View.GONE);
+            rvMutualFriend.setVisibility(View.GONE);
+            tvRecentInstagram.setVisibility(View.GONE);
+            tvMutual.setVisibility(View.GONE);
+            rvRecentInstagram.setVisibility(View.GONE);
+            vSep2.setVisibility(View.GONE);
+            vSep3.setVisibility(View.GONE);
+        }else{
+            ivEdit.setVisibility(View.GONE);
+        }
         findViewById(R.id.ivEdit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this,EditProfileActivity.class);
+                intent.putExtra("data",userBean);
                 startActivity(intent);
             }
         });
@@ -249,13 +273,28 @@ public class ProfileActivity extends AppCompatActivity {
 
             try {
                 String response = new String(responseBody, "UTF-8");
-                JSONObject jsonObject = new JSONObject(response);
+                Gson gson = new Gson();
+                UserProfile userProfile = gson.fromJson(response,UserProfile.class);
+
+                if(userProfile.isSuccess()){
+                    userBean = userProfile.getUser();
+                    tvTitleName.setText(userBean.getFirst_name()+" "+userBean.getLast_name()+", "+userBean.getDob());
+
+                    setTextifNotEmpty(userBean.getOccupation(),tvOccupation);
+                    setTextifNotEmpty(userBean.getCity(),tvCity);
+                    setTextifNotEmpty(userBean.getCompany(),tvCompany);
+                    setTextifNotEmpty(userBean.getLanuage_known(),tvLangSub);
+                    setTextifNotEmpty(userBean.getZodiac(),tvZodiac);
+
+                }
 
                 Log.d("fetchProfile>>", "success" + response);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d("async", "success exc  >>" + e.toString());
             }
+
+
         }
 
         @Override
@@ -264,6 +303,17 @@ public class ProfileActivity extends AppCompatActivity {
             //  AppConstants.showSnackBar(mainRel,"Try again!");
         }
 
+
+    }
+
+
+
+    public void setTextifNotEmpty(String data,CustomTextView customTextView){
+        if(!data.equals("")){
+            customTextView.setText(data);
+        }else{
+            customTextView.setVisibility(View.GONE);
+        }
     }
 
 
