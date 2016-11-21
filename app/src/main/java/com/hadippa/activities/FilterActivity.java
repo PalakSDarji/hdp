@@ -29,7 +29,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         ,View.OnLongClickListener   {
 
     TextView tvMovie, tvTheatrePlay, tvEvent, tvFestival, tvNightClub,
-            tvLongue, tvParty, tvStandUpComedy, tvCoffee, tvAirplane, tvCar, tvTrain, tvBus, tvAdventure, tvIndoor, tvOutdoor, tvHobby, tvOtherActivity;
+            tvLongue, tvParty, tvStandUpComedy, tvCoffee, tvAirplane, tvTrain, tvBus, tvAdventure, tvIndoor, tvOutdoor, tvHobby, tvOtherActivity;
     RecyclerView dateList;
     LayoutInflater inflater;
 
@@ -75,9 +75,9 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         tvAirplane = (TextView) findViewById(R.id.tvAirplane);
         tvAirplane.setOnClickListener(this);
         tvAirplane.setOnLongClickListener(this);
-        tvCar = (TextView) findViewById(R.id.tvCar);
+        /*tvCar = (TextView) findViewById(R.id.tvCar);
         tvCar.setOnClickListener(this);
-        tvCar.setOnLongClickListener(this);
+        tvCar.setOnLongClickListener(this);*/
         tvTrain = (TextView) findViewById(R.id.tvTrain);
         tvTrain.setOnClickListener(this);
         tvTrain.setOnLongClickListener(this);
@@ -216,12 +216,14 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 changeTransport(tvAirplane);
 
                 break;
+/*
 
             case R.id.tvCar:
 
                 changeTransport(tvCar);
 
                 break;
+*/
 
             case R.id.tvTrain:
 
@@ -298,6 +300,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent2);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
+/*
 
             case R.id.tvCar:
 
@@ -306,6 +309,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent3);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
+*/
 
             case R.id.tvTrain:
 

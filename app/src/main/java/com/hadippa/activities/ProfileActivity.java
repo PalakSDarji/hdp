@@ -355,8 +355,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         RequestManager requestManager = Glide.with(ProfileActivity.this);
         requestManager.load(userBean.getProfile_photo())
-                .placeholder(R.drawable.place_holder)
-                .error(R.drawable.place_holder)
+                .placeholder(R.color.c_efefef)
+                .error(R.color.c_efefef)
                 .into(ivProfilePic);
     }
 

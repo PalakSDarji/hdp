@@ -75,12 +75,11 @@
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:hint="Name"
                 android:paddingBottom="@dimen/value_h13"
                 android:paddingLeft="@dimen/value_w26"
                 android:paddingRight="@dimen/value_w26"
                 android:singleLine="true"
-                android:text="Sania Singh"
+                android:hint="Name"
                 android:textColor="@color/c_303030"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
@@ -135,7 +134,7 @@
                 android:layout_height="1dp"
                 android:background="@color/edittextborder"/>
 
-            <com.hadippa.CustomEditText
+            <com.hadippa.CustomTextView
                 android:id="@+id/etLiveIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,7 +146,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Live in"
+                android:hint="Live in"
                 android:textColor="@color/c_303030"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
@@ -163,7 +162,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_8"
                 android:paddingLeft="@dimen/value_w26"
-                android:paddingRight="@dimen/value_w26"
                 android:paddingTop="@dimen/value_h42"
                 android:text="@string/zodiac"
                 android:textColor="@color/c_2f2f2f"
@@ -183,13 +181,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/value_w17"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:clickable="true"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/radio0"
-                        style="@style/radio_style"
-                        android:clickable="true"/>
+                        style="@style/radio_style"/>
 
                     <com.hadippa.CustomTextView
                         android:layout_width="wrap_content"
@@ -208,13 +207,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/value_w17"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:clickable="true"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/radio1"
-                        style="@style/radio_style"
-                        android:clickable="true"/>
+                        style="@style/radio_style"/>
 
                     <com.hadippa.CustomTextView
                         android:layout_width="wrap_content"
@@ -241,7 +241,6 @@
                 android:paddingRight="@dimen/value_w26"
                 android:paddingTop="@dimen/value_h31"
                 android:singleLine="true"
-                android:hint="zodiac"
                 android:text="@string/zodiac"
                 android:visibility="gone"
                 android:textColor="@color/c_303030"
@@ -255,7 +254,7 @@
                 android:visibility="gone"
                 android:background="@color/edittextborder"/>
 
-            <com.hadippa.CustomEditText
+            <com.hadippa.CustomTextView
                 android:id="@+id/etLang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -267,7 +266,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:hint="Language known"
+                android:text="Language"
                 android:textColor="@color/c_303030"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
@@ -343,7 +342,8 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Saniasingh@gmail.com"
+                android:inputType="textEmailAddress"
+                android:hint="Email"
                 android:textColor="@color/c_303030"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
@@ -357,13 +357,14 @@
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:paddingBottom="@dimen/value_h13"
                 android:paddingLeft="@dimen/value_w26"
                 android:paddingRight="@dimen/value_w26"
                 android:paddingTop="@dimen/value_h42"
-                android:background="@android:color/transparent"
-                android:ellipsize="end"
-                android:maxLines="1"
+                android:inputType="phone"
                 android:singleLine="true"
                 android:hint="Add Phone Number"
                 android:textColor="@color/c_303030"
@@ -375,7 +376,7 @@
                 android:layout_height="1dp"
                 android:background="@color/edittextborder"/>
 
-            <com.hadippa.CustomEditText
+            <com.hadippa.CustomTextView
                 android:id="@+id/etGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -397,7 +398,7 @@
                 android:layout_height="1dp"
                 android:background="@color/edittextborder"/>
 
-            <com.hadippa.CustomEditText
+            <com.hadippa.CustomTextView
                 android:id="@+id/etDateOfBirth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

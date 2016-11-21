@@ -1,6 +1,6 @@
 package com.hadippa.activities;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -8,8 +8,16 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ListViewCompat;
 import android.util.Log;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -18,6 +26,7 @@ import android.widget.Toast;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,6 +65,9 @@ import cz.msebera.android.httpclient.Header;
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    @BindView(R.id.tvZodiac)
+    TextView tvZodiac;
+
     @BindView(R.id.llRadio0)
     LinearLayout llRadio0;
 
@@ -70,7 +83,12 @@ public class EditProfileActivity extends AppCompatActivity {
     @BindView(R.id.vSepZodiac)
     View vSepZodiac;
 
+
+    private AlertDialog alertDialog;
+
     private List<Zodiac> zodiacList;
+    private DatePickerDialog fromDatePickerDialog;
+    private SimpleDateFormat dateFormatter;
 
 
     @BindView(R.id.etName)
@@ -83,10 +101,7 @@ public class EditProfileActivity extends AppCompatActivity {
     CustomEditText etCompany;
 
     @BindView(R.id.etLiveIn)
-    CustomEditText etLiveIn;
-
-    @BindView(R.id.tvZodiac)
-    CustomTextView tvZodiac;
+    TextView etLiveIn;
 
     @BindView(R.id.etLang) TextView etLang;
     @BindView(R.id.etEmail) CustomEditText etEmail;
@@ -111,6 +126,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
         ButterKnife.bind(this);
 
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         userBean = (UserProfile.UserBean) getIntent().getSerializableExtra("data");
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +196,66 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        etLang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<String> dummyLangs = new ArrayList<String>();
+                dummyLangs.add("English");
+                dummyLangs.add("Hindi");
+                dummyLangs.add("Gujarati");
+                dummyLangs.add("Marathi");
+                showPopupList(EditProfileActivity.this, dummyLangs, getString(R.string.language), new OnOkClickListener() {
+                    @Override
+                    public void onOkClick(String dataSelected) {
+                        etLang.setText(""+ dataSelected);
+                    }
+                });
+            }
+        });
+
+        etLiveIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<String> dummyData = new ArrayList<String>();
+                dummyData.add("Vadodara");
+                dummyData.add("Surat");
+                dummyData.add("Ahmedabad");
+                dummyData.add("Newyork");
+                showPopupList(EditProfileActivity.this, dummyData, getString(R.string.country), new OnOkClickListener() {
+                    @Override
+                    public void onOkClick(String dataSelected) {
+                        etLiveIn.setText(""+ dataSelected);
+                    }
+                });
+            }
+        });
+
+        etGender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<String> dummyData = new ArrayList<String>();
+                dummyData.add("Male");
+                dummyData.add("Female");
+                showPopupList(EditProfileActivity.this, dummyData, getString(R.string.gender), new OnOkClickListener() {
+                    @Override
+                    public void onOkClick(String dataSelected) {
+                        etGender.setText(""+ dataSelected);
+                    }
+                });
+            }
+        });
+
+        etDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fromDatePickerDialog.show();
+            }
+        });
+
+
         zodiacList = new ArrayList<>();
         zodiacList.add(new Zodiac("Aries","March 21","April 19"));
         zodiacList.add(new Zodiac("Taurus","April 20","May 20"));
@@ -194,6 +270,23 @@ public class EditProfileActivity extends AppCompatActivity {
         zodiacList.add(new Zodiac("Aquarius","January 20","February 18"));
         zodiacList.add(new Zodiac("Pisces","February 19","March 20"));
 
+        Calendar calendar = Calendar.getInstance();
+        showDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void showDate(int year, int month, int day) {
+
+        //etDateOfBirth.setText(new StringBuilder().append(day).append("/").append(month).append("/").append(year));
+        Calendar newCalendar = Calendar.getInstance();
+        fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                etDateOfBirth.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
     //MY Profile
@@ -321,13 +414,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
-
     }
-
-
-
-
 
     private void findZodiac() throws ParseException {
 
@@ -376,5 +463,33 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void showPopupList(Context context, final List<String> list, String title, final OnOkClickListener onOkClickListener) {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.popup_listview, null);
+        ListView listView = (ListView) view.findViewById(R.id.lvItems);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, android.R.id.text1, list);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(alertDialog != null) alertDialog.cancel();
+                onOkClickListener.onOkClick(list.get(position));
+            }
+        });
+
+        builder.setTitle(title);
+        builder.setCancelable(false);
+        builder.setView(view);
+
+        alertDialog = builder.show();
+    }
+
+    private interface OnOkClickListener {
+        void onOkClick(String dataSelected);
     }
 }
