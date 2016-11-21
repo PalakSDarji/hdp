@@ -91,18 +91,23 @@ public class ProfileActivity extends AppCompatActivity {
 
             try {
                 JSONObject jsonObject = new JSONObject(sp.getString("userData",""));
-                UserProfile.UserBean userBean = new UserProfile.UserBean();
+                userBean = new UserProfile.UserBean();
+                userBean.setId(jsonObject.getInt("id"));
                 userBean.setFirst_name(jsonObject.getString("first_name"));
                 userBean.setLast_name(jsonObject.getString("last_name"));
                 userBean.setOccupation(jsonObject.getString("occupation"));
                 userBean.setInterested_in(jsonObject.getString("interested_in"));
                 userBean.setLanuage_known(jsonObject.getString("lanuage_known"));
                 userBean.setCity(jsonObject.getString("city"));
+                userBean.setCompany(jsonObject.getString("company"));
                 userBean.setAge_range_from(jsonObject.getInt("age_range_from"));
                 userBean.setAge_range_to(jsonObject.getInt("age_range_to"));
                 userBean.setMobile(jsonObject.getLong("mobile"));
+                userBean.setZodiac(jsonObject.getString("zodiac"));
                 userBean.setProfile_photo(jsonObject.getString("profile_photo"));
                 userBean.setPrivate_account(jsonObject.getInt("private_account"));
+                userBean.setDob(jsonObject.getString("dob"));
+                userBean.setAge(0);
 
                 setData(userBean);
             } catch (JSONException e) {
@@ -116,8 +121,8 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this,EditProfileActivity.class);
                 intent.putExtra("data",userBean);
-                startActivity(intent);
-              //  startActivityForResult(intent,239);
+              //  startActivity(intent);
+                startActivityForResult(intent,239);
             }
         });
 
@@ -167,6 +172,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         InstagramAdapter instaAdapter = new InstagramAdapter(instaContacts);
         //rvRecentInstagram.setAdapter(instaAdapter);
+
+        fetchProfile();
     }
 
 
@@ -273,8 +280,10 @@ public class ProfileActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+            if(!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
+                AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+            }
         }
 
 
@@ -300,7 +309,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if(userProfile.isSuccess()){
 
-                    setData(userProfile.getUser());
+                    userBean = userProfile.getUser();
+                    setData(userBean);
 
                 }
 
@@ -325,7 +335,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void setTextifNotEmpty(String data,CustomTextView customTextView){
-        if(!data.equals("")){
+        if(data.length() > 0){
             customTextView.setText(data);
         }else{
           //  customTextView.setVisibility(View.GONE);
@@ -335,7 +345,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     void setData(UserProfile.UserBean userBean){
 
-        tvTitleName.setText(userBean.getFirst_name()+" "+userBean.getLast_name()+", "+userBean.getDob());
+        tvTitleName.setText(userBean.getFirst_name()+" "+userBean.getLast_name()+", "+userBean.getAge());
 
         setTextifNotEmpty(userBean.getOccupation(),tvOccupation);
         setTextifNotEmpty(userBean.getCity(),tvCity);
@@ -349,12 +359,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .error(R.drawable.place_holder)
                 .into(ivProfilePic);
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        fetchProfile();
-    }
 
 
     @Override
