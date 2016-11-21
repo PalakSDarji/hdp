@@ -203,7 +203,7 @@
                             android:layout_gravity="center"
                             android:src="@drawable/ic_user_follow"/>
 
-                        <TextView
+                        <com.hadippa.CustomTextView
                             android:id="@+id/tvFollowUnfollow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -230,7 +230,7 @@
                 android:background="#efefef"/>
 
             <com.hadippa.CustomTextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvOccupation"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -251,16 +251,16 @@
                 android:layout_width="@dimen/value_w36"
                 android:layout_height="@dimen/value_w36"
                 android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/tvName"
+                android:layout_alignTop="@+id/tvOccupation"
                 android:layout_marginRight="@dimen/value_w26"
                 android:clickable="true"
                 android:src="@drawable/ic_edit"/>
 
             <com.hadippa.CustomTextView
-                android:id="@+id/tvAddress"
+                android:id="@+id/tvCompany"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvName"
+                android:layout_below="@+id/tvOccupation"
                 android:layout_marginLeft="@dimen/value_w24"
                 android:layout_marginRight="@dimen/value_w24"
                 android:layout_marginTop="@dimen/value_h21"
@@ -277,7 +277,7 @@
                 android:id="@+id/tvCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvAddress"
+                android:layout_below="@+id/tvCompany"
                 android:layout_marginLeft="@dimen/value_w24"
                 android:layout_marginRight="@dimen/value_w24"
                 android:layout_marginTop="@dimen/value_h21"

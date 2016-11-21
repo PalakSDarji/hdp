@@ -75,6 +75,7 @@ public class AppConstants {
     //PROFILE
     public static final String MY_PROFILE = "/profile/my_profile";
     public static final String OTHERS_PROFILE = "/profile/other_profile";
+    public static final String EDIT_PROFILE = "/profile/edit";
 
     //MY PLANS
     public static final String MY_PLANS = "/my_plans";
