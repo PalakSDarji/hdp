@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/white"
+              android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/lvItems"
+        android:divider="@color/c_8e8e8e"
+        android:dividerHeight="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ok"
+            android:id="@+id/tvOk"
+            android:textSize="17sp"
+            android:layout_alignParentRight="true"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"/>
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/tvCancel"
+            android:textSize="17sp"
+            android:layout_toLeftOf="@+id/tvOk"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="17dp"
+            android:paddingRight="17dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

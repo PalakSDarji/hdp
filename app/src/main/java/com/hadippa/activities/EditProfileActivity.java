@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomEditText;
+import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.model.Zodiac;
 
@@ -53,9 +54,6 @@ import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class EditProfileActivity extends AppCompatActivity {
-
-    @BindView(R.id.tvZodiac)
-    TextView tvZodiac;
 
     @BindView(R.id.llRadio0)
     LinearLayout llRadio0;
@@ -87,13 +85,14 @@ public class EditProfileActivity extends AppCompatActivity {
     @BindView(R.id.etLiveIn)
     CustomEditText etLiveIn;
 
-    @BindView(R.id.etZodiac) CustomEditText etZodiac;
+    @BindView(R.id.tvZodiac)
+    CustomTextView tvZodiac;
 
-    @BindView(R.id.etLang) CustomEditText etLang;
+    @BindView(R.id.etLang) TextView etLang;
     @BindView(R.id.etEmail) CustomEditText etEmail;
     @BindView(R.id.etPhone) CustomEditText etPhone;
-    @BindView(R.id.etGender) CustomEditText etGender;
-    @BindView(R.id.etDateOfBirth) CustomEditText etDateOfBirth;
+    @BindView(R.id.etGender) TextView etGender;
+    @BindView(R.id.etDateOfBirth) TextView etDateOfBirth;
 
     @BindView(R.id.switchPrivateProfile)
     Switch switchPrivateProfile;
@@ -124,7 +123,7 @@ public class EditProfileActivity extends AppCompatActivity {
         etName.setText(userBean.getFirst_name()+" "+userBean.getLast_name());
         etCompany.setText(userBean.getCompany());
         etLiveIn.setText(userBean.getCity());
-        etZodiac.setText(userBean.getZodiac());
+        tvZodiac.setText(userBean.getZodiac());
         etLang.setText(userBean.getLanuage_known());
         etEmail.setText(userBean.getEmail());
         etPhone.setText(String.valueOf(userBean.getMobile()));
@@ -154,6 +153,47 @@ public class EditProfileActivity extends AppCompatActivity {
                 editProfile();
             }
         });
+
+        llRadio0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radio0.setSelected(true);
+                radio1.setSelected(false);
+                tvZodiac.setVisibility(View.GONE);
+                vSepZodiac.setVisibility(View.GONE);
+
+            }
+        });
+
+        llRadio1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radio0.setSelected(false);
+                radio1.setSelected(true);
+                tvZodiac.setVisibility(View.VISIBLE);
+                vSepZodiac.setVisibility(View.VISIBLE);
+                try {
+                    findZodiac();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        zodiacList = new ArrayList<>();
+        zodiacList.add(new Zodiac("Aries","March 21","April 19"));
+        zodiacList.add(new Zodiac("Taurus","April 20","May 20"));
+        zodiacList.add(new Zodiac("Gemini","May 21","June 20"));
+        zodiacList.add(new Zodiac("Cancer","June 21","July 22"));
+        zodiacList.add(new Zodiac("Leo","July 23","August 22"));
+        zodiacList.add(new Zodiac("Virgo","August 23","September 22"));
+        zodiacList.add(new Zodiac("Libra","September 23","October 22"));
+        zodiacList.add(new Zodiac("Scorpio","October 23","November 21"));
+        zodiacList.add(new Zodiac("Sagittarius","November 22","December 21"));
+        zodiacList.add(new Zodiac("Capricorn","December 22","January 19"));
+        zodiacList.add(new Zodiac("Aquarius","January 20","February 18"));
+        zodiacList.add(new Zodiac("Pisces","February 19","March 20"));
+
     }
 
     //MY Profile
@@ -171,7 +211,7 @@ public class EditProfileActivity extends AppCompatActivity {
             requestParams.add("occupation", etOccupation.getText().toString());
             requestParams.add("company", etCompany.getText().toString());
             requestParams.add("city", etLiveIn.getText().toString());
-            requestParams.add("zodiac", etZodiac.getText().toString());
+            requestParams.add("zodiac", tvZodiac.getText().toString());
             requestParams.add("lanuage_known", etLang.getText().toString());
             requestParams.add("mobile", etPhone.getText().toString());
             requestParams.add("gender", gender);
@@ -288,49 +328,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
-        llRadio0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                radio0.setSelected(true);
-                radio1.setSelected(false);
-                tvZodiac.setVisibility(View.GONE);
-                vSepZodiac.setVisibility(View.GONE);
-
-            }
-        });
-
-        llRadio1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                radio0.setSelected(false);
-                radio1.setSelected(true);
-                tvZodiac.setVisibility(View.VISIBLE);
-                vSepZodiac.setVisibility(View.VISIBLE);
-                try {
-                    findZodiac();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        zodiacList = new ArrayList<>();
-        zodiacList.add(new Zodiac("Aries","March 21","April 19"));
-        zodiacList.add(new Zodiac("Taurus","April 20","May 20"));
-        zodiacList.add(new Zodiac("Gemini","May 21","June 20"));
-        zodiacList.add(new Zodiac("Cancer","June 21","July 22"));
-        zodiacList.add(new Zodiac("Leo","July 23","August 22"));
-        zodiacList.add(new Zodiac("Virgo","August 23","September 22"));
-        zodiacList.add(new Zodiac("Libra","September 23","October 22"));
-        zodiacList.add(new Zodiac("Scorpio","October 23","November 21"));
-        zodiacList.add(new Zodiac("Sagittarius","November 22","December 21"));
-        zodiacList.add(new Zodiac("Capricorn","December 22","January 19"));
-        zodiacList.add(new Zodiac("Aquarius","January 20","February 18"));
-        zodiacList.add(new Zodiac("Pisces","February 19","March 20"));
-
-
-
-    }
 
     private void findZodiac() throws ParseException {
 

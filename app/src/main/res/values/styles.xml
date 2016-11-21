@@ -189,8 +189,8 @@
     </style>
 
     <style name="radio_style">
-        <item name="android:layout_width">@dimen/value_w26</item>
-        <item name="android:layout_height">@dimen/value_w26</item>
+        <item name="android:layout_width">@dimen/value_w36</item>
+        <item name="android:layout_height">@dimen/value_w36</item>
         <item name="android:background">@drawable/custom_radio</item>
         <item name="android:button">@android:color/transparent</item>
         <item name="android:layout_marginRight">8dp</item>

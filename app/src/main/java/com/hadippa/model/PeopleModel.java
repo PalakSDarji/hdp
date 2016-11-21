@@ -46,7 +46,8 @@ public class PeopleModel {
     private List<FollowingBean> following;
 
     //Temp
-    public PeopleModel(String first_name) {
+    public PeopleModel(String id,String first_name) {
+        this.id = id;
         this.first_name = first_name;
     }
 

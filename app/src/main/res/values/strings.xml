@@ -186,9 +186,9 @@
     <string name="to">To</string>
     <string name="available_till">Available till</string>
     <string name="select_time">Select Time</string>
-    <string name="write_plane_route">Write plane route</string>
-    <string name="write_bus_route">Write bus route</string>
-    <string name="write_train_route">Write train route</string>
+    <string name="write_plane_route">Write Airplane Name</string>
+    <string name="write_bus_route">Write Bus Name</string>
+    <string name="write_train_route">Write Train Name</string>
     <string name="select_fight">Select Flight</string>
     <string name="where">Where</string>
     <string name="on_button_to_get_notify">\"ON\" button to get notify\nfor the same Activity</string>
@@ -233,4 +233,7 @@
     <string name="i_don_t_believe">I don\'t believe</string>
     <string name="lbl_i_dont_know">I don\'t know</string>
     <string name="zodiac">Zodiac</string>
+    <string name="language">Language</string>
+    <string name="country">Lives in</string>
+    <string name="gender">Gender</string>
 </resources>

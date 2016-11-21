@@ -3,18 +3,21 @@ package com.hadippa.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -22,25 +25,20 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
-import com.hadippa.fragments.main_screen.People;
 import com.hadippa.model.PeopleModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.hadippa.fragments.following.Followers;
+
 import com.hadippa.model.FollowersModel;
+import com.hadippa.utils.Utils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -49,16 +47,20 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
 public class InviteToJoinActivity extends AppCompatActivity {
 
-    RecyclerView myRecycler;
+
+    private static final String TAG = InviteToJoinActivity.class.getSimpleName();
+
+    RecyclerView myRecycler,rcSelectedItems;
     ImageView imageBack;
-    private List<PeopleModel> peopleModels;
+    private List<PeopleModel> peopleModels, selectedModels;
     private CustomAdapter adapter;
+    private HorizontalCustomAdapter horizontalCustomAdapter;
+    private TextView tvSelection;
     private EditText etSearch;
     ArrayList<FollowersModel> followersFollowings = new ArrayList<>();
 
@@ -75,20 +77,25 @@ public class InviteToJoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_to_join);
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.pink_dark));
+        }
+
+        selectedModels = new ArrayList<>();
         peopleModels = new ArrayList<>();
-        peopleModels.add(new PeopleModel("Palak Darji"));
-        peopleModels.add(new PeopleModel("Kat Middleton"));
-        peopleModels.add(new PeopleModel("Kareena Kapoor"));
-        peopleModels.add(new PeopleModel("Kartick Mistry"));
-        peopleModels.add(new PeopleModel("Angelina Joly"));
-        peopleModels.add(new PeopleModel("Sania Mirza"));
-        peopleModels.add(new PeopleModel("David Backham"));
-        peopleModels.add(new PeopleModel("Shreya Ghosal"));
-        peopleModels.add(new PeopleModel("Shilpa Shetty"));
-        peopleModels.add(new PeopleModel("Tina Gupta"));
-        peopleModels.add(new PeopleModel("Katrina Kaif"));
-        peopleModels.add(new PeopleModel("Lonewolf Sniper"));
-        peopleModels.add(new PeopleModel("CarryMinati"));
+        peopleModels.add(new PeopleModel("1","Palak Darji"));
+        peopleModels.add(new PeopleModel("2","Kat Middleton"));
+        peopleModels.add(new PeopleModel("3","Kareena Kapoor"));
+        peopleModels.add(new PeopleModel("4","Kartick Mistry"));
+        peopleModels.add(new PeopleModel("5","Angelina Joly"));
+        peopleModels.add(new PeopleModel("6","Sania Mirza"));
+        peopleModels.add(new PeopleModel("7","David Backham"));
+        peopleModels.add(new PeopleModel("8","Shreya Ghosal"));
+        peopleModels.add(new PeopleModel("9","Shilpa Shetty"));
+        peopleModels.add(new PeopleModel("10","Tina Gupta"));
+        peopleModels.add(new PeopleModel("11","Katrina Kaif"));
+        peopleModels.add(new PeopleModel("12","Lonewolf Sniper"));
+        peopleModels.add(new PeopleModel("13","CarryMinati"));
 
         etSearch = (EditText) findViewById(R.id.etSearch);
         etSearch.addTextChangedListener(new TextWatcher() {
@@ -107,7 +114,19 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
             }
         });
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH){
 
+                    Utils.hideKeyboard(InviteToJoinActivity.this);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        tvSelection = (CustomTextView) findViewById(R.id.tvSelection);
         imageBack = (ImageView)findViewById(R.id.imageBack);
 
         relMain = (RelativeLayout) findViewById(R.id.activity_invite_to_join);
@@ -132,12 +151,22 @@ public class InviteToJoinActivity extends AppCompatActivity {
         editor = sp.edit();
 
         selectedList = getIntent().getStringArrayListExtra("selectedId");
+
+        rcSelectedItems = (RecyclerView) findViewById(R.id.rcSelectedItems);
         myRecycler = (RecyclerView) findViewById(R.id.myRecycler);
+
+        final LinearLayoutManager mLayoutManagerHorizontal = new LinearLayoutManager(this);
+        mLayoutManagerHorizontal.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rcSelectedItems.setLayoutManager(mLayoutManagerHorizontal);
+
+        horizontalCustomAdapter = new HorizontalCustomAdapter(selectedModels);
+        rcSelectedItems.setAdapter(horizontalCustomAdapter);
+
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         myRecycler.setLayoutManager(mLayoutManager);
 
-        fetchFollowers();
+       // fetchFollowers();
 //        myRecycler.setAdapter(new CustomAdapter());
         adapter = new CustomAdapter(peopleModels);
         myRecycler.setAdapter(adapter);
@@ -275,8 +304,6 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> implements Filterable {
 
-        private static final String TAG = "CustomAdapter";
-
         private List<PeopleModel> originalData = null;
         private List<PeopleModel> filteredData = null;
         private LayoutInflater mInflater;
@@ -290,25 +317,24 @@ public class InviteToJoinActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-            View v = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.item_invite_people, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_invite_people, viewGroup, false);
 
             return new ViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-            Log.d(TAG, "Element " + position + " set.");
-            final FollowersModel followers_following = followersFollowings.get(position);
+            //Log.d(TAG, "Element " + position + " set.");
+            //final FollowersModel followers_following = followersFollowings.get(position);
 
             final PeopleModel peopleModel = filteredData.get(position);
             Log.d(TAG, "Element " + position + " set." + peopleModel.isChecked());
 
             if(peopleModel.isChecked()){
-                viewHolder.rbButton.setPressed(true);
+                viewHolder.rbButton.setSelected(true);
             }
             else{
-                viewHolder.rbButton.setPressed(false);
+                viewHolder.rbButton.setSelected(false);
             }
 
             viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
@@ -316,10 +342,19 @@ public class InviteToJoinActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     for(int i=0;i<filteredData.size();i++){
-                        if(filteredData.get(i).getFirst_name().
-                                equalsIgnoreCase(filteredData.get(position).getFirst_name())){
+                        if(filteredData.get(i).getId().
+                                equalsIgnoreCase(filteredData.get(position).getId())){
                             PeopleModel people = filteredData.get(i);
-                            people.setChecked(!people.isChecked());
+                            if(people.isChecked()){
+                                people.setChecked(false);
+                                removeSelectedItemFromList(people);
+                            }
+                            else{
+                                people.setChecked(true);
+                                addSelectedItemToList(people);
+                            }
+
+
                         }
                     }
                     notifyDataSetChanged();
@@ -331,18 +366,26 @@ public class InviteToJoinActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     for(int i=0;i<filteredData.size();i++){
-                        if(filteredData.get(i).getFirst_name().
-                                equalsIgnoreCase(filteredData.get(position).getFirst_name())){
+                        if(filteredData.get(i).getId().
+                                equalsIgnoreCase(filteredData.get(position).getId())){
                             PeopleModel people = filteredData.get(i);
-                            people.setChecked(!people.isChecked());
+                            if(people.isChecked()){
+                                people.setChecked(false);
+                                removeSelectedItemFromList(people);
+                            }
+                            else{
+                                people.setChecked(true);
+                                addSelectedItemToList(people);
+                            }
                         }
                     }
+
                     notifyDataSetChanged();
                 }
             });
 
             viewHolder.tvName.setText(""+ peopleModel.getFirst_name());
-            if (followers_following != null && followers_following.getFollower() != null) {
+            /*if (followers_following != null && followers_following.getFollower() != null) {
                 viewHolder.name.setText(followers_following.getFollower().getFirst_name() + " " +
                         followers_following.getFollower().getLast_name());
 
@@ -358,24 +401,16 @@ public class InviteToJoinActivity extends AppCompatActivity {
                         found = true;
                         viewHolder.rbButton.setChecked(true);
                     }
-
                 }
-
 
                 if(!found) {
                     viewHolder.rbButton.setChecked(false);
-
                 }
-
-
             }
 
             viewHolder.image_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
-
 
                     boolean found = false;
                         for (int i = 0; i < selectedList.size(); i++) {
@@ -398,9 +433,23 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
 
                 }
-            });
+            });*/
 
 
+        }
+
+
+
+        private void removePeople(PeopleModel peopleModel){
+
+            if(filteredData != null && filteredData.size()>0){
+                for(int i=0;i<filteredData.size();i++){
+                    if(filteredData.get(i).getId().equalsIgnoreCase(peopleModel.getId())){
+                        filteredData.get(i).setChecked(false);
+                    }
+                }
+            }
+            notifyDataSetChanged();
         }
 
         public FollowersModel getItem(int position) {
@@ -454,9 +503,60 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
     }
 
+    private void addSelectedItemToList(PeopleModel people) {
+
+        if(selectedModels == null) return;
+        selectedModels.add(people);
+        handleSelectedAdapter();
+        horizontalCustomAdapter.notifyItemInserted(horizontalCustomAdapter.getItemCount()-1);
+        if(horizontalCustomAdapter.getItemCount() > 1) rcSelectedItems.scrollToPosition(selectedModels.size()-1);
+    }
+
+    private void removeSelectedItemFromList(PeopleModel people) {
+
+        if(selectedModels == null) return;
+
+        if(selectedModels.size() > 0){
+            for(int i=0;i<selectedModels.size();i++){
+                if(selectedModels.get(i).getId().equalsIgnoreCase(people.getId())){
+
+                    Log.v(TAG,"Pos : "+ i +", name : "+ selectedModels.get(i).getFirst_name());
+                    selectedModels.remove(i);
+                    horizontalCustomAdapter.notifyItemRemoved(i);
+                    break;
+                }
+            }
+        }
+
+        if(peopleModels.size() > 0){
+            for(int i=0;i<peopleModels.size();i++){
+                if(peopleModels.get(i).getId().equalsIgnoreCase(people.getId())){
+                    peopleModels.get(i).setChecked(false);
+                    break;
+                }
+            }
+        }
+
+        adapter.removePeople(people);
+        handleSelectedAdapter();
+    }
+
+    private void handleSelectedAdapter(){
+
+        if(selectedModels.size() > 0){
+            tvSelection.setVisibility(View.GONE);
+            rcSelectedItems.setVisibility(View.VISIBLE);
+        }
+        else{
+            tvSelection.setVisibility(View.VISIBLE);
+            rcSelectedItems.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        if(horizontalCustomAdapter != null) horizontalCustomAdapter.notifyDataSetChanged();
         if(adapter != null) adapter.notifyDataSetChanged();
     }
 
@@ -464,24 +564,57 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
         RoundedImageView image_view;
         CustomTextView name;
-
         RelativeLayout rlContainer;
-        RadioButton rbButton;
+        ImageView rbButton;
         TextView tvName;
 
         public ViewHolder(final View v) {
             super(v);
 
-            //  rbButton = (RadioButton)v.findViewById(R.id.rbButton);
             name = (CustomTextView) v.findViewById(R.id.text_view);
             image_view = (RoundedImageView) v.findViewById(R.id.image_view);
             tvName = (TextView) v.findViewById(R.id.tvName);
             rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
-            rbButton = (RadioButton) v.findViewById(R.id.rbButton);
-
-
+            rbButton = (ImageView) v.findViewById(R.id.rbButton);
         }
-
     }
 
+    private class HorizontalCustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+
+        List<PeopleModel> selectedList;
+
+        HorizontalCustomAdapter(List<PeopleModel> data){
+            this.selectedList = data ;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_selected_people, parent, false);
+  //asd
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+
+            final PeopleModel peopleModel = selectedList.get(position);
+            //Log.d(TAG, "Element " + position + " set." + peopleModel.isChecked());
+
+            viewHolder.tvName.setText(""+ peopleModel.getFirst_name());
+            viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.v(TAG,"size : "+selectedList.size() + ", removing: "+ position + ", peopleModel : "+ peopleModel.getFirst_name());
+                    removeSelectedItemFromList(peopleModel);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return selectedList.size();
+        }
+    }
 }

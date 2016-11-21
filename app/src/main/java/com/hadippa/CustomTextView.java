@@ -34,7 +34,13 @@ public class CustomTextView extends AppCompatTextView {
             TypedArray typedArray = context.obtainStyledAttributes(attributeSet,R.styleable.CustomTextView,0,0);
             try{
                 String customFont = typedArray.getString(R.styleable.CustomTextView_customFont);
-                setTypeface(Typeface.createFromAsset(context.getApplicationContext().getAssets(), customFont));
+                if(customFont != null && !customFont.isEmpty()){
+                    setTypeface(Typeface.createFromAsset(context.getAssets(), customFont));
+                }
+                else{
+                    setTypeface(Typeface.createFromAsset(context.getAssets(), context.getString(R.string.proxima_reg)));
+                }
+
             }
             catch (Exception e){
                 e.printStackTrace();

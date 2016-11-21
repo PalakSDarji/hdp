@@ -23,7 +23,7 @@
                      android:topRightRadius="@dimen/value_5"/>
         </shape>
     </item>
-    <item >
+    <item>
         <shape android:shape="rectangle">
             <stroke android:width="@dimen/value_2" android:color="@color/white"/>
             <solid android:color="#fff"/>

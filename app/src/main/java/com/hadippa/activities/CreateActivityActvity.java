@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -62,9 +63,12 @@ public class CreateActivityActvity extends AppCompatActivity {
 
 
     String hide_from = "public", notification = "1";
-
+/*
     @BindView(R.id.toggle2)
-    ToggleButton toggle2;
+    ToggleButton toggle2;*/
+
+    @BindView(R.id.switchCompat)
+    SwitchCompat switchCompat;
 
     @BindView(R.id.profileImage)
     RoundedImageView profileImage;
@@ -117,11 +121,11 @@ public class CreateActivityActvity extends AppCompatActivity {
     LinearLayout llPublic;
 
     @BindView(R.id.radio0)
-    RadioButton radio0;
+    ImageView radio0;
     @BindView(R.id.radio1)
-    RadioButton radio1;
+    ImageView radio1;
     @BindView(R.id.radio2)
-    RadioButton radio2;
+    ImageView radio2;
 
     @BindView(R.id.tvVisitingDate)
     TextView tvVisitingDate;
@@ -330,6 +334,7 @@ public class CreateActivityActvity extends AppCompatActivity {
                 Intent intent = new Intent(CreateActivityActvity.this, InviteToJoinActivity.class);
                 intent.putExtra("selectedId", selectedList);
                 startActivityForResult(intent, 551);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -344,31 +349,31 @@ public class CreateActivityActvity extends AppCompatActivity {
             public void onClick(View v) {
 
                 hide_from = "public and following";
-                radio0.setChecked(true);
-                radio1.setChecked(false);
-                radio2.setChecked(false);
+                radio0.setSelected(true);
+                radio1.setSelected(false);
+                radio2.setSelected(false);
             }
         });
 
         llFollowing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 hide_from = "following";
-                radio0.setChecked(false);
-                radio1.setChecked(true);
-                radio2.setChecked(false);
+                radio0.setSelected(false);
+                radio1.setSelected(true);
+                radio2.setSelected(false);
             }
         });
 
         llPublic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 hide_from = "public";
-                radio0.setChecked(false);
-                radio1.setChecked(false);
-                radio2.setChecked(true);
+                radio0.setSelected(false);
+                radio1.setSelected(false);
+                radio2.setSelected(true);
             }
         });
 
-        toggle2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 

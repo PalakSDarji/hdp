@@ -8,10 +8,12 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -52,16 +54,20 @@ public class EventDetailsActivity extends AppCompatActivity {
                     //    30    31
                     "th", "st" };
     String hide_from = "public", notification = "1";
-
+/*
     @BindView(R.id.toggle2)
-    ToggleButton toggle2;
+    ToggleButton toggle2;*/
+
+    @BindView(R.id.switchCompat)
+    SwitchCompat switchCompat;
     @BindView(R.id.llPublicAndFollowing) LinearLayout llPublicAndFollowing;
     @BindView(R.id.llFollowing) LinearLayout llFollowing;
     @BindView(R.id.llPublic) LinearLayout llPublic;
 
-    @BindView(R.id.radio0) RadioButton radio0;
-    @BindView(R.id.radio1) RadioButton radio1;
-    @BindView(R.id.radio2) RadioButton radio2;
+    @BindView(R.id.radio0)
+    ImageView radio0;
+    @BindView(R.id.radio1) ImageView radio1;
+    @BindView(R.id.radio2) ImageView radio2;
 
     @BindView(R.id.tvVisitingDate) TextView tvVisitingDate;
     @BindView(R.id.tvVisitingTime) TextView tvVisitingTime;
@@ -73,10 +79,10 @@ public class EventDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tvAddress) TextView tvAddress;
     
     @BindView(R.id.tvAvailableTill)
-    TextView tvAvailableTill;
+    TextView tvAvailableTill;/*
 
     @BindView(R.id.profileImage)
-    RoundedImageView profileImage;
+    RoundedImageView profileImage;*/
     
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog, timePickerDialog1;
@@ -106,7 +112,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 (dataBean.getLatitude()),
                 (dataBean.getLongitude())) + " kms");
 
-        if(dataBean.getBannerPath().isEmpty() || dataBean.getBannerPath().equals("")){
+        /*if(dataBean.getBannerPath().isEmpty() || dataBean.getBannerPath().equals("")){
 
             profileImage.setImageResource(R.drawable.place_holder);
         }else {
@@ -116,7 +122,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     .error(R.drawable.place_holder)
                     .placeholder(R.drawable.place_holder)
                     .into(profileImage);
-        }
+        }*/
 
 
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
@@ -133,6 +139,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(EventDetailsActivity.this, InviteToJoinActivity.class);
                 intent.putExtra("selectedId",selectedList);
                 startActivityForResult(intent,555);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -148,31 +155,31 @@ public class EventDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 hide_from = "public and following";
-                radio0.setChecked(true);
-                radio1.setChecked(false);
-                radio2.setChecked(false);
+                radio0.setSelected(true);
+                radio1.setSelected(false);
+                radio2.setSelected(false);
             }
         });
 
         llFollowing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 hide_from = "following";
-                radio0.setChecked(false);
-                radio1.setChecked(true);
-                radio2.setChecked(false);
+                radio0.setSelected(false);
+                radio1.setSelected(true);
+                radio2.setSelected(false);
             }
         });
 
         llPublic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 hide_from = "public";
-                radio0.setChecked(false);
-                radio1.setChecked(false);
-                radio2.setChecked(true);
+                radio0.setSelected(false);
+                radio1.setSelected(false);
+                radio2.setSelected(true);
             }
         });
 
-        toggle2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 

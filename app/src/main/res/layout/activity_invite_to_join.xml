@@ -30,8 +30,8 @@
         <com.hadippa.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/imageBack"
             android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageBack"
             android:text="@string/invite_to_join_you"
             android:textColor="@color/white"
             android:textSize="@dimen/values_txt_16"
@@ -40,20 +40,51 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rlSelectionContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top">
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvSelection"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/value_h160"
+            android:gravity="center"
+            android:text="Invited people will be appeared here."
+            android:textColor="@color/subText"
+            android:textSize="@dimen/values_txt_14"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcSelectedItems"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/value_h160"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/vSep"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/c_efefef"
+        android:layout_below="@+id/rlSelectionContainer"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top"
+        android:layout_below="@+id/vSep"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/value_h13"
             android:layout_marginLeft="@dimen/value_w26"
             android:layout_marginRight="@dimen/value_w26"
             android:layout_marginTop="@dimen/value_h27"
             android:background="@drawable/rounded_edittext_search"
+            android:paddingLeft="@dimen/value_h13"
+            android:paddingRight="@dimen/value_h13"
             >
 
             <ImageView
@@ -69,28 +100,34 @@
             <com.hadippa.CustomEditText
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
-                app:customFont="@string/proxima_reg"
-                android:background="@android:color/transparent"
-                android:hint="@string/search"
-                android:textSize="@dimen/values_txt_11"
-                android:layout_toRightOf="@+id/imageSearch"
-                android:textColor="@color/c_a19fa0"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/value_w5"
                 android:layout_marginRight="@dimen/value_w5"
-                android:layout_height="wrap_content"/>
+                android:layout_toRightOf="@+id/imageSearch"
+                android:background="@android:color/transparent"
+                android:hint="@string/search"
+                android:padding="@dimen/value_h13"
+                android:maxLines="1"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/c_a19fa0"
+                android:textSize="@dimen/values_txt_14"
+                app:customFont="@string/proxima_reg"/>
 
         </RelativeLayout>
 
         <com.hadippa.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/c_454545"
-            app:customFont="@string/proxima_reg"
-            android:textSize="@dimen/values_txt_11"
-            android:layout_marginLeft="@dimen/value_w36"
             android:layout_marginBottom="@dimen/value_10"
+            android:layout_marginLeft="@dimen/value_w36"
             android:layout_marginTop="@dimen/value_h38"
-            android:text="@string/following"/>
+            android:text="@string/following"
+            android:textColor="@color/c_454545"
+            android:textSize="@dimen/values_txt_11"
+            app:customFont="@string/proxima_reg"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/myRecycler"

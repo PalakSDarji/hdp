@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/invite_checked" android:state_pressed="true"/>
+  <!--  <item android:drawable="@drawable/invite_checked" android:state_pressed="true"/>
     <item android:drawable="@drawable/invite_unchecked" android:state_pressed="false"/>
-    <item android:drawable="@drawable/invite_unchecked"/>
+    <item android:drawable="@drawable/invite_unchecked"/>-->
+
+    <!-- Color when the row is selected -->
+    <item android:drawable="@drawable/invite_checked" android:state_pressed="false" android:state_selected="true" />
+    <!-- Standard background color -->
+    <item android:drawable="@drawable/invite_unchecked" android:state_selected="false" />
 
 </selector>

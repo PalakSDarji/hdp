@@ -2,23 +2,27 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:id="@+id/rlContainer"
     android:clickable="true"
-    android:padding="@dimen/value_w17">
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
-    <RadioButton
+    <ImageView
         android:id="@+id/rbButton"
-        android:layout_width="@dimen/value_w40"
-        android:layout_height="@dimen/value_w40"
+        android:layout_width="@dimen/value_w50"
+        android:layout_height="@dimen/value_w50"
         style="@style/radio_style"
         android:background="@drawable/bg_invite_check"
         android:button="@android:color/transparent"
         android:layout_centerVertical="true"/>
 
-    <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/image_view"
         android:layout_width="@dimen/value_w85"
         android:layout_height="@dimen/value_w85"

@@ -548,12 +548,12 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                     (postBeanList.get(position).getLongitude())) + " kms");
 
             if(postBeanList.get(position).getBannerPath().isEmpty() || postBeanList.get(position).getBannerPath().equals("")){
-                holder.profileImage.setImageResource(R.drawable.place_holder);
+                holder.profileImage.setImageResource(R.drawable.bg_item_above);
             }else {
                 requestManager
                         .load(postBeanList.get(position).getBannerPath())
-                        .error(R.drawable.place_holder)
-                        .placeholder(R.drawable.place_holder)
+                        .error(R.drawable.bg_item_above)
+                        .placeholder(R.drawable.bg_item_above)
                         .into(holder.profileImage);
             }
         }

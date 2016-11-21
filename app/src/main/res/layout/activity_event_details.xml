@@ -80,7 +80,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
+<!--
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/profileImage"
                     android:layout_width="match_parent"
@@ -91,10 +91,12 @@
                     android:src="@drawable/foof"
                     android:padding="2dp"
                     app:riv_corner_radius="9dp"/>
+                -->
                 <android.support.v4.view.ViewPager
                     android:id="@+id/vpSlider"
                     android:layout_width="match_parent"
                     android:visibility="gone"
+                    android:background="@color/c_efefef"
                     android:layout_height="@dimen/value_h290">
 
                 </android.support.v4.view.ViewPager>
@@ -426,6 +428,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@+id/tvAvailableTill"
+                    android:layout_alignLeft="@+id/tvAvailableTill"
+                    android:layout_alignRight="@+id/tvAvailableTill"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:layout_marginTop="3dp"
@@ -491,11 +495,11 @@
                     android:layout_marginRight="@dimen/value_5"
                     android:orientation="horizontal">
 
-                    <RadioButton
+                    <ImageView
                         android:id="@+id/radio0"
                         style="@style/radio_style"
-                        android:layout_width="@dimen/value_w26"
-                        android:layout_height="@dimen/value_w26"
+                        android:layout_width="@dimen/value_w36"
+                        android:layout_height="@dimen/value_w36"
                         android:clickable="false"
                         android:background="@drawable/custom_radio"
                         android:button="@android:color/transparent"
@@ -523,11 +527,11 @@
                     android:paddingBottom="@dimen/value_h15"
                     android:orientation="horizontal">
 
-                    <RadioButton
+                    <ImageView
                         android:id="@+id/radio1"
-                        android:layout_width="@dimen/value_w26"
+                        android:layout_width="@dimen/value_w36"
                         android:clickable="false"
-                        android:layout_height="@dimen/value_w26"
+                        android:layout_height="@dimen/value_w36"
                         android:layout_marginLeft="@dimen/value_w17"
                         android:background="@drawable/custom_radio"
                         android:button="@android:color/transparent"
@@ -555,10 +559,10 @@
                     android:paddingBottom="@dimen/value_h15"
                     android:orientation="horizontal">
 
-                    <RadioButton
+                    <ImageView
                         android:id="@+id/radio2"
-                        android:layout_width="@dimen/value_w26"
-                        android:layout_height="@dimen/value_w26"
+                        android:layout_width="@dimen/value_w36"
+                        android:layout_height="@dimen/value_w36"
                         android:clickable="false"
                         android:layout_marginLeft="@dimen/value_w17"
                         android:background="@drawable/custom_radio"
@@ -595,7 +599,20 @@
                     android:textSize="@dimen/values_txt_14"
                     app:customFont="@string/proxima_reg"/>
 
-                <ToggleButton
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switchCompat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:backgroundTint="@color/follow_color"
+                    android:buttonTint="@color/follow_color"
+                    android:checked="true"
+                    android:theme="@style/switchStyle"
+                    app:theme="@style/switchStyle"
+                    android:textColor="@color/pref_sub_text"/>
+
+                <!--<ToggleButton
                     android:id="@+id/toggle2"
                     android:layout_width="@dimen/value_w105"
                     android:layout_height="@dimen/value_h42"
@@ -605,7 +622,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/toggle_selector"
                     android:layout_alignParentRight="true"
-                    />
+                    />-->
 
 
             </RelativeLayout>
