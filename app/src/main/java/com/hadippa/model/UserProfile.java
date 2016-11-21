@@ -7,11 +7,9 @@ import java.io.Serializable;
  */
 
 public class UserProfile implements Serializable {
-
-
     /**
      * success : true
-     * user : {"id":3,"first_name":"Aarya","last_name":"Vora","username":"aaryavora","email":"aaryavora@gmail.com","gender":"female","dob":30,"company":"","occupation":"","about_me":"","interested_in":"male","zodiac":"","lanuage_known":"","city":"","age_range_from":18,"age_range_to":99,"fb_id":10207344382830461,"mobile":9819151843,"mobile_verified":1,"mobile_verification_code":0,"email_verified":0,"email_verification_code":"","password_change_verification_code":"","profile_photo":"https://scontent.fbom1-2.fna.fbcdn.net/v/t1.0-9/13501835_1262854777088513_6208341510195698306_n.jpg?oh=b93ae480f4f4527611762f0254e01508&oe=57F2330B","photo_uploaded":0,"active":1,"private_account":0,"current_lat":35.12497,"current_lon":117.13833,"radius":3,"registration_complete":3,"device_token":"","device_type":"","device_id":"","device_os_version":"","created_at":"2015-09-10 21:58:27","updated_at":"2015-09-10 21:58:27"}
+     * user : {"id":219,"first_name":"sahil","last_name":"desai","username":"sahil123@gmail.com","email":"sahil123@gmail.com","gender":"male","dob":"1992-11-21","company":"Baroda Coders","occupation":"Developer","about_me":"","interested_in":"female","zodiac":"Aries","lanuage_known":"English Hindi Gujarati Arabic Urdu","city":"Vadodara","age_range_from":18,"age_range_to":99,"fb_id":0,"mobile":7878345761,"mobile_verified":1,"mobile_verification_code":0,"email_verified":0,"email_verification_code":"","password_change_verification_code":"","profile_photo":"default.jpg","photo_uploaded":1,"active":1,"private_account":0,"current_lat":0,"current_lon":0,"radius":100,"registration_complete":3,"device_token":"APA91bFxsFbX3wbZ9HqtgfNbCBSHnf6Xc0kbS-FgA9KfnlpXIFSUpx1_ja01Ac-4flFqNxOw2_ry71kjyR889VYA4bfa2DZWB6fBTGfvOWmfGy7mvUwfTAQ","device_type":"android","device_id":"88baca3a5682275d","device_os_version":"23","created_at":"2016-11-12 21:39:29","updated_at":"2016-11-21 20:59:08","age":24}
      */
 
     private boolean success;
@@ -35,43 +33,44 @@ public class UserProfile implements Serializable {
 
     public static class UserBean implements Serializable {
         /**
-         * id : 3
-         * first_name : Aarya
-         * last_name : Vora
-         * username : aaryavora
-         * email : aaryavora@gmail.com
-         * gender : female
-         * dob : 30
-         * company :
-         * occupation :
+         * id : 219
+         * first_name : sahil
+         * last_name : desai
+         * username : sahil123@gmail.com
+         * email : sahil123@gmail.com
+         * gender : male
+         * dob : 1992-11-21
+         * company : Baroda Coders
+         * occupation : Developer
          * about_me :
-         * interested_in : male
-         * zodiac :
-         * lanuage_known :
-         * city :
+         * interested_in : female
+         * zodiac : Aries
+         * lanuage_known : English Hindi Gujarati Arabic Urdu
+         * city : Vadodara
          * age_range_from : 18
          * age_range_to : 99
-         * fb_id : 10207344382830461
-         * mobile : 9819151843
+         * fb_id : 0
+         * mobile : 7878345761
          * mobile_verified : 1
          * mobile_verification_code : 0
          * email_verified : 0
          * email_verification_code :
          * password_change_verification_code :
-         * profile_photo : https://scontent.fbom1-2.fna.fbcdn.net/v/t1.0-9/13501835_1262854777088513_6208341510195698306_n.jpg?oh=b93ae480f4f4527611762f0254e01508&oe=57F2330B
-         * photo_uploaded : 0
+         * profile_photo : default.jpg
+         * photo_uploaded : 1
          * active : 1
          * private_account : 0
-         * current_lat : 35.12497
-         * current_lon : 117.13833
-         * radius : 3
+         * current_lat : 0
+         * current_lon : 0
+         * radius : 100
          * registration_complete : 3
-         * device_token :
-         * device_type :
-         * device_id :
-         * device_os_version :
-         * created_at : 2015-09-10 21:58:27
-         * updated_at : 2015-09-10 21:58:27
+         * device_token : APA91bFxsFbX3wbZ9HqtgfNbCBSHnf6Xc0kbS-FgA9KfnlpXIFSUpx1_ja01Ac-4flFqNxOw2_ry71kjyR889VYA4bfa2DZWB6fBTGfvOWmfGy7mvUwfTAQ
+         * device_type : android
+         * device_id : 88baca3a5682275d
+         * device_os_version : 23
+         * created_at : 2016-11-12 21:39:29
+         * updated_at : 2016-11-21 20:59:08
+         * age : 24
          */
 
         private int id;
@@ -80,7 +79,7 @@ public class UserProfile implements Serializable {
         private String username;
         private String email;
         private String gender;
-        private int dob;
+        private String dob;
         private String company;
         private String occupation;
         private String about_me;
@@ -90,7 +89,7 @@ public class UserProfile implements Serializable {
         private String city;
         private int age_range_from;
         private int age_range_to;
-        private long fb_id;
+        private int fb_id;
         private long mobile;
         private int mobile_verified;
         private int mobile_verification_code;
@@ -101,8 +100,8 @@ public class UserProfile implements Serializable {
         private int photo_uploaded;
         private int active;
         private int private_account;
-        private double current_lat;
-        private double current_lon;
+        private int current_lat;
+        private int current_lon;
         private int radius;
         private int registration_complete;
         private String device_token;
@@ -111,6 +110,7 @@ public class UserProfile implements Serializable {
         private String device_os_version;
         private String created_at;
         private String updated_at;
+        private int age;
 
         public int getId() {
             return id;
@@ -160,11 +160,11 @@ public class UserProfile implements Serializable {
             this.gender = gender;
         }
 
-        public int getDob() {
+        public String getDob() {
             return dob;
         }
 
-        public void setDob(int dob) {
+        public void setDob(String dob) {
             this.dob = dob;
         }
 
@@ -240,11 +240,11 @@ public class UserProfile implements Serializable {
             this.age_range_to = age_range_to;
         }
 
-        public long getFb_id() {
+        public int getFb_id() {
             return fb_id;
         }
 
-        public void setFb_id(long fb_id) {
+        public void setFb_id(int fb_id) {
             this.fb_id = fb_id;
         }
 
@@ -328,19 +328,19 @@ public class UserProfile implements Serializable {
             this.private_account = private_account;
         }
 
-        public double getCurrent_lat() {
+        public int getCurrent_lat() {
             return current_lat;
         }
 
-        public void setCurrent_lat(double current_lat) {
+        public void setCurrent_lat(int current_lat) {
             this.current_lat = current_lat;
         }
 
-        public double getCurrent_lon() {
+        public int getCurrent_lon() {
             return current_lon;
         }
 
-        public void setCurrent_lon(double current_lon) {
+        public void setCurrent_lon(int current_lon) {
             this.current_lon = current_lon;
         }
 
@@ -407,5 +407,21 @@ public class UserProfile implements Serializable {
         public void setUpdated_at(String updated_at) {
             this.updated_at = updated_at;
         }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
     }
+
+
+    /**
+     * success : true
+     * user : {"id":3,"first_name":"Aarya","last_name":"Vora","username":"aaryavora","email":"aaryavora@gmail.com","gender":"female","dob":30,"company":"","occupation":"","about_me":"","interested_in":"male","zodiac":"","lanuage_known":"","city":"","age_range_from":18,"age_range_to":99,"fb_id":10207344382830461,"mobile":9819151843,"mobile_verified":1,"mobile_verification_code":0,"email_verified":0,"email_verification_code":"","password_change_verification_code":"","profile_photo":"https://scontent.fbom1-2.fna.fbcdn.net/v/t1.0-9/13501835_1262854777088513_6208341510195698306_n.jpg?oh=b93ae480f4f4527611762f0254e01508&oe=57F2330B","photo_uploaded":0,"active":1,"private_account":0,"current_lat":35.12497,"current_lon":117.13833,"radius":3,"registration_complete":3,"device_token":"","device_type":"","device_id":"","device_os_version":"","created_at":"2015-09-10 21:58:27","updated_at":"2015-09-10 21:58:27"}
+     */
+
+
 }

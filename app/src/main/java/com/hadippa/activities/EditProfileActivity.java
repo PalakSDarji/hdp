@@ -65,18 +65,21 @@ public class EditProfileActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
 
     String gender = "male";
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         ButterKnife.bind(this);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(EditProfileActivity.this);
+        editor = sharedPreferences.edit();
         userBean = (UserProfile.UserBean) getIntent().getSerializableExtra("data");
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+               onBackPressed();
             }
         });
 
@@ -125,9 +128,20 @@ public class EditProfileActivity extends AppCompatActivity {
 
         try {
 
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(EditProfileActivity.this);
+            String firstname = "";
+            String lastname = "";
+            if(etName.getText().toString().contains(" ")){
+                firstname = etName.getText().toString().split(" ")[0];
+                lastname = etName.getText().toString().split(" ")[1];
+            }else{
+                firstname = etName.getText().toString();
+                lastname = "";
+            }
+
             requestParams.add("access_token", sharedPreferences.getString("access_token", ""));
             requestParams.add("id", String.valueOf(userBean.getId()));
+            requestParams.add("first_name", firstname);
+            requestParams.add("last_name", lastname);
             requestParams.add("occupation", etOccupation.getText().toString());
             requestParams.add("company", etCompany.getText().toString());
             requestParams.add("city", etLiveIn.getText().toString());
@@ -182,15 +196,18 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 if(jsonObject.getBoolean("success")){
 
-                  /*  Gson gson = new Gson();
+                    editor.putString("userData",jsonObject.getJSONObject("user").toString());
+                    editor.commit();
+
+
+                    Gson gson = new Gson();
                     UserProfile userProfile = gson.fromJson(response,UserProfile.class);
-*/
-                   /* Intent resultIntent = new Intent();
+
+                    Intent resultIntent = new Intent();
                     resultIntent.putExtra("data", userProfile.getUser());
-                    setResult(Activity.RESULT_OK, resultIntent);*/
+                    setResult(Activity.RESULT_OK, resultIntent);
                     finish();
                     overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
-
                 }else{
                     Toast.makeText(EditProfileActivity.this,"Failed Update",Toast.LENGTH_SHORT).show();
                 }
@@ -246,5 +263,14 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
 
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("data", userBean);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+
+    }
 }
