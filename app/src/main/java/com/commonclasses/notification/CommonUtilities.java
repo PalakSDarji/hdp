@@ -8,11 +8,8 @@ import android.util.Log;
  * Created by Android on 17-05-2015.
  */
 public class CommonUtilities {
- //  static final String SERVER_URL = "http://www.yelow.in/api/tempUserLogin.php";
 
  static final String SERVER_URL = "http://infinitekitchen.barodacoders.com/Api_infinite_kitchen/login_by_thirdparty";
-
-  // static final String SERVER_URL = "http://192.168.2.3/developer/Airtask/api/login.php";
 
     // Google project id
     static final String SENDER_ID = "1091219618361";

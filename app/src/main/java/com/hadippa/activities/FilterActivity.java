@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.facebook.FacebookRequestError;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.hadippa.activities.filter.TravelActivityFitler;
 import com.hadippa.model.FilterModel;
 
 import org.apmem.tools.layouts.FlowLayout;
@@ -213,7 +214,11 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.tvAirplane:
 
-                changeTransport(tvAirplane);
+                Intent intent1 = new Intent(FilterActivity.this, TravelActivityFitler.class);
+                intent1.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                intent1.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_FLIGHT);
+                startActivityForResult(intent1,AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
 /*
@@ -227,13 +232,21 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.tvTrain:
 
-                changeTransport(tvTrain);
+                Intent intent = new Intent(FilterActivity.this, TravelActivityFitler.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_TRAIN);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
 
             case R.id.tvBus:
 
-                changeTransport(tvBus);
+                Intent intent2 = new Intent(FilterActivity.this, TravelActivityFitler.class);
+                intent2.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                intent2.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_BUS);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
 
@@ -425,5 +438,33 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
         finish();
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            if(requestCode == AppConstants.ACTIVITY_TRAVEL_SCHEDULE){
+
+                if(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_FLIGHT){
+                    changeTransport(tvAirplane);
+                }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_BUS){
+                    changeTransport(tvBus);
+                }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_TRAIN){
+                    changeTransport(tvTrain);
+                }
+
+                Intent intent = new Intent(FilterActivity.this,FilterChooserActivity.class);
+                intent.putExtra("activity",data.getExtras().getString(AppConstants.TRAVEL_FROM_KEY)+" to "+data.getExtras().getString(AppConstants.TRAVEL_TO_KEY));
+                intent.putExtra("activity_to",data.getExtras().getString(AppConstants.TRAVEL_TO_KEY));
+                intent.putExtra("activity_from",data.getExtras().getString(AppConstants.TRAVEL_FROM_KEY));
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_out_left,R.anim.slide_in_right);
+            }
+        }else{
+
+        }
     }
 }

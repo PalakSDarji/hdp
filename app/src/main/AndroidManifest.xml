@@ -218,6 +218,10 @@
         <activity
             android:name=".activities.EventDetailsActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activities.filter.TravelActivityFitler"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

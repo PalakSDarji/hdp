@@ -77,8 +77,9 @@
                 android:scrollbars="none">
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <com.hadippa.CustomTextView
@@ -100,6 +101,7 @@
 
                     <com.hadippa.CustomTextView
                         android:id="@+id/tvCar"
+                        android:visibility="gone"
                         style="@style/activity_name"
                         android:layout_width="wrap_content"
                         android:clickable="true"
@@ -202,7 +204,7 @@
                     android:textSize="@dimen/values_txt_12"
                     app:customFont="@string/proxima_reg"/>
 
-                <com.hadippa.CustomEditText
+                <AutoCompleteTextView
                     android:id="@+id/etFrom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -215,7 +217,7 @@
                     android:text="Mumbai"
                     android:textColor="@color/c_454545"
                     android:textSize="@dimen/values_txt_16"
-                    app:customFont="@string/proxima_bold"/>
+                    />
 
                 <View
                     android:layout_width="match_parent"
@@ -240,6 +242,7 @@
                         app:customFont="@string/proxima_reg"/>
 
                     <ImageView
+                        android:id="@+id/shuffleplace"
                         android:layout_width="@dimen/value_w56"
                         android:layout_height="@dimen/value_h48"
                         android:layout_alignParentRight="true"
@@ -247,7 +250,7 @@
 
                 </RelativeLayout>
 
-                <com.hadippa.CustomEditText
+                <AutoCompleteTextView
                     android:id="@+id/etTo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -260,7 +263,7 @@
                     android:text="Delhi"
                     android:textColor="@color/c_454545"
                     android:textSize="@dimen/values_txt_16"
-                    app:customFont="@string/proxima_bold"/>
+                   />
 
                 <View
                     android:layout_width="match_parent"
