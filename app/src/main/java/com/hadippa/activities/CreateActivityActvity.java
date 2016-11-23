@@ -110,8 +110,10 @@ public class CreateActivityActvity extends AppCompatActivity {
     @BindView(R.id.tvNotify)
     TextView tvNotify;
 
-    @BindView(R.id.etActivityName) EditText etActivityName;
-    @BindView(R.id.etAddress) EditText etAddress;
+    @BindView(R.id.etActivityName)
+    EditText etActivityName;
+    @BindView(R.id.etAddress)
+    EditText etAddress;
 
     @BindView(R.id.llPublicAndFollowing)
     LinearLayout llPublicAndFollowing;
@@ -154,7 +156,10 @@ public class CreateActivityActvity extends AppCompatActivity {
     View vSepAddress;
     @BindView(R.id.ivArrow)
     ImageView ivArrow;
-    @BindView(R.id.ivLocation) ImageView ivLocation;
+    @BindView(R.id.ivLocation)
+    ImageView ivLocation;
+
+    NightCLubModel.ResponseBean.RestaurantsBean restaurantsBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +180,7 @@ public class CreateActivityActvity extends AppCompatActivity {
                 activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
 
 
-            NightCLubModel.ResponseBean.RestaurantsBean restaurantsBean =
+            restaurantsBean =
                     (NightCLubModel.ResponseBean.RestaurantsBean) getIntent().getExtras().getSerializable("data");
 
             address.setText(restaurantsBean.getRestaurant().getLocation().getAddress());
@@ -205,7 +210,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisTime.setText(getResources().getString(R.string.select_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
             ivArrow.setVisibility(View.GONE);
-        }else if (activityKey == AppConstants.ACTIVITY_CREATE_ACTIVITY) {
+        } else if (activityKey == AppConstants.ACTIVITY_CREATE_ACTIVITY) {
 
             tvHeader.setText(getResources().getString(R.string.create_activity));
             cvVisitingCard.setVisibility(View.GONE);
@@ -557,6 +562,14 @@ public class CreateActivityActvity extends AppCompatActivity {
                 requestParams.add("available_till", tvVisitingDate.getText().toString() + " " + tvAvailableTill.getText().toString());
             }
 
+            if (activityKey == AppConstants.ACTIVITY_FROM_COFFEE ||
+                    activityKey == AppConstants.ACTIVITY_LOUNGE ||
+                    activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
+                requestParams.add("activity_id", String.valueOf(restaurantsBean.getRestaurant().getId()));
+
+            } else {
+                requestParams.add("activity_id", "0");
+            }
             requestParams.add("notification", notification);
             requestParams.add("hide_from", hide_from);
             requestParams.add("invite_list", selectedList.toString().replace("[", "").replace("]", ""));

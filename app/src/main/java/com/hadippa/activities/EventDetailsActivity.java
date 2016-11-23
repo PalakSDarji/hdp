@@ -90,6 +90,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     private SimpleDateFormat dateFormatter;
 
     ArrayList<String> selectedList = new ArrayList<>();
+    MeraEventPartyModel.DataBean dataBean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +101,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         dateFormatter = new SimpleDateFormat("MMM", Locale.US);
 
-        MeraEventPartyModel.DataBean dataBean =
+        dataBean =
                 (MeraEventPartyModel.DataBean) getIntent().getExtras().getSerializable("data");
 
         tvPrice.setText(dataBean.getTicket_currencyCode()+" "+dataBean.getTicket_price());
@@ -342,6 +343,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 requestParams.add("available_till", tvVisitingDate.getText().toString() + " " +tvAvailableTill.getText().toString());
             }
 
+            requestParams.add("activity_id", String.valueOf(dataBean.getId()));
             requestParams.add("notification", notification);
 
             requestParams.add("invite_list", selectedList.toString().replace("[","").replace("]",""));
