@@ -7,17 +7,15 @@ import java.util.List;
  */
 
 public class ChooseDateModel {
-
-
     /**
      * success : true
-     * dates : [{"full_date":"2016-11-25","activity_date":"25","activity_month":"Nov","activity_day":"Fri","activity_type":"1"},{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"1"},{"full_date":"2016-11-24","activity_date":"24","activity_month":"Nov","activity_day":"Thu","activity_type":"12"},{"full_date":"2016-11-25","activity_date":"25","activity_month":"Nov","activity_day":"Fri","activity_type":"12"},{"full_date":"2016-11-23","activity_date":"23","activity_month":"Nov","activity_day":"Wed","activity_type":"3"},{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"4"},{"full_date":"2016-11-28","activity_date":"28","activity_month":"Nov","activity_day":"Mon","activity_type":"7"},{"full_date":"2016-11-23","activity_date":"23","activity_month":"Nov","activity_day":"Wed","activity_type":"8"},{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"8"},{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"8"},{"full_date":"2016-12-01","activity_date":"01","activity_month":"Dec","activity_day":"Thu","activity_type":"8"}]
+     * dates : [[{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"8"}],[{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"8"},{"full_date":"2016-12-01","activity_date":"01","activity_month":"Dec","activity_day":"Thu","activity_type":"8"}]]
      * next : null
      */
 
     private boolean success;
     private Object next;
-    private List<DatesBean> dates;
+    private List<List<DatesBean>> dates;
 
     public boolean isSuccess() {
         return success;
@@ -35,21 +33,21 @@ public class ChooseDateModel {
         this.next = next;
     }
 
-    public List<DatesBean> getDates() {
+    public List<List<DatesBean>> getDates() {
         return dates;
     }
 
-    public void setDates(List<DatesBean> dates) {
+    public void setDates(List<List<DatesBean>> dates) {
         this.dates = dates;
     }
 
     public static class DatesBean {
         /**
-         * full_date : 2016-11-25
-         * activity_date : 25
+         * full_date : 2016-11-30
+         * activity_date : 30
          * activity_month : Nov
-         * activity_day : Fri
-         * activity_type : 1
+         * activity_day : Wed
+         * activity_type : 8
          */
 
         private String full_date;
@@ -98,4 +96,13 @@ public class ChooseDateModel {
             this.activity_type = activity_type;
         }
     }
+
+
+    /**
+     * success : true
+     * dates : [{"full_date":"2016-11-25","activity_date":"25","activity_month":"Nov","activity_day":"Fri","activity_type":"1"},{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"1"},{"full_date":"2016-11-24","activity_date":"24","activity_month":"Nov","activity_day":"Thu","activity_type":"12"},{"full_date":"2016-11-25","activity_date":"25","activity_month":"Nov","activity_day":"Fri","activity_type":"12"},{"full_date":"2016-11-23","activity_date":"23","activity_month":"Nov","activity_day":"Wed","activity_type":"3"},{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"4"},{"full_date":"2016-11-28","activity_date":"28","activity_month":"Nov","activity_day":"Mon","activity_type":"7"},{"full_date":"2016-11-23","activity_date":"23","activity_month":"Nov","activity_day":"Wed","activity_type":"8"},{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"8"},{"full_date":"2016-11-30","activity_date":"30","activity_month":"Nov","activity_day":"Wed","activity_type":"8"},{"full_date":"2016-12-01","activity_date":"01","activity_month":"Dec","activity_day":"Thu","activity_type":"8"}]
+     * next : null
+     */
+
+
 }

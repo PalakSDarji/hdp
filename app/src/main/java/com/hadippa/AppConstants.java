@@ -41,6 +41,8 @@ public class AppConstants {
     //ACTIVITY
     public static final String ACTIVITY_TYPE = "/activities";
     public static final String CREATE_POST = "/post/create";
+    public static final String POST_FILTERS = "/posts/filters";
+    public static final String FETCH_POST = "/posts";
     public static final String ACTIVITY_REQUEST_JOIN = "/activity/request/join";
     public static final String ACTIVITY_REQUEST_DECLINE = "/activity/decline";
     public static final String ACTIVITY_OTHER_REQUEST_DECLINE = "/activity/request/decline";

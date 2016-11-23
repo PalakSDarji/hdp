@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookRequestError;
 import com.hadippa.AppConstants;
@@ -235,7 +236,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intent = new Intent(FilterActivity.this, TravelActivityFitler.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_TRAIN);
-                startActivity(intent);
+                startActivityForResult(intent,AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
@@ -245,7 +246,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intent2 = new Intent(FilterActivity.this, TravelActivityFitler.class);
                 intent2.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
                 intent2.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_BUS);
-                startActivity(intent2);
+                startActivityForResult(intent2,AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
@@ -457,7 +458,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 Intent intent = new Intent(FilterActivity.this,FilterChooserActivity.class);
-                intent.putExtra("activity",data.getExtras().getString(AppConstants.TRAVEL_FROM_KEY)+" to "+data.getExtras().getString(AppConstants.TRAVEL_TO_KEY));
+                intent.putExtra("activity_type",data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
+                intent.putExtra("activity_name",data.getExtras().getString(AppConstants.TRAVEL_FROM_KEY)+" To "+data.getExtras().getString(AppConstants.TRAVEL_TO_KEY));
                 intent.putExtra("activity_to",data.getExtras().getString(AppConstants.TRAVEL_TO_KEY));
                 intent.putExtra("activity_from",data.getExtras().getString(AppConstants.TRAVEL_FROM_KEY));
                 startActivity(intent);
@@ -465,6 +467,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             }
         }else{
 
+            Toast.makeText(FilterActivity.this,"Fail",Toast.LENGTH_SHORT).show();
         }
     }
 }

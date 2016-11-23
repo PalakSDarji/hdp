@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="14"
+            android:id="@+id/date"
             android:textColor="@color/c_433d3d"
             android:textSize="@dimen/values_txt_16"/>
 
@@ -38,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="June"
+                android:id="@+id/month"
                 android:textColor="@color/c_443e3e"
                 android:textSize="@dimen/values_txt_10"/>
 
@@ -46,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Mon"
+                android:id="@+id/day"
                 android:textColor="@color/c_443e3e"
                 android:textSize="@dimen/values_txt_10"/>
 
