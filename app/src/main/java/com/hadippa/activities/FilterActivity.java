@@ -19,23 +19,34 @@ import android.widget.Toast;
 
 import com.facebook.FacebookRequestError;
 import com.hadippa.AppConstants;
+import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.activities.filter.CoffeeActivityFilter;
+import com.hadippa.activities.filter.EventListActivityFilter;
 import com.hadippa.activities.filter.TravelActivityFitler;
 import com.hadippa.model.FilterModel;
 
 import org.apmem.tools.layouts.FlowLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FilterActivity extends AppCompatActivity implements View.OnClickListener
-        ,View.OnLongClickListener   {
+        , View.OnLongClickListener {
 
     TextView tvMovie, tvTheatrePlay, tvEvent, tvFestival, tvNightClub,
             tvLongue, tvParty, tvStandUpComedy, tvCoffee, tvAirplane, tvTrain, tvBus, tvAdventure, tvIndoor, tvOutdoor, tvHobby, tvOtherActivity;
     RecyclerView dateList;
     LayoutInflater inflater;
 
+    boolean hasTravel = false;
+    String traveFrom = "", travelTo = "";
+
     ImageView imageBack;
+
+    CustomTextView tvNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +57,32 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         dateList = (RecyclerView) findViewById(R.id.dateList);
         //flow_layout = (FlowLayout) findViewById(R.id.flow_layout);
 
-        imageBack = (ImageView)findViewById(R.id.imageBack);
+        tvNext = (CustomTextView) findViewById(R.id.tvNext);
+        tvNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(FilterActivity.this, FilterChooserActivity.class);
+
+                Log.d("activity_id>>??;;",activity_id.toString());
+                if (hasTravel) {
+                    intent.putExtra("hasTravel", true);
+
+                    intent.putExtra("activity_name", traveFrom + " To " + travelTo);
+                    intent.putExtra("activity_to", travelTo);
+                    intent.putExtra("activity_from", traveFrom);
+                } else {
+                    intent.putExtra("hasTravel", false);
+                }
+
+                intent.putExtra("activity_type", activityType);
+                intent.putExtra("activity_id", activity_id);
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
+            }
+        });
+        imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,14 +133,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         tvOtherActivity = (TextView) findViewById(R.id.tvOtherActivity);
         tvOtherActivity.setOnClickListener(this);
 
-        findViewById(R.id.tvNext).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(FilterActivity.this, FilterChooserActivity.class);
-                startActivity(intent1);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
+
         // TODO This code is to make activity list dynamic. Not needed now, but in case in future.
         /*filters.add(new FilterModel("Movie",R.color.pink,false));
         filters.add(new FilterModel("Theatre Play",R.color.pink,false));
@@ -162,111 +191,172 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
+        Intent intent;
+
         switch (v.getId()) {
+
             case R.id.tvMovie:
 
-                changeEntertainment(tvMovie);
+               // changeEntertainment(tvMovie);
+
+                intent = new Intent(FilterActivity.this, EntertainmentActivity.class);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_MOVIE);
+                startActivityForResult(intent,166);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
 
             case R.id.tvTheatrePlay:
 
-                changeEntertainment(tvTheatrePlay);
-
+//                changeEntertainment(tvTheatrePlay);
+                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_THEATER);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_THEATER);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent,166);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.tvEvent:
 
-                changeEntertainment(tvEvent);
-
+            //    changeEntertainment(tvEvent);
+                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_EVENT);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_EVENT);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent,166);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.tvFestival:
 
-                changeEntertainment(tvFestival);
+                //changeEntertainment(tvFestival);
+                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_FESTIVAL);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_FESTIVAL);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent,166);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
 
             case R.id.tvNightClub:
 
-                changeHotels(tvNightClub);
+                // changeHotels(tvNightClub);
+
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_NIGHTCLUB);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_NIGHTCLUB);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent, 110);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
 
             case R.id.tvLongue:
 
-                changeHotels(tvLongue);
-
-                break;
-            case R.id.tvParty:
-
-                changeHotels(tvParty);
-
-                break;
-            case R.id.tvStandUpComedy:
-
-                changeHotels(tvStandUpComedy);
+                //changeHotels(tvLongue);
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_LOUNGE);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_LOUNGE);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent, 110);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
             case R.id.tvCoffee:
 
-                changeCoffee(tvCoffee);
-
-                break;
-            case R.id.tvAirplane:
-
-                Intent intent1 = new Intent(FilterActivity.this, TravelActivityFitler.class);
-                intent1.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
-                intent1.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_FLIGHT);
-                startActivityForResult(intent1,AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
+                // changeCoffee(tvCoffee);
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_FROM_COFFEE);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_COFFEE);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent, 110);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
-/*
 
-            case R.id.tvCar:
+            case R.id.tvAirplane:
 
-                changeTransport(tvCar);
+                intent = new Intent(FilterActivity.this, TravelActivityFitler.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_FLIGHT);
+
+                startActivityForResult(intent, AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
-*/
 
             case R.id.tvTrain:
 
-                Intent intent = new Intent(FilterActivity.this, TravelActivityFitler.class);
+                intent = new Intent(FilterActivity.this, TravelActivityFitler.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_TRAIN);
-                startActivityForResult(intent,AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
+
+                startActivityForResult(intent, AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
 
             case R.id.tvBus:
 
-                Intent intent2 = new Intent(FilterActivity.this, TravelActivityFitler.class);
-                intent2.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
-                intent2.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_BUS);
-                startActivityForResult(intent2,AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
+                intent = new Intent(FilterActivity.this, TravelActivityFitler.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_BUS);
+
+                startActivityForResult(intent, AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                break;
+
+            case R.id.tvParty:
+
+             //   changeHotels(tvParty);
+                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_PARTY);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_PARTY);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent,166);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+            case R.id.tvStandUpComedy:
+
+               // changeHotels(tvStandUpComedy);
 
                 break;
 
             case R.id.tvAdventure:
 
-                changeSports(tvAdventure);
+               // changeSports(tvAdventure);
 
+                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_ADV_SPORTS);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_AVD_SPORTS);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent,166);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.tvIndoor:
 
-                changeSports(tvIndoor);
-
+              //  changeSports(tvIndoor);
+                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_INDOOR_SPORTS);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_INDOOR);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent,166);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.tvOutdoor:
 
-                changeSports(tvOutdoor);
-
+              //  changeSports(tvOutdoor);
+                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_OUTDOOR_SPORTS);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_OUTDOOR);
+                intent.putExtra("selectedList", activity_id);
+                startActivityForResult(intent,166);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.tvHobby:
@@ -285,13 +375,10 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-
-
     @Override
     public boolean onLongClick(View v) {
 
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.tvMovie:
 
                 Intent intent = new Intent(this, CategoryTab.class);
@@ -302,16 +389,16 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.tvAirplane:
 
                 Intent intent1 = new Intent(this, TravelActivity.class);
-                intent1.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                intent1.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
                 startActivity(intent1);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.tvBus:
 
-                Intent intent2 = new Intent(this, TravelActivity.class);
-                intent2.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
-                startActivity(intent2);
+                intent = new Intent(this, TravelActivity.class);
+                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 /*
@@ -328,7 +415,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.tvTrain:
 
                 Intent intent4 = new Intent(this, TravelActivity.class);
-                intent4.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
+                intent4.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
                 startActivity(intent4);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
@@ -446,28 +533,105 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK){
-            if(requestCode == AppConstants.ACTIVITY_TRAVEL_SCHEDULE){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
 
-                if(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_FLIGHT){
+                if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_FLIGHT) {
                     changeTransport(tvAirplane);
-                }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_BUS){
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_BUS) {
                     changeTransport(tvBus);
-                }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_TRAIN){
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_TRAIN) {
                     changeTransport(tvTrain);
                 }
 
-                Intent intent = new Intent(FilterActivity.this,FilterChooserActivity.class);
+                hasTravel = true;
+                traveFrom = data.getExtras().getString(AppConstants.TRAVEL_FROM_KEY);
+                travelTo = data.getExtras().getString(AppConstants.TRAVEL_TO_KEY);
+
+
+
+
+                if (!activityType.contains(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE))) {
+                    activityType.add(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
+                }
+
+                if (activityType.size() > 0) {
+                    tvNext.setVisibility(View.VISIBLE);
+                }
+               /* Intent intent = new Intent(FilterActivity.this,FilterChooserActivity.class);
                 intent.putExtra("activity_type",data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
                 intent.putExtra("activity_name",data.getExtras().getString(AppConstants.TRAVEL_FROM_KEY)+" To "+data.getExtras().getString(AppConstants.TRAVEL_TO_KEY));
                 intent.putExtra("activity_to",data.getExtras().getString(AppConstants.TRAVEL_TO_KEY));
                 intent.putExtra("activity_from",data.getExtras().getString(AppConstants.TRAVEL_FROM_KEY));
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_left,R.anim.slide_in_right);
-            }
-        }else{
+                overridePendingTransition(R.anim.slide_out_left,R.anim.slide_in_right);*/
+            } else if (requestCode == 166) {
 
-            Toast.makeText(FilterActivity.this,"Fail",Toast.LENGTH_SHORT).show();
-        }
+                if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_COFFEE) {
+                    changeCoffee(tvCoffee);
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_NIGHTCLUB) {
+                    changeHotels(tvNightClub);
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_LOUNGE) {
+                    changeHotels(tvLongue);
+                }
+
+                if (!activityType.contains(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE))) {
+                    activityType.add(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
+                }
+                activity_id.addAll(data.getStringArrayListExtra("activity_id"));
+
+                //clear duplicates
+                Set<String> hs = new HashSet<>();
+                hs.addAll(activity_id);
+                activity_id.clear();
+                activity_id.addAll(hs);
+
+                if (activity_id.size() > 0) {
+                    tvNext.setVisibility(View.VISIBLE);
+                }
+                Log.d("activtiy_id>>?", activityType.toString());
+                Log.d("activtiy_id>>?", activity_id.toString());
+            }
+        } else if (requestCode == 110) {
+
+            if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_PARTY) {
+                changeHotels(tvParty);
+            } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_EVENT) {
+                changeEntertainment(tvEvent);
+            } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_THEATER) {
+                changeEntertainment(tvTheatrePlay);
+            }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_INDOOR) {
+                changeSports(tvIndoor);
+            } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_OUTDOOR) {
+                changeSports(tvOutdoor);
+            }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_AVD_SPORTS) {
+                changeSports(tvAdventure);
+            }
+            if (!activityType.contains(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE))) {
+                activityType.add(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
+            }
+            activity_id.addAll(data.getStringArrayListExtra("activity_id"));
+
+            //clear duplicates
+            Set<String> hs = new HashSet<>();
+            hs.addAll(activity_id);
+            activity_id.clear();
+            activity_id.addAll(hs);
+
+            if (activity_id.size() > 0) {
+                tvNext.setVisibility(View.VISIBLE);
+            }
+
+        }else {
+
+            if(getIntent().getStringArrayListExtra("selectedList") == null || getIntent().getStringArrayListExtra("selectedList").size() == 0) {
+                activity_id.clear();
+                tvNext.setVisibility(View.GONE);
+            }}
+            // Toast.makeText(FilterActivity.this,"Fail",Toast.LENGTH_SHORT).show();
+
     }
+
+    ArrayList<Integer> activityType = new ArrayList<>();
+    ArrayList<String> activity_id = new ArrayList<>();
 }

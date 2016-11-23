@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,7 +15,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +29,19 @@ import com.commonclasses.location.GPSTracker;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomEditText;
 import com.hadippa.R;
+import com.hadippa.activities.filter.TravelActivityFitler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public class TravelActivity extends AppCompatActivity implements LocationListener {
 
@@ -211,6 +228,10 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
 
         etFrom = (AutoCompleteTextView)findViewById(R.id.etFrom);
         etTo = (AutoCompleteTextView)findViewById(R.id.etTo);
+        etFrom.setTypeface(Typeface.createFromAsset(getAssets(),"proxima_regular.OTF"));
+        etTo.setTypeface(Typeface.createFromAsset(getAssets(),"proxima_regular.OTF"));
+        etFrom.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
+        etTo.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
         etSelectFlight = (CustomEditText)findViewById(R.id.etSelectFlight);
 
         imageBack = (ImageView) findViewById(R.id.imageBack);
@@ -307,6 +328,105 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
             tvNext.setVisibility(View.VISIBLE);
             llSelectFlight.setVisibility(View.GONE);
             customTextView2.setText(getResources().getString(R.string.select_activity));
+        }
+    }
+
+    public static ArrayList autocomplete(String input) {
+        ArrayList resultList = null;
+
+        HttpURLConnection conn = null;
+        StringBuilder jsonResults = new StringBuilder();
+        try {
+            StringBuilder sb = new StringBuilder(AppConstants.PLACES_API_BASE + AppConstants.TYPE_AUTOCOMPLETE + AppConstants.OUT_JSON);
+            sb.append("?key=" + AppConstants.GOOGLE_API_KEY);
+            sb.append("&components=country:in");
+            sb.append("&input=" + URLEncoder.encode(input, "utf8"));
+
+            URL url = new URL(sb.toString());
+            conn = (HttpURLConnection) url.openConnection();
+            InputStreamReader in = new InputStreamReader(conn.getInputStream());
+
+            // Load the results into a StringBuilder
+            int read;
+            char[] buff = new char[1024];
+            while ((read = in.read(buff)) != -1) {
+                jsonResults.append(buff, 0, read);
+            }
+        } catch (MalformedURLException e) {
+            Log.e("fff", "Error processing Places API URL", e);
+            return resultList;
+        } catch (IOException e) {
+            Log.e("fff", "Error connecting to Places API", e);
+            return resultList;
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+
+        try {
+            // Create a JSON object hierarchy from the results
+            JSONObject jsonObj = new JSONObject(jsonResults.toString());
+            JSONArray predsJsonArray = jsonObj.getJSONArray("predictions");
+
+            // Extract the Place descriptions from the results
+            resultList = new ArrayList(predsJsonArray.length());
+            for (int i = 0; i < predsJsonArray.length(); i++) {
+                System.out.println(predsJsonArray.getJSONObject(i).getString("description"));
+                System.out.println("============================================================");
+                resultList.add(predsJsonArray.getJSONObject(i).getString("description"));
+            }
+        } catch (JSONException e) {
+            Log.e("dddd", "C", e);
+        }
+
+        return resultList;
+    }
+
+    class GooglePlacesAutocompleteAdapter extends ArrayAdapter implements Filterable {
+        private ArrayList resultList;
+
+        public GooglePlacesAutocompleteAdapter(Context context, int textViewResourceId) {
+            super(context, textViewResourceId);
+        }
+
+        @Override
+        public int getCount() {
+            return resultList.size();
+        }
+
+        @Override
+        public String getItem(int index) {
+            return String.valueOf(resultList.get(index));
+        }
+
+        @Override
+        public Filter getFilter() {
+            Filter filter = new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults filterResults = new FilterResults();
+                    if (constraint != null) {
+                        // Retrieve the autocomplete results.
+                        resultList = autocomplete(constraint.toString());
+
+                        // Assign the data to the FilterResults
+                        filterResults.values = resultList;
+                        filterResults.count = resultList.size();
+                    }
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    if (results != null && results.count > 0) {
+                        notifyDataSetChanged();
+                    } else {
+                        notifyDataSetInvalidated();
+                    }
+                }
+            };
+            return filter;
         }
     }
 }

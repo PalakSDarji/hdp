@@ -222,6 +222,12 @@
         <activity
             android:name=".activities.filter.TravelActivityFitler"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activities.filter.EventListActivityFilter"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activities.filter.CoffeeActivityFilter"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

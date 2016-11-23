@@ -100,12 +100,17 @@ public class FilterChooserActivity extends AppCompatActivity {
         RequestParams requestParams = new RequestParams();
         try {
 
-            requestParams.add("activity_type", String.valueOf(getIntent().getExtras().getInt("activity_type")));
+            requestParams.add("activity_type", String.valueOf(getIntent().getIntegerArrayListExtra("activity_type")).replace("[","").replace("]",""));
            // requestParams.add("activity_id", lon);
-            requestParams.add("activity_name", getIntent().getExtras().getString("activity_name"));
-            requestParams.add("activity_from", getIntent().getExtras().getString("activity_from"));
-            requestParams.add("activity_to", getIntent().getExtras().getString("activity_to"));
+            requestParams.add("activity_id",getIntent().getStringArrayListExtra("activity_id").toString().replace("[","").replace("]",""));
+            if(getIntent().getExtras().getBoolean("hasTravel")) {
+                requestParams.add("activity", getIntent().getExtras().getString("activity_name"));
+                requestParams.add("activity_from", getIntent().getExtras().getString("activity_from"));
+                requestParams.add("activity_to", getIntent().getExtras().getString("activity_to"));
+            }
             requestParams.add("access_token", sp.getString("access_token",""));
+            requestParams.add("start_date","");
+            requestParams.add("end_date","");
             Log.d("prepareMeraEvents", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -278,6 +283,7 @@ public class FilterChooserActivity extends AppCompatActivity {
 
             requestParams.add("date", dateArray.toString().replace("[","").replace("]",""));
             requestParams.add("access_token", sp.getString("access_token",""));
+
             Log.d("prepareMeraEvents", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();

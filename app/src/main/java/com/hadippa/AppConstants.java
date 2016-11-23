@@ -170,6 +170,12 @@ public class AppConstants {
     public static final int API_ACTIVITY_ID_FESTIVAL = 9;
 
 
+    //GOOGLE PLACES
+    public static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
+    public static final String TYPE_AUTOCOMPLETE = "/autocomplete";
+    public static final String OUT_JSON = "/json";
+    public static final String GOOGLE_API_KEY = "AIzaSyD5DyFre7np6MJ6MlZ-rEegKPxycXKBB8c";
+
 
 
     public static String USER = "user";

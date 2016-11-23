@@ -605,7 +605,7 @@ public class PostActivity extends AppCompatActivity implements LocationListener 
             public void onClick(View v) {
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, CoffeeActivity.class);
-                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_COFFEE);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_LOUNGE);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_LOUNGE);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

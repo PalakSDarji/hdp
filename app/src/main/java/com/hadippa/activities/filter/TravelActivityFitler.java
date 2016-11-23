@@ -67,14 +67,7 @@ public class TravelActivityFitler extends AppCompatActivity implements LocationL
 
     private static final String LOG_TAG = "Google Places Autocomplete";
 
-    private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
 
-    private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
-
-    private static final String OUT_JSON = "/json";
-
-
-    private static final String API_KEY = "AIzaSyD5DyFre7np6MJ6MlZ-rEegKPxycXKBB8c";
 
     @BindView(R.id.tvAirplane)
     CustomTextView tvAirplane;
@@ -324,14 +317,19 @@ public class TravelActivityFitler extends AppCompatActivity implements LocationL
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra(AppConstants.ACTIVITY_TYPE,travet_type);
-                intent.putExtra(AppConstants.TRAVEL_FROM_KEY,etFrom.getText().toString());
-                intent.putExtra(AppConstants.TRAVEL_TO_KEY,etTo.getText().toString());
 
-                setResult(RESULT_OK,intent);
-                finish();
-                overridePendingTransition(R.anim.slide_out_left,R.anim.slide_in_right);
+                if(travel_type_.equals(null) || travel_type_.equals("")){
+
+                }else {
+                    Intent intent = new Intent();
+                    intent.putExtra(AppConstants.ACTIVITY_TYPE, travet_type);
+                    intent.putExtra(AppConstants.TRAVEL_FROM_KEY, etFrom.getText().toString());
+                    intent.putExtra(AppConstants.TRAVEL_TO_KEY, etTo.getText().toString());
+
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
+                }
             }
         });
         if(activityKey == AppConstants.ACTIVITY_TRAVEL_FROM_POST_AIR){
@@ -426,8 +424,8 @@ public class TravelActivityFitler extends AppCompatActivity implements LocationL
         HttpURLConnection conn = null;
         StringBuilder jsonResults = new StringBuilder();
         try {
-            StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON);
-            sb.append("?key=" + API_KEY);
+            StringBuilder sb = new StringBuilder(AppConstants.PLACES_API_BASE + AppConstants.TYPE_AUTOCOMPLETE + AppConstants.OUT_JSON);
+            sb.append("?key=" + AppConstants.GOOGLE_API_KEY);
             sb.append("&components=country:in");
             sb.append("&input=" + URLEncoder.encode(input, "utf8"));
 
