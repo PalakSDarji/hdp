@@ -336,6 +336,7 @@ public class ShowCardsNew extends Fragment {
 
                 Log.v(AppConstants.DEBUG_TAG, "mMapCover onTouch called");
 
+
                 if (mLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                     return true;
