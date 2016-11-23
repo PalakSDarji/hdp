@@ -107,7 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
                 userBean.setProfile_photo(jsonObject.getString("profile_photo"));
                 userBean.setPrivate_account(jsonObject.getInt("private_account"));
                 userBean.setDob(jsonObject.getString("dob"));
-                userBean.setAge(0);
+                userBean.setAge(jsonObject.getInt("age"));
 
                 setData(userBean);
             } catch (JSONException e) {

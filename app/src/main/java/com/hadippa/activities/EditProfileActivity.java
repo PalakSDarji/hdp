@@ -1,5 +1,6 @@
 package com.hadippa.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -248,12 +249,12 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        etDateOfBirth.setOnClickListener(new View.OnClickListener() {
+     /*   etDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fromDatePickerDialog.show();
             }
-        });
+        });*/
 
 
         zodiacList = new ArrayList<>();
@@ -298,9 +299,21 @@ public class EditProfileActivity extends AppCompatActivity {
 
         try {
 
+            String firstnaem = "";String lastname = "";
+
+            if(etName.getText().toString().contains(" ")){
+                firstnaem = etName.getText().toString().split(" ")[0];
+                lastname = etName.getText().toString().split(" ")[1];
+            }else{
+                firstnaem = etName.getText().toString();
+                lastname = "";
+            }
+
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(EditProfileActivity.this);
             requestParams.add("access_token", sharedPreferences.getString("access_token", ""));
             requestParams.add("id", String.valueOf(userBean.getId()));
+            requestParams.add("first_name",firstnaem);
+            requestParams.add("last_name",lastname);
             requestParams.add("occupation", etOccupation.getText().toString());
             requestParams.add("company", etCompany.getText().toString());
             requestParams.add("city", etLiveIn.getText().toString());
@@ -355,12 +368,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 if(jsonObject.getBoolean("success")){
 
-                  /*  Gson gson = new Gson();
+                    Gson gson = new Gson();
                     UserProfile userProfile = gson.fromJson(response,UserProfile.class);
-*/
-                   /* Intent resultIntent = new Intent();
+                    Intent resultIntent = new Intent();
                     resultIntent.putExtra("data", userProfile.getUser());
-                    setResult(Activity.RESULT_OK, resultIntent);*/
+                    setResult(Activity.RESULT_OK, resultIntent);
                     finish();
                     overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
 
