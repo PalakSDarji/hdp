@@ -427,6 +427,9 @@ public class TravelActivityFitler extends AppCompatActivity implements LocationL
             StringBuilder sb = new StringBuilder(AppConstants.PLACES_API_BASE + AppConstants.TYPE_AUTOCOMPLETE + AppConstants.OUT_JSON);
             sb.append("?key=" + AppConstants.GOOGLE_API_KEY);
             sb.append("&components=country:in");
+            sb.append("&types=(cities)");
+
+            sb.append("&libraries=places");
             sb.append("&input=" + URLEncoder.encode(input, "utf8"));
 
             URL url = new URL(sb.toString());

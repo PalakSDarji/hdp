@@ -339,6 +339,7 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
         try {
             StringBuilder sb = new StringBuilder(AppConstants.PLACES_API_BASE + AppConstants.TYPE_AUTOCOMPLETE + AppConstants.OUT_JSON);
             sb.append("?key=" + AppConstants.GOOGLE_API_KEY);
+            sb.append("&types=(cities)");
             sb.append("&components=country:in");
             sb.append("&input=" + URLEncoder.encode(input, "utf8"));
 
