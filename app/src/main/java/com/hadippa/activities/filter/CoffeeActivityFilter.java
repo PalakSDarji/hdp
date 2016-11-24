@@ -173,10 +173,10 @@ public class CoffeeActivityFilter extends AppCompatActivity implements LocationL
             @Override
             public void onClick(View v) {
                 if (activity_id.size() > 0) {
-                    Intent intent = new Intent();
+                    Intent intent = getIntent();
 
                     intent.putExtra(AppConstants.ACTIVITY_TYPE, activity_id_);
-                    intent.putExtra("activity_id", activity_id);
+                    intent.putExtra("selectedList", activity_id);
                     setResult(RESULT_OK, intent);
                     finish();
                     overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
@@ -412,6 +412,7 @@ public class CoffeeActivityFilter extends AppCompatActivity implements LocationL
                         activity_id.add(restaurantsBean.getRestaurant().getId());
                     }
 
+                    Log.d("add activity_id??",activity_id.toString());
                     notifyDataSetChanged();
 
 

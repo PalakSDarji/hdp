@@ -192,7 +192,7 @@ public class EventListActivityFilter extends AppCompatActivity implements Locati
                     Intent intent = new Intent();
 
                     intent.putExtra(AppConstants.ACTIVITY_TYPE, activity_id_);
-                    intent.putExtra("activity_id", activity_id);
+                    intent.putExtra("selectedList", activity_id);
                     setResult(RESULT_OK, intent);
                     finish();
                     overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);

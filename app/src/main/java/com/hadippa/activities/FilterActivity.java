@@ -414,7 +414,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.tvTrain:
 
-                Intent intent4 = new Intent(this, TravelActivity.class);
+                Intent intent4 = new Intent(this, TravelActivityFitler.class);
                 intent4.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_TRAVEL_FROM_FILTER);
                 startActivity(intent4);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -558,6 +558,9 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 if (activityType.size() > 0) {
                     tvNext.setVisibility(View.VISIBLE);
                 }
+
+                Log.d("activtiy_id>>?", activityType.toString());
+                Log.d("activtiy_id>>?", activity_id.toString());
                /* Intent intent = new Intent(FilterActivity.this,FilterChooserActivity.class);
                 intent.putExtra("activity_type",data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
                 intent.putExtra("activity_name",data.getExtras().getString(AppConstants.TRAVEL_FROM_KEY)+" To "+data.getExtras().getString(AppConstants.TRAVEL_TO_KEY));
@@ -567,18 +570,27 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 overridePendingTransition(R.anim.slide_out_left,R.anim.slide_in_right);*/
             } else if (requestCode == 166) {
 
-                if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_COFFEE) {
-                    changeCoffee(tvCoffee);
-                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_NIGHTCLUB) {
-                    changeHotels(tvNightClub);
-                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_LOUNGE) {
-                    changeHotels(tvLongue);
+                if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_PARTY) {
+                    changeHotels(tvParty);
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_EVENT) {
+                    changeEntertainment(tvEvent);
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_THEATER) {
+                    changeEntertainment(tvTheatrePlay);
+                }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_INDOOR) {
+                    changeSports(tvIndoor);
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_OUTDOOR) {
+                    changeSports(tvOutdoor);
+                }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_AVD_SPORTS) {
+                    changeSports(tvAdventure);
+                }
+                if (!activityType.contains(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE))) {
+                    activityType.add(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
                 }
 
                 if (!activityType.contains(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE))) {
                     activityType.add(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
                 }
-                activity_id.addAll(data.getStringArrayListExtra("activity_id"));
+                activity_id.addAll(data.getStringArrayListExtra("selectedList"));
 
                 //clear duplicates
                 Set<String> hs = new HashSet<>();
@@ -592,40 +604,41 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 Log.d("activtiy_id>>?", activityType.toString());
                 Log.d("activtiy_id>>?", activity_id.toString());
             }
-        } else if (requestCode == 110) {
+            else if (requestCode == 110) {
 
-            if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_PARTY) {
-                changeHotels(tvParty);
-            } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_EVENT) {
-                changeEntertainment(tvEvent);
-            } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_THEATER) {
-                changeEntertainment(tvTheatrePlay);
-            }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_INDOOR) {
-                changeSports(tvIndoor);
-            } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_OUTDOOR) {
-                changeSports(tvOutdoor);
-            }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_AVD_SPORTS) {
-                changeSports(tvAdventure);
+                Log.d("activtiy_id>>?", "110");
+
+                if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_COFFEE) {
+                    changeCoffee(tvCoffee);
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_NIGHTCLUB) {
+                    changeHotels(tvNightClub);
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_LOUNGE) {
+                    changeHotels(tvLongue);
+                }
+
+                if (!activityType.contains(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE))) {
+                    activityType.add(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
+                }
+
+                activity_id.addAll(data.getStringArrayListExtra("selectedList"));
+
+                //clear duplicates
+                Set<String> hs = new HashSet<>();
+                hs.addAll(activity_id);
+                activity_id.clear();
+                activity_id.addAll(hs);
+
+                if (activity_id.size() > 0) {
+                    tvNext.setVisibility(View.VISIBLE);
+                }
+
+                Log.d("activtiy_id>>?", activityType.toString());
+                Log.d("activtiy_id>>?", activity_id.toString());
             }
-            if (!activityType.contains(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE))) {
-                activityType.add(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
-            }
-            activity_id.addAll(data.getStringArrayListExtra("activity_id"));
-
-            //clear duplicates
-            Set<String> hs = new HashSet<>();
-            hs.addAll(activity_id);
-            activity_id.clear();
-            activity_id.addAll(hs);
-
-            if (activity_id.size() > 0) {
-                tvNext.setVisibility(View.VISIBLE);
-            }
-
-        }else {
+        } else {
 
             if(getIntent().getStringArrayListExtra("selectedList") == null || getIntent().getStringArrayListExtra("selectedList").size() == 0) {
-                activity_id.clear();
+               // activity_id.clear();
                 tvNext.setVisibility(View.GONE);
             }}
             // Toast.makeText(FilterActivity.this,"Fail",Toast.LENGTH_SHORT).show();
