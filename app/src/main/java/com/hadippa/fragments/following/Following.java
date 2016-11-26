@@ -149,10 +149,25 @@ public class Following extends Fragment {
                     .load(followers_following.getFollowed().getProfile_photo_thumbnail())
                     .into(viewHolder.getProfileImage());
 
+            if(followers_following.getFollow_accepted() == 1){
+                viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
+                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.following));
+                viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+                //viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
+                viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
+            }
+            else{
+                viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
+                viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+                // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
+            }
+
             viewHolder.llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(viewHolder.tvFollowUnfollow.getText().toString().trim().equals(getResources().getString(R.string.following))){
+                    if(followers_following.getFollow_accepted() == 1){
                       /*  tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
                         //tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
                         ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_following);*/
@@ -439,12 +454,13 @@ public class Following extends Fragment {
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
+                Log.d("response>>", response);
                 if (jsonObject.getBoolean("success")) {
 
                     if(type.equals(AppConstants.CONNECTION_UNFOLLOW)){
-                        followersModel.setFollowing(false);
+                        followersModel.setFollow_accepted(0);
                     }else{
-                        followersModel.setFollowing(true);
+                        followersModel.setFollow_accepted(1);
                     }
 
                     customAdapter.notifyDataSetChanged();

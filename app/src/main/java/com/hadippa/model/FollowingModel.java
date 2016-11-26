@@ -19,7 +19,7 @@ public class FollowingModel {
     private String id;
     private String follower_id;
     private String followed_id;
-    private String follow_accepted;
+    private int follow_accepted;
     private String created_at;
     private String updated_at;
 
@@ -28,14 +28,7 @@ public class FollowingModel {
     private boolean isFollowing;
 
     public FollowingModel() {
-        this.id = "97";
-        this.follower_id = "Kartik";
-        this.followed_id = "Mistry";
-        this.follow_accepted = "";
-        this.created_at = "";
-        this.updated_at = "";
-        this.isFollowing = true;
-        this.followed = new FollowedBean();
+
     }
 
     /**
@@ -80,11 +73,11 @@ public class FollowingModel {
         this.followed_id = followed_id;
     }
 
-    public String getFollow_accepted() {
+    public int getFollow_accepted() {
         return follow_accepted;
     }
 
-    public void setFollow_accepted(String follow_accepted) {
+    public void setFollow_accepted(int follow_accepted) {
         this.follow_accepted = follow_accepted;
     }
 

@@ -132,7 +132,7 @@ public class Followers extends Fragment {
                 public void onClick(View v) {
 
                     Log.v("Followers","clicked " + position);
-                    if(viewHolder.tvFollowUnfollow.getText().toString().equals(getResources().getString(R.string.following))){
+                    if(followers_following.getFollow_accepted()== 1){
                         follow_Unfollow(followers_following,AppConstants.CONNECTION_UNFOLLOW);
                     }else{
                         follow_Unfollow(followers_following,AppConstants.CONNECTION_FOLLOW);
@@ -144,7 +144,7 @@ public class Followers extends Fragment {
 
 
             //TODO check this equals.. checking 1 to make it look like "Followed" is temp. I have no idea what returns from api call.. just wanted to demo the design
-            if(followers_following.getFollow_accepted().equalsIgnoreCase("1")){
+            if(followers_following.getFollow_accepted() ==1){
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.following));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
@@ -395,9 +395,9 @@ public class Followers extends Fragment {
                 if (jsonObject.getBoolean("success")) {
 
                     if(jsonObject.getString("status").equals("Following")){
-                        followersModel.setFollow_accepted("1");
+                        followersModel.setFollow_accepted(1);
                     }else{
-                        followersModel.setFollow_accepted("0");
+                        followersModel.setFollow_accepted(0);
                     }
 
                     customAdapter.notifyDataSetChanged();
