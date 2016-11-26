@@ -44,7 +44,7 @@
                 android:layout_marginTop="@dimen/value_h10"
                 android:background="#d1cdce"/>
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/edtSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

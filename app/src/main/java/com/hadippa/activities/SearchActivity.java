@@ -18,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,13 +34,17 @@ import com.hadippa.fragments.search.SearchPeople;
 import com.hadippa.fragments.search.SearchTag;
 import com.klinker.android.peekview.PeekViewActivity;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 
 /**
  * Created by alm-android on 01-12-2015.
  */
 public class SearchActivity extends PeekViewActivity implements View.OnClickListener {
 
-    String [] tabTitle = {"CITY","PEOPLE","TAG"};
+    String[] tabTitle = {"CITY", "PEOPLE", "TAG"};
     SlidingTabLayout tabs;
 
     SharedPreferences sp;
@@ -51,7 +57,10 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
     SearchPeople searchPeople = new SearchPeople();
     SearchTag searchTag = new SearchTag();
     SearchCity searchCity = new SearchCity();
-    public static EditText edtSearch;
+    public static AutoCompleteTextView edtSearch;
+
+    ArrayList<String> previousSearchList = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +69,20 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         pager = (ViewPager) findViewById(R.id.pager);
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sp.edit();
+        edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch);
 
-        imageBack = (ImageView)findViewById(R.id.imageBack);
+        Set<String> tasksSet = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .getStringSet("searchOptions", new HashSet<String>());
+        previousSearchList = new ArrayList<>(tasksSet);
+
+        Log.d("previousSearchList", previousSearchList.toString());
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (SearchActivity.this, R.layout.list_item, previousSearchList);
+
+        edtSearch.setThreshold(0);//will start working from first character
+        edtSearch.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+
+        imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,11 +92,12 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         });
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
+        pager.setOffscreenPageLimit(2);
 
         //This prevents fragments from being destroyed, default limit is 1, so next and pre frag will be alive if pos -1,
         // if pos = 0 then 1 will be alive, if 2 then 1 will be alive
         //by setting it 2, we make sure that view pager should atleast keep 2 fragments in a history, other than current
-      //  pager.setOffscreenPageLimit(2);
+        //  pager.setOffscreenPageLimit(2);
 
 
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
@@ -95,22 +117,30 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         });
         tabs.setViewPager(pager);
 
-
-        edtSearch = (EditText)findViewById(R.id.edtSearch);
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
+
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     //performSearch();
                     String s = v.getText().toString();
-                    if(v.getText().length()>=2){
+                    if (v.getText().length() >= 2) {
 
-                        Log.v("searchCity","searchCity"+searchCity);
+                        Log.v("searchCity", "searchCity" + searchCity);
 
-                        if(pager.getCurrentItem()==2){
+                        previousSearchList.add(edtSearch.getText().toString().trim());
+
+                        adapter.notifyDataSetChanged();
+                        Set<String> tasksSet = new HashSet<String>(previousSearchList);
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                                .edit()
+                                .putStringSet("searchOptions", tasksSet)
+                                .commit();
+
+                        if (pager.getCurrentItem() == 2) {
                             searchTag.fetchByTags(String.valueOf(s));
                             searchPeople.fetchPeople(String.valueOf(s));
-                        }else{
+                        } else {
                             searchCity.fetchCities(String.valueOf(s));
                             searchPeople.fetchPeople(String.valueOf(s));
                         }
@@ -120,6 +150,23 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
                 return false;
             }
         });
+
+        edtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtSearch.showDropDown();
+            }
+        });
+
+        edtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    edtSearch.showDropDown();
+                }
+            }
+        });
+
         /*edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -154,7 +201,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()) {
+        switch (v.getId()) {
 
         }
     }
@@ -164,10 +211,11 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         public ViewPagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
         }
+
         public Fragment getItem(int num) {
 
             Fragment fragment = null;
-            switch (num){
+            switch (num) {
 
                 case 0:
 
@@ -175,26 +223,28 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                     break;
 
-                case 1 :
+                case 1:
 
                     fragment = searchPeople;
 
                     break;
 
-                case 2 :
+              /*  case 2 :
 
                     fragment = searchTag;
 
                     break;
 
-
+*/
             }
             return fragment;
         }
+
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
+
         @Override
         public CharSequence getPageTitle(int position) {
             return tabTitle[position];

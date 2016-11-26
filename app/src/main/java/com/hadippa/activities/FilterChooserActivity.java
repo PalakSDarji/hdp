@@ -109,8 +109,8 @@ public class FilterChooserActivity extends AppCompatActivity {
                 requestParams.add("activity_to", getIntent().getExtras().getString("activity_to"));
             }
 
-            requestParams.add("access_token", "744768a9484e47d3e8cce4050358fae002ddafe9");
-         //   requestParams.add("access_token", sp.getString("access_token",""));
+          //  requestParams.add("access_token", "744768a9484e47d3e8cce4050358fae002ddafe9");
+            requestParams.add("access_token", sp.getString("access_token",""));
             requestParams.add("start_date","");
             requestParams.add("end_date","");
             Log.d("prepareMeraEvents", requestParams.toString());

@@ -267,27 +267,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
 
-
-                String newHour = String.valueOf(selectedHour);
-                String newMin = String.valueOf(selectedMinute);
-                if(String.valueOf(newHour).length() == 1){
-                    newHour = "0"+newHour;
-                }
-
-                if(String.valueOf(selectedMinute).length() == 1){
-                    newMin = "0"+newMin;
-                }
-
-                tvVisitingTime.setText(newHour + ":" + newMin+":"+"00");
-
-            }
-        }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MONTH), true);
-
-        timePickerDialog1 = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-
-               /* String am_pm = "";
+                String am_pm = "";
 
                 Calendar datetime = Calendar.getInstance();
                 datetime.set(Calendar.HOUR_OF_DAY, selectedHour);
@@ -298,19 +278,49 @@ public class EventDetailsActivity extends AppCompatActivity {
                 else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
                     am_pm = "PM";
 
-                String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";*/
+                String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
-                String newHour = String.valueOf(selectedHour);
-                String newMin = String.valueOf(selectedMinute);
-                if(String.valueOf(newHour).length() == 1){
-                    newHour = "0"+newHour;
+                if(strHrsToShow.length()==1){
+                    strHrsToShow = "0"+strHrsToShow;
                 }
-
+                String min = String.valueOf(selectedMinute);
                 if(String.valueOf(selectedMinute).length() == 1){
-                    newMin = "0"+newMin;
+                    min = "0"+String.valueOf(selectedMinute);
                 }
 
-                tvAvailableTill.setText(newHour + ":" + newMin+":"+"00");
+
+                tvVisitingTime.setText(strHrsToShow + ":" + min+" "+am_pm);
+
+            }
+        }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MONTH), true);
+
+        timePickerDialog1 = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+
+                String am_pm = "";
+
+                Calendar datetime = Calendar.getInstance();
+                datetime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                datetime.set(Calendar.MINUTE, selectedMinute);
+
+                if (datetime.get(Calendar.AM_PM) == Calendar.AM)
+                    am_pm = "AM";
+                else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
+                    am_pm = "PM";
+
+                String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
+
+                if(strHrsToShow.length()==1){
+                    strHrsToShow = "0"+strHrsToShow;
+                }
+                String min = String.valueOf(selectedMinute);
+                if(String.valueOf(selectedMinute).length() == 1){
+                    min = "0"+String.valueOf(selectedMinute);
+                }
+
+
+                tvAvailableTill.setText(strHrsToShow + ":" + min+" "+am_pm);
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MONTH), true);
     }
@@ -329,7 +339,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             requestParams.add("access_token", sharedPreferences.getString("access_token", ""));
             requestParams.add("activity_type", String.valueOf(getIntent().getExtras().getInt("activity_id")));
             requestParams.add("activity_name", tvEventName.getText().toString());
-            requestParams.add("activity_date", tvVisitingDate.getText().toString() + " " + tvVisitingTime.getText().toString());
+            requestParams.add("activity_date", tvVisitingDate.getText().toString() + " " + convertTime12TO24(tvVisitingTime.getText().toString()));
             requestParams.add("activity_location", tvAddress.getText().toString());
             requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
             requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
@@ -340,7 +350,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     getIntent().getExtras().getInt("activity_id") == 5 ||
                     getIntent().getExtras().getInt("activity_id") == 6 ||
                     getIntent().getExtras().getInt("activity_id") == 7) {
-                requestParams.add("available_till", tvVisitingDate.getText().toString() + " " +tvAvailableTill.getText().toString());
+                requestParams.add("available_till", tvVisitingDate.getText().toString() + " " +convertTime12TO24(tvAvailableTill.getText().toString()));
             }
 
             requestParams.add("activity_id", String.valueOf(dataBean.getId()));
@@ -411,5 +421,21 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
 
     }
+
+    String convertTime12TO24(String timeNow){
+
+        try {
+
+
+            SimpleDateFormat inFormat = new SimpleDateFormat("hh:mm a");
+            SimpleDateFormat outFormat = new SimpleDateFormat("HH:mm");
+            String time24 = outFormat.format(inFormat.parse(timeNow));
+
+            return time24;
+        } catch (Exception e){
+            return  "";
+        }
+    }
+
 
 }
