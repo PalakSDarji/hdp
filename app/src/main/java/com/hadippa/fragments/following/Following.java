@@ -317,6 +317,7 @@ public class Following extends Fragment {
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
 
+
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
