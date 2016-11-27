@@ -142,6 +142,7 @@ public class Followers extends Fragment {
                 }
             });
 
+            Log.d("followers_following??",followers_following.getFollow_accepted()+"");
 
             //TODO check this equals.. checking 1 to make it look like "Followed" is temp. I have no idea what returns from api call.. just wanted to demo the design
             if(followers_following.getFollow_accepted() ==1){

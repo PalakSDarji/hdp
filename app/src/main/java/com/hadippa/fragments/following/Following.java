@@ -70,12 +70,12 @@ public class Following extends Fragment {
 
         View view = inflater.inflate(R.layout.follow, null, false);
 
+       /* followersFollowings.add(new FollowingModel());
         followersFollowings.add(new FollowingModel());
         followersFollowings.add(new FollowingModel());
         followersFollowings.add(new FollowingModel());
         followersFollowings.add(new FollowingModel());
-        followersFollowings.add(new FollowingModel());
-        followersFollowings.add(new FollowingModel());
+        followersFollowings.add(new FollowingModel());*/
 
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
@@ -134,14 +134,14 @@ public class Following extends Fragment {
 
             final FollowingModel followers_following = followersFollowings.get(position);
 
-            if(followers_following.isFollowing()){
+          /*  if(followers_following.isFollowing()){
                 viewHolder.ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_following);
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.following));
             }
             else{
                 viewHolder.ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_follow);
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
-            }
+            }*/
             viewHolder.getName().setText(followers_following.getFollowed().getFirst_name()+" "+
                     followers_following.getFollowed().getLast_name());
 
@@ -149,7 +149,8 @@ public class Following extends Fragment {
                     .load(followers_following.getFollowed().getProfile_photo_thumbnail())
                     .into(viewHolder.getProfileImage());
 
-            if(followers_following.getFollow_accepted() == 1){
+            Log.d("followers_following??>>",followers_following.getFollow_accepted()+"");
+            if(followers_following.getFollow_accepted()==1){
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.following));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
@@ -167,7 +168,7 @@ public class Following extends Fragment {
             viewHolder.llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(followers_following.getFollow_accepted() == 1){
+                    if(followers_following.isFollowing()){
                       /*  tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
                         //tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
                         ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_following);*/
@@ -458,10 +459,10 @@ public class Following extends Fragment {
                 Log.d("response>>", response);
                 if (jsonObject.getBoolean("success")) {
 
-                    if(type.equals(AppConstants.CONNECTION_UNFOLLOW)){
-                        followersModel.setFollow_accepted(0);
-                    }else{
+                    if(jsonObject.getString("status").equals("Following")){
                         followersModel.setFollow_accepted(1);
+                    }else{
+                        followersModel.setFollow_accepted(0);
                     }
 
                     customAdapter.notifyDataSetChanged();

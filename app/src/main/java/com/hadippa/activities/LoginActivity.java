@@ -40,6 +40,7 @@ import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hadippa.AppConstants;
@@ -88,6 +89,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(LoginActivity.this);
         setContentView(R.layout.activity_login);
+
+        Log.d("FirebaseInstanceId","FirebaseInstanceId >> "+ FirebaseInstanceId.getInstance().getToken());
 
         LoginActivityPermissionsDispatcher.showAllPermissionWithCheck(this);
         sp = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
