@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1091219618361",
+    "firebase_url": "https://hadipaa-1470168485012.firebaseio.com",
+    "project_id": "hadipaa-1470168485012",
+    "storage_bucket": "hadipaa-1470168485012.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091219618361:android:e81144fea3dc7f24",
+        "android_client_info": {
+          "package_name": "com.hadippa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1091219618361-ltb9efld66fvssom5leu5nipd222arl1.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1091219618361-539t27l0dsd8h5qpt6ntegrkqtn79956.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_3eSeaADvSl8hgNeLqzvv1SO_Q1eaCTQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

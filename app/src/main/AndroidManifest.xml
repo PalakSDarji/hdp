@@ -41,7 +41,23 @@
             </intent-filter>
         </activity>
 
-        <receiver
+        <service
+            android:name="com.commonclasses.notification.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.commonclasses.notification.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+      <!--  <receiver
             android:name="com.commonclasses.notification.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
@@ -49,9 +65,11 @@
 
                 <category android:name="infinite.kitchen" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
+<!--
         <service android:name="com.commonclasses.notification.GCMIntentService" />
+-->
          
         <receiver android:name="com.commonclasses.receivers.IncomingSmsReceiver">
               

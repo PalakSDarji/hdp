@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.commonclasses.connection.ConnectionDetector;
 import com.commonclasses.connection.LibHttp;
+import com.commonclasses.notification.MyInstanceIDListenerService;
 import com.commonclasses.notification.ServerUtilities;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -38,9 +39,9 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hadippa.AppConstants;
@@ -76,12 +77,14 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
 
-    protected GoogleCloudMessaging gcm;
+ /*   protected GoogleCloudMessaging gcm;
     public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    protected String regId;
+ */   protected String regId;
     public static List<DataModel> posts;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+
+
     RelativeLayout mainRel;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -90,7 +93,10 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(LoginActivity.this);
         setContentView(R.layout.activity_login);
 
+
         Log.d("FirebaseInstanceId","FirebaseInstanceId >> "+ FirebaseInstanceId.getInstance().getToken());
+        Log.d("FirebaseInstanceId","FirebaseInstanceId >> "+ FirebaseInstanceId.getInstance().getToken());
+
 
         LoginActivityPermissionsDispatcher.showAllPermissionWithCheck(this);
         sp = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
@@ -102,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         mainRel = (RelativeLayout)findViewById(R.id.mainRel);
-        startRegistration();
+     //   startRegistration();
         edtPassword = (EditText)findViewById(R.id.edtPass);
         edtUsername = (EditText)findViewById(R.id.edtUsername);
         linearFacebook = (LinearLayout)findViewById(R.id.linearFacebook);
@@ -283,6 +289,7 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+/*
     protected void startRegistration() {
 
         if (checkPlayServices()) {
@@ -317,11 +324,13 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    /**
+    */
+/**
      * Registers the application with GCM servers asynchronously. Stores the
      * registration ID and app versionCode in the application's shared
      * preferences.
-     */
+     *//*
+
     protected void registerInBackground() {
 
         new AsyncTask<Void, Void, String>() {
@@ -398,6 +407,7 @@ public class LoginActivity extends AppCompatActivity {
             };
         }.execute(null, null, null);
     }
+*/
 
     String grant = "",code = "",username = "",password_ = "";
     private void login(String grant_type, String email ,
@@ -427,7 +437,7 @@ public class LoginActivity extends AppCompatActivity {
 
             requestParams.add( "device_type","android");
 
-            requestParams.add("device_token",sp.getString("gcmId",""));
+            requestParams.add("device_token",FirebaseInstanceId.getInstance().getToken());
 
             if(grant_type.equals("facebook")){
 
@@ -524,7 +534,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("posts", jsonObject.getString("posts"));
                         editor.commit();
 
-                        ServerUtilities.register(LoginActivity.this, "", "", sp.getString("gcmId", ""), AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.LOGIN);
+                    //    ServerUtilities.register(LoginActivity.this, "", "", sp.getString("gcmId", ""), AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.LOGIN);
 
                         Intent intent = new Intent(LoginActivity.this, HomeScreen.class);
                         startActivity(intent);

@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hadippa.R;
 import com.hadippa.activities.HomeScreen;
 
@@ -52,7 +51,7 @@ public class GCMIntentService extends IntentService {
 
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         editor = sp.edit();
-        GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
+       /* GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
 
 
         if(sp.getBoolean("loginStatus",false)) {
@@ -69,9 +68,9 @@ public class GCMIntentService extends IntentService {
                     try {
                        // JSONObject jsonObj = new JSONObject(extras.getString("alert"));
                       //  Log.d("received>.", jsonObj.toString());
-                       /* item_id = jsonObj.getString("donate_item_id");
-                        noti_type = jsonObj.getString("noti_type");*/
-                   /* if(sp.getBoolean("showSilentNotification",false)){
+                       *//* item_id = jsonObj.getString("donate_item_id");
+                        noti_type = jsonObj.getString("noti_type");*//*
+                   *//* if(sp.getBoolean("showSilentNotification",false)){
                         final Thread thread = new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -83,7 +82,7 @@ public class GCMIntentService extends IntentService {
 
                         });
                         thread.start();
-                    }else {*/
+                    }else {*//*
                         sendNotification(extras.getString("message"));
                         //  }
 
@@ -94,7 +93,7 @@ public class GCMIntentService extends IntentService {
             }
 
             GcmBroadcastReceiver.completeWakefulIntent(intent);
-        }
+        }*/
     }
 
     public int generateRandom(){
