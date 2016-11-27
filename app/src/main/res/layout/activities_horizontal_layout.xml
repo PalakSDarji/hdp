@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView
+    android:id="@+id/hsvActivities"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingLeft="@dimen/value_w29"
+    android:paddingRight="5dp"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:id="@+id/llActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/value_h21"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabMovie"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_pink_selector"
+            android:text="@string/movie"
+            android:textColor="@color/selector_white_grey"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabTheatrePlay"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_pink_selector"
+            android:text="@string/theatre_play"
+            android:textColor="@color/selector_white_grey"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabEvent"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_pink_selector"
+            android:text="@string/event"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabFestival"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_pink_selector"
+            android:text="@string/festival"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabNightclub"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_pink_selector"
+            android:text="@string/night_club"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabLounge"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_pink_selector"
+            android:text="@string/lounge"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabParty"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_pink_selector"
+            android:text="@string/party"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabStandupComedy"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_pink_selector"
+            android:text="@string/standup_comedy"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabCoffee"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_yellow_selector"
+            android:text="@string/coffee"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabAdventure"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_green_selector"
+            android:text="@string/adventure"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabIndoorSports"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_green_selector"
+            android:text="@string/indoor_sports"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabOutdoorSports"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_green_selector"
+            android:text="@string/outdoor_sports"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTabHobbyClass"
+            style="@style/custom_activity_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_green_selector"
+            android:text="@string/hobby_class"/>
+
+    </LinearLayout>
+
+</HorizontalScrollView>

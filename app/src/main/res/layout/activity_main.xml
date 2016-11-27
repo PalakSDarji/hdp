@@ -42,6 +42,7 @@
                 android:id="@+id/relChat"
                 android:layout_width="@dimen/value_w50"
                 android:clickable="true"
+                android:layout_marginTop="@dimen/value_3"
                 android:layout_height="@dimen/value_h42"
                 android:layout_alignParentRight="true">
 
@@ -68,10 +69,11 @@
 
             <ImageView
                 android:id="@+id/imageFilter"
-                android:layout_width="@dimen/value_w32"
-                android:layout_height="@dimen/value_w32"
+                android:layout_width="@dimen/value_w66"
+                android:layout_height="@dimen/value_w66"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/value_w26"
+                android:padding="@dimen/value_8"
                 android:layout_toLeftOf="@+id/relChat"
                 android:src="@drawable/filter"/>
 
@@ -141,8 +143,8 @@
 
     <ScrollView
         android:layout_width="@dimen/home_drawer_item_width"
-        android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:layout_height="match_parent"
         android:background="@android:color/white">
 
         <LinearLayout
@@ -226,22 +228,30 @@
                                 android:gravity="center"
                                 android:layout_height="wrap_content">
 
-                                <ImageView
-                                    android:id="@+id/profileImage"
-                                    android:layout_width="@dimen/home_drawer_profile_image_width"
-                                    android:layout_height="@dimen/home_drawer_profile_image_height"
+                                <RelativeLayout
+                                    android:id="@+id/rlProfileImage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginBottom="@dimen/value_12"
                                     android:layout_marginTop="@dimen/value_20"
-                                    android:background="@drawable/rounded__drawer_dp"
-                                    android:padding="15dp"
                                     android:layout_centerHorizontal="true"
-                                    android:src="@drawable/ic_user_avatar_default"/>
+                                    android:background="@drawable/rounded__drawer_dp">
+
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        android:id="@+id/profileImage"
+                                        android:layout_width="@dimen/home_drawer_profile_image_width"
+                                        android:layout_height="@dimen/home_drawer_profile_image_height"
+                                        android:scaleType="centerCrop"
+                                        app:riv_corner_radius="@dimen/value_10"
+                                        android:background="@drawable/ic_user_avatar_default_small"/>
+
+                                </RelativeLayout>
 
                                 <com.hadippa.CustomTextView
                                     android:id="@+id/tvUserName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_below="@+id/profileImage"
+                                    android:layout_below="@+id/rlProfileImage"
                                     android:layout_marginBottom="@dimen/value_12"
                                     android:text="Sania Mirza"
                                     android:layout_centerHorizontal="true"

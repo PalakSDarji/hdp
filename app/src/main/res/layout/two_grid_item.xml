@@ -18,49 +18,72 @@
         android:orientation="vertical"
         android:padding="4dp">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/image_view1"
-            android:layout_width="@dimen/values_50"
-            android:layout_height="@dimen/values_50"
+            android:layout_width="@dimen/value_w100"
+            android:layout_height="@dimen/value_w100"
+            android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:src="@drawable/ic_nearby"/>
+            android:background="@drawable/profile_bg"
+            android:src="@drawable/ic_avatar3"
+            app:riv_border_color="@color/c_b7b3b4"
+            app:riv_border_width="@dimen/value_1"
+            app:riv_corner_radius="@dimen/value_5" />
 
         <com.hadippa.CustomTextView
-            app:customFont="@string/proxima_reg"
             android:id="@+id/text_view1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="dummy"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/values_txt_12"/>
+            android:layout_below="@+id/image_view1"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxEms="5"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="Sania Mirzab asbdhbashdb hbasbasdhb"
+            android:textColor="@color/c_454545"
+            android:textSize="@dimen/values_txt_11"
+            app:customFont="@string/proxima_reg"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/value_10"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="4dp">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/image_view2"
-            android:layout_width="@dimen/values_50"
-            android:layout_height="@dimen/values_50"
+            android:layout_width="@dimen/value_w100"
+            android:layout_height="@dimen/value_w100"
+            android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:src="@drawable/ic_nearby"/>
+            android:background="@drawable/profile_bg"
+            android:src="@drawable/ic_avatar3"
+            app:riv_border_color="@color/c_b7b3b4"
+            app:riv_border_width="@dimen/value_1"
+            app:riv_corner_radius="@dimen/value_5" />
 
         <com.hadippa.CustomTextView
-            app:customFont="@string/proxima_reg"
             android:id="@+id/text_view2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="dummy"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/values_txt_12"/>
+            android:layout_below="@+id/image_view1"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxEms="5"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="Sania Mirza"
+            android:textColor="@color/c_454545"
+            android:textSize="@dimen/values_txt_11"
+            app:customFont="@string/proxima_reg"/>
 
     </LinearLayout>
 </LinearLayout>

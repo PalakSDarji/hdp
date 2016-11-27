@@ -34,7 +34,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FilterActivity extends AppCompatActivity implements View.OnClickListener
-        , View.OnLongClickListener {
+        /*, View.OnLongClickListener*/ {
 
     TextView tvMovie, tvTheatrePlay, tvEvent, tvFestival, tvNightClub,
             tvLongue, tvParty, tvStandUpComedy, tvCoffee, tvAirplane, tvTrain, tvBus, tvAdventure, tvIndoor, tvOutdoor, tvHobby, tvOtherActivity;
@@ -93,7 +93,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
         tvMovie = (TextView) findViewById(R.id.tvMovie);
         tvMovie.setOnClickListener(this);
-        tvMovie.setOnLongClickListener(this);
+        //tvMovie.setOnLongClickListener(this);
         tvTheatrePlay = (TextView) findViewById(R.id.tvTheatrePlay);
         tvTheatrePlay.setOnClickListener(this);
         tvEvent = (TextView) findViewById(R.id.tvEvent);
@@ -112,16 +112,16 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         tvCoffee.setOnClickListener(this);
         tvAirplane = (TextView) findViewById(R.id.tvAirplane);
         tvAirplane.setOnClickListener(this);
-        tvAirplane.setOnLongClickListener(this);
+        //tvAirplane.setOnLongClickListener(this);
         /*tvCar = (TextView) findViewById(R.id.tvCar);
         tvCar.setOnClickListener(this);
         tvCar.setOnLongClickListener(this);*/
         tvTrain = (TextView) findViewById(R.id.tvTrain);
         tvTrain.setOnClickListener(this);
-        tvTrain.setOnLongClickListener(this);
+        //tvTrain.setOnLongClickListener(this);
         tvBus = (TextView) findViewById(R.id.tvBus);
         tvBus.setOnClickListener(this);
-        tvBus.setOnLongClickListener(this);
+        //tvBus.setOnLongClickListener(this);
         tvAdventure = (TextView) findViewById(R.id.tvAdventure);
         tvAdventure.setOnClickListener(this);
         tvIndoor = (TextView) findViewById(R.id.tvIndoor);
@@ -375,7 +375,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    @Override
+    /*@Override
     public boolean onLongClick(View v) {
 
         switch (v.getId()) {
@@ -401,7 +401,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
-/*
+*//*
 
             case R.id.tvCar:
 
@@ -410,7 +410,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent3);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
-*/
+*//*
 
             case R.id.tvTrain:
 
@@ -428,7 +428,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         }
         return true;
     }
-
+*/
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     void changeEntertainment(TextView textView) {
@@ -494,6 +494,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    //TODO for sahil.. no need to manually set color on selection.. just call setSelected(). xml selector will take care of it
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     void changeHobby(TextView textView) {
 

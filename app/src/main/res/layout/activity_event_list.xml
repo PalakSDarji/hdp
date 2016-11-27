@@ -73,6 +73,18 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/llActivitiesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_below="@+id/top">
+
+        <include
+            layout="@layout/activities_horizontal_layout"/>
+    </LinearLayout>
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
@@ -97,10 +109,10 @@
         android:layout_below="@+id/tabs"
         android:background="@android:color/white" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top"
+        android:layout_below="@+id/llActivitiesContainer"
         android:orientation="vertical">
 
         <android.support.v4.widget.SwipeRefreshLayout

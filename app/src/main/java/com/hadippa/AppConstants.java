@@ -151,6 +151,7 @@ public class AppConstants {
     public static final int ACTIVITY_EVENT_THEATER = 19;
     public static final int ACTIVITY_EVENT_EVENT = 20;
     public static final int ACTIVITY_EVENT_FESTIVAL = 21;
+    public static final int ACTIVITY_EVENT_STANDUP = 22;
 
     public static final int API_ACTIVITY_ID_MOVIE = 1;
     public static final int API_ACTIVITY_ID_THEATER = 2;

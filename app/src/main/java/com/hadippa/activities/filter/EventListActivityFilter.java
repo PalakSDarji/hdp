@@ -30,6 +30,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.activities.BaseActionsActivity;
 import com.hadippa.activities.EventDetailsActivity;
 import com.hadippa.model.MeraEventPartyModel;
 import com.loopj.android.http.AsyncHttpClient;
@@ -58,7 +60,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class EventListActivityFilter extends AppCompatActivity implements LocationListener {
+public class EventListActivityFilter extends BaseActionsActivity implements LocationListener {
 
     private PagerAdapter viewPagerAdapter;
     private String[] tabs;
@@ -71,6 +73,9 @@ public class EventListActivityFilter extends AppCompatActivity implements Locati
     private LocationListener mLocationListener;
     String latitude = "", longitude = "";
     public int pageNumber = 0;
+
+    @BindView(R.id.llActivitiesContainer)
+    LinearLayout llActivitiesContainer;
 
     @Nullable
     @BindView(R.id.rv_event_list)
@@ -172,6 +177,8 @@ public class EventListActivityFilter extends AppCompatActivity implements Locati
         setContentView(R.layout.activity_event_list);
         ButterKnife.bind(this);
 
+        llActivitiesContainer.setVisibility(View.VISIBLE);
+
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(EventListActivityFilter.this);
         rvEventList.setLayoutManager(mLayoutManager);
         rvEventList.setItemAnimator(new DefaultItemAnimator());
@@ -183,6 +190,39 @@ public class EventListActivityFilter extends AppCompatActivity implements Locati
         }
 
         activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY,0);
+
+        if(activityKey == AppConstants.ACTIVITY_EVENT_THEATER){
+
+            setCurrentActionView(this,R.id.tvTabTheatrePlay);
+        }
+        else if(activityKey == AppConstants.ACTIVITY_EVENT_EVENT){
+
+            setCurrentActionView(this,R.id.tvTabEvent);
+        }
+        else if(activityKey == AppConstants.ACTIVITY_EVENT_FESTIVAL){
+
+            setCurrentActionView(this,R.id.tvTabFestival);
+        }
+        else if(activityKey == AppConstants.ACTIVITY_EVENT_PARTY){
+
+            setCurrentActionView(this,R.id.tvTabParty);
+        }
+        else if(activityKey == AppConstants.ACTIVITY_EVENT_STANDUP){
+
+            setCurrentActionView(this,R.id.tvTabStandupComedy);
+        }
+        else if(activityKey == AppConstants.ACTIVITY_ADV_SPORTS){
+
+            setCurrentActionView(this,R.id.tvTabAdventure);
+        }
+        else if(activityKey == AppConstants.ACTIVITY_INDOOR_SPORTS){
+
+            setCurrentActionView(this,R.id.tvTabIndoorSports);
+        }
+        else if(activityKey == AppConstants.ACTIVITY_OUTDOOR_SPORTS){
+
+            setCurrentActionView(this,R.id.tvTabOutdoorSports);
+        }
 
         tvNext.setVisibility(View.VISIBLE);
         tvNext.setOnClickListener(new View.OnClickListener() {

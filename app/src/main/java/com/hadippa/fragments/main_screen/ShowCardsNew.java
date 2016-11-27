@@ -19,6 +19,7 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.internal.NavigationMenu;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -108,8 +109,6 @@ public class ShowCardsNew extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    RecyclerView horizontal_recycler_view;
-
     private boolean menuOpened = false;
     public static MyAppAdapter myAppAdapter;
     private ArrayList<DataModel> al;
@@ -128,7 +127,7 @@ public class ShowCardsNew extends Fragment {
     // FloatingActionsMenu multiple_actions;
     ArrayList<String> namesArray = new ArrayList<>();
     ArrayList<Drawable> drawables = new ArrayList<>();
-    private SlidingUpPanelLayout mLayout;
+    //private SlidingUpPanelLayout mLayout;
     private View mMapCover;
 
     public ShowCardsNew() {
@@ -233,43 +232,47 @@ public class ShowCardsNew extends Fragment {
 
             final DataModel dataModel = parkingList.get(position);
 
-            viewHolder.tvName_Age.setText(dataModel.getUser().getFirst_name()
-                    + " " + dataModel.getUser().getLast_name() + ", " +
-                    "" + dataModel.getUser().getAge());
+            if(dataModel.getUser() != null){
 
-            viewHolder.tvName_Age.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                    //intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
-                    intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.OTHERS_PROFILE);
-                    intent.putExtra(AppConstants.FETCH_USER_KEY, dataModel.getUser().getId());
-                    startActivity(intent);
-                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                }
-            });
+                viewHolder.tvName_Age.setText(dataModel.getUser().getFirst_name()
+                        + " " + dataModel.getUser().getLast_name() + ", " +
+                        "" + dataModel.getUser().getAge());
 
-            viewHolder.tvActivityName.setText(dataModel.getActivity_details().getActivity_name());
-            viewHolder.tvActivtyTime.setText(dataModel.getActivity_time());
-            viewHolder.tvActivtyDate.setText(convertDate(dataModel.getActivity_date()));
-            viewHolder.tvAddress.setText(dataModel.getActivity_location());
-            viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size()) + " Going");
-            viewHolder.tvCount.setText(String.valueOf(dataModel.getId()));
+                viewHolder.tvName_Age.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                        //intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
+                        intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.OTHERS_PROFILE);
+                        intent.putExtra(AppConstants.FETCH_USER_KEY, dataModel.getUser().getId());
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                });
+
+                viewHolder.tvActivityName.setText(dataModel.getActivity_details().getActivity_name());
+                viewHolder.tvActivtyTime.setText(dataModel.getActivity_time());
+                viewHolder.tvActivtyDate.setText(convertDate(dataModel.getActivity_date()));
+                viewHolder.tvAddress.setText(dataModel.getActivity_location());
+                viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size()) + " Going");
+                viewHolder.tvCount.setText(String.valueOf(dataModel.getId()));
 
 
-            Glide.with(context)
-                    .load(dataModel.getUser().getProfile_photo())
-                    .placeholder(R.drawable.bg_item_above)
-                    .error(R.drawable.bg_item_above)
-                    .into(viewHolder.coverImage);
+                Glide.with(context)
+                        .load(dataModel.getUser().getProfile_photo())
+                        .placeholder(R.drawable.bg_item_above)
+                        .error(R.drawable.bg_item_above)
+                        .into(viewHolder.coverImage);
 
+
+            }
             viewHolder.llGoing.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     myAppAdapter.getItem(position);
 
-                    showTwoWayGrid(posts.get(position));
+                    showBottomPeopleGoing(posts.get(position));
                 }
             });
             //viewHolder.DataText.setText(parkingList.get(position).getDescription() + "");
@@ -323,11 +326,11 @@ public class ShowCardsNew extends Fragment {
         if(dataModels != null && dataModels.size()>0){
             posts.addAll(dataModels);
         }
-
+        posts.add(new DataModel());
         Log.d("posts>>", sp.getString("posts", ""));
-        horizontal_recycler_view = (RecyclerView) view.findViewById(R.id.horizontal_recycler_view);
 
-        mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
+
+        //mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
 
         mMapCover = view.findViewById(R.id.mapCover);
         mMapCover.setOnTouchListener(new View.OnTouchListener() {
@@ -337,11 +340,11 @@ public class ShowCardsNew extends Fragment {
                 Log.v(AppConstants.DEBUG_TAG, "mMapCover onTouch called");
 
 
-                if (mLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                /*if (mLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                     return true;
                 }
-
+*/
                 return false;
             }
         });
@@ -448,6 +451,29 @@ public class ShowCardsNew extends Fragment {
         return view;
     }
 
+    private void showBottomPeopleGoing(DataModel dataModel){
+
+        BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getActivity());
+        View sheetView = getActivity().getLayoutInflater().inflate(R.layout.bottom_people_going, null);
+
+        RecyclerView horizontal_recycler_view = (RecyclerView) sheetView.findViewById(R.id.horizontal_recycler_view);
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        horizontal_recycler_view.setLayoutManager(horizontalLayoutManagaer);
+
+        dataModel.getPeople_going();
+
+        //Sample arraylist..
+        List<DoublePeople> doublePeoples = new ArrayList<>();
+        doublePeoples.add(new DoublePeople(new People("palak", ""), new People("darji", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("Sahil", ""), new People("bhai", "")));
+
+        HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples);
+        horizontal_recycler_view.setAdapter(adapter);
+
+        mBottomSheetDialog.setContentView(sheetView);
+        mBottomSheetDialog.show();
+    }
 
     static void makeToast(Context ctx, String s) {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
@@ -560,7 +586,7 @@ public class ShowCardsNew extends Fragment {
         dialog1.show();
     }
 
-    private void showTwoWayGrid(DataModel dataModel) {
+    /*private void showTwoWayGrid(DataModel dataModel) {
 
 
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -581,15 +607,16 @@ public class ShowCardsNew extends Fragment {
 
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
     }
-
+*/
     public boolean checkPanelState() {
-        if (mLayout != null &&
+        /*if (mLayout != null &&
                 (mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED || mLayout.getPanelState() == SlidingUpPanelLayout.PanelState.ANCHORED)) {
             mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             return true;
         } else {
             return false;
-        }
+        }*/
+        return false;
     }
 
     private void showDialog(int gravity, boolean showHeader, boolean showFooter, boolean expanded) {

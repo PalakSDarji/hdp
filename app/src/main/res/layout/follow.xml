@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:id="@+id/relMain"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+<RelativeLayout android:id="@+id/relMain"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
 
 
     <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipeRefreshLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- ListView、ScrollView、RecyclerView、Other -->
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recyclerView">
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/value_10"
+            android:paddingBottom="@dimen/value_10"
+            android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
     <ProgressBar
@@ -32,8 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:visibility="invisible"
         android:indeterminateTint="@color/abc_input_method_navigation_guard"
-        android:indeterminateTintMode="src_atop" />
+        android:indeterminateTintMode="src_atop"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

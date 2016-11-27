@@ -196,6 +196,18 @@
         <item name="android:layout_marginRight">8dp</item>
     </style>
 
+    <style name="custom_activity_tabs">
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:paddingTop">@dimen/value_h21</item>
+        <item name="android:paddingBottom">@dimen/value_h21</item>
+        <item name="android:paddingLeft">@dimen/value_w29</item>
+        <item name="android:paddingRight">@dimen/value_w29</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/values_txt_12</item>
+        <item name="customFont">@string/proxima_reg</item>
+        <item name="android:textColor">@color/selector_white_grey</item>
+    </style>
+
 
     <color name="c_9c9c9c">#9c9c9c</color>
 </resources>

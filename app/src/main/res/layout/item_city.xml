@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hadippa.CustomTextView
+    android:id="@+id/txtName"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:paddingTop="15dp"
+    android:text="asdasd"
+    android:textColor="@color/c_2f2f2f"
+    android:textSize="@dimen/values_txt_14"
+    />
+

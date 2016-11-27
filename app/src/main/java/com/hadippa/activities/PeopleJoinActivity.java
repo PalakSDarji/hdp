@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,7 +54,6 @@ public class PeopleJoinActivity extends AppCompatActivity {
 
     ArrayList<String> namesArray = new ArrayList<>();
     ArrayList<Drawable> drawables = new ArrayList<>();
-    private SlidingUpPanelLayout mLayout;
     private View mMapCover;
     private RelativeLayout swipeRight;
     private RelativeLayout swipeLeft;
@@ -90,8 +90,6 @@ public class PeopleJoinActivity extends AppCompatActivity {
 
         horizontal_recycler_view = (RecyclerView) findViewById(R.id.horizontal_recycler_view);
 
-        mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-
         mMapCover = findViewById(R.id.mapCover);
         mMapCover.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -99,11 +97,11 @@ public class PeopleJoinActivity extends AppCompatActivity {
 
                 Log.v(AppConstants.DEBUG_TAG, "mMapCover onTouch called");
 
-                if (mLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
+              /*  if (mLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
                     mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                     return true;
                 }
-
+*/
                 return false;
             }
         });
@@ -189,6 +187,32 @@ public class PeopleJoinActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void showBottomPeopleGoing(DataModel dataModel){
+
+        Log.v("PeopleJoin","ShowBottom");
+        BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(this);
+        View sheetView = this.getLayoutInflater().inflate(R.layout.bottom_people_going, null);
+
+        RecyclerView horizontal_recycler_view = (RecyclerView) sheetView.findViewById(R.id.horizontal_recycler_view);
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        horizontal_recycler_view.setLayoutManager(horizontalLayoutManagaer);
+
+       // dataModel.getPeople_going();
+
+        //Sample arraylist..
+        List<DoublePeople> doublePeoples = new ArrayList<>();
+        doublePeoples.add(new DoublePeople(new People("palak", ""), new People("darji", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("Sahil", ""), new People("bhai", "")));
+
+        HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples);
+        horizontal_recycler_view.setAdapter(adapter);
+
+        mBottomSheetDialog.setContentView(sheetView);
+        mBottomSheetDialog.show();
+    }
+
 
     static void makeToast(Context ctx, String s) {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
@@ -368,44 +392,32 @@ public class PeopleJoinActivity extends AppCompatActivity {
                         .load(dataModel.getUser().getProfile_photo())
                         .into(viewHolder.coverImage);
 
-                viewHolder.llGoing.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                        myAppAdapter.getItem(position);
-
-                        showTwoWayGrid(posts.get(position));
-                    }
-                });
             }
+            viewHolder.llGoing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    myAppAdapter.getItem(position);
+
+                    showBottomPeopleGoing(posts.get(position));
+                }
+            });
+            /*viewHolder.llGoing.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    myAppAdapter.getItem(position);
+
+                    showBottomPeopleGoing(posts.get(position));
+                }
+            });*/
             //viewHolder.DataText.setText(parkingList.get(position).getDescription() + "");
 
             //Glide.with(MainActivity.this).load(parkingList.get(position).getImagePath()).into(viewHolder.cardImage);
 
             return convertView;
         }
-    }
-
-    private void showTwoWayGrid(DataModel dataModel) {
-
-        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        horizontal_recycler_view.setLayoutManager(horizontalLayoutManagaer);
-
-        dataModel.getPeople_going();
-        //Sample arraylist..
-        List<DoublePeople> doublePeoples = new ArrayList<>();
-        doublePeoples.add(new DoublePeople(new People("palak", ""), new People("darji", "")));
-        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
-        doublePeoples.add(new DoublePeople(new People("Sahil", ""), new People("bhai", "")));
-
-        HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples);
-        horizontal_recycler_view.setAdapter(adapter);
-
-
-        adapter.notifyDataSetChanged();
-
-        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
     }
 
     public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.MyViewHolder> {

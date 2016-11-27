@@ -1,5 +1,8 @@
 package com.hadippa.activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,26 +14,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hadippa.R;
+import com.hadippa.utils.OnOkClickListener;
 
+import java.nio.channels.spi.AbstractSelectionKey;
 import java.util.ArrayList;
+import java.util.List;
 
-public class EntertainmentActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class EntertainmentActivity extends BaseActionsActivity {
 
     private RecyclerView listPlay;
     private TextView tvHeader;
     CustomAdapter customAdapter = new CustomAdapter();
     private ArrayList<String> alCities;
 
+    @BindView(R.id.tvTabMovie)
+    TextView tvTabMovie;
+    private AlertDialog alertDialog;
+    @BindView(R.id.llInvite)
+    RelativeLayout llInvite;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entertainment);
+        ButterKnife.bind(this);
+
+        setCurrentActionView(this,R.id.tvTabMovie);
 
         alCities = new ArrayList<>();
         alCities.add("Mumbai");
@@ -57,20 +77,46 @@ public class EntertainmentActivity extends AppCompatActivity {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listPlay.setLayoutManager(mLayoutManager);
         listPlay.setAdapter(customAdapter);
+
+        llInvite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupList(EntertainmentActivity.this, alCities, getString(R.string.choose_city), new OnOkClickListener() {
+                    @Override
+                    public void onOkClick(String dataSelected) {
+
+                        //TODO change_city web call here
+                    }
+                });
+            }
+        });
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        //MyObject obj = (MyObject) alCities.getItemAtPosition(info.position);
 
-        for(int i=0;i<alCities.size();i++){
-            menu.add(alCities.get(i));
-        }
+    private void showPopupList(Context context, final List<String> list, String title, final OnOkClickListener onOkClickListener) {
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.popup_listview, null);
+        ListView listView = (ListView) view.findViewById(R.id.lvItems);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context,R.layout.item_city, R.id.txtName, list);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(alertDialog != null) alertDialog.cancel();
+                onOkClickListener.onOkClick(list.get(position));
+            }
+        });
+
+        builder.setTitle(title);
+        builder.setView(view);
+
+        alertDialog = builder.show();
     }
+
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";

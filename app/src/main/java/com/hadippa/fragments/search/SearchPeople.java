@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,7 +30,6 @@ import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.SquareImageView;
 import com.hadippa.activities.SearchActivity;
-import com.hadippa.model.CityModel;
 import com.hadippa.model.PeopleModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -66,6 +66,10 @@ public class SearchPeople extends Fragment {
     SearchTag searchTag = new SearchTag();
 
     public CustomAdapter customAdapter;
+    private LinearLayout llFollowUnfollow;
+    private TextView tvFollowUnfollow;
+    private ImageView ivFollowUnfollow;
+
     public SearchPeople newInstance(int page, String title) {
         SearchPeople fragmentFirst = new SearchPeople();
         Log.d("FRAGMENT_LOG", "Crewated ");
@@ -149,7 +153,7 @@ public class SearchPeople extends Fragment {
             viewHolder.getName().setText(peopleModel.getFirst_name()+" "+peopleModel.getLast_name());
 
             if(peopleModel.getProfile_photo_thumbnail().equals("")){
-                viewHolder.getProfileImage().setImageResource(R.drawable.ic_user_avatar_default);
+                viewHolder.getProfileImage().setImageResource(R.drawable.profile_bg);
             }else {
 
                 Glide.with(context)
@@ -393,9 +397,13 @@ public class SearchPeople extends Fragment {
         builder.setView(view);
         builder.setMessage(null);
 
-        final TextView tvFollowUnfollow = (TextView) view.findViewById(R.id.tvFollowUnfollow);
+        llFollowUnfollow = (LinearLayout) view.findViewById(R.id.llFollowUnfollow);
+        ivFollowUnfollow = (ImageView) view.findViewById(R.id.ivFollowUnfollow);
+
+
+        tvFollowUnfollow = (TextView) view.findViewById(R.id.tvFollowUnfollow);
         ((TextView) view.findViewById(R.id.tvName_Age)).setText(peopleModel.getFirst_name() + " " + peopleModel.getLast_name());
-        if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
+       /* if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
             tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
             tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
             tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
@@ -406,15 +414,27 @@ public class SearchPeople extends Fragment {
             tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
             tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow), null, null, null);
         }
+*/
 
-        tvFollowUnfollow.setOnClickListener(new View.OnClickListener() {
+        if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
+
+            setFollowButtonView(true);
+        }
+        else{
+            setFollowButtonView(false);
+        }
+
+        llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //cancelThisDialog();
 
                 if(tvFollowUnfollow.getText().toString().equals(getResources().getString(R.string.followers))) {
+                    setFollowButtonView(true);
                     follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, peopleModel.getId());
-                }else{
+                }
+                else{
+                    setFollowButtonView(false);
                     follow_Unfollow(peopleModel,AppConstants.CONNECTION_UNFOLLOW, peopleModel.getId());
                 }
             }
@@ -429,14 +449,27 @@ public class SearchPeople extends Fragment {
 
     }
 
+    private void setFollowButtonView(boolean isFollowing){
+
+        if(isFollowing){
+            tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
+            ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
+            llFollowUnfollow.setSelected(true);
+            tvFollowUnfollow.setSelected(true);
+        }
+        else{
+            tvFollowUnfollow.setText(getResources().getString(R.string.followers));
+            ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
+            tvFollowUnfollow.setSelected(false);
+            llFollowUnfollow.setSelected(false);
+        }
+    }
     public void follow_Unfollow(PeopleModel peopleModel,String type, String id) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
 
-
         try {
-
             requestParams.add("access_token", sp.getString("access_token", ""));
             requestParams.add("followed_id", id);
 
@@ -493,7 +526,7 @@ public class SearchPeople extends Fragment {
 
                 if (jsonObject.getBoolean("success")) {
 
-                    alertDialog.dismiss();
+                    //alertDialog.dismiss();
 
                     if(type.equals(AppConstants.CONNECTION_FOLLOW)){
 
@@ -517,6 +550,9 @@ public class SearchPeople extends Fragment {
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
             //  AppConstants.showSnackBar(mainRel,"Try again!");
+
+            //TODO for sahil.. check for the failure response, and change follow/following of button again by calling
+            // setFollowButtonView to change the state back to original.
         }
 
     }

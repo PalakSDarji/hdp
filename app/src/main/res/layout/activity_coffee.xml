@@ -122,13 +122,26 @@
 
     </RelativeLayout>
 
+
+    <LinearLayout
+        android:id="@+id/llActivitiesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_below="@+id/rlSearch">
+
+        <include
+            layout="@layout/activities_horizontal_layout"/>
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listShops"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/c_efefef"
         android:layout_marginTop="@dimen/value_h15"
-        android:layout_below="@+id/rlSearch"
+        android:layout_below="@+id/llActivitiesContainer"
         android:paddingLeft="@dimen/sign_up_padding"
         android:paddingRight="@dimen/sign_up_padding"
         android:paddingTop="@dimen/sign_up_padding" />

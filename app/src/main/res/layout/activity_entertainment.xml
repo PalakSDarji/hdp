@@ -40,6 +40,7 @@
         <RelativeLayout
             android:id="@+id/llInvite"
             android:layout_width="wrap_content"
+            android:clickable="true"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -50,19 +51,22 @@
                 android:id="@+id/ivArrow"
                 android:layout_width="@dimen/value_w17"
                 android:layout_height="@dimen/value_w17"
-                android:padding="2dp"
-                android:src="@drawable/available_till_arrow"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/value_5"
-                android:layout_toRightOf="@+id/imageFilter"/>
+                android:layout_toRightOf="@+id/imageFilter"
+                android:padding="2dp"
+                android:src="@drawable/available_till_arrow"/>
 
             <com.hadippa.CustomTextView
                 android:id="@+id/imageFilter"
-                android:layout_marginRight="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mumbai"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:paddingTop="@dimen/value_5"
+                android:paddingBottom="@dimen/value_5"
+                android:paddingLeft="@dimen/value_5"
+                android:text="Mumbai"
                 android:textColor="@color/c_464646"
                 android:textSize="@dimen/values_txt_11"
                 app:customFont="@string/proxima_reg"/>
@@ -105,14 +109,25 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/llActivitiesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/rlSearch">
+
+        <include
+            layout="@layout/activities_horizontal_layout"/>
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listPlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/c_efefef"
+        android:layout_below="@+id/llActivitiesContainer"
         android:layout_marginTop="@dimen/value_h15"
-        android:paddingTop="@dimen/value_h27"
-        android:layout_below="@+id/rlSearch"/>
+        android:background="@color/c_efefef"
+        android:paddingTop="@dimen/value_h27"/>
 
 
 </RelativeLayout>

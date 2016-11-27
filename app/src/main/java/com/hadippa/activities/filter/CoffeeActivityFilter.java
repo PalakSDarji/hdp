@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.activities.BaseActionsActivity;
 import com.hadippa.activities.CreateActivityActvity;
 import com.hadippa.model.NightCLubModel;
 import com.loopj.android.http.AsyncHttpClient;
@@ -48,7 +50,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class CoffeeActivityFilter extends AppCompatActivity implements LocationListener {
+public class CoffeeActivityFilter extends BaseActionsActivity implements LocationListener {
 
     private RecyclerView listShops;
     private ImageView imageBack;
@@ -59,6 +61,9 @@ public class CoffeeActivityFilter extends AppCompatActivity implements LocationL
     CustomAdapter customAdapter = new CustomAdapter();
     @BindView(R.id.edtSearch)
     EditText edtSearch;
+
+    @BindView(R.id.llActivitiesContainer)
+    LinearLayout llActivitiesContainer;
 
     @BindView(R.id.tvNext)
     CustomTextView tvNext;
@@ -144,29 +149,37 @@ public class CoffeeActivityFilter extends AppCompatActivity implements LocationL
             longitude = String.valueOf(gps.getLongitude());
 
             prepareThings(pageNumber);
-
         } else {
-
             gps.showSettingsAlert();
-
         }
-
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_coffee);
         ButterKnife.bind(this);
+
+        llActivitiesContainer.setVisibility(View.VISIBLE);
         activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY, 0);
 
         if(getIntent().getStringArrayListExtra("selectedList")!=null){
             activity_id = getIntent().getStringArrayListExtra("selectedList");
         }
 
+        if(activityKey == AppConstants.ACTIVITY_NIGHTCLUB){
+
+            setCurrentActionView(this,R.id.tvTabNightclub);
+        }
+        else if(activityKey == AppConstants.ACTIVITY_LOUNGE){
+
+            setCurrentActionView(this,R.id.tvTabLounge);
+        }
+        else if(activityKey == AppConstants.ACTIVITY_FROM_COFFEE){
+
+            setCurrentActionView(this,R.id.tvTabCoffee);
+        }
 
         tvNext.setVisibility(View.VISIBLE);
         tvNext.setOnClickListener(new View.OnClickListener() {

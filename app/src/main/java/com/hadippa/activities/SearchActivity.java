@@ -44,7 +44,7 @@ import java.util.Set;
  */
 public class SearchActivity extends PeekViewActivity implements View.OnClickListener {
 
-    String[] tabTitle = {"CITY", "PEOPLE", "TAG"};
+    String [] tabTitle = {"CITY","PEOPLE"};
     SlidingTabLayout tabs;
 
     SharedPreferences sp;
@@ -97,7 +97,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         //This prevents fragments from being destroyed, default limit is 1, so next and pre frag will be alive if pos -1,
         // if pos = 0 then 1 will be alive, if 2 then 1 will be alive
         //by setting it 2, we make sure that view pager should atleast keep 2 fragments in a history, other than current
-        //  pager.setOffscreenPageLimit(2);
+      //  pager.setOffscreenPageLimit(2);
 
 
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
@@ -124,9 +124,9 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     //performSearch();
                     String s = v.getText().toString();
-                    if (v.getText().length() >= 2) {
+                    if(v.getText().length()>=2){
 
-                        Log.v("searchCity", "searchCity" + searchCity);
+                        Log.v("searchCity","searchCity"+searchCity);
 
                         previousSearchList.add(edtSearch.getText().toString().trim());
 
@@ -140,7 +140,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
                         if (pager.getCurrentItem() == 2) {
                             searchTag.fetchByTags(String.valueOf(s));
                             searchPeople.fetchPeople(String.valueOf(s));
-                        } else {
+                        }else{
                             searchCity.fetchCities(String.valueOf(s));
                             searchPeople.fetchPeople(String.valueOf(s));
                         }
@@ -201,7 +201,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        switch(v.getId()) {
 
         }
     }
@@ -215,7 +215,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         public Fragment getItem(int num) {
 
             Fragment fragment = null;
-            switch (num) {
+            switch (num){
 
                 case 0:
 
@@ -223,7 +223,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                     break;
 
-                case 1:
+                case 1 :
 
                     fragment = searchPeople;
 

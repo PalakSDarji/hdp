@@ -52,6 +52,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.hadippa.model.UserProfile;
+import com.hadippa.utils.OnOkClickListener;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -484,7 +485,7 @@ public class EditProfileActivity extends AppCompatActivity {
         View view = LayoutInflater.from(context).inflate(R.layout.popup_listview, null);
         ListView listView = (ListView) view.findViewById(R.id.lvItems);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, android.R.id.text1, list);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context,R.layout.item_city, R.id.txtName, list);
         listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -501,7 +502,4 @@ public class EditProfileActivity extends AppCompatActivity {
         alertDialog = builder.show();
     }
 
-    private interface OnOkClickListener {
-        void onOkClick(String dataSelected);
-    }
 }

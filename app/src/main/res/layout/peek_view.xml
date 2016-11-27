@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:orientation="vertical"
-    android:background="@android:color/transparent">
+                android:background="@android:color/transparent">
 
     <!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                                         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -26,45 +27,100 @@
             <com.hadippa.SquareImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:background="@color/background"
+                android:adjustViewBounds="true"
+                app:riv_corner_radius_top_right="@dimen/value_10"
+                app:riv_corner_radius_top_left="@dimen/value_10"
                 android:layout_height="wrap_content"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/image"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:background="#fff">
 
-                <TextView
-                    android:id="@+id/tvFollowUnfollow"
-                    android:paddingTop="@dimen/tab_search_padding_vertical"
-                    android:paddingBottom="@dimen/tab_search_padding_vertical"
-                    android:background="@drawable/rounded_followers"
-                    android:textSize="@dimen/card_bottom_text_size"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:drawableLeft="@drawable/ic_user_follow"
-                    android:paddingLeft="@dimen/pref_card_sub_title_size"
-                    android:paddingRight="@dimen/pref_card_sub_title_size"
-                    android:layout_width="@dimen/follow_width_layout_2"
+                <LinearLayout
+                    android:id="@+id/llFollowUnfollow"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/follow_color"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/value_w29"
+                    android:paddingTop="@dimen/value_h15"
+                    android:paddingRight="@dimen/value_w29"
+                    android:paddingBottom="@dimen/value_h15"
+                    android:background="@drawable/selector_bg_follow_peek"
                     android:gravity="center"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/followers"/>
+                    android:clickable="true"
+                    android:orientation="horizontal">
 
-                <TextView
+                    <ImageView
+                        android:id="@+id/ivFollowUnfollow"
+                        android:layout_width="@dimen/value_w24"
+                        android:layout_height="@dimen/value_w24"
+                        android:clickable="false"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_user_follow"/>
+
+                    <TextView
+                        android:id="@+id/tvFollowUnfollow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:clickable="false"
+                        android:text="Follow"
+                        android:textColor="@color/selector_txt_follower_following"
+                        android:textSize="@dimen/values_txt_13"/>
+
+                </LinearLayout>
+
+                <!--<LinearLayout
+                    android:id="@+id/llFollowUnfollow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.hadippa.CustomTextView
+                        app:customFont="@string/proxima_reg"
+                        android:id="@+id/tvFollowUnfollow"
+                        android:paddingTop="@dimen/tab_search_padding_vertical"
+                        android:paddingBottom="@dimen/tab_search_padding_vertical"
+                        android:background="@drawable/rounded_followers"
+                        android:textSize="@dimen/card_bottom_text_size"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:drawableLeft="@drawable/ic_user_follow"
+                        android:paddingLeft="@dimen/pref_card_sub_title_size"
+                        android:paddingRight="@dimen/pref_card_sub_title_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/follow_color"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:text="followersa sd "/>
+
+                </LinearLayout>
+-->
+
+                <com.hadippa.CustomTextView
+                    app:customFont="@string/proxima_bold"
                     android:id="@+id/tvName_Age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/llFollowUnfollow"
+                    android:layout_marginLeft="@dimen/value_10"
                     android:layout_alignParentRight="true"
-                    android:text="Diana Penty"
+                    android:gravity="right"
                     android:textColor="#000"
+                    android:maxLines="1"
+                    android:text="Loading.."
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textSize="@dimen/logout_padding_vertical"
-                    android:textStyle="bold">
-
-                </TextView>
+                    android:layout_marginRight="@dimen/value_16" />
 
             </RelativeLayout>
 

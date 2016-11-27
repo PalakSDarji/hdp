@@ -4,6 +4,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:focusableInTouchMode="true"
                 android:background="#ffffff"
                 android:orientation="vertical">
 
@@ -26,13 +27,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/value_w66"
+            android:layout_marginLeft="@dimen/value_w24"
             android:layout_toRightOf="@+id/imageBack">
 
             <ImageView
                 android:id="@+id/ivSearch"
-                android:layout_width="@dimen/value_h21"
-                android:layout_height="@dimen/value_h21"
+                android:layout_width="@dimen/value_h27"
+                android:layout_height="@dimen/value_h27"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_search"
                 />
@@ -41,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/edtSearch"
-                android:layout_marginTop="@dimen/value_h10"
                 android:background="#d1cdce"/>
 
             <AutoCompleteTextView
@@ -50,11 +50,13 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Search"
-                android:textColor="@color/c_a39fa0"
+                android:textColor="@color/c_787473"
                 android:textColorHint="#a39fa0"
                 android:layout_marginLeft="@dimen/value_w17"
+                android:paddingBottom="@dimen/value_10"
+                android:paddingTop="@dimen/value_10"
                 android:layout_toRightOf="@+id/ivSearch"
-                android:textSize="@dimen/values_txt_12"
+                android:textSize="@dimen/values_txt_16"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:layout_centerVertical="true"
@@ -67,7 +69,6 @@
 
 
     <com.SlidingTab.SlidingTabLayout
-
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
