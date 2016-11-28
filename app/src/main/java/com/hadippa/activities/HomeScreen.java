@@ -293,6 +293,14 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                 startActivity(intent1);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
+
+
+            case R.id.linearNotification:
+
+                Intent intent2 = new Intent(HomeScreen.this, NotificationActivity.class);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
         }
     }
 

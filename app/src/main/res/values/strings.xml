@@ -237,4 +237,6 @@
     <string name="country">Lives in</string>
     <string name="gender">Gender</string>
     <string name="choose_city">Choose City</string>
+    <string name="accept">Accept</string>
+    <string name="join">Join</string>
 </resources>
