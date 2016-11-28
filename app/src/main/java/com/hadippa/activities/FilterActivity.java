@@ -22,7 +22,7 @@ import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.activities.filter.CoffeeActivityFilter;
-import com.hadippa.activities.filter.EventListActivityFilter;
+import com.hadippa.activities.filter.CoffeeActivityFilter;
 import com.hadippa.activities.filter.TravelActivityFitler;
 import com.hadippa.model.FilterModel;
 
@@ -209,7 +209,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.tvTheatrePlay:
 
 //                changeEntertainment(tvTheatrePlay);
-                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_THEATER);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_THEATER);
                 intent.putExtra("selectedList", activity_id);
@@ -220,7 +220,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.tvEvent:
 
             //    changeEntertainment(tvEvent);
-                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_EVENT);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_EVENT);
                 intent.putExtra("selectedList", activity_id);
@@ -231,7 +231,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.tvFestival:
 
                 //changeEntertainment(tvFestival);
-                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_FESTIVAL);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_FESTIVAL);
                 intent.putExtra("selectedList", activity_id);
@@ -312,7 +312,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.tvParty:
 
              //   changeHotels(tvParty);
-                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_PARTY);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_PARTY);
                 intent.putExtra("selectedList", activity_id);
@@ -329,7 +329,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
                // changeSports(tvAdventure);
 
-                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_ADV_SPORTS);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_AVD_SPORTS);
                 intent.putExtra("selectedList", activity_id);
@@ -340,7 +340,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.tvIndoor:
 
               //  changeSports(tvIndoor);
-                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_INDOOR_SPORTS);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_INDOOR);
                 intent.putExtra("selectedList", activity_id);
@@ -351,7 +351,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.tvOutdoor:
 
               //  changeSports(tvOutdoor);
-                intent = new Intent(FilterActivity.this, EventListActivityFilter.class);
+                intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_OUTDOOR_SPORTS);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_OUTDOOR);
                 intent.putExtra("selectedList", activity_id);

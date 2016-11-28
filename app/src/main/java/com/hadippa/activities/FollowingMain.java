@@ -60,6 +60,8 @@ public class FollowingMain extends FragmentActivity implements View.OnClickListe
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true);
 
+
+
         // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
         // Setting Custom Color for the Scroll bar indicator of the Tab View
         int col[] = {getResources().getColor(R.color.follow_color),getResources().getColor(R.color.following_color)};
@@ -72,6 +74,8 @@ public class FollowingMain extends FragmentActivity implements View.OnClickListe
         });
 */
         tabs.setViewPager(pager);
+
+        pager.setCurrentItem(getIntent().getExtras().getInt("tab"));
 
     }
 

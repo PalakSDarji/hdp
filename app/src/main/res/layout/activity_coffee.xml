@@ -78,7 +78,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/value_w17"
             android:clickable="true"
-            android:text="NEXT"
+            android:text="DONE"
             android:visibility="invisible"
             android:textColor="@color/c_f25e5e"
             android:textSize="@dimen/values_txt_16"

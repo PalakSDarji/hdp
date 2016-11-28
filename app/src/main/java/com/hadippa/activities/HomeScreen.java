@@ -181,6 +181,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeScreen.this,FollowingMain.class);
+                intent.putExtra("tab",0);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -190,6 +191,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeScreen.this,FollowingMain.class);
+                intent.putExtra("tab",1);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

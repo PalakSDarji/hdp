@@ -326,7 +326,7 @@ public class ShowCardsNew extends Fragment {
         if(dataModels != null && dataModels.size()>0){
             posts.addAll(dataModels);
         }
-        posts.add(new DataModel());
+      //  posts.add(new DataModel());
         Log.d("posts>>", sp.getString("posts", ""));
 
 
