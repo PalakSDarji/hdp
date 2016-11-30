@@ -31,6 +31,7 @@ import com.hadippa.R;
 import com.hadippa.SquareImageView;
 import com.hadippa.activities.SearchActivity;
 import com.hadippa.model.PeopleModel;
+import com.hadippa.model.SearchModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -62,8 +63,7 @@ public class SearchPeople extends Fragment {
     public  RelativeLayout relMain;
 
     public Context context;
-    public ArrayList<PeopleModel> peopleModelArrayList = new ArrayList<>();
-    SearchTag searchTag = new SearchTag();
+   // public ArrayList<PeopleModel> peopleModelArrayList = new ArrayList<>();
 
     public CustomAdapter customAdapter;
     private LinearLayout llFollowUnfollow;
@@ -100,11 +100,29 @@ public class SearchPeople extends Fragment {
         progressBar.setVisibility(View.GONE);
 
         setPreviousData();
-        if(SearchActivity.edtSearch.getText().toString().length()>=2) {
-            searchTag.fetchByTags(SearchActivity.edtSearch.getText().toString());
-        }
-
         return view;
+
+    }
+
+    void setPreviousData() {
+
+
+        usersBeen.clear();
+        if (sp.getString("previous_search", "").equals("")) {
+
+
+        } else {
+            Type listType = new TypeToken<SearchModel>() {
+            }.getType();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+
+            Gson gson = gsonBuilder.create();
+
+            SearchModel searchModel = (gson.fromJson(String.valueOf(sp.getString("previous_search", "")), listType));
+
+            setAdapter(searchModel.getUsers());
+
+        }
 
     }
 
@@ -127,9 +145,36 @@ public class SearchPeople extends Fragment {
         }
     }
 
+    public List<SearchModel.UsersBean> usersBeen = new ArrayList<>();
+
+    public void setAdapter(List<SearchModel.UsersBean> usersBeen1){
+
+     //   onCreateView(getActivity().getLayoutInflater(),null,null);
+        usersBeen = usersBeen1 ;
+        customAdapter = new CustomAdapter();
+       /* View view = getActivity().getLayoutInflater().inflate(R.layout.follow, null, false);
+
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        editor = sp.edit();
+
+        context = getActivity();
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        relMain = (RelativeLayout) view.findViewById(R.id.relMain);
+        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
+
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        progressBar.setVisibility(View.GONE);
+*/
+        mRecyclerView.setAdapter(customAdapter);
+
+
+    }
   
 
-    class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+   public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
 
         @Override
@@ -147,17 +192,17 @@ public class SearchPeople extends Fragment {
             Log.d(TAG, "Element " + position + " set.");
 
 
-            final PeopleModel peopleModel = peopleModelArrayList.get(position);
+            final SearchModel.UsersBean peopleModel = usersBeen.get(position);
 
-            viewHolder.getId().setText(peopleModel.getId());
+           // viewHolder.getId().setText(peopleModel.getId()+"");
             viewHolder.getName().setText(peopleModel.getFirst_name()+" "+peopleModel.getLast_name());
 
-            if(peopleModel.getProfile_photo_thumbnail().equals("")){
+            if(peopleModel.getProfile_photo().equals("")){
                 viewHolder.getProfileImage().setImageResource(R.drawable.profile_bg);
             }else {
 
                 Glide.with(context)
-                        .load(peopleModel.getProfile_photo_thumbnail())
+                        .load(peopleModel.getProfile_photo())
                         .into(viewHolder.getProfileImage());
             }
 
@@ -176,7 +221,7 @@ public class SearchPeople extends Fragment {
         @Override
         public int getItemCount() {
 
-            return peopleModelArrayList.size();
+            return usersBeen.size();
         }
     }
 
@@ -250,7 +295,7 @@ public class SearchPeople extends Fragment {
     }
 
 
-    public void fetchPeople(String query) {
+   /* public void fetchPeople(String query) {
 
         peopleModelArrayList.clear();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -350,33 +395,10 @@ public class SearchPeople extends Fragment {
             AppConstants.showSnackBar(relMain, "Could not refresh feed");
         }
 
-    }
-
-    void setPreviousData(){
-
-        peopleModelArrayList.clear();
-        if(sp.getString("people_users","").equals("")){
+    }*/
 
 
-
-        }else{
-            Type listType = new TypeToken<ArrayList<PeopleModel>>() {
-            }.getType();
-            GsonBuilder gsonBuilder = new GsonBuilder();
-
-            Gson gson = gsonBuilder.create();
-            peopleModelArrayList = new ArrayList<>();
-
-            peopleModelArrayList = (gson.fromJson(String.valueOf(sp.getString("people_users","")), listType));
-
-
-            customAdapter = new CustomAdapter();
-            mRecyclerView.setAdapter(customAdapter);
-        }
-
-    }
-
-    @Override
+   /* @Override
     public void onDetach() {
         super.onDetach();
 
@@ -387,9 +409,9 @@ public class SearchPeople extends Fragment {
         editor.putString("people_users", jsonArray.toString());
         editor.commit();
     }
+*/
 
-
-    public void showPopupDialog(final PeopleModel peopleModel) {
+    public void showPopupDialog(final SearchModel.UsersBean peopleModel) {
 
         final View view = getActivity().getLayoutInflater().inflate(R.layout.peek_view, null);
 
@@ -416,14 +438,14 @@ public class SearchPeople extends Fragment {
         }
 */
 
-        if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
+      /*  if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
 
             setFollowButtonView(true);
         }
         else{
             setFollowButtonView(false);
         }
-
+*/
         llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -431,11 +453,11 @@ public class SearchPeople extends Fragment {
 
                 if(tvFollowUnfollow.getText().toString().equals(getResources().getString(R.string.followers))) {
                     setFollowButtonView(true);
-                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, peopleModel.getId());
+                   // follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, peopleModel.getId());
                 }
                 else{
                     setFollowButtonView(false);
-                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_UNFOLLOW, peopleModel.getId());
+                   // follow_Unfollow(peopleModel,AppConstants.CONNECTION_UNFOLLOW, peopleModel.getId());
                 }
             }
         });

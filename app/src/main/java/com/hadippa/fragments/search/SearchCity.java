@@ -27,6 +27,7 @@ import com.hadippa.activities.SearchActivity;
 import com.hadippa.model.CityModel;
 import com.hadippa.model.DataModel;
 import com.hadippa.model.PeopleModel;
+import com.hadippa.model.SearchModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -57,7 +58,6 @@ public class SearchCity extends Fragment {
 
     public RelativeLayout relMain;
     public ProgressBar progressBar;
-    public ArrayList<CityModel> cityModelArrayList = new ArrayList<>();
 
 
     public CustomAdapter customAdapter;
@@ -98,9 +98,8 @@ public class SearchCity extends Fragment {
 
         //crashed
 
-        if(SearchActivity.edtSearch.getText().toString().length()>=2){
-            fetchCities(SearchActivity.edtSearch.getText().toString());
-        }
+        setPreviousData();
+
 
         return view;
     }
@@ -125,11 +124,6 @@ public class SearchCity extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         progressBar.setVisibility(View.GONE);
-        setPreviousData();
-
-        if(SearchActivity.edtSearch.getText().toString().length()>=2){
-            fetchCities(SearchActivity.edtSearch.getText().toString());
-        }
 
     }
 
@@ -151,7 +145,7 @@ public class SearchCity extends Fragment {
             Log.d(TAG, "Element " + position + " set.");
 
 
-            CityModel cityModel = cityModelArrayList.get(position);
+            SearchModel.CitiesBean.LocationSuggestionsBean cityModel = locationSuggestionsBeen.get(position);
 
             viewHolder.getCity().setText(cityModel.getName());
             viewHolder.getCountry().setText(", "+cityModel.getCountry_name());
@@ -163,7 +157,7 @@ public class SearchCity extends Fragment {
         @Override
         public int getItemCount() {
 
-            return cityModelArrayList.size();
+            return locationSuggestionsBeen.size();
         }
     }
 
@@ -206,7 +200,7 @@ public class SearchCity extends Fragment {
 
     }
 
-    public void fetchCities(String query) {
+  /*  public void fetchCities(String query) {
 
         cityModelArrayList.clear();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -316,31 +310,10 @@ public class SearchCity extends Fragment {
         }
 
     }
+*/
 
 
-    void setPreviousData(){
-
-        cityModelArrayList.clear();
-        if(sp.getString("location_suggestions","").equals("")){
-
-
-
-        }else{
-            Type listType = new TypeToken<ArrayList<CityModel>>() {
-            }.getType();
-            GsonBuilder gsonBuilder = new GsonBuilder();
-
-            Gson gson = gsonBuilder.create();
-            cityModelArrayList = new ArrayList<>();
-            cityModelArrayList = (gson.fromJson(String.valueOf(sp.getString("location_suggestions","")), listType));
-
-            customAdapter = new CustomAdapter();
-            mRecyclerView.setAdapter(customAdapter);
-        }
-
-    }
-
-    @Override
+ /*   @Override
     public void onDetach() {
         super.onDetach();
 
@@ -350,7 +323,41 @@ public class SearchCity extends Fragment {
         JsonArray jsonArray = element.getAsJsonArray();
         editor.putString("location_suggestions", jsonArray.toString());
         editor.commit();
+    }*/
+
+    public List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen = new ArrayList<>();
+
+    public void setAdapter(List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen1){
+
+        this.locationSuggestionsBeen =locationSuggestionsBeen1 ;
+        customAdapter = new CustomAdapter();
+        mRecyclerView.setAdapter(customAdapter);
+
+
     }
+
+    void setPreviousData() {
+
+
+        locationSuggestionsBeen.clear();
+        if (sp.getString("previous_search", "").equals("")) {
+
+
+        } else {
+            Type listType = new TypeToken<SearchModel>() {
+            }.getType();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+
+            Gson gson = gsonBuilder.create();
+
+            SearchModel searchModel = (gson.fromJson(String.valueOf(sp.getString("previous_search", "")), listType));
+
+            setAdapter(searchModel.getCities().getLocation_suggestions());
+
+        }
+
+    }
+
 }
 
 
