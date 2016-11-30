@@ -46,13 +46,21 @@ import cz.msebera.android.httpclient.Header;
  * Created by alm-android on 01-12-2015.
  */
 
+//Frag,ent
 public class SearchCity extends Fragment {
 
     public SharedPreferences sp;
     public SharedPreferences.Editor editor;
 
      public RecyclerView mRecyclerView;
-
+//no staic :D
+    // I was trying this today..
+    //buttokay nai thatu ?
+    //rv or adapter null reh 6e
+    // .in my case rv but rehva de na thatu hoy to... mebiju solution kari j didhu che em on
+    //ok np but let me check
+    //all yours
+     //:D
 
     public Snackbar snackbar = null;
 
@@ -331,6 +339,8 @@ public class SearchCity extends Fragment {
 
         this.locationSuggestionsBeen =locationSuggestionsBeen1 ;
         customAdapter = new CustomAdapter();
+       //aa pan fragment j che
+        //null here
         mRecyclerView.setAdapter(customAdapter);
 
 

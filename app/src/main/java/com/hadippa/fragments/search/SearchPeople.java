@@ -48,6 +48,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by alm-android on 01-12-2015.
  */
 
+//Fragment
 public class SearchPeople extends Fragment {
 
     public AlertDialog alertDialog;

@@ -74,6 +74,8 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
     ImageView imageBack;
 
     //Fragment na object banaya.. and trying to using them
+    //kayu object?
+
     SearchPeople searchPeople = new SearchPeople();
     SearchCity searchCity = new SearchCity();
 
