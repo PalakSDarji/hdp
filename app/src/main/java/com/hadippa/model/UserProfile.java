@@ -9,7 +9,21 @@ import java.io.Serializable;
 public class UserProfile implements Serializable {
     /**
      * success : true
-     * user : {"id":219,"first_name":"sahil","last_name":"desai","username":"sahil123@gmail.com","email":"sahil123@gmail.com","gender":"male","dob":"1992-11-21","company":"Baroda Coders","occupation":"Developer","about_me":"","interested_in":"female","zodiac":"Aries","lanuage_known":"English Hindi Gujarati Arabic Urdu","city":"Vadodara","age_range_from":18,"age_range_to":99,"fb_id":0,"mobile":7878345761,"mobile_verified":1,"mobile_verification_code":0,"email_verified":0,"email_verification_code":"","password_change_verification_code":"","profile_photo":"default.jpg","photo_uploaded":1,"active":1,"private_account":0,"current_lat":0,"current_lon":0,"radius":100,"registration_complete":3,"device_token":"APA91bFxsFbX3wbZ9HqtgfNbCBSHnf6Xc0kbS-FgA9KfnlpXIFSUpx1_ja01Ac-4flFqNxOw2_ry71kjyR889VYA4bfa2DZWB6fBTGfvOWmfGy7mvUwfTAQ","device_type":"android","device_id":"88baca3a5682275d","device_os_version":"23","created_at":"2016-11-12 21:39:29","updated_at":"2016-11-21 20:59:08","age":24}
+     * user : {"id":219,"first_name":"sahil","last_name":"desai",
+     * "username":"sahil123@gmail.com","email":"sahil123@gmail.com","gender":"male",
+     * "dob":"1992-11-21","company":"Baroda Coders","occupation":"Developer","about_me":"",
+     * "interested_in":"female","zodiac":"Aries","lanuage_known":"English Hindi Gujarati Arabic Urdu",
+     * "city":"Vadodara","age_range_from":18,"age_range_to":99,"fb_id":0,"mobile":7878345761,
+     * "mobile_verified":1,"mobile_verification_code":0,"email_verified":0,
+     * "email_verification_code":"","password_change_verification_code":"",
+     * "profile_photo":"default.jpg","photo_uploaded":1,"active":1,
+     * "private_account":0,"current_lat":0,"current_lon":0,
+     * "radius":100,"registration_complete":3,
+     * "device_token":"APA91bFxsFbX3wbZ9HqtgfNbCBSHnf6Xc0kbS-FgA9KfnlpXIFSUpx1_ja01Ac-4flFqNxOw2_
+     * ry71kjyR889VYA4bfa2DZWB6fBTGfvOWmfGy7mvUwfTAQ","device_type":"android",
+     * "device_id":"88baca3a5682275d","device_os_version":"23",
+     * "created_at":"2016-11-12 21:39:29","updated_at":"2016-11-21 20:59:08",
+     * "age":24}
      */
 
     private boolean success;

@@ -396,27 +396,4 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
     }
 
-    void setPreviousData() {
-
-        searchPeople.usersBeen.clear();
-        searchCity.locationSuggestionsBeen.clear();
-        if (sp.getString("previous_search", "").equals("")) {
-
-
-        } else {
-            Type listType = new TypeToken<SearchModel>() {
-            }.getType();
-            GsonBuilder gsonBuilder = new GsonBuilder();
-
-            Gson gson = gsonBuilder.create();
-
-            SearchModel searchModel = (gson.fromJson(String.valueOf(sp.getString("previous_search", "")), listType));
-
-            searchCity.setAdapter(searchModel.getCities().getLocation_suggestions());
-            searchPeople.setAdapter(searchModel.getUsers());
-
-        }
-
-    }
-
 }

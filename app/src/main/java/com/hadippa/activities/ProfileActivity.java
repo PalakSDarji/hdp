@@ -358,6 +358,12 @@ public class ProfileActivity extends AppCompatActivity {
                 .placeholder(R.color.c_efefef)
                 .error(R.color.c_efefef)
                 .into(ivProfilePic);
+
+        if(getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+
+
+        }
+
     }
 
 
