@@ -62,6 +62,11 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
 
+                //TODO for Sahil, You have to start this activity on any item click, be it Movie or Coffee or Theatre Play,
+                //This Next button is hidden btw.
+                //From FilterChooserActivity's Next click, open corresponding activities. back will be managed automatically.
+                //It would be better for me not touch this code, as it includes business logic. Might throw null pointer if something goes wrong.
+                //plz handle this case.
                 Intent intent = new Intent(FilterActivity.this, FilterChooserActivity.class);
 
                 Log.d("activity_id>>??;;",activity_id.toString());

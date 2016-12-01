@@ -111,7 +111,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
                     android:layout_toLeftOf="@+id/ivFollowling"
-                    android:text="@string/followling"
+                    android:text="@string/following"
                     android:textAllCaps="true"
                     android:textColor="@color/followling"
                     android:textStyle="bold"

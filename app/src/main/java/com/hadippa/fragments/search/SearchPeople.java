@@ -1,6 +1,7 @@
 package com.hadippa.fragments.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,6 +30,7 @@ import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.SquareImageView;
+import com.hadippa.activities.ProfileActivity;
 import com.hadippa.activities.SearchActivity;
 import com.hadippa.model.PeopleModel;
 import com.hadippa.model.SearchModel;
@@ -101,6 +103,10 @@ public class SearchPeople extends Fragment {
         progressBar.setVisibility(View.GONE);
 
         setPreviousData();
+      /*  if(SearchActivity.edtSearch.getText().toString().length()>=2) {
+            searchTag.fetchByTags(SearchActivity.edtSearch.getText().toString());
+        }
+*/
         return view;
 
     }
@@ -173,7 +179,7 @@ public class SearchPeople extends Fragment {
 
 
     }
-  
+
 
    public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
@@ -426,6 +432,19 @@ public class SearchPeople extends Fragment {
 
         tvFollowUnfollow = (TextView) view.findViewById(R.id.tvFollowUnfollow);
         ((TextView) view.findViewById(R.id.tvName_Age)).setText(peopleModel.getFirst_name() + " " + peopleModel.getLast_name());
+        ((TextView) view.findViewById(R.id.tvName_Age)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(alertDialog != null && alertDialog.isShowing()) alertDialog.dismiss();
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.MY_PROFILE);
+                //TODO pass id
+                startActivity(intent);
+
+            }
+        });
+
+
        /* if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
             tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
             tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
@@ -452,7 +471,7 @@ public class SearchPeople extends Fragment {
             public void onClick(View v) {
                 //cancelThisDialog();
 
-                if(tvFollowUnfollow.getText().toString().equals(getResources().getString(R.string.followers))) {
+                if(tvFollowUnfollow.getText().toString().equals(getResources().getString(R.string.follow))) {
                     setFollowButtonView(true);
                    // follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, peopleModel.getId());
                 }
@@ -475,13 +494,13 @@ public class SearchPeople extends Fragment {
     private void setFollowButtonView(boolean isFollowing){
 
         if(isFollowing){
-            tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
+            tvFollowUnfollow.setText(getResources().getString(R.string.following));
             ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
             llFollowUnfollow.setSelected(true);
             tvFollowUnfollow.setSelected(true);
         }
         else{
-            tvFollowUnfollow.setText(getResources().getString(R.string.followers));
+            tvFollowUnfollow.setText(getResources().getString(R.string.follow));
             ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
             tvFollowUnfollow.setSelected(false);
             llFollowUnfollow.setSelected(false);

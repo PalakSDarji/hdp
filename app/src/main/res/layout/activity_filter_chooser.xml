@@ -58,7 +58,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/value_w17"
-                android:text="DONE"
+                android:text="@string/next"
                 android:paddingTop="@dimen/value_5"
                 android:paddingLeft="@dimen/value_5"
                 android:paddingBottom="@dimen/value_5"
