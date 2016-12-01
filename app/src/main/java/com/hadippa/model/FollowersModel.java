@@ -1,5 +1,7 @@
 package com.hadippa.model;
 
+import java.util.List;
+
 /**
  * Created by HP on 14-08-2016.
  */
@@ -7,147 +9,178 @@ public class FollowersModel {
 
 
     /**
-     * id : 292
-     * follower_id : 97
-     * followed_id : 179
-     * follow_accepted : 1
-     * created_at : 2016-08-07 01:40:49
-     * updated_at : 2016-08-07 01:40:49
-     * follower : {"id":"97","first_name":"Kartik","last_name":"Mistry","profile_photo":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41","photo_uploaded":"1"}
+     * success : true
+     * followers : [{"id":309,"follower_id":211,"followed_id":219,"follow_accepted":1,"created_at":"2016-06-18 00:00:00","updated_at":"2016-06-18 00:00:00","user_relationship_status":"Connected","follower":{"id":211,"first_name":"Sahil","last_name":"Desai","profile_photo":"https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/1937043_978044888911311_1642937164755094085_n.jpg?oh=c222bd311efa77a7d6e9f3864b387f73&oe=58B15762","photo_uploaded":0}},{"id":319,"follower_id":187,"followed_id":219,"follow_accepted":1,"created_at":"2016-11-20 02:02:24","updated_at":"2016-11-20 02:02:24","user_relationship_status":"Connected","follower":{"id":187,"first_name":"Anand","last_name":"Yadav","profile_photo":"1479983261_Anand.jpg","photo_uploaded":1}}]
+     * next : null
      */
 
-    private String id;
-    private String follower_id;
-    private String followed_id;
-    private int follow_accepted;
-    private String created_at;
-    private String updated_at;
+    private boolean success;
+    private Object next;
+    private List<FollowersBean> followers;
 
-    public FollowersModel() {
-
+    public boolean isSuccess() {
+        return success;
     }
 
-    /**
-     * id : 97
-     * first_name : Kartik
-     * last_name : Mistry
-     * profile_photo : https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41
-     * photo_uploaded : 1
-     */
-
-
-
-    private FollowerBean follower;
-
-    public String getId() {
-        return id;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Object getNext() {
+        return next;
     }
 
-    public String getFollower_id() {
-        return follower_id;
+    public void setNext(Object next) {
+        this.next = next;
     }
 
-    public void setFollower_id(String follower_id) {
-        this.follower_id = follower_id;
+    public List<FollowersBean> getFollowers() {
+        return followers;
     }
 
-    public String getFollowed_id() {
-        return followed_id;
+    public void setFollowers(List<FollowersBean> followers) {
+        this.followers = followers;
     }
 
-    public void setFollowed_id(String followed_id) {
-        this.followed_id = followed_id;
-    }
+    public static class FollowersBean {
+        /**
+         * id : 309
+         * follower_id : 211
+         * followed_id : 219
+         * follow_accepted : 1
+         * created_at : 2016-06-18 00:00:00
+         * updated_at : 2016-06-18 00:00:00
+         * user_relationship_status : Connected
+         * follower : {"id":211,"first_name":"Sahil","last_name":"Desai","profile_photo":"https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/1937043_978044888911311_1642937164755094085_n.jpg?oh=c222bd311efa77a7d6e9f3864b387f73&oe=58B15762","photo_uploaded":0}
+         */
 
-    public int getFollow_accepted() {
-        return follow_accepted;
-    }
+        private int id;
+        private int follower_id;
+        private int followed_id;
+        private int follow_accepted;
+        private String created_at;
+        private String updated_at;
+        private String user_relationship_status;
+        private FollowerBean follower;
 
-    public void setFollow_accepted(int follow_accepted) {
-        this.follow_accepted = follow_accepted;
-    }
-
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
-
-    public String getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    public FollowerBean getFollower() {
-        return follower;
-    }
-
-    public void setFollower(FollowerBean follower) {
-        this.follower = follower;
-    }
-
-    public static class FollowerBean {
-        private String id;
-        private String first_name;
-        private String last_name;
-        private String profile_photo;
-        private String photo_uploaded;
-
-        public FollowerBean() {
-            this.id = "97";
-            this.first_name = "kartick";
-            this.last_name = "Mistry";
-            this.profile_photo = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41";
-            this.photo_uploaded = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xtf1/v/t1.0-1/p480x480/13925049_1297151716992152_8001429379024720044_n.jpg?oh=cd368fa76ed6f5dc63b83f125f2c0b98&oe=581CEDFA&__gda__=1477538348_61044b0a58a465d8984584ab142e7d41";
-        }
-
-        public String getId() {
+        public int getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(int id) {
             this.id = id;
         }
 
-        public String getFirst_name() {
-            return first_name;
+        public int getFollower_id() {
+            return follower_id;
         }
 
-        public void setFirst_name(String first_name) {
-            this.first_name = first_name;
+        public void setFollower_id(int follower_id) {
+            this.follower_id = follower_id;
         }
 
-        public String getLast_name() {
-            return last_name;
+        public int getFollowed_id() {
+            return followed_id;
         }
 
-        public void setLast_name(String last_name) {
-            this.last_name = last_name;
+        public void setFollowed_id(int followed_id) {
+            this.followed_id = followed_id;
         }
 
-        public String getProfile_photo() {
-            return profile_photo;
+        public int getFollow_accepted() {
+            return follow_accepted;
         }
 
-        public void setProfile_photo(String profile_photo) {
-            this.profile_photo = profile_photo;
+        public void setFollow_accepted(int follow_accepted) {
+            this.follow_accepted = follow_accepted;
         }
 
-        public String getPhoto_uploaded() {
-            return photo_uploaded;
+        public String getCreated_at() {
+            return created_at;
         }
 
-        public void setPhoto_uploaded(String photo_uploaded) {
-            this.photo_uploaded = photo_uploaded;
+        public void setCreated_at(String created_at) {
+            this.created_at = created_at;
+        }
+
+        public String getUpdated_at() {
+            return updated_at;
+        }
+
+        public void setUpdated_at(String updated_at) {
+            this.updated_at = updated_at;
+        }
+
+        public String getUser_relationship_status() {
+            return user_relationship_status;
+        }
+
+        public void setUser_relationship_status(String user_relationship_status) {
+            this.user_relationship_status = user_relationship_status;
+        }
+
+        public FollowerBean getFollower() {
+            return follower;
+        }
+
+        public void setFollower(FollowerBean follower) {
+            this.follower = follower;
+        }
+
+        public static class FollowerBean {
+            /**
+             * id : 211
+             * first_name : Sahil
+             * last_name : Desai
+             * profile_photo : https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/1937043_978044888911311_1642937164755094085_n.jpg?oh=c222bd311efa77a7d6e9f3864b387f73&oe=58B15762
+             * photo_uploaded : 0
+             */
+
+            private int id;
+            private String first_name;
+            private String last_name;
+            private String profile_photo;
+            private int photo_uploaded;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getFirst_name() {
+                return first_name;
+            }
+
+            public void setFirst_name(String first_name) {
+                this.first_name = first_name;
+            }
+
+            public String getLast_name() {
+                return last_name;
+            }
+
+            public void setLast_name(String last_name) {
+                this.last_name = last_name;
+            }
+
+            public String getProfile_photo() {
+                return profile_photo;
+            }
+
+            public void setProfile_photo(String profile_photo) {
+                this.profile_photo = profile_photo;
+            }
+
+            public int getPhoto_uploaded() {
+                return photo_uploaded;
+            }
+
+            public void setPhoto_uploaded(int photo_uploaded) {
+                this.photo_uploaded = photo_uploaded;
+            }
         }
     }
 }

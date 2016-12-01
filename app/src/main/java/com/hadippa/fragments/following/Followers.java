@@ -51,7 +51,7 @@ public class Followers extends Fragment {
 
     public static RecyclerView mRecyclerView;
 
-    ArrayList<FollowersModel>  followersFollowings = new ArrayList<>();
+    List<FollowersModel.FollowersBean>  followersFollowings = new ArrayList<>();
     
     public static Snackbar snackbar = null;
 
@@ -116,7 +116,7 @@ public class Followers extends Fragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
-            final FollowersModel followers_following = followersFollowings.get(position);
+            final FollowersModel.FollowersBean followers_following = followersFollowings.get(position);
 
             if(followers_following != null && followers_following.getFollower() != null){
                 viewHolder.name.setText(followers_following.getFollower().getFirst_name()+" "+
@@ -132,10 +132,11 @@ public class Followers extends Fragment {
                 public void onClick(View v) {
 
                     Log.v("Followers","clicked " + position);
-                    if(followers_following.getFollow_accepted()== 1){
-                        follow_Unfollow(followers_following,AppConstants.CONNECTION_UNFOLLOW);
+                    if(followers_following.getUser_relationship_status().equals("Following") ||
+                            followers_following.getUser_relationship_status().equals("Connected") ){
+                        follow_Unfollow(position,AppConstants.CONNECTION_UNFOLLOW);
                     }else{
-                        follow_Unfollow(followers_following,AppConstants.CONNECTION_FOLLOW);
+                        follow_Unfollow(position,AppConstants.CONNECTION_FOLLOW);
                     }
 
 
@@ -144,21 +145,27 @@ public class Followers extends Fragment {
 
             Log.d("followers_following??",followers_following.getFollow_accepted()+"");
 
+            Log.d("checkStauts>>",followers_following.getFollower_id()+ " >> "+followers_following.getUser_relationship_status());
             //TODO check this equals.. checking 1 to make it look like "Followed" is temp. I have no idea what returns from api call.. just wanted to demo the design
-            if(followers_following.getFollow_accepted() ==1){
+            if(followers_following.getUser_relationship_status().equals("Following") ||
+                    followers_following.getUser_relationship_status().equals("Connected") ){
+
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.following));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
-                //viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
+
             }
             else{
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
-               // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
-            }
+
+
+
+                }
 
         }
 
@@ -267,7 +274,7 @@ public class Followers extends Fragment {
                     if(jsonObject.getJSONArray("followers").length()==0){
                         AppConstants.showSnackBar(relMain, "No followers yet.");
                     }else {
-                        Type listType = new TypeToken<ArrayList<FollowersModel>>() {
+                        Type listType = new TypeToken<ArrayList<FollowersModel.FollowersBean>>() {
                         }.getType();
                         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -308,12 +315,13 @@ public class Followers extends Fragment {
 
 
         }else{
-            Type listType = new TypeToken<ArrayList<FollowersModel>>() {
+            Type listType = new TypeToken<ArrayList<FollowersModel.FollowersBean>>() {
             }.getType();
             GsonBuilder gsonBuilder = new GsonBuilder();
 
             Gson gson = gsonBuilder.create();
-            followersFollowings.addAll((ArrayList<FollowersModel>) gson.fromJson(String.valueOf(sp.getString("myFollowers","")), listType));
+            followersFollowings.addAll((ArrayList<FollowersModel.FollowersBean>)
+                    gson.fromJson(String.valueOf(sp.getString("myFollowers","")), listType));
 
             customAdapter = new CustomAdapter();
             mRecyclerView.setAdapter(customAdapter);
@@ -334,7 +342,7 @@ public class Followers extends Fragment {
         editor.commit();
     }
 
-    private void follow_Unfollow(FollowersModel followersModel,String type) {
+    private void follow_Unfollow(int position,String type) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -343,7 +351,7 @@ public class Followers extends Fragment {
         try {
 
             requestParams.add("access_token", sp.getString("access_token", ""));
-            requestParams.add("followed_id", followersModel.getFollower_id());
+            requestParams.add("followed_id", String.valueOf(followersFollowings.get(position).getFollowed_id()));
 
             Log.d("request>>", requestParams.toString());
         } catch (Exception e) {
@@ -351,16 +359,16 @@ public class Followers extends Fragment {
         }
 
         asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + type, requestParams,
-                new Follow_Unfollow(followersModel,type));
+                new Follow_Unfollow(position,type));
     }
 
     class Follow_Unfollow extends AsyncHttpResponseHandler {
 
-        FollowersModel followersModel;
+        int position;
         String type;
 
-        public Follow_Unfollow(FollowersModel followersModel,String type) {
-            this.followersModel = followersModel;
+        public Follow_Unfollow(int position,String type) {
+            this.position = position;
             this.type = type;
         }
 
@@ -396,9 +404,9 @@ public class Followers extends Fragment {
                 if (jsonObject.getBoolean("success")) {
 
                     if(jsonObject.getString("status").equals("Following")){
-                        followersModel.setFollow_accepted(1);
+                        followersFollowings.get(position).setUser_relationship_status("Connected");
                     }else{
-                        followersModel.setFollow_accepted(0);
+                        followersFollowings.get(position).setUser_relationship_status("Follower");
                     }
 
                     customAdapter.notifyDataSetChanged();

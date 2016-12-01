@@ -18,10 +18,13 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -101,9 +104,10 @@ public class NotificationActivity extends AppCompatActivity {
 
         try {
 
-            requestParams.add("access_token", sp.getString("access_token", ""));
+           // requestParams.add("access_token", sp.getString("access_token", ""));
 
-            Log.d("request>>", requestParams.toString());
+            requestParams.add("access_token", "f7ee25834e1ce61d64985221975aa543ea9ce2d4");
+            Log.d("request>>","f7ee25834e1ce61d64985221975aa543ea9ce2d4"+ requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -202,10 +206,26 @@ public class NotificationActivity extends AppCompatActivity {
 
             final NotificationModel.NotificationsBean notificationsBean = data.get(position);
 
-            viewHolder.tvName.setText(notificationsBean.getUser().getFirst_name()+" "+
-                    notificationsBean.getUser().getLast_name()+" " +notificationsBean.getNotification_details().getMessage());
+            if(notificationsBean.getUser()!=null) {
+                viewHolder.tvName.setText(notificationsBean.getUser().getFirst_name() + " " +
+                        notificationsBean.getUser().getLast_name() + " " + notificationsBean.getNotification_details().getMessage());
 
-            if(notificationsBean.getNotification_type().equals("")){
+                RequestManager requestManager = Glide.with(NotificationActivity.this);
+                requestManager
+
+                        .load(notificationsBean.getUser().getProfile_photo())
+                        .error(R.drawable.place_holder)
+                        .error(R.drawable.place_holder)
+                        .into(viewHolder.rbButton);
+            }
+            viewHolder.tvDate.setText(notificationsBean.getCreated_at());
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            if(notificationsBean.getNotification_type().equals("follow_request")){
 
             }
         }
@@ -217,7 +237,7 @@ public class NotificationActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
 
-            return 20;
+            return data.size();
             //return data.size();
         }
     }
@@ -229,6 +249,11 @@ public class NotificationActivity extends AppCompatActivity {
         RelativeLayout rlContainer;
         ImageView rbButton;
         TextView tvName;
+        CustomTextView tvDate;
+
+        LinearLayout llFollowUnfollow;
+        ImageView ivFollowUnfollow;
+        TextView tvFollowUnfollow;
 
         public ViewHolder(final View v) {
             super(v);
@@ -236,8 +261,13 @@ public class NotificationActivity extends AppCompatActivity {
             name = (CustomTextView) v.findViewById(R.id.text_view);
             image_view = (RoundedImageView) v.findViewById(R.id.image_view);
             tvName = (TextView) v.findViewById(R.id.tvName);
+            tvDate = (CustomTextView) v.findViewById(R.id.tvDate);
             rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
             rbButton = (ImageView) v.findViewById(R.id.rbButton);
+
+            llFollowUnfollow = (LinearLayout)v.findViewById(R.id.llFollowUnfollow);
+            ivFollowUnfollow = (ImageView) v.findViewById(R.id.ivFollowUnfollow);
+            tvFollowUnfollow = (TextView)v.findViewById(R.id.tvFollowUnfollow);
         }
     }
 }

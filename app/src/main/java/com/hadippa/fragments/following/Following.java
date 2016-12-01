@@ -49,7 +49,7 @@ public class Following extends Fragment {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     public static RecyclerView mRecyclerView;
-    ArrayList<FollowingModel> followersFollowings = new ArrayList<>();
+    List <FollowingModel.FollowingBean> followersFollowings = new ArrayList<>();
     public static Snackbar snackbar = null;
     public static  RelativeLayout linearMain;
     ProgressBar progressBar;
@@ -132,7 +132,7 @@ public class Following extends Fragment {
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             Log.d(TAG, "Element " + position + " set.");
 
-            final FollowingModel followers_following = followersFollowings.get(position);
+            final FollowingModel.FollowingBean followers_following = followersFollowings.get(position);
 
           /*  if(followers_following.isFollowing()){
                 viewHolder.ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_following);
@@ -150,42 +150,43 @@ public class Following extends Fragment {
                     .into(viewHolder.getProfileImage());
 
             Log.d("followers_following??>>",followers_following.getFollow_accepted()+"");
-            if(followers_following.getFollow_accepted()==1){
+            if(followers_following.getUser_relationship_status().equals("Following") ||
+                    followers_following.getUser_relationship_status().equals("Connected") ){
+
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.following));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
                 //viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
+
             }
             else{
+
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
                 // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
+
+
             }
+
 
             viewHolder.llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(followers_following.isFollowing()){
-                      /*  tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
-                        //tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
-                        ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_following);*/
-                        follow_Unfollow(followers_following,AppConstants.CONNECTION_UNFOLLOW);
-                        //tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_following),null,null,null);
-                    }
-                    else{
-                       /* tvFollowUnfollow.setText(getResources().getString(R.string.followers));
-                        //tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
-                        ivFollowUnfollow.setBackgroundResource(R.drawable.ic_user_follow);*/
-                        //tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow),null,null,null);
-                        follow_Unfollow(followers_following,AppConstants.CONNECTION_FOLLOW);
 
+                    Log.v("Followers","clicked " + position);
+                    if(followers_following.getUser_relationship_status().equals("Following") ||
+                            followers_following.getUser_relationship_status().equals("Connected") ){
+                        follow_Unfollow(followers_following,AppConstants.CONNECTION_UNFOLLOW);
+                    }else{
+                        follow_Unfollow(followers_following,AppConstants.CONNECTION_FOLLOW);
                     }
+
+
                 }
             });
-
 
         }
 
@@ -370,12 +371,12 @@ public class Following extends Fragment {
 
 
         }else{
-            Type listType = new TypeToken<ArrayList<FollowingModel>>() {
+            Type listType = new TypeToken<ArrayList<FollowingModel.FollowingBean>>() {
             }.getType();
             GsonBuilder gsonBuilder = new GsonBuilder();
 
             Gson gson = gsonBuilder.create();
-            followersFollowings.addAll((ArrayList<FollowingModel>) gson.fromJson(String.valueOf(sp.getString("myFollowing","")), listType));
+            followersFollowings.addAll((ArrayList<FollowingModel.FollowingBean>) gson.fromJson(String.valueOf(sp.getString("myFollowing","")), listType));
 
             customAdapter = new CustomAdapter();
             mRecyclerView.setAdapter(customAdapter);
@@ -397,7 +398,7 @@ public class Following extends Fragment {
     }
 
 
-    private void follow_Unfollow(FollowingModel followersModel,String type) {
+    private void follow_Unfollow(FollowingModel.FollowingBean followersModel,String type) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -406,7 +407,7 @@ public class Following extends Fragment {
         try {
 
             requestParams.add("access_token", sp.getString("access_token", ""));
-            requestParams.add("followed_id", followersModel.getFollowed_id());
+            requestParams.add("followed_id", String.valueOf(followersModel.getFollowed_id()));
 
             Log.d("request>>", requestParams.toString());
         } catch (Exception e) {
@@ -419,10 +420,10 @@ public class Following extends Fragment {
 
     class Follow_Unfollow extends AsyncHttpResponseHandler {
 
-        FollowingModel followersModel;
+        FollowingModel.FollowingBean followersModel;
         String type;
 
-        public Follow_Unfollow(FollowingModel followersModel,String type) {
+        public Follow_Unfollow(FollowingModel.FollowingBean followersModel,String type) {
             this.followersModel = followersModel;
             this.type = type;
         }
@@ -460,9 +461,9 @@ public class Following extends Fragment {
                 if (jsonObject.getBoolean("success")) {
 
                     if(jsonObject.getString("status").equals("Following")){
-                        followersModel.setFollow_accepted(1);
+                        followersModel.setUser_relationship_status("Following");
                     }else{
-                        followersModel.setFollow_accepted(0);
+                        followersModel.setUser_relationship_status("Connected");
                     }
 
                     customAdapter.notifyDataSetChanged();
