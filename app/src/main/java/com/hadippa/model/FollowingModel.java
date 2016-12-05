@@ -10,7 +10,7 @@ public class FollowingModel {
 
     /**
      * success : true
-     * following : [{"id":317,"follower_id":219,"followed_id":4,"follow_accepted":1,"created_at":"2016-11-20 02:02:24","updated_at":"2016-11-20 02:02:24","user_relationship_status":"Connected","followed":{"id":4,"first_name":"Vishal","last_name":"Patni","profile_photo":"https://graph.facebook.com/v2.4/10153226160688165/picture?type=normal","photo_uploaded":0,"profile_photo_thumbnail":"https://graph.facebook.com/v2.4/10153226160688165/picture?type=normal"}},{"id":351,"follower_id":219,"followed_id":213,"follow_accepted":1,"created_at":"2016-11-27 17:54:57","updated_at":"2016-11-27 17:54:57","user_relationship_status":"Connected","followed":{"id":213,"first_name":"kartik","last_name":"mistry","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1,"profile_photo_thumbnail":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg"}}]
+     * following : [{"id":317,"follower_id":219,"followed_id":4,"follow_accepted":1,"created_at":"2016-11-20 02:02:24","updated_at":"2016-11-20 02:02:24","user_relationship_status":"Following","followed":{"id":4,"first_name":"Vishal","last_name":"Patni","profile_photo":"https://graph.facebook.com/v2.4/10153226160688165/picture?type=normal","photo_uploaded":0,"profile_photo_thumbnail":"https://graph.facebook.com/v2.4/10153226160688165/picture?type=normal"}},{"id":351,"follower_id":219,"followed_id":213,"follow_accepted":1,"created_at":"2016-11-27 17:54:57","updated_at":"2016-11-27 17:54:57","user_relationship_status":"Following","followed":{"id":213,"first_name":"kartik","last_name":"mistry","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1,"profile_photo_thumbnail":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg"}}]
      * next : null
      */
 
@@ -50,7 +50,7 @@ public class FollowingModel {
          * follow_accepted : 1
          * created_at : 2016-11-20 02:02:24
          * updated_at : 2016-11-20 02:02:24
-         * user_relationship_status : Connected
+         * user_relationship_status : Following
          * followed : {"id":4,"first_name":"Vishal","last_name":"Patni","profile_photo":"https://graph.facebook.com/v2.4/10153226160688165/picture?type=normal","photo_uploaded":0,"profile_photo_thumbnail":"https://graph.facebook.com/v2.4/10153226160688165/picture?type=normal"}
          */
 

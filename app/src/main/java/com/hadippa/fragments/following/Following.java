@@ -70,13 +70,6 @@ public class Following extends Fragment {
 
         View view = inflater.inflate(R.layout.follow, null, false);
 
-       /* followersFollowings.add(new FollowingModel());
-        followersFollowings.add(new FollowingModel());
-        followersFollowings.add(new FollowingModel());
-        followersFollowings.add(new FollowingModel());
-        followersFollowings.add(new FollowingModel());
-        followersFollowings.add(new FollowingModel());*/
-
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
@@ -329,7 +322,7 @@ public class Following extends Fragment {
                     if(jsonObject.getJSONArray("following").length()==0){
                         AppConstants.showSnackBar(linearMain, "No followings yet.");
                     }else {
-                        Type listType = new TypeToken<ArrayList<FollowingModel>>() {
+                        Type listType = new TypeToken<ArrayList<FollowingModel.FollowingBean>>() {
                         }.getType();
                         GsonBuilder gsonBuilder = new GsonBuilder();
 
@@ -390,7 +383,7 @@ public class Following extends Fragment {
         super.onDetach();
 
         Gson gson = new Gson();
-        JsonElement element = gson.toJsonTree(followersFollowings, new TypeToken<List<FollowingModel>>() {}.getType());
+        JsonElement element = gson.toJsonTree(followersFollowings, new TypeToken<List<FollowingModel.FollowingBean>>() {}.getType());
 
         JsonArray jsonArray = element.getAsJsonArray();
         editor.putString("myFollowers", jsonArray.toString());
@@ -407,7 +400,7 @@ public class Following extends Fragment {
         try {
 
             requestParams.add("access_token", sp.getString("access_token", ""));
-            requestParams.add("followed_id", String.valueOf(followersModel.getFollowed_id()));
+            requestParams.add("followed_id", String.valueOf(followersModel.getFollowed().getId()));
 
             Log.d("request>>", requestParams.toString());
         } catch (Exception e) {
@@ -460,10 +453,12 @@ public class Following extends Fragment {
                 Log.d("response>>", response);
                 if (jsonObject.getBoolean("success")) {
 
-                    if(jsonObject.getString("status").equals("Following")){
-                        followersModel.setUser_relationship_status("Following");
+                    if(followersModel.getUser_relationship_status().equals("Following") ||
+                            followersModel.getUser_relationship_status().equals("Connected")
+                            ){
+                        followersModel.setUser_relationship_status("Follower");
                     }else{
-                        followersModel.setUser_relationship_status("Connected");
+                        followersModel.setUser_relationship_status("Following");
                     }
 
                     customAdapter.notifyDataSetChanged();

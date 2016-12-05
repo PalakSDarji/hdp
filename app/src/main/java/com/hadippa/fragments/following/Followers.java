@@ -131,12 +131,13 @@ public class Followers extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    Log.v("Followers","clicked " + position);
-                    if(followers_following.getUser_relationship_status().equals("Following") ||
-                            followers_following.getUser_relationship_status().equals("Connected") ){
+                    Log.v("??Followers","clicked " + position+"  "+followers_following.getUser_relationship_status());
+                    if(followers_following.getUser_relationship_status().equals("Connected")){
                         follow_Unfollow(position,AppConstants.CONNECTION_UNFOLLOW);
+                        Log.v("??Followers","clicked " + position);
                     }else{
                         follow_Unfollow(position,AppConstants.CONNECTION_FOLLOW);
+                        Log.v("??Followers","CONECTFOLLOW clicked " + position);
                     }
 
 
@@ -351,7 +352,7 @@ public class Followers extends Fragment {
         try {
 
             requestParams.add("access_token", sp.getString("access_token", ""));
-            requestParams.add("followed_id", String.valueOf(followersFollowings.get(position).getFollowed_id()));
+            requestParams.add("followed_id", String.valueOf(followersFollowings.get(position).getFollower().getId()));
 
             Log.d("request>>", requestParams.toString());
         } catch (Exception e) {
@@ -403,7 +404,7 @@ public class Followers extends Fragment {
                 JSONObject jsonObject = new JSONObject(response);
                 if (jsonObject.getBoolean("success")) {
 
-                    if(jsonObject.getString("status").equals("Following")){
+                    if(followersFollowings.get(position).getUser_relationship_status().equals("Follower")){
                         followersFollowings.get(position).setUser_relationship_status("Connected");
                     }else{
                         followersFollowings.get(position).setUser_relationship_status("Follower");
