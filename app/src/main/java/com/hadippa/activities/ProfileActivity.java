@@ -304,6 +304,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             try {
                 String response = new String(responseBody, "UTF-8");
+                Log.d("fetchProfile>>", "success" + response);
                 Gson gson = new Gson();
                 UserProfile userProfile = gson.fromJson(response,UserProfile.class);
 

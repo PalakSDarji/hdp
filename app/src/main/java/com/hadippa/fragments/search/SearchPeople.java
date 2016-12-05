@@ -437,7 +437,8 @@ public class SearchPeople extends Fragment {
             public void onClick(View v) {
                 if(alertDialog != null && alertDialog.isShowing()) alertDialog.dismiss();
                 Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.MY_PROFILE);
+                intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.OTHERS_PROFILE);
+                intent.putExtra(AppConstants.FETCH_USER_KEY,String.valueOf(peopleModel.getId()));
                 //TODO pass id
                 startActivity(intent);
 

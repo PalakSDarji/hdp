@@ -104,9 +104,9 @@ public class NotificationActivity extends AppCompatActivity {
 
         try {
 
-           // requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("access_token", sp.getString("access_token", ""));
 
-            requestParams.add("access_token", "f7ee25834e1ce61d64985221975aa543ea9ce2d4");
+        //    requestParams.add("access_token", "f7ee25834e1ce61d64985221975aa543ea9ce2d4");
             Log.d("request>>","f7ee25834e1ce61d64985221975aa543ea9ce2d4"+ requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -216,7 +216,7 @@ public class NotificationActivity extends AppCompatActivity {
                         .load(notificationsBean.getUser().getProfile_photo())
                         .error(R.drawable.place_holder)
                         .error(R.drawable.place_holder)
-                        .into(viewHolder.rbButton);
+                        .into(viewHolder.image_view);
             }
             viewHolder.tvDate.setText(notificationsBean.getCreated_at());
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -225,8 +225,32 @@ public class NotificationActivity extends AppCompatActivity {
 
                 }
             });
-            if(notificationsBean.getNotification_type().equals("follow_request")){
 
+            viewHolder.image_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   /* Intent intent = new Intent(NotificationActivity.this, ProfileActivity.class);
+                    intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.OTHERS_PROFILE);
+                    intent.putExtra(AppConstants.FETCH_USER_KEY,String.valueOf(notificationsBean.getUser().getId()));
+                    //TODO pass id
+                    startActivity(intent);*/
+                }
+            });
+            if(notificationsBean.getNotification_type().equals("activity_request")
+                    ||notificationsBean.getNotification_type().equals("follow_request")){
+                viewHolder.tvFollowUnfollow.setText("Accept");
+                viewHolder.ivFollowUnfollow.setImageDrawable(null);
+            }else if(notificationsBean.getNotification_type().equals("follow_start")){
+                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
+                viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+                // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
+
+            }else if(notificationsBean.getNotification_type().equals("activity_cancel") ||
+                    notificationsBean.getNotification_type().equals("activity_user_delete") ||
+                    notificationsBean.getNotification_type().equals("disjoin_from_activity")){
+
+                viewHolder.llFollowUnfollow.setVisibility(View.GONE);
             }
         }
 

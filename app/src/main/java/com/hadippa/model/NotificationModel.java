@@ -11,7 +11,7 @@ public class NotificationModel {
 
     /**
      * success : true
-     * notifications : [{"id":380,"sender_id":215,"receiver_id":187,"notification_type":"activity_request","notification_details":{"message":"wants to join your activity ","activity_name":"Happy Bhag Jayege","activity_id":17},"viewed":0,"created_at":"2016-11-25 22:59:31","updated_at":"2016-11-25 22:59:31","user":{"id":215,"first_name":"postman","last_name":"test","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1}}]
+     * notifications : [{"id":356,"sender_id":187,"receiver_id":211,"notification_type":"invite to join activity","notification_details":{"message":"Please to join this activity","activity_name":"Pink","activity_id":164},"viewed":0,"created_at":"2016-11-18 13:03:16","updated_at":"2016-11-18 13:03:16","user":{"id":187,"first_name":"Anand","last_name":"Yadav","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1479983261_Anand.jpg","photo_uploaded":1}},{"id":368,"sender_id":219,"receiver_id":211,"notification_type":"follow_start","notification_details":{"message":"started following you"},"viewed":0,"created_at":"2016-11-20 01:25:19","updated_at":"2016-11-20 01:25:19","user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1}},{"id":374,"sender_id":219,"receiver_id":211,"notification_type":"follow_start","notification_details":{"message":"started following you"},"viewed":0,"created_at":"2016-11-21 22:44:23","updated_at":"2016-11-21 22:44:23","user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1}},{"id":390,"sender_id":219,"receiver_id":211,"notification_type":"follow_start","notification_details":{"message":"started following you"},"viewed":0,"created_at":"2016-11-27 01:40:00","updated_at":"2016-11-27 01:40:00","user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1}},{"id":391,"sender_id":219,"receiver_id":211,"notification_type":"follow_start","notification_details":{"message":"started following you"},"viewed":0,"created_at":"2016-11-27 01:42:54","updated_at":"2016-11-27 01:42:54","user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1}},{"id":393,"sender_id":219,"receiver_id":211,"notification_type":"follow_start","notification_details":{"message":"started following you"},"viewed":0,"created_at":"2016-11-27 01:53:21","updated_at":"2016-11-27 01:53:21","user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1}}]
      * next : null
      */
 
@@ -45,17 +45,15 @@ public class NotificationModel {
 
     public static class NotificationsBean {
         /**
-         * id : 380
-         * sender_id : 215
-         * receiver_id : 187
-         * notification_type : activity_request
-         * notification_details :
-         * {"message":"wants to join your activity ",
-         * "activity_name":"Happy Bhag Jayege","activity_id":17}
+         * id : 356
+         * sender_id : 187
+         * receiver_id : 211
+         * notification_type : invite to join activity
+         * notification_details : {"message":"Please to join this activity","activity_name":"Pink","activity_id":164}
          * viewed : 0
-         * created_at : 2016-11-25 22:59:31
-         * updated_at : 2016-11-25 22:59:31
-         * user : {"id":215,"first_name":"postman","last_name":"test","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1}
+         * created_at : 2016-11-18 13:03:16
+         * updated_at : 2016-11-18 13:03:16
+         * user : {"id":187,"first_name":"Anand","last_name":"Yadav","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1479983261_Anand.jpg","photo_uploaded":1}
          */
 
         private int id;
@@ -142,9 +140,9 @@ public class NotificationModel {
 
         public static class NotificationDetailsBean {
             /**
-             * message : wants to join your activity
-             * activity_name : Happy Bhag Jayege
-             * activity_id : 17
+             * message : Please to join this activity
+             * activity_name : Pink
+             * activity_id : 164
              */
 
             private String message;
@@ -178,10 +176,10 @@ public class NotificationModel {
 
         public static class UserBean {
             /**
-             * id : 215
-             * first_name : postman
-             * last_name : test
-             * profile_photo : http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg
+             * id : 187
+             * first_name : Anand
+             * last_name : Yadav
+             * profile_photo : http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1479983261_Anand.jpg
              * photo_uploaded : 1
              */
 
