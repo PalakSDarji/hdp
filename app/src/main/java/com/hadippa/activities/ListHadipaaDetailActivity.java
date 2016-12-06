@@ -129,6 +129,18 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
                     finish();
                 }else{
                     Toast.makeText(ListHadipaaDetailActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+
+
+
+
+
+
                 }
 
                 Log.d("<<async", "success" + response);

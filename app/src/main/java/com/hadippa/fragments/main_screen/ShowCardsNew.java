@@ -1079,23 +1079,20 @@ public class ShowCardsNew extends Fragment {
             super.onStart();
 
             //  dataScroll.setVisibility(View.GONE);
-            AppConstants.showProgressDialog(getActivity(), "Please Wait");
+         //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+          //  AppConstants.dismissDialog();
         }
 
         @Override
         public void onProgress(long bytesWritten, long totalSize) {
             super.onProgress(bytesWritten, totalSize);
-            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
 
-//            updateDonut((int) ((totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
         }
 
 
@@ -1106,7 +1103,7 @@ public class ShowCardsNew extends Fragment {
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-                Log.d("async_step_2", "success" + response);
+
                 if(jsonObject.getBoolean("success")){
 
                 }

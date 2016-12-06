@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.APIClass;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
@@ -66,12 +67,12 @@ public class NotificationActivity extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(NotificationActivity.this);
         editor = sp.edit();
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.pink_dark));
         }
 
 
-        imageBack = (ImageView)findViewById(R.id.imageBack);
+        imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,8 +107,8 @@ public class NotificationActivity extends AppCompatActivity {
 
             requestParams.add("access_token", sp.getString("access_token", ""));
 
-        //    requestParams.add("access_token", "f7ee25834e1ce61d64985221975aa543ea9ce2d4");
-            Log.d("request>>","f7ee25834e1ce61d64985221975aa543ea9ce2d4"+ requestParams.toString());
+            //    requestParams.add("access_token", "f7ee25834e1ce61d64985221975aa543ea9ce2d4");
+            Log.d("request>>", "f7ee25834e1ce61d64985221975aa543ea9ce2d4" + requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,16 +158,16 @@ public class NotificationActivity extends AppCompatActivity {
 
                 notificationModel = (gson.fromJson(jsonObject.toString(), listType));
 
-                if(notificationModel.isSuccess()){
-                    if(notificationModel.getNotifications().size()>0){
+                if (notificationModel.isSuccess()) {
+                    if (notificationModel.getNotifications().size() > 0) {
 
                         notificationModelList = notificationModel.getNotifications();
                         customAdapter = new CustomAdapter(notificationModelList);
 
                         rcItems.setAdapter(customAdapter);
 
-                    }else{
-                        Toast.makeText(NotificationActivity.this,"No notification found",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(NotificationActivity.this, "No notification found", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -184,13 +185,13 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
-    class CustomAdapter extends RecyclerView.Adapter<ViewHolder>{
+    class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         private List<NotificationModel.NotificationsBean> data = null;
         private LayoutInflater mInflater;
 
-        CustomAdapter(List<NotificationModel.NotificationsBean> data){
-            this.data = data ;
+        CustomAdapter(List<NotificationModel.NotificationsBean> data) {
+            this.data = data;
         }
 
         @Override
@@ -206,7 +207,7 @@ public class NotificationActivity extends AppCompatActivity {
 
             final NotificationModel.NotificationsBean notificationsBean = data.get(position);
 
-            if(notificationsBean.getUser()!=null) {
+            if (notificationsBean.getUser() != null) {
                 viewHolder.tvName.setText(notificationsBean.getUser().getFirst_name() + " " +
                         notificationsBean.getUser().getLast_name() + " " + notificationsBean.getNotification_details().getMessage());
 
@@ -218,11 +219,32 @@ public class NotificationActivity extends AppCompatActivity {
                         .error(R.drawable.place_holder)
                         .into(viewHolder.image_view);
             }
+
             viewHolder.tvDate.setText(notificationsBean.getCreated_at());
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            viewHolder.llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
+                    if (notificationsBean.getNotification_type().equals("activity_request")) {
+
+                        acceptRequest(String.valueOf(notificationsBean.getId()),String.valueOf(notificationsBean.getSender_id()),viewHolder.tvFollowUnfollow);
+                    } else if (notificationsBean.getNotification_type().equals("follow_request")) {
+
+                    } else if (notificationsBean.getNotification_type().equals("follow_start")) {
+
+                    } else if (notificationsBean.getNotification_type().equals("invite to join activity")) {
+                        acceptRequest(String.valueOf(notificationsBean.getId()),String.valueOf(notificationsBean.getSender_id()),viewHolder.tvFollowUnfollow);
+                    } else if (notificationsBean.getNotification_type().equals("activity_cancel")) {
+
+                    } else if (notificationsBean.getNotification_type().equals("activity_user_delete")) {
+
+                    } else if (notificationsBean.getNotification_type().equals("disjoin_from_activity")) {
+
+                        declineRequest(String.valueOf(notificationsBean.getId()),
+                                String.valueOf(notificationsBean.getSender_id()),viewHolder.tvFollowUnfollow);
+
+                    }
                 }
             });
 
@@ -236,19 +258,24 @@ public class NotificationActivity extends AppCompatActivity {
                     startActivity(intent);*/
                 }
             });
-            if(notificationsBean.getNotification_type().equals("activity_request")
-                    ||notificationsBean.getNotification_type().equals("follow_request")){
+
+
+            if (notificationsBean.getNotification_type().equals("activity_request")
+                    || notificationsBean.getNotification_type().equals("follow_request")) {
                 viewHolder.tvFollowUnfollow.setText("Accept");
                 viewHolder.ivFollowUnfollow.setImageDrawable(null);
-            }else if(notificationsBean.getNotification_type().equals("follow_start")){
+            } else if (notificationsBean.getNotification_type().equals("follow_start")) {
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
                 // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
 
-            }else if(notificationsBean.getNotification_type().equals("activity_cancel") ||
+            } else if (notificationsBean.getNotification_type().equals("invite to join activity")) {
+                viewHolder.tvFollowUnfollow.setText("Join");
+                viewHolder.ivFollowUnfollow.setImageDrawable(null);
+            } else if (notificationsBean.getNotification_type().equals("activity_cancel") ||
                     notificationsBean.getNotification_type().equals("activity_user_delete") ||
-                    notificationsBean.getNotification_type().equals("disjoin_from_activity")){
+                    notificationsBean.getNotification_type().equals("disjoin_from_activity")) {
 
                 viewHolder.llFollowUnfollow.setVisibility(View.GONE);
             }
@@ -289,9 +316,175 @@ public class NotificationActivity extends AppCompatActivity {
             rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
             rbButton = (ImageView) v.findViewById(R.id.rbButton);
 
-            llFollowUnfollow = (LinearLayout)v.findViewById(R.id.llFollowUnfollow);
+            llFollowUnfollow = (LinearLayout) v.findViewById(R.id.llFollowUnfollow);
             ivFollowUnfollow = (ImageView) v.findViewById(R.id.ivFollowUnfollow);
-            tvFollowUnfollow = (TextView)v.findViewById(R.id.tvFollowUnfollow);
+            tvFollowUnfollow = (TextView) v.findViewById(R.id.tvFollowUnfollow);
         }
+    }
+
+    private void declineRequest(String activity_id, String requester_id,TextView textView) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("activity_id", activity_id);
+            requestParams.add("requester_id", requester_id);
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.ACTIVITY_OTHER_REQUEST_DECLINE, requestParams,
+                new DeclineRequest(textView));
+    }
+
+    class DeclineRequest extends AsyncHttpResponseHandler {
+
+        TextView textView;
+
+        DeclineRequest(TextView textView1){
+            textView = textView1;
+        }
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.getBoolean("success")) {
+
+                    textView.setText("Accept");
+                    Log.d("response>>", response);
+                    //post json stored g\here
+
+                } else {
+
+
+                    //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
+
+                }
+                Log.d("async", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
+    private void acceptRequest(String activity_id, String requester_id,TextView textView) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("activity_id", activity_id);
+            requestParams.add("requester_id", requester_id);
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION +
+                AppConstants.ACTIVITY_OTHER_REQUEST_ACCEPT, requestParams,
+                new AcceptRequest(textView));
+    }
+
+    class AcceptRequest extends AsyncHttpResponseHandler {
+
+        TextView textView;
+
+        AcceptRequest(TextView textView1){
+            textView = textView1;
+        }
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.getBoolean("success")) {
+
+                    textView.setText("Reject");
+                    //post json stored g\here
+
+                } else {
+
+
+                    //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
+
+                }
+                Log.d("async", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
     }
 }
