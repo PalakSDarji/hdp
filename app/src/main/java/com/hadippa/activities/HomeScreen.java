@@ -253,6 +253,16 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             }
         });
 
+        findViewById(R.id.linearMyBooking).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(HomeScreen.this, MyBookingActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
         findViewById(R.id.linearPreference).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

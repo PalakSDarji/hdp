@@ -83,10 +83,10 @@ public class MyPlan extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             Log.d(TAG, "Element " + position + " set.");
 
-            MyPlansModel.MyPlansBean myPlansBean = myPlansBeen.get(position);
+            final MyPlansModel.MyPlansBean myPlansBean = myPlansBeen.get(position);
 
             if(myPlansBean.getPeople_approaching_count().size() == 0){
                 viewHolder.recyclerView.setVisibility(View.GONE);
@@ -94,12 +94,55 @@ public class MyPlan extends AppCompatActivity {
                 viewHolder.recyclerView.setVisibility(View.VISIBLE);
                 viewHolder.recyclerView.setAdapter(new Approved(myPlansBean.getPeople_approaching_count()));
             }
+
+
+            Log.v(TAG,"LLGoing  " + myPlansBean.getPeople_going_count());
+            if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0) {
+
+                viewHolder.llGoing.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO sahil. look at this
+                        Log.v(TAG,"LLGoing  " + myPlansBean.isOpened());
+
+                        myPlansBean.setOpened(!myPlansBean.isOpened());
+                        notifyDataSetChanged();
+
+                    }
+                });
+            }
+            else{
+                viewHolder.llGoing.setOnClickListener(null);
+            }
+
+
+
+
+            if(myPlansBean.isOpened()){
+                Log.v(TAG, "myPlansBean.isOpened(): 1"+ myPlansBean.isOpened());
+                viewHolder.vSep.setVisibility(View.VISIBLE);
+                viewHolder.tvApprovedPeople.setVisibility(View.VISIBLE);
+                viewHolder.recyclerView.setVisibility(View.VISIBLE);
+            }
+            else{
+                Log.v(TAG, "myPlansBean.isOpened() 2: "+ myPlansBean.isOpened());
+                viewHolder.vSep.setVisibility(View.GONE);
+                viewHolder.tvApprovedPeople.setVisibility(View.GONE);
+                viewHolder.recyclerView.setVisibility(View.GONE);
+            }
+
             viewHolder.activityname.setText(myPlansBean.getActivity_details().getActivity_name());
             viewHolder.tvAddress.setText(myPlansBean.getActivity_location());
             viewHolder.tvActivityDate.setText(myPlansBean.getActivity_date());
             viewHolder.tvActivityTime.setText(myPlansBean.getActivity_time());
             viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size()+"");
-            viewHolder.tvCount.setText(myPlansBean.getPeople_going_count()+"");
+            if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0){
+                viewHolder.tvCount.setText(myPlansBean.getPeople_going_count().size()+"");
+            }
+            else{
+                viewHolder.tvCount.setText("0");
+            }
+
 
             if(myPlansBean.getUser().getProfile_photo().isEmpty() ||
                     myPlansBean.getUser().getProfile_photo().equals("") ){
@@ -127,9 +170,10 @@ public class MyPlan extends AppCompatActivity {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-
+        private final View vSep;
         private final RecyclerView recyclerView;
-        CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount;
+        private final LinearLayout llGoing;
+        CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount,tvApprovedPeople;
         RoundedImageView profileImage;
 
         public ViewHolder(final View v) {
@@ -150,11 +194,15 @@ public class MyPlan extends AppCompatActivity {
                 }
             });
 
+            llGoing = (LinearLayout) v.findViewById(R.id.llGoing);
+
+            vSep = (View) v.findViewById(R.id.vSep);
             recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
             activityname = (CustomTextView)v.findViewById(R.id.activityname);
             tvAddress = (CustomTextView)v.findViewById(R.id.tvAddress);
             tvActivityDate = (CustomTextView)v.findViewById(R.id.tvActivityDate);
             tvActivityTime = (CustomTextView)v.findViewById(R.id.tvActivityTime);
+            tvApprovedPeople = (CustomTextView)v.findViewById(R.id.tvApprovedPeople);
             tvGoing = (CustomTextView)v.findViewById(R.id.tvGoing);
             tvCount = (CustomTextView)v.findViewById(R.id.tvCount);
 

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_border_booking_item"
+                android:layout_marginLeft="@dimen/value_w17"
+                android:layout_marginRight="@dimen/value_w17"
+                android:layout_marginBottom="@dimen/value_h15">
+
+    <View
+        android:id="@+id/vDivider"
+        android:layout_width="@dimen/value_8"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/llDateTime"
+        android:background="@color/pink"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/profileImage"
+        android:layout_width="@dimen/value_w160"
+        android:layout_height="@dimen/value_w210"
+        android:scaleType="centerCrop"
+        android:src="@drawable/imageprof"
+        app:riv_border_color="@color/c_b4b2b3"
+        android:layout_marginLeft="@dimen/value_w17"
+        android:layout_toRightOf="@+id/vDivider"
+        android:layout_marginTop="@dimen/value_w24"
+        android:layout_marginBottom="@dimen/value_w24"
+        app:riv_border_width="@dimen/value_1"
+        app:riv_corner_radius="@dimen/value_5"
+        android:layout_alignParentTop="true"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VIP"
+        android:paddingBottom="@dimen/value_5"
+        android:paddingTop="@dimen/value_5"
+        android:paddingLeft="@dimen/value_w43"
+        android:paddingRight="@dimen/value_w43"
+        android:layout_marginTop="@dimen/value_w24"
+        android:layout_marginRight="@dimen/value_w17"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_booking_tag_pink"
+        android:layout_alignParentRight="true"
+        app:customFont="@string/proxima_bold"
+        android:textSize="@dimen/values_txt_11"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvActivityName"
+        app:customFont="@string/proxima_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/profileImage"
+        android:layout_marginLeft="@dimen/value_w17"
+        android:layout_marginTop="@dimen/value_5"
+        android:layout_below="@+id/tvTag"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="Sunburn Festiva"
+        android:textSize="@dimen/values_txt_14"
+        android:textColor="@color/c_433d3d"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvActivityAddress"
+        app:customFont="@string/proxima_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/profileImage"
+        android:layout_marginLeft="@dimen/value_w17"
+        android:layout_marginTop="@dimen/value_5"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_below="@+id/tvActivityName"
+        android:text="Lower parel, Mumbai"
+        android:textSize="@dimen/values_txt_12"
+        android:textColor="@color/c_605e5f"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvPrice"
+        app:customFont="@string/proxima_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/profileImage"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginLeft="@dimen/value_w17"
+        android:layout_marginTop="@dimen/value_5"
+        android:layout_below="@+id/tvActivityAddress"
+        android:text="Paid Rs 2000"
+        android:textSize="@dimen/values_txt_12"
+        android:textColor="@color/c_605e5f"/>
+
+    <ImageView
+        android:id="@+id/ivNumber"
+        android:layout_width="@dimen/value_w50"
+        android:layout_height="@dimen/value_w50"
+        android:padding="@dimen/value_5"
+        android:layout_toRightOf="@+id/profileImage"
+        android:layout_below="@+id/tvPrice"
+        android:layout_marginLeft="@dimen/value_w17"
+        android:layout_marginTop="@dimen/value_5"
+        android:src="@drawable/landing_pages_r2_29"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvNumber"
+        app:customFont="@string/proxima_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivNumber"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_alignTop="@+id/ivNumber"
+        android:layout_alignBottom="@+id/ivNumber"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/value_w17"
+        android:layout_marginTop="@dimen/value_5"
+        android:layout_below="@+id/tvPrice"
+        android:text="5454874545"
+        android:layout_toLeftOf="@+id/ivBook"
+        android:textSize="@dimen/values_txt_12"
+        android:textColor="@color/c_605e5f"/>
+
+    <ImageView
+        android:id="@+id/ivShare"
+        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/value_w50"
+        android:layout_height="@dimen/value_w50"
+        android:padding="@dimen/value_5"
+        android:layout_below="@+id/tvPrice"
+        android:layout_marginRight="@dimen/value_w17"
+        android:layout_marginTop="@dimen/value_5"
+        android:src="@drawable/landing_pages_r2_29"/>
+
+    <ImageView
+        android:id="@+id/ivBook"
+        android:layout_width="@dimen/value_w50"
+        android:layout_height="@dimen/value_w50"
+        android:padding="@dimen/value_5"
+        android:layout_below="@+id/tvPrice"
+        android:layout_toLeftOf="@+id/ivShare"
+        android:layout_marginRight="@dimen/value_w17"
+        android:layout_marginLeft="@dimen/value_w17"
+        android:layout_marginTop="@dimen/value_5"
+        android:src="@drawable/landing_pages_r2_29"/>
+
+    <View
+        android:id="@+id/vSep"
+        android:layout_below="@+id/tvNumber"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/value_8"
+        android:layout_height="1dp"
+        android:layout_marginRight="@dimen/value_1"
+        android:layout_toRightOf="@+id/vDivider"
+        android:background="@color/c_e3e3e3"/>
+
+    <LinearLayout
+        android:id="@+id/llDateTime"
+        android:layout_below="@+id/vSep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:layout_toRightOf="@+id/vDivider"
+        android:layout_marginTop="@dimen/value_8"
+        android:paddingBottom="@dimen/value_8"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DATE"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_centerHorizontal="true"
+                app:customFont="@string/proxima_reg"
+                android:textSize="@dimen/values_txt_13"
+                android:textColor="@color/c_605e5f"
+                />
+
+            <com.hadippa.CustomTextView
+                android:layout_below="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12 NOV, TUE"
+                android:maxLines="1"
+                android:layout_centerHorizontal="true"
+                android:ellipsize="end"
+                android:layout_marginBottom="@dimen/value_3"
+                android:layout_marginTop="@dimen/value_3"
+                app:customFont="@string/proxima_bold"
+                android:textSize="@dimen/values_txt_13"
+                android:textColor="@color/c_433d3d"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIME"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_centerHorizontal="true"
+                app:customFont="@string/proxima_reg"
+                android:textSize="@dimen/values_txt_13"
+                android:textColor="@color/c_605e5f"
+                />
+
+            <com.hadippa.CustomTextView
+                android:layout_below="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="04.00 PM"
+                android:maxLines="1"
+                android:layout_centerHorizontal="true"
+                android:ellipsize="end"
+                android:layout_marginBottom="@dimen/value_3"
+                android:layout_marginTop="@dimen/value_3"
+                app:customFont="@string/proxima_bold"
+                android:textSize="@dimen/values_txt_13"
+                android:textColor="@color/c_433d3d"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvAdmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADMIT"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_centerHorizontal="true"
+                app:customFont="@string/proxima_reg"
+                android:textSize="@dimen/values_txt_13"
+                android:textColor="@color/c_605e5f"
+                />
+
+            <com.hadippa.CustomTextView
+                android:layout_below="@+id/tvAdmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:maxLines="1"
+                android:layout_centerHorizontal="true"
+                android:ellipsize="end"
+                android:layout_marginBottom="@dimen/value_3"
+                android:layout_marginTop="@dimen/value_3"
+                app:customFont="@string/proxima_bold"
+                android:textSize="@dimen/values_txt_13"
+                android:textColor="@color/c_433d3d"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

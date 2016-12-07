@@ -203,7 +203,9 @@
 
 
                 <LinearLayout
+                    android:id="@+id/llGoing"
                     android:layout_width="0dp"
+                    android:clickable="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -233,17 +235,21 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/vSep"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="@dimen/value_5"
         android:layout_marginTop="@dimen/value_10"
+        android:visibility="gone"
         android:background="@color/c_e3e3e3"/>
 
     <com.hadippa.CustomTextView
+        android:id="@+id/tvApprovedPeople"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/value_8"
         android:paddingLeft="@dimen/sign_up_padding"
+        android:visibility="gone"
         android:text="Approved People"
         android:textColor="@color/c_949293"
         android:textSize="@dimen/values_txt_10"
@@ -254,6 +260,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/sign_up_padding"
+        android:visibility="gone"
         android:orientation="horizontal">
 
     </android.support.v7.widget.RecyclerView>

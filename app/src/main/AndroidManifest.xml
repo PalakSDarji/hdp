@@ -69,7 +69,7 @@
         -->
 
 
-        <!--         <service android:name="com.commonclasses.notification.GCMIntentService" /> -->
+        <!-- <service android:name="com.commonclasses.notification.GCMIntentService" /> -->
          
         <receiver android:name="com.commonclasses.receivers.IncomingSmsReceiver">
               
@@ -246,6 +246,8 @@
             android:name=".activities.filter.CoffeeActivityFilter"
             android:screenOrientation="portrait"/>
         <activity android:name=".activities.NotificationActivity">
+        </activity>
+        <activity android:name=".activities.MyBookingActivity">
         </activity>
     </application>
 

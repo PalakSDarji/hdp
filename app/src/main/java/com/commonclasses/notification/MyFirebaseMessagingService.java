@@ -40,8 +40,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Log.d(TAG, "FCM  Data : " + remoteMessage.getData().toString());
 
-        Log.d(TAG, "FCM Notification Message: " +
-                remoteMessage.getNotification().getBody());
+        if(remoteMessage.getNotification() != null){
+            Log.d(TAG, "FCM Notification Message: " +remoteMessage.getNotification().getBody());
+        }
 
         sendNotificationPost(remoteMessage.getData());
 

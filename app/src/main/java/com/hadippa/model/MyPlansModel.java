@@ -91,6 +91,15 @@ public class MyPlansModel {
         private List<?> people_going;
         private List<?> people_approaching_count;
         private List<?> people_going_count;
+        private boolean isOpened;
+
+        public boolean isOpened() {
+            return isOpened;
+        }
+
+        public void setOpened(boolean opened) {
+            isOpened = opened;
+        }
 
         public int getId() {
             return id;
