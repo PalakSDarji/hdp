@@ -111,6 +111,9 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                 String selectedItem = (String) parent.getItemAtPosition(position);
 
+                previousSearchList.remove(position);
+                previousSearchList.add(0,selectedItem);
+                adapter.notifyDataSetChanged();
                 performSearch(selectedItem);
 
                 edtSearch.dismissDropDown();
@@ -165,8 +168,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                         Log.v("searchCity", "searchCity" + searchCity);
 
-                        previousSearchList.add(edtSearch.getText().toString().trim());
-
+                        previousSearchList.add(0,edtSearch.getText().toString().trim());
                         adapter.notifyDataSetChanged();
                         Set<String> tasksSet = new HashSet<String>(previousSearchList);
                         PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
@@ -204,36 +206,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             }
         });
 
-        /*edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
-                //HERE.. but
-                if(s.length()>=2){
-
-                    Log.v("searchCity","searchCity"+searchCity);
-
-                    if(pager.getCurrentItem()==2){
-                        searchTag.fetchByTags(String.valueOf(s));
-                        searchPeople.fetchPeople(String.valueOf(s));
-                    }else{
-                        searchCity.fetchCities(String.valueOf(s));
-                        searchPeople.fetchPeople(String.valueOf(s));
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
     }
 
     @Override

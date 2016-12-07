@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
@@ -92,7 +93,7 @@ public class MyPlan extends AppCompatActivity {
                 viewHolder.recyclerView.setVisibility(View.GONE);
             }else {
                 viewHolder.recyclerView.setVisibility(View.VISIBLE);
-                viewHolder.recyclerView.setAdapter(new Approved(myPlansBean.getPeople_approaching_count()));
+                viewHolder.recyclerView.setAdapter(new Approved(myPlansBean.getPeople_going()));
             }
 
 
@@ -242,10 +243,10 @@ public class MyPlan extends AppCompatActivity {
     class Approved extends RecyclerView.Adapter<ViewHolderApproved> {
         private static final String TAG = "CustomAdapter";
 
-        List<?>
+        List<MyPlansModel.MyPlansBean.PeopleGoingBean>
         activityDetailsBeen;
 
-        public Approved(List<?> activityDetailsBeen) {
+        public Approved(List<MyPlansModel.MyPlansBean.PeopleGoingBean> activityDetailsBeen) {
             this.activityDetailsBeen = activityDetailsBeen;
         }
 
@@ -262,6 +263,13 @@ public class MyPlan extends AppCompatActivity {
         public void onBindViewHolder(ViewHolderApproved viewHolder, final int position) {
             Log.d(TAG, "Element " + position + " set.");
 
+            MyPlansModel.MyPlansBean.PeopleGoingBean peopleGoingBean = activityDetailsBeen.get(position);
+
+            RequestManager requestManager = Glide.with(MyPlan.this);
+            requestManager.load(peopleGoingBean.getUser().getProfile_photo()).error(R.drawable.place_holder).placeholder(R.drawable.place_holder)
+                    .into(viewHolder.image_view);
+
+            viewHolder.text_view.setText(peopleGoingBean.getUser().getFirst_name()+" "+peopleGoingBean.getUser().getLast_name());
         }
 
         @Override
@@ -275,6 +283,8 @@ public class MyPlan extends AppCompatActivity {
     public class ViewHolderApproved extends RecyclerView.ViewHolder {
 
 
+        ImageView image_view;
+        CustomTextView text_view;
         //   private final LinearLayout linearDate;
 
         public ViewHolderApproved(final View v) {
@@ -295,6 +305,8 @@ public class MyPlan extends AppCompatActivity {
                 }
             });
 
+            text_view = (CustomTextView)v.findViewById(R.id.text_view);
+            image_view = (ImageView)v.findViewById(R.id.image_view);
             //   linearDate = (LinearLayout)v.findViewById(R.id.linearDate);
 
            /*  linearDate.setOnClickListener(new View.OnClickListener() {
