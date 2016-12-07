@@ -106,7 +106,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         tvPrice.setText(dataBean.getTicket_currencyCode()+" "+dataBean.getTicket_price());
         tvEventName.setText(dataBean.getTitle());
-        tvAddress.setText(dataBean.getAddress1()+" "+dataBean.getAddress2());
+        tvAddress.setText(dataBean.getAddress1()+" "+dataBean.getAddress2()
+                +" "+dataBean.getCityName()+" "+dataBean.getStateName());
         tvTime.setText(dataBean.getStartDate()+" - "+dataBean.getEndDate());
         tvKm.setText(AppConstants.distanceMeasure(Double.parseDouble(getIntent().getExtras().getString("latitude")),
                 Double.parseDouble(getIntent().getExtras().getString("longitude")),
