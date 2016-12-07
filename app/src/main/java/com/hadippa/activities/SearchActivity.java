@@ -76,8 +76,8 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
     //Fragment na object banaya.. and trying to using them
     //kayu object?
 
-    SearchPeople searchPeople = new SearchPeople();
-    SearchCity searchCity = new SearchCity();
+    public static SearchPeople searchPeople = new SearchPeople();
+    public static SearchCity searchCity = new SearchCity();
 
     public static AutoCompleteTextView edtSearch;
 
@@ -314,7 +314,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             e.printStackTrace();
         }
 
-        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.SEARCH_PEOPLE, requestParams,
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.SEARCH, requestParams,
                 new GetCity());
 
     }

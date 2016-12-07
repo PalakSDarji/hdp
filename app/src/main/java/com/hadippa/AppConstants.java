@@ -68,8 +68,9 @@ public class AppConstants {
     public static final String CONNECTION_BLOCKLIST = "/blocked_list";
 
     //SEARCH
+    public static final String SEARCH = "/search";
     public static final String SEARCH_CITY = "/search";
-    public static final String SEARCH_PEOPLE = "/search";
+    public static final String SEARCH_PEOPLE = "/search/people/city";
     public static final String SEARCH_TAGS = "/search/people/tags";
 
     //PREFERENCES

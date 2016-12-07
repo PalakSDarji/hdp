@@ -149,7 +149,7 @@ public class SearchCity extends Fragment {
 
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             Log.d(TAG, "Element " + position + " set.");
 
 
@@ -159,6 +159,15 @@ public class SearchCity extends Fragment {
             viewHolder.getCountry().setText(", "+cityModel.getCountry_name());
             viewHolder.getId().setText(String.valueOf(cityModel.getId()));
 
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    SearchActivity.searchPeople.fetchPeople(viewHolder.getCity().getText().toString());
+                    SearchActivity.pager.setCurrentItem(1);
+
+                }
+            });
 
         }
 
@@ -177,15 +186,6 @@ public class SearchCity extends Fragment {
 
         public ViewHolder(final View v) {
             super(v);
-
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                  
-
-                }
-            });
 
 
             id = (TextView) v.findViewById(R.id.tvId);

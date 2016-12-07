@@ -431,7 +431,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             SimpleDateFormat outFormat = new SimpleDateFormat("HH:mm");
             String time24 = outFormat.format(inFormat.parse(timeNow));
 
-            return time24;
+            return time24+":00";
         } catch (Exception e){
             return  "";
         }

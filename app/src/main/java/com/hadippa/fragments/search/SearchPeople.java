@@ -302,11 +302,10 @@ public class SearchPeople extends Fragment {
     }
 
 
-   /* public void fetchPeople(String query) {
+    public void fetchPeople(String query) {
 
-        peopleModelArrayList.clear();
+        usersBeen.clear();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-
         RequestParams requestParams = new RequestParams();
 
         try {
@@ -370,14 +369,14 @@ public class SearchPeople extends Fragment {
                     if(jsonObject.getJSONArray("users").length()==0){
                      //   AppConstants.showSnackBar(relMain, "No followers yet.");
                     }else {
-                        Type listType = new TypeToken<ArrayList<PeopleModel>>() {
+                        Type listType = new TypeToken<ArrayList<SearchModel.UsersBean>>() {
                         }.getType();
                         GsonBuilder gsonBuilder = new GsonBuilder();
 
                         Gson gson = gsonBuilder.create();
-                        peopleModelArrayList = new ArrayList<>();
+                        usersBeen = new ArrayList<>();
 
-                        peopleModelArrayList = (gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
+                        usersBeen = (gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
 
 
                         editor.putString("people_users",jsonObject.getJSONArray("users").toString());
@@ -402,7 +401,7 @@ public class SearchPeople extends Fragment {
             AppConstants.showSnackBar(relMain, "Could not refresh feed");
         }
 
-    }*/
+    }
 
 
    /* @Override
