@@ -474,11 +474,11 @@ public class SearchPeople extends Fragment {
 
                 if(tvFollowUnfollow.getText().toString().equals(getResources().getString(R.string.follow))) {
                     setFollowButtonView(true);
-                   // follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, peopleModel.getId());
+                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, String.valueOf(peopleModel.getId()));
                 }
                 else{
                     setFollowButtonView(false);
-                   // follow_Unfollow(peopleModel,AppConstants.CONNECTION_UNFOLLOW, peopleModel.getId());
+                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_UNFOLLOW, String.valueOf(peopleModel.getId()));
                 }
             }
         });
@@ -507,7 +507,7 @@ public class SearchPeople extends Fragment {
             llFollowUnfollow.setSelected(false);
         }
     }
-    public void follow_Unfollow(PeopleModel peopleModel,String type, String id) {
+    public void follow_Unfollow(SearchModel.UsersBean peopleModel,String type, String id) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -527,10 +527,10 @@ public class SearchPeople extends Fragment {
 
     public class Follow_Unfollow extends AsyncHttpResponseHandler {
 
-        PeopleModel peopleModel;
+        SearchModel.UsersBean peopleModel;
         String type;
 
-        Follow_Unfollow(PeopleModel peopleModel,String type){
+        Follow_Unfollow(SearchModel.UsersBean peopleModel,String type){
             this.peopleModel = peopleModel;
             this.type = type;
         }
@@ -573,11 +573,11 @@ public class SearchPeople extends Fragment {
 
                     if(type.equals(AppConstants.CONNECTION_FOLLOW)){
 
-                        peopleModel.setUser_relationship_status("Following");
+                     //   peopleModel.setUser_relationship_status("Following");
 
                     }else{
 
-                        peopleModel.setUser_relationship_status(null);
+                    //    peopleModel.setUser_relationship_status(null);
 
                     }
 

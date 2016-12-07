@@ -26,18 +26,20 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.model.FollowingModel;
 import com.hadippa.model.PeopleModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hadippa.model.FollowersModel;
 import com.hadippa.utils.Utils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -55,21 +57,20 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
     private static final String TAG = InviteToJoinActivity.class.getSimpleName();
 
-    RecyclerView myRecycler,rcSelectedItems;
+    RecyclerView myRecycler, rcSelectedItems;
     ImageView imageBack;
-    private List<PeopleModel> peopleModels, selectedModels;
-    private CustomAdapter adapter;
+    private List<FollowingModel.FollowingBean> selectedModels;
     private HorizontalCustomAdapter horizontalCustomAdapter;
     private TextView tvSelection;
     private EditText etSearch;
-    ArrayList<FollowersModel> followersFollowings = new ArrayList<>();
+    ArrayList<FollowingModel.FollowingBean> followersFollowings = new ArrayList<>();
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     RelativeLayout relMain;
 
     public CustomAdapter customAdapter;
-    
+
     ArrayList<String> selectedList = new ArrayList<>();
 
     @Override
@@ -77,13 +78,13 @@ public class InviteToJoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_to_join);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.pink_dark));
         }
 
         selectedModels = new ArrayList<>();
-        peopleModels = new ArrayList<>();
-        peopleModels.add(new PeopleModel("1","Palak Darji"));
+        // peopleModels = new ArrayList<>();
+     /*   peopleModels.add(new PeopleModel("1","Palak Darji"));
         peopleModels.add(new PeopleModel("2","Kat Middleton"));
         peopleModels.add(new PeopleModel("3","Kareena Kapoor"));
         peopleModels.add(new PeopleModel("4","Kartick Mistry"));
@@ -96,7 +97,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
         peopleModels.add(new PeopleModel("11","Katrina Kaif"));
         peopleModels.add(new PeopleModel("12","Lonewolf Sniper"));
         peopleModels.add(new PeopleModel("13","CarryMinati"));
-
+*/
         etSearch = (EditText) findViewById(R.id.etSearch);
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -106,7 +107,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.getFilter().filter(s.toString());
+                customAdapter.getFilter().filter(s.toString());
             }
 
             @Override
@@ -117,7 +118,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                     Utils.hideKeyboard(InviteToJoinActivity.this);
                     return true;
@@ -127,7 +128,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
         });
 
         tvSelection = (CustomTextView) findViewById(R.id.tvSelection);
-        imageBack = (ImageView)findViewById(R.id.imageBack);
+        imageBack = (ImageView) findViewById(R.id.imageBack);
 
         relMain = (RelativeLayout) findViewById(R.id.activity_invite_to_join);
 
@@ -159,17 +160,15 @@ public class InviteToJoinActivity extends AppCompatActivity {
         mLayoutManagerHorizontal.setOrientation(LinearLayoutManager.HORIZONTAL);
         rcSelectedItems.setLayoutManager(mLayoutManagerHorizontal);
 
-        horizontalCustomAdapter = new HorizontalCustomAdapter(selectedModels);
-        rcSelectedItems.setAdapter(horizontalCustomAdapter);
 
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         myRecycler.setLayoutManager(mLayoutManager);
 
-       // fetchFollowers();
+        setPreviousData();
+        fetchFollowers();
 //        myRecycler.setAdapter(new CustomAdapter());
-        adapter = new CustomAdapter(peopleModels);
-        myRecycler.setAdapter(adapter);
+
     }
 
 
@@ -188,6 +187,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
     private void fetchFollowers() {
 
         followersFollowings.clear();
+        selectedModels.clear();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -202,7 +202,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.CONNECTION_FOLLOWERS, requestParams,
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.CONNECTION_FOLLOWING, requestParams,
                 new GetFollowers());
 
     }
@@ -246,24 +246,36 @@ public class InviteToJoinActivity extends AppCompatActivity {
                 Log.d("async_step_2", "success" + response);
                 if (jsonObject.getBoolean("success")) {
 
-                    if (jsonObject.getJSONArray("followers").length() == 0) {
-                        AppConstants.showSnackBar(relMain, "No followers yet.");
+                    if (jsonObject.getJSONArray("following").length() == 0) {
+                        AppConstants.showSnackBar(relMain, "No Followings yet.");
                     } else {
-                        Type listType = new TypeToken<ArrayList<FollowersModel>>() {
+                        Type listType = new TypeToken<ArrayList<FollowingModel.FollowingBean>>() {
                         }.getType();
                         GsonBuilder gsonBuilder = new GsonBuilder();
 
                         Gson gson = gsonBuilder.create();
                         followersFollowings = new ArrayList<>();
-                        followersFollowings = (gson.fromJson(String.valueOf(jsonObject.getJSONArray("followers")), listType));
+                        followersFollowings = (gson.fromJson(String.valueOf(jsonObject.getJSONArray("following")), listType));
 
                     }
 
-                    editor.putString("myFollowers", jsonObject.getJSONArray("followers").toString());
+                    editor.putString("myFollowings", jsonObject.getJSONArray("following").toString());
                     editor.commit();
 
-                    customAdapter = new CustomAdapter(peopleModels);
+                    for (int j = 0; j < followersFollowings.size(); j++) {
+                        if (selectedList.contains(String.valueOf(followersFollowings.get(j).getFollowed().getId()))) {
+                            selectedModels.add(followersFollowings.get(j));
+                        }
+                    }
+
+
+                    horizontalCustomAdapter = new HorizontalCustomAdapter(selectedModels);
+                    rcSelectedItems.setAdapter(horizontalCustomAdapter);
+
+                    customAdapter = new CustomAdapter();
                     myRecycler.setAdapter(customAdapter);
+
+                    handleSelectedAdapter();
                 } else {
                     AppConstants.showSnackBar(relMain, "Could not refresh feed");
                 }
@@ -289,30 +301,34 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
 
         } else {
-            Type listType = new TypeToken<ArrayList<FollowersModel>>() {
+            Type listType = new TypeToken<ArrayList<FollowingModel.FollowingBean>>() {
             }.getType();
             GsonBuilder gsonBuilder = new GsonBuilder();
 
             Gson gson = gsonBuilder.create();
-            followersFollowings.addAll((ArrayList<FollowersModel>) gson.fromJson(String.valueOf(sp.getString("myFollowers", "")), listType));
+            followersFollowings.addAll((ArrayList<FollowingModel.FollowingBean>) gson.fromJson(String.valueOf(sp.getString("myFollowers", "")), listType));
 
-            customAdapter = new CustomAdapter(peopleModels);
+            customAdapter = new CustomAdapter();
             myRecycler.setAdapter(customAdapter);
+            for (int j = 0; j < followersFollowings.size(); j++) {
+                if (selectedList.contains(String.valueOf(followersFollowings.get(j).getFollowed().getId()))) {
+                    selectedModels.add(followersFollowings.get(j));
+                }
+            }
+            horizontalCustomAdapter = new HorizontalCustomAdapter(selectedModels);
+            rcSelectedItems.setAdapter(horizontalCustomAdapter);
+
+            handleSelectedAdapter();
         }
 
     }
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> implements Filterable {
 
-        private List<PeopleModel> originalData = null;
-        private List<PeopleModel> filteredData = null;
+        private List<FollowingModel.FollowingBean> originalData = null;
+        private List<FollowingModel.FollowingBean> filteredData = null;
         private LayoutInflater mInflater;
         private ItemFilter mFilter = new ItemFilter();
-
-        CustomAdapter(List<PeopleModel> data){
-            this.filteredData = data ;
-            this.originalData = data ;
-        }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -325,122 +341,116 @@ public class InviteToJoinActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             //Log.d(TAG, "Element " + position + " set.");
-            //final FollowersModel followers_following = followersFollowings.get(position);
+            final FollowingModel.FollowingBean followers_following = followersFollowings.get(position);
 
-            final PeopleModel peopleModel = filteredData.get(position);
-            Log.d(TAG, "Element " + position + " set." + peopleModel.isChecked());
+            //  final PeopleModel peopleModel = filteredData.get(position);
+         /*   Log.d(TAG, "Element " + position + " set." + peopleModel.isChecked());
 
             if(peopleModel.isChecked()){
                 viewHolder.rbButton.setSelected(true);
             }
             else{
                 viewHolder.rbButton.setSelected(false);
+            }*/
+
+          /*  viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    for(int i=0;i<filteredData.size();i++){
+                        if(filteredData.get(i).getId().
+                                equalsIgnoreCase(filteredData.get(position).getId())){
+                            PeopleModel people = filteredData.get(i);
+                            if(people.isChecked()){
+                                people.setChecked(false);
+                                removeSelectedItemFromList(people);
+                            }
+                            else{
+                                people.setChecked(true);
+                                addSelectedItemToList(people);
+                            }
+
+
+                        }
+                    }
+                    notifyDataSetChanged();
+                }
+            });*/
+
+          /*  viewHolder.rbButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    for(int i=0;i<filteredData.size();i++){
+                        if(filteredData.get(i).getId().
+                                equalsIgnoreCase(filteredData.get(position).getId())){
+                            PeopleModel people = filteredData.get(i);
+                            if(people.isChecked()){
+                                people.setChecked(false);
+                                removeSelectedItemFromList(people);
+                            }
+                            else{
+                                people.setChecked(true);
+                                addSelectedItemToList(people);
+                            }
+                        }
+                    }
+
+                    notifyDataSetChanged();
+                }
+            });*/
+
+            //  viewHolder.tvName.setText(""+ peopleModel.getFirst_name());
+            if (followers_following != null && followers_following.getFollowed() != null) {
+                viewHolder.tvName.setText(followers_following.getFollowed().getFirst_name() + " " +
+                        followers_following.getFollowed().getLast_name());
+
+                Glide.with(InviteToJoinActivity.this)
+                        .load(followers_following.getFollowed().getProfile_photo())
+                        .into(viewHolder.image_view);
+
+                if (selectedList.contains(String.valueOf(followersFollowings.get(position).getFollowed_id()))) {
+
+                    viewHolder.rbButton.setSelected(true);
+
+                } else {
+                    viewHolder.rbButton.setSelected(false);
+
+                }
+
             }
 
             viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    for(int i=0;i<filteredData.size();i++){
-                        if(filteredData.get(i).getId().
-                                equalsIgnoreCase(filteredData.get(position).getId())){
-                            PeopleModel people = filteredData.get(i);
-                            if(people.isChecked()){
-                                people.setChecked(false);
-                                removeSelectedItemFromList(people);
-                            }
-                            else{
-                                people.setChecked(true);
-                                addSelectedItemToList(people);
-                            }
-
-
+                   /* boolean found = false;
+                    for (int i = 0; i < selectedList.size(); i++) {
+*/
+                    try {
+                        if (selectedList.contains(String.valueOf(followersFollowings.get(position).getFollowed_id()))) {
+                            selectedList.remove(String.valueOf(followersFollowings.get(position).getFollowed_id()));
+                            selectedModels.remove(followersFollowings.get(position));
+                            // removeSelectedItemFromList(followersFollowings.get(position));
+                        } else {
+                            selectedList.add(String.valueOf(followersFollowings.get(position).getFollowed_id()));
+                            selectedModels.add(followersFollowings.get(position));
+                            // addSelectedItemToList(followersFollowings.get(position));
                         }
+                        handleSelectedAdapter();
+                        horizontalCustomAdapter.notifyDataSetChanged();
+                        customAdapter.notifyDataSetChanged();
+                    } catch (Exception e) {
                     }
-                    notifyDataSetChanged();
                 }
             });
-
-            viewHolder.rbButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    for(int i=0;i<filteredData.size();i++){
-                        if(filteredData.get(i).getId().
-                                equalsIgnoreCase(filteredData.get(position).getId())){
-                            PeopleModel people = filteredData.get(i);
-                            if(people.isChecked()){
-                                people.setChecked(false);
-                                removeSelectedItemFromList(people);
-                            }
-                            else{
-                                people.setChecked(true);
-                                addSelectedItemToList(people);
-                            }
-                        }
-                    }
-
-                    notifyDataSetChanged();
-                }
-            });
-
-            viewHolder.tvName.setText(""+ peopleModel.getFirst_name());
-            /*if (followers_following != null && followers_following.getFollower() != null) {
-                viewHolder.name.setText(followers_following.getFollower().getFirst_name() + " " +
-                        followers_following.getFollower().getLast_name());
-
-                Glide.with(InviteToJoinActivity.this)
-                        .load(followers_following.getFollower().getProfile_photo())
-                        .into(viewHolder.image_view);
-
-                boolean found = false;
-                for (int i = 0; i < selectedList.size(); i++) {
-
-                    if (selectedList.get(i).equals(followersFollowings.get(position).getId())) {
-
-                        found = true;
-                        viewHolder.rbButton.setChecked(true);
-                    }
-                }
-
-                if(!found) {
-                    viewHolder.rbButton.setChecked(false);
-                }
-            }
-
-            viewHolder.image_view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    boolean found = false;
-                        for (int i = 0; i < selectedList.size(); i++) {
-
-                            if (selectedList.get(i).equals(followersFollowings.get(position).getId())) {
-                                selectedList.remove(i);
-                                found = true;
-                                viewHolder.rbButton.setChecked(false);
-                                break;
-                            }
-
-                        }
-
-
-                    if(!found) {
-                        viewHolder.rbButton.setChecked(true);
-                        selectedList.add(followersFollowings.get(position).getId());
-                    }
-
-
-
-                }
-            });*/
 
 
         }
 
 
 
-        private void removePeople(PeopleModel peopleModel){
+       /* private void removePeople(PeopleModel peopleModel){
 
             if(filteredData != null && filteredData.size()>0){
                 for(int i=0;i<filteredData.size();i++){
@@ -450,16 +460,16 @@ public class InviteToJoinActivity extends AppCompatActivity {
                 }
             }
             notifyDataSetChanged();
-        }
+        }*/
 
-        public FollowersModel getItem(int position) {
+        public FollowingModel.FollowingBean getItem(int position) {
             return followersFollowings.get(position);
         }
 
         @Override
         public int getItemCount() {
 
-            return filteredData.size();
+            return followersFollowings.size();
         }
 
         public Filter getFilter() {
@@ -474,16 +484,17 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
                 FilterResults results = new FilterResults();
 
-                final List<PeopleModel> list = originalData;
+                final List<FollowingModel.FollowingBean> list = originalData;
 
                 int count = list.size();
-                final ArrayList<PeopleModel> nlist = new ArrayList<>(count);
+                final ArrayList<FollowingModel.FollowingBean> nlist = new ArrayList<>(count);
 
-                String filterableString ;
+                String filterableString;
 
                 for (int i = 0; i < count; i++) {
-                    filterableString = list.get(i).getFirst_name();
-                    if (filterableString.toLowerCase().contains(filterString)) {
+                    filterableString = list.get(i).getFollowed().getFirst_name();
+                    if (filterableString.toLowerCase().contains(filterString)
+                            || filterableString.toLowerCase().contains(list.get(i).getFollowed().getLast_name())) {
                         nlist.add(list.get(i));
                     }
                 }
@@ -496,58 +507,51 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredData = (ArrayList<PeopleModel>) results.values;
+                filteredData = (ArrayList<FollowingModel.FollowingBean>) results.values;
                 notifyDataSetChanged();
             }
         }
 
     }
+/*
+    private void addSelectedItemToList(FollowingModel.FollowingBean people) {
 
-    private void addSelectedItemToList(PeopleModel people) {
-
-        if(selectedModels == null) return;
+        if (selectedModels == null) return;
         selectedModels.add(people);
         handleSelectedAdapter();
-        horizontalCustomAdapter.notifyItemInserted(horizontalCustomAdapter.getItemCount()-1);
-        if(horizontalCustomAdapter.getItemCount() > 1) rcSelectedItems.scrollToPosition(selectedModels.size()-1);
+        horizontalCustomAdapter.notifyItemInserted(horizontalCustomAdapter.getItemCount() - 1);
+        if (horizontalCustomAdapter.getItemCount() > 1)
+            rcSelectedItems.scrollToPosition(selectedModels.size() - 1);
     }
 
-    private void removeSelectedItemFromList(PeopleModel people) {
+    private void removeSelectedItemFromList(FollowingModel.FollowingBean people) {
 
-        if(selectedModels == null) return;
+        if (selectedModels == null) return;
 
-        if(selectedModels.size() > 0){
-            for(int i=0;i<selectedModels.size();i++){
-                if(selectedModels.get(i).getId().equalsIgnoreCase(people.getId())){
+        if (selectedModels.size() > 0) {
+            for (int i = 0; i < selectedModels.size(); i++) {
+                if (selectedModels.get(i).getId() == (people.getId())) {
 
-                    Log.v(TAG,"Pos : "+ i +", name : "+ selectedModels.get(i).getFirst_name());
+                    // Log.v(TAG,"Pos : "+ i +", name : "+ selectedModels.get(i).getFirst_name());
                     selectedModels.remove(i);
+                    selectedList.remove(String.valueOf(people.getId()));
                     horizontalCustomAdapter.notifyItemRemoved(i);
                     break;
                 }
             }
         }
 
-        if(peopleModels.size() > 0){
-            for(int i=0;i<peopleModels.size();i++){
-                if(peopleModels.get(i).getId().equalsIgnoreCase(people.getId())){
-                    peopleModels.get(i).setChecked(false);
-                    break;
-                }
-            }
-        }
-
-        adapter.removePeople(people);
+        customAdapter.notifyDataSetChanged();
+        // adapter.removePeople(people);
         handleSelectedAdapter();
-    }
+    }*/
 
-    private void handleSelectedAdapter(){
+    private void handleSelectedAdapter() {
 
-        if(selectedModels.size() > 0){
+        if (selectedModels.size() > 0) {
             tvSelection.setVisibility(View.GONE);
             rcSelectedItems.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             tvSelection.setVisibility(View.VISIBLE);
             rcSelectedItems.setVisibility(View.GONE);
         }
@@ -556,8 +560,8 @@ public class InviteToJoinActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(horizontalCustomAdapter != null) horizontalCustomAdapter.notifyDataSetChanged();
-        if(adapter != null) adapter.notifyDataSetChanged();
+        //  if (horizontalCustomAdapter != null) horizontalCustomAdapter.notifyDataSetChanged();
+        //   if (adapter != null) adapter.notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -579,35 +583,66 @@ public class InviteToJoinActivity extends AppCompatActivity {
         }
     }
 
-    private class HorizontalCustomAdapter extends RecyclerView.Adapter<ViewHolder> {
+    public class ViewHolder1 extends RecyclerView.ViewHolder {
 
-        List<PeopleModel> selectedList;
+        RoundedImageView image_view;
+        CustomTextView name;
+        RelativeLayout rlContainer;
+        ImageView rbButton;
+        TextView tvName;
 
-        HorizontalCustomAdapter(List<PeopleModel> data){
-            this.selectedList = data ;
+        public ViewHolder1(final View v) {
+            super(v);
+
+            name = (CustomTextView) v.findViewById(R.id.text_view);
+            image_view = (RoundedImageView) v.findViewById(R.id.image_view);
+            tvName = (TextView) v.findViewById(R.id.tvName);
+            rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
+            rbButton = (ImageView) v.findViewById(R.id.rbButton);
+        }
+    }
+
+
+    private class HorizontalCustomAdapter extends RecyclerView.Adapter<ViewHolder1> {
+
+        List<FollowingModel.FollowingBean> selectedList1;
+
+        HorizontalCustomAdapter(List<FollowingModel.FollowingBean> data) {
+            this.selectedList1 = data;
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder1 onCreateViewHolder(ViewGroup parent, int viewType) {
 
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_selected_people, parent, false);
-  //asd
-            return new ViewHolder(v);
+            //asd
+            return new ViewHolder1(v);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(ViewHolder1 viewHolder, final int position) {
 
-            final PeopleModel peopleModel = selectedList.get(position);
+            final FollowingModel.FollowingBean peopleModel = selectedList1.get(position);
             //Log.d(TAG, "Element " + position + " set." + peopleModel.isChecked());
 
-            viewHolder.tvName.setText(""+ peopleModel.getFirst_name());
+            RequestManager requestManager = Glide.with(InviteToJoinActivity.this);
+            requestManager
+                    .load(peopleModel.getFollowed().getProfile_photo())
+                    .placeholder(R.drawable.place_holder)
+                    .error(R.drawable.place_holder)
+                    .into(viewHolder.image_view);
+            viewHolder.tvName.setText("" + peopleModel.getFollowed().getFirst_name() + " " + peopleModel.getFollowed().getLast_name());
             viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Log.v(TAG,"size : "+selectedList.size() + ", removing: "+ position + ", peopleModel : "+ peopleModel.getFirst_name());
-                    removeSelectedItemFromList(peopleModel);
+                    selectedList.remove(String.valueOf(selectedList1.get(position).getFollowed_id()));
+                    selectedModels.remove(position);
+
+                    customAdapter.notifyDataSetChanged();
+                    horizontalCustomAdapter.notifyDataSetChanged();
+                    handleSelectedAdapter();
+                    // removeSelectedItemFromList(peopleModel);
                 }
             });
         }
