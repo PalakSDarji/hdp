@@ -514,6 +514,8 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putInt("follower",jsonObject.getInt("follower"));
                     if(grant.equals("facebook")){
                         editor.putString("code",code);
+
+                        LoginManager.getInstance().logOut();
                     }else {
                         editor.putString("username",username);
                         editor.putString("password",password_);

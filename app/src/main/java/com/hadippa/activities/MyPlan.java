@@ -139,10 +139,32 @@ public class MyPlan extends AppCompatActivity {
             viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size()+"");
             if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0){
                 viewHolder.tvCount.setText(myPlansBean.getPeople_going_count().size()+"");
+
+                String text = "";
+                if(myPlansBean.getPeople_going().size()>2) {
+
+
+                    text = "You are going with " + myPlansBean.getPeople_going().get(0).getUser().getFirst_name()
+                            + " " + myPlansBean.getPeople_going().get(0).getUser().getLast_name() + " and "+
+                            (myPlansBean.getPeople_going().size()-2) +" people";
+                }else{
+
+                    text = "You are going with " + myPlansBean.getPeople_going().get(0).getUser().getFirst_name()
+                            + " " + myPlansBean.getPeople_going().get(0).getUser().getLast_name();
+
+                }
+
+                viewHolder.goingWith.setText(text);
+                viewHolder.goingWith.setVisibility(View.VISIBLE);
+
+
             }
             else{
+                viewHolder.goingWith.setVisibility(View.GONE);
                 viewHolder.tvCount.setText("0");
             }
+
+
 
 
             if(myPlansBean.getUser().getProfile_photo().isEmpty() ||
@@ -174,7 +196,7 @@ public class MyPlan extends AppCompatActivity {
         private final View vSep;
         private final RecyclerView recyclerView;
         private final LinearLayout llGoing;
-        CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount,tvApprovedPeople;
+        CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount,tvApprovedPeople,goingWith;
         RoundedImageView profileImage;
 
         public ViewHolder(final View v) {
@@ -206,7 +228,7 @@ public class MyPlan extends AppCompatActivity {
             tvApprovedPeople = (CustomTextView)v.findViewById(R.id.tvApprovedPeople);
             tvGoing = (CustomTextView)v.findViewById(R.id.tvGoing);
             tvCount = (CustomTextView)v.findViewById(R.id.tvCount);
-
+            goingWith= (CustomTextView)v.findViewById(R.id.goingWith);
             profileImage = (RoundedImageView)v.findViewById(R.id.profileImage);
 
             final LinearLayoutManager mLayoutManager = new LinearLayoutManager(MyPlan.this);
