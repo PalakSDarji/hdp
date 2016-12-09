@@ -50,7 +50,7 @@ dependencies {
     compile project(':dialogplus')
     compile project(':library')
     compile files('libs/gson-2.5.jar')
-   // compile files('libs/gcm.jar')
+    // compile files('libs/gcm.jar')
     compile 'com.google.android.gms:play-services:9.6.1'
     compile 'com.google.firebase:firebase-messaging:9.0.0'
     compile 'com.android.support:appcompat-v7:23.4.0'
