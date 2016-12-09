@@ -104,7 +104,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="10"
+                        android:text="0"
                         android:textColor="@color/c_312f30"
                         android:textSize="@dimen/values_txt_18"
                         app:customFont="@string/proxima_bold"/>

@@ -170,6 +170,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/llGoing"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -206,6 +207,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/vSep"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="@dimen/value_10"
@@ -213,6 +215,7 @@
         android:background="@color/c_e3e3e3"/>
 
     <com.hadippa.CustomTextView
+        android:id="@+id/tvApprovedPeople"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/value_8"

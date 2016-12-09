@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.activities.HomeScreen;
@@ -162,7 +163,7 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
 
             requestParams.add("device_type", "android");
 
-            requestParams.add("device_token", sp.getString("gcmId", ""));
+            requestParams.add("device_token", FirebaseInstanceId.getInstance().getToken());
 
             requestParams.add("id", String.valueOf(sp.getInt("user", -1)));
 
@@ -238,7 +239,9 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
                     editor.commit();
 
                     Intent intent = new Intent(getActivity(), HomeScreen.class);
-                    intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
 

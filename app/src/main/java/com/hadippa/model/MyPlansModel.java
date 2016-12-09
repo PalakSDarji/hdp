@@ -1,5 +1,7 @@
 package com.hadippa.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -18,7 +20,17 @@ public class MyPlansModel {
     private boolean success;
     private Object next;
     private List<MyPlansBean> my_plans;
+    private List<MyPlansBean> my_plans_history;
     private boolean isOpened;
+
+    @SerializedName("my_plans_history")
+    public List<MyPlansBean> getMy_plans_history() {
+        return my_plans_history;
+    }
+
+    public void setMy_plans_history(List<MyPlansBean> my_plans_history) {
+        this.my_plans_history = my_plans_history;
+    }
 
     public boolean isOpened() {
         return isOpened;

@@ -98,6 +98,12 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
+
+        <activity
+            android:name=".activities.HistoryPlan"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".activities.SignUp"
             android:screenOrientation="portrait"

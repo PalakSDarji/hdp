@@ -53,7 +53,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th",
                     //    30    31
                     "th", "st" };
-    String hide_from = "public", notification = "1";
+    String hide_from = "", notification = "1";
 /*
     @BindView(R.id.toggle2)
     ToggleButton toggle2;*/

@@ -273,7 +273,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        findViewById(R.id.linearSetting).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.linearLogout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editor.clear();

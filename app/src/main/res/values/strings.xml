@@ -40,7 +40,7 @@
     <string name="notification">Notification</string>
     <string name="preference">Preference</string>
     <string name="feedback_suggestion">Feedback &amp; Suggestions</string>
-    <string name="logout">LOGOUT</string>
+    <string name="logout">Logout</string>
 
     <integer name="transaction_time">500</integer>
 

@@ -70,7 +70,10 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.vSep3) View vSep3;
     SharedPreferences sp;
 
+    UserProfile userProfile1;
     UserProfile.UserBean userBean;
+    List<UserProfile.ActivityBeanX> activityBeanX;
+    String activityData="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +81,6 @@ public class ProfileActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         sp = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
-
 
         if(getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)){
             llFollowUnfollow.setVisibility(View.GONE);
@@ -136,8 +138,15 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.rlActivity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this,ActivityThingsActivity.class);
-                startActivity(intent);
+
+                if(tvActivityVal.getText().toString().equals("0")){
+
+                }else {
+                    Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
+                    intent.putExtra("data",activityData);
+
+                    startActivity(intent);
+                }
             }
         });
 
@@ -311,7 +320,12 @@ public class ProfileActivity extends AppCompatActivity {
                 if(userProfile.isSuccess()){
 
                     userBean = userProfile.getUser();
+                    activityBeanX = userProfile.getActivity();
                     setData(userBean);
+                    tvActivityVal.setText(""+activityBeanX.size());
+
+                    activityData = response;
+                    userProfile1 = userProfile;
 
                 }
 

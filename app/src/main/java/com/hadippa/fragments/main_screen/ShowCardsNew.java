@@ -442,7 +442,7 @@ public class ShowCardsNew extends Fragment {
             @Override
             public void onClick(View v) {
 
-                rollbackActivity("8");
+            //    rollbackActivity("8");
 
 
             }
@@ -466,7 +466,7 @@ public class ShowCardsNew extends Fragment {
         List<DoublePeople> doublePeoples = new ArrayList<>();
         doublePeoples.add(new DoublePeople(new People("palak", ""), new People("darji", "")));
         doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
-        doublePeoples.add(new DoublePeople(new People("Sahil", ""), new People("bhai", "")));
+        doublePeoples.add(new DoublePeople(new People("Sahil", ""), null));
 
         HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples);
         horizontal_recycler_view.setAdapter(adapter);
@@ -749,12 +749,16 @@ public class ShowCardsNew extends Fragment {
             private ImageView image_view1;
             private ImageView image_view2;
 
+            private LinearLayout topLinear,bottomLinear;
+
             public MyViewHolder(View view) {
                 super(view);
                 text_view1 = (TextView) view.findViewById(R.id.text_view1);
                 text_view2 = (TextView) view.findViewById(R.id.text_view2);
                 image_view1 = (ImageView) view.findViewById(R.id.image_view1);
                 image_view2 = (ImageView) view.findViewById(R.id.image_view2);
+                topLinear = (LinearLayout)view.findViewById(R.id.topLinear);
+                bottomLinear = (LinearLayout)view.findViewById(R.id.bottomLinear);
             }
         }
 
@@ -774,8 +778,21 @@ public class ShowCardsNew extends Fragment {
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             Log.v("hadippa", "onBindViewHolder");
-            holder.text_view1.setText(horizontalList.get(position).getPeople1().getName());
-            holder.text_view2.setText(horizontalList.get(position).getPeople1().getName());
+
+            if(horizontalList.get(position).getPeople1()!=null){
+                holder.topLinear.setVisibility(View.VISIBLE);
+                holder.text_view1.setText(horizontalList.get(position).getPeople1().getName());
+            }else{
+                holder.topLinear.setVisibility(View.GONE);
+            }
+
+            if(horizontalList.get(position).getPeople2()!=null){
+                holder.bottomLinear.setVisibility(View.VISIBLE);
+                holder.text_view2.setText(horizontalList.get(position).getPeople2().getName());
+            }else{
+                holder.bottomLinear.setVisibility(View.GONE);
+            }
+
 
             holder.text_view1.setOnClickListener(new View.OnClickListener() {
                 @Override

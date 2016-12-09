@@ -34,6 +34,7 @@
             app:customFont="@string/proxima_bold"/>
 
         <LinearLayout
+            android:id="@+id/linearHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -41,6 +42,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/history"
                 android:layout_width="@dimen/value_w40"
                 android:layout_height="@dimen/value_w40"
                 android:src="@drawable/my_plan_history"/>
@@ -74,6 +76,7 @@
             android:background="@color/c_e3e3e3"></View>-->
 
         <com.hadippa.CustomTextView
+            android:id="@+id/up_His"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/value_12"

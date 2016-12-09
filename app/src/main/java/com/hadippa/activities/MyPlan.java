@@ -1,5 +1,6 @@
 package com.hadippa.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -50,6 +51,15 @@ public class MyPlan extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(MyPlan.this);
         editor = sp.edit();
 
+        ((ImageView)findViewById(R.id.history)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MyPlan.this,HistoryPlan.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_out_left,R.anim.slide_in_right);
+            }
+        });
         imageBack = (ImageView)findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +99,7 @@ public class MyPlan extends AppCompatActivity {
 
             final MyPlansModel.MyPlansBean myPlansBean = myPlansBeen.get(position);
 
-            if(myPlansBean.getPeople_approaching_count().size() == 0){
+            if(myPlansBean.getPeople_going().size() == 0){
                 viewHolder.recyclerView.setVisibility(View.GONE);
             }else {
                 viewHolder.recyclerView.setVisibility(View.VISIBLE);
