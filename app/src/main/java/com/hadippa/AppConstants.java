@@ -105,6 +105,13 @@ public class AppConstants {
     public static final String MERAEVENTS_ENTERTAINMENT_THEATER = "entertainment/theater";
     public static final String MERAEVENTS_FESTIVAL = "event/fastival";
 
+    //CHAT
+    public static final String MY_CHAT= "chat/my_chat";
+    public static final String CHAT_CREATE= "chat/create";
+    public static final String CHAT_NEW_MESSAGE= "chat/new_message";
+    public static final String CHAT_UPDATE_MESSAGE= "chat/update_message";
+    public static final String CHAT_ADD_USER_TO_GROUP= "chat/add_user_ to _group";
+    public static final String CHAT_SHOW= "chat/show";
 
     public static final String CLIENT_ID= "HADIPAA_USER";
     public static final String CLIENT_SECRET="HADIPAA@2016";

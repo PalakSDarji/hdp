@@ -1,5 +1,6 @@
 package com.hadippa.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -14,6 +15,8 @@ import com.hadippa.fragments.signup.SignUp_Step1;
 import com.hadippa.fragments.signup.SignUp_Step2;
 import com.hadippa.fragments.signup.SignUp_Step3;
 import com.hadippa.fragments.signup.SignUp_Step4;
+
+import java.util.List;
 
 public class SignUp extends AppCompatActivity {
 
@@ -114,4 +117,15 @@ public class SignUp extends AppCompatActivity {
         if(SignUp_Step2.newInstance(0,"")!=null)
 
     }*/
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+    }
+
 }

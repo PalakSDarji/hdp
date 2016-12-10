@@ -2,20 +2,26 @@ package com.hadippa.fragments.signup;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,16 +36,23 @@ import com.commonclasses.imagetobase64.Base64;
 import com.crop_image.Constants;
 import com.crop_image.ImageCropActivity;
 import com.crop_image.PicModeSelectDialogFragment;
+import com.demo.AlbumStorageDirFactory;
+import com.demo.BaseAlbumDirFactory;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.activities.SignUp;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.yalantis.ucrop.UCrop;
 
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -51,7 +64,7 @@ import static com.hadippa.R.id.tvNext;
 /**
  * Created by alm-android on 01-12-2015.
  */
-public class SignUp_Step1 extends Fragment implements PicModeSelectDialogFragment.IPicModeSelectListener {
+public class SignUp_Step1 extends Fragment  {
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -64,7 +77,13 @@ public class SignUp_Step1 extends Fragment implements PicModeSelectDialogFragmen
     Uri imageUri = null;
     android.support.v4.app.FragmentManager fragmentManager = null;
 
+    Uri sourceUri;
+    AlbumStorageDirFactory albumStorageDirFactory = null;
+    final String JPEG_FILE_PREFIX = "Hadipaa_";
+    final String JPEG_FILE_SUFFIX = ".jpg";
+    String currentPhotoPath;
 
+    boolean isSharePhoto = false;
 
     public static final int REQUEST_CODE_UPDATE_PIC = 0x1;
 
@@ -87,6 +106,8 @@ public class SignUp_Step1 extends Fragment implements PicModeSelectDialogFragmen
         View view = inflater.inflate(R.layout.activity_sign_up, null, false);
 
         mContext = getActivity();
+
+        albumStorageDirFactory = new BaseAlbumDirFactory();
 
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
@@ -119,7 +140,7 @@ public class SignUp_Step1 extends Fragment implements PicModeSelectDialogFragmen
             @Override
             public void onClick(View v) {
                 if(checkPermission()){
-                    showAddProfilePicDialog();
+                    selectImage();
             }else{
                     requestPermission();
                 }
@@ -131,62 +152,60 @@ public class SignUp_Step1 extends Fragment implements PicModeSelectDialogFragmen
 
     }
 
-    private void showCroppedImage(String mImagePath) {
 
-            if (mImagePath != null) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(mImagePath);
-                encode(myBitmap);
-                ivIcon.setImageBitmap(myBitmap);
-                //  mImageView.setImageBitmap(myBitmap);
-            }
-
-
-    }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent result) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        try{
         if (requestCode == REQUEST_CODE_UPDATE_PIC) {
             if (resultCode == RESULT_OK) {
-                String imagePath = result.getStringExtra(Constants.IntentExtras.IMAGE_PATH);
-                showCroppedImage(imagePath);
+
+                if(requestCode==175){
+                    sourceUri = Uri.fromFile(new File(currentPhotoPath));
+                    Log.d("ImageUri>>", sourceUri.toString());
+                    UCrop.Options options = new UCrop.Options();
+                    options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                    options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    options.setToolbarTitle(getString(R.string.app_name));
+                    options.setActiveWidgetColor(getResources().getColor(R.color.colorPrimary));
+                    UCrop.of(sourceUri, sourceUri).withOptions(options).start(getActivity(), UCrop.REQUEST_CROP);
+                }else if(requestCode==176){
+                    sourceUri = data.getData();
+                    Log.d("ImageUri>>", sourceUri.toString());
+                    UCrop.Options options = new UCrop.Options();
+                    options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                    options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    options.setToolbarTitle(getString(R.string.app_name));
+                    options.setActiveWidgetColor(getResources().getColor(R.color.colorPrimary));
+                    UCrop.of(sourceUri, Uri.fromFile(setUpPhotoFile().getAbsoluteFile())).withOptions(options).start(getActivity(), UCrop.REQUEST_CROP);
+
+                }
+                //encode(myBitmap);
             } else if (resultCode == RESULT_CANCELED) {
 
-            } else {
-                String errorMsg = result.getStringExtra(ImageCropActivity.ERROR_MSG);
-                Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_LONG).show();
+            }  else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
+
+                Uri resultUri = UCrop.getOutput(data);
+                if (resultUri != null && currentPhotoPath != null) {
+                    addPhotoGallery();
+
+                    ivIcon.setImageURI(resultUri);
+
+
+                    currentPhotoPath = null;
+
+                }
+
+            } else if (resultCode == RESULT_OK && requestCode == UCrop.RESULT_ERROR) {
+
+
             }
+        }}catch (Exception e){
+
         }
     }
 
-    private void showAddProfilePicDialog()
-    {
-        PicModeSelectDialogFragment dialogFragment = new PicModeSelectDialogFragment();
-        dialogFragment.setiPicModeSelectListener(this);
-        dialogFragment.show(getActivity().getFragmentManager(), "picModeSelector");
-    }
-
-    private void actionProfilePic(String action)
-    {
-        Intent intent = new Intent(getActivity(), ImageCropActivity.class);
-        intent.putExtra("ACTION", action);
-        startActivityForResult(intent, REQUEST_CODE_UPDATE_PIC);
-    }
-
-
-    @Override
-    public void onPicModeSelected(String mode) {
-        String action = mode.equalsIgnoreCase(Constants.PicModes.CAMERA) ? Constants.IntentExtras.ACTION_CAMERA : Constants.IntentExtras.ACTION_GALLERY;
-        actionProfilePic(action);
-    }
-
-    public String encode(Bitmap icon) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        icon.compress(Bitmap.CompressFormat.PNG, 50, baos);
-        byte[] data = baos.toByteArray();
-        String profileImage = Base64.encodeBytes(data);
-        Log.d("ImageView", profileImage);
-        return profileImage;
-    }
 
 
     private boolean checkPermission() {
@@ -224,7 +243,7 @@ public class SignUp_Step1 extends Fragment implements PicModeSelectDialogFragmen
 
                     //  Snackbar.make(rel, "Permission Granted.", Snackbar.LENGTH_LONG).show();
 
-
+                    selectImage();
                 } else {
 
                     //  Snackbar.make(rel, "Permission Denied.", Snackbar.LENGTH_LONG).show();
@@ -408,6 +427,130 @@ public class SignUp_Step1 extends Fragment implements PicModeSelectDialogFragmen
 
     }
 
+    private void selectImage() {
+
+        final CharSequence[] items = { "Take Photo", "Choose from Library",
+                "Cancel" };
+
+        TextView title = new TextView(getActivity());
+        title.setText("Add Photo!");
+        title.setBackgroundColor(Color.BLACK);
+        title.setPadding(10, 15, 15, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(22);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                getActivity());
+
+
+
+        builder.setCustomTitle(title);
+
+        // builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Take Photo")) {
+                    // Intent intent = new
+                    // Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    takePhoto();
+
+                } else if (items[item].equals("Choose from Library")) {
+
+                    sharePhoto();
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    public String getAlbumName() {
+        return getString(R.string.app_name);
+    }
+
+    public File getAlbumDir() {
+        File storageDir = null;
+
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            storageDir = albumStorageDirFactory.getAlbumStorageDir(getAlbumName());
+
+            if (storageDir != null) {
+                if (!storageDir.mkdirs()) {
+                    if (!storageDir.exists()) {
+                        Log.d(getString(R.string.app_name), "Failed to Create Directory");
+                    }
+                }
+            } else {
+                storageDir.mkdirs();
+                if (storageDir.exists()) {
+                    Log.d(getString(R.string.app_name), "Success to Create Directory");
+                    return storageDir;
+                }
+            }
+
+        } else {
+            Log.v(getString(R.string.app_name), "External Storage is not Mounted READ/WRITE.");
+        }
+
+        return storageDir;
+    }
+
+
+    public void takePhoto() {
+
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            File file = null;
+            try {
+                file = setUpPhotoFile();
+                currentPhotoPath = file.getAbsolutePath();
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+            } catch (IOException e) {
+                if (e != null) {
+                    e.printStackTrace();
+                }
+                file = null;
+                currentPhotoPath = null;
+                return;
+            }
+            startActivityForResult(takePictureIntent, 175);
+    }
+
+    public void sharePhoto() {
+
+         Intent shareIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(shareIntent, 176);
+
+
+    }
+
+    public File setUpPhotoFile() throws IOException {
+        File file = createImageFile();
+        currentPhotoPath = file.getAbsolutePath();
+        return file;
+    }
+
+    public File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
+        File albumF = getAlbumDir();
+        File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
+        return imageF;
+    }
+
+    public void addPhotoGallery() {
+
+        Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+        File file = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(file);
+        mediaScanIntent.setData(contentUri);
+        getActivity().sendBroadcast(mediaScanIntent);
+    }
 }
 
 
