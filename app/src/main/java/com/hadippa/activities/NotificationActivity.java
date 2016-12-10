@@ -208,9 +208,11 @@ public class NotificationActivity extends AppCompatActivity {
             final NotificationModel.NotificationsBean notificationsBean = data.get(position);
 
             if (notificationsBean.getUser() != null) {
-                viewHolder.tvName.setText(notificationsBean.getUser().getFirst_name() + " " +
+              /*  viewHolder.tvName.setText(notificationsBean.getUser().getFirst_name() + " " +
                         notificationsBean.getUser().getLast_name() + " " + notificationsBean.getNotification_details().getMessage());
+*/
 
+                viewHolder.tvName.setText(notificationsBean.getNotification_type());
                 RequestManager requestManager = Glide.with(NotificationActivity.this);
                 requestManager
 
@@ -270,14 +272,14 @@ public class NotificationActivity extends AppCompatActivity {
                 // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
 
-            } else if (notificationsBean.getNotification_type().equals("invite to join activity")) {
+            } else if (notificationsBean.getNotification_type().equals("invite o join activity") ||
+                    notificationsBean.getNotification_type().equals("invite_to_join_activity")) {
                 viewHolder.tvFollowUnfollow.setText("Join");
                 viewHolder.ivFollowUnfollow.setImageDrawable(null);
             } else if (notificationsBean.getNotification_type().equals("activity_cancel") ||
+                    notificationsBean.getNotification_type().equals("activity_accept") ||
                     notificationsBean.getNotification_type().equals("activity_user_delete") ||
-                    notificationsBean.getNotification_type().equals("disjoin_from_activity")) {
-
-                viewHolder.llFollowUnfollow.setVisibility(View.GONE);
+                    notificationsBean.getNotification_type().equals("disjoin_from_activity")) {viewHolder.llFollowUnfollow.setVisibility(View.GONE);
             }
         }
 

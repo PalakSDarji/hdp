@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by HP on 11-07-2016.
@@ -81,6 +83,7 @@ public class AppConstants {
     public static final String MY_PROFILE = "/profile/my_profile";
     public static final String OTHERS_PROFILE = "/profile/other_profile";
     public static final String EDIT_PROFILE = "/profile/edit";
+    public static final String UPDATE_PIC = "/profile/photo_upload";
 
     //MY PLANS
     public static final String MY_PLANS = "/my_plans";
@@ -267,5 +270,17 @@ public class AppConstants {
     }
 
 
+    public static String formatDate (String date, String initDateFormat, String endDateFormat) {
+
+        try {
+            Date initDate = new SimpleDateFormat(initDateFormat).parse(date);
+            SimpleDateFormat formatter = new SimpleDateFormat(endDateFormat);
+            String parsedDate = formatter.format(initDate);
+            return parsedDate;
+        }catch (Exception e){
+            return "";
+        }
+
+    }
 
 }

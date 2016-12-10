@@ -82,10 +82,12 @@ public class SignUp_Step1 extends Fragment {
     final String JPEG_FILE_PREFIX = "Hadipaa_";
     final String JPEG_FILE_SUFFIX = ".jpg";
     String currentPhotoPath;
-
+    String base64String="";
     boolean isSharePhoto = false;
 
     public static final int REQUEST_CODE_UPDATE_PIC = 0x1;
+
+
 
     public static SignUp_Step1 newInstance(int page, String title) {
         SignUp_Step1 fragmentFirst = new SignUp_Step1();
@@ -195,7 +197,13 @@ public class SignUp_Step1 extends Fragment {
 
                         ivIcon.setImageBitmap(bitmap);
 
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        byte[] b = baos.toByteArray();
 
+                        base64String = Base64.encode(b);
+
+                        Log.d("base64String>>",base64String);
                         currentPhotoPath = null;
 
                     }
@@ -211,50 +219,7 @@ public class SignUp_Step1 extends Fragment {
     }
 
 
-    private boolean checkPermission() {
 
-        int CAMERA = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
-        int read_external = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
-        int write_external = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (CAMERA == PackageManager.PERMISSION_GRANTED && read_external == PackageManager.PERMISSION_GRANTED
-                && write_external == PackageManager.PERMISSION_GRANTED) {
-
-            return true;
-
-        } else {
-            //   requestPermission();
-            return false;
-
-        }
-    }
-
-    private void requestPermission() {
-
-
-        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA
-                , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
-        }, 10001);
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 10001:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    //  Snackbar.make(rel, "Permission Granted.", Snackbar.LENGTH_LONG).show();
-
-                    selectImage();
-                } else {
-
-                    //  Snackbar.make(rel, "Permission Denied.", Snackbar.LENGTH_LONG).show();
-
-                }
-                break;
-        }
-    }
 
     boolean validate() {
 
@@ -338,7 +303,7 @@ public class SignUp_Step1 extends Fragment {
             requestParams.add("last_name", seperated[1]);
 
             requestParams.add("password", edtPassword.getText().toString().trim());
-
+            requestParams.add("profile_photo",base64String);
             requestParams.add("confirm_password", edtConfirmPassword.getText().toString().trim());
 
             requestParams.add("email", edtEmail.getText().toString().trim());
@@ -419,6 +384,51 @@ public class SignUp_Step1 extends Fragment {
             }
         }
 
+    }
+
+    private boolean checkPermission() {
+
+        int CAMERA = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+        int read_external = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        int write_external = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (CAMERA == PackageManager.PERMISSION_GRANTED && read_external == PackageManager.PERMISSION_GRANTED
+                && write_external == PackageManager.PERMISSION_GRANTED) {
+
+            return true;
+
+        } else {
+            //   requestPermission();
+            return false;
+
+        }
+    }
+
+    private void requestPermission() {
+
+
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA
+                , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
+        }, 10001);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 10001:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    //  Snackbar.make(rel, "Permission Granted.", Snackbar.LENGTH_LONG).show();
+
+                    selectImage();
+                } else {
+
+                    //  Snackbar.make(rel, "Permission Denied.", Snackbar.LENGTH_LONG).show();
+
+                }
+                break;
+        }
     }
 
     private void selectImage() {

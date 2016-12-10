@@ -1,14 +1,26 @@
 package com.hadippa.activities;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +32,9 @@ import android.widget.Toast;
 import com.APIClass;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.commonclasses.imagetobase64.Base64;
+import com.demo.AlbumStorageDirFactory;
+import com.demo.BaseAlbumDirFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.hadippa.AppConstants;
@@ -34,11 +49,17 @@ import com.hadippa.model.UserProfile;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.yalantis.ucrop.UCrop;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,33 +68,63 @@ import cz.msebera.android.httpclient.Header;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    @BindView(R.id.rvMutualFriend) RecyclerView rvMutualFriend;
-    @BindView(R.id.rvRecentInstagram) RecyclerView rvRecentInstagram;
-    @BindView(R.id.ivEdit) ImageView ivEdit;
-    @BindView(R.id.tvTitleName) CustomTextView tvTitleName;
-    @BindView(R.id.ivChat) ImageView ivChat;
-    @BindView(R.id.ivMore) ImageView ivMore;
-    @BindView(R.id.ivProfilePic) SquareImageView ivProfilePic;
-    @BindView(R.id.tvActivityVal) CustomTextView tvActivityVal;
-    @BindView(R.id.tvApproaching2Val) CustomTextView tvApproaching2Val;
-    @BindView(R.id.llFollowUnfollow) LinearLayout llFollowUnfollow;
-    @BindView(R.id.ivFollowUnfollow) ImageView ivFollowUnfollow;
-    @BindView(R.id.tvFollowUnfollow) CustomTextView tvFollowUnfollow;
-    @BindView(R.id.tvOccupation) CustomTextView tvOccupation;
-    @BindView(R.id.tvCompany) CustomTextView tvCompany;
-    @BindView(R.id.tvCity) CustomTextView tvCity;
-    @BindView(R.id.tvZodiac) CustomTextView tvZodiac;
-    @BindView(R.id.tvLangSub) CustomTextView tvLangSub;
-    @BindView(R.id.tvRecentInstagram) CustomTextView tvRecentInstagram;
-    @BindView(R.id.tvMutual) CustomTextView tvMutual;
-    @BindView(R.id.vSep2) View vSep2;
-    @BindView(R.id.vSep3) View vSep3;
+    @BindView(R.id.rvMutualFriend)
+    RecyclerView rvMutualFriend;
+    @BindView(R.id.rvRecentInstagram)
+    RecyclerView rvRecentInstagram;
+    @BindView(R.id.ivEdit)
+    ImageView ivEdit;
+    @BindView(R.id.tvTitleName)
+    CustomTextView tvTitleName;
+    @BindView(R.id.ivChat)
+    ImageView ivChat;
+    @BindView(R.id.ivMore)
+    ImageView ivMore;
+    @BindView(R.id.ivProfilePic)
+    SquareImageView ivProfilePic;
+    @BindView(R.id.tvActivityVal)
+    CustomTextView tvActivityVal;
+    @BindView(R.id.tvApproaching2Val)
+    CustomTextView tvApproaching2Val;
+    @BindView(R.id.llFollowUnfollow)
+    LinearLayout llFollowUnfollow;
+    @BindView(R.id.ivFollowUnfollow)
+    ImageView ivFollowUnfollow;
+    @BindView(R.id.tvFollowUnfollow)
+    CustomTextView tvFollowUnfollow;
+    @BindView(R.id.tvOccupation)
+    CustomTextView tvOccupation;
+    @BindView(R.id.tvCompany)
+    CustomTextView tvCompany;
+    @BindView(R.id.tvCity)
+    CustomTextView tvCity;
+    @BindView(R.id.tvZodiac)
+    CustomTextView tvZodiac;
+    @BindView(R.id.tvLangSub)
+    CustomTextView tvLangSub;
+    @BindView(R.id.tvRecentInstagram)
+    CustomTextView tvRecentInstagram;
+    @BindView(R.id.tvMutual)
+    CustomTextView tvMutual;
+    @BindView(R.id.vSep2)
+    View vSep2;
+    @BindView(R.id.vSep3)
+    View vSep3;
     SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
     UserProfile userProfile1;
     UserProfile.UserBean userBean;
     List<UserProfile.ActivityBeanX> activityBeanX;
-    String activityData="";
+    String activityData = "";
+
+    Uri sourceUri;
+    AlbumStorageDirFactory albumStorageDirFactory = null;
+    final String JPEG_FILE_PREFIX = "Hadipaa_";
+    final String JPEG_FILE_SUFFIX = ".jpg";
+    String currentPhotoPath;
+    String base64String = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +132,10 @@ public class ProfileActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         sp = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
+        editor = sp.edit();
+        albumStorageDirFactory = new BaseAlbumDirFactory();
 
-        if(getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)){
+        if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
             llFollowUnfollow.setVisibility(View.GONE);
             rvMutualFriend.setVisibility(View.GONE);
             tvRecentInstagram.setVisibility(View.GONE);
@@ -92,7 +145,7 @@ public class ProfileActivity extends AppCompatActivity {
             vSep3.setVisibility(View.GONE);
 
             try {
-                JSONObject jsonObject = new JSONObject(sp.getString("userData",""));
+                JSONObject jsonObject = new JSONObject(sp.getString("userData", ""));
                 userBean = new UserProfile.UserBean();
                 userBean.setId(jsonObject.getInt("id"));
                 userBean.setFirst_name(jsonObject.getString("first_name"));
@@ -115,16 +168,16 @@ public class ProfileActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             ivEdit.setVisibility(View.GONE);
         }
         findViewById(R.id.ivEdit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this,EditProfileActivity.class);
-                intent.putExtra("data",userBean);
-              //  startActivity(intent);
-                startActivityForResult(intent,239);
+                Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                intent.putExtra("data", userBean);
+                //  startActivity(intent);
+                startActivityForResult(intent, 239);
             }
         });
 
@@ -139,15 +192,29 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(tvActivityVal.getText().toString().equals("0")){
+                if (tvActivityVal.getText().toString().equals("0")) {
 
-                }else {
+                } else {
                     Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
-                    intent.putExtra("data",activityData);
+                    intent.putExtra("data", activityData);
 
                     startActivity(intent);
                 }
             }
+        });
+
+        findViewById(R.id.ivProfilePic).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+
+                    if (checkPermission()) {
+                    selectImage();
+                } else {
+                    requestPermission();
+                }
+            }}
         });
 
 
@@ -161,7 +228,7 @@ public class ProfileActivity extends AppCompatActivity {
         contacts.add(new Contact());
 
         MutualFriendAdapter adapter = new MutualFriendAdapter(contacts);
-      //  rvMutualFriend.setAdapter(adapter);
+        //  rvMutualFriend.setAdapter(adapter);
 
 
         GridLayoutManager instagramLayoutManagaer = new GridLayoutManager(ProfileActivity.this, 4);
@@ -200,7 +267,9 @@ public class ProfileActivity extends AppCompatActivity {
                 image_view = (ImageView) view.findViewById(R.id.image_view);
             }
         }
-;
+
+        ;
+
         public MutualFriendAdapter(List<Contact> contacts) {
             this.horizontalList = contacts;
         }
@@ -237,7 +306,9 @@ public class ProfileActivity extends AppCompatActivity {
                 iv_photo = (ImageView) view.findViewById(R.id.iv_photo);
             }
         }
+
         ;
+
         public InstagramAdapter(List<Contact> contacts) {
             this.horizontalList = contacts;
         }
@@ -289,7 +360,7 @@ public class ProfileActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            if(!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+            if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
                 AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
             }
@@ -315,14 +386,14 @@ public class ProfileActivity extends AppCompatActivity {
                 String response = new String(responseBody, "UTF-8");
                 Log.d("fetchProfile>>", "success" + response);
                 Gson gson = new Gson();
-                UserProfile userProfile = gson.fromJson(response,UserProfile.class);
+                UserProfile userProfile = gson.fromJson(response, UserProfile.class);
 
-                if(userProfile.isSuccess()){
+                if (userProfile.isSuccess()) {
 
                     userBean = userProfile.getUser();
                     activityBeanX = userProfile.getActivity();
                     setData(userBean);
-                    tvActivityVal.setText(""+activityBeanX.size());
+                    tvActivityVal.setText("" + activityBeanX.size());
 
                     activityData = response;
                     userProfile1 = userProfile;
@@ -348,25 +419,24 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
-    public void setTextifNotEmpty(String data,CustomTextView customTextView){
-        if(data.length() > 0){
+    public void setTextifNotEmpty(String data, CustomTextView customTextView) {
+        if (data.length() > 0) {
             customTextView.setText(data);
-        }else{
-          //  customTextView.setVisibility(View.GONE);
+        } else {
+            //  customTextView.setVisibility(View.GONE);
         }
     }
 
 
-    void setData(UserProfile.UserBean userBean){
+    void setData(UserProfile.UserBean userBean) {
 
-        tvTitleName.setText(userBean.getFirst_name()+" "+userBean.getLast_name()+", "+userBean.getAge());
+        tvTitleName.setText(userBean.getFirst_name() + " " + userBean.getLast_name() + ", " + userBean.getAge());
 
-        setTextifNotEmpty(userBean.getOccupation(),tvOccupation);
-        setTextifNotEmpty(userBean.getCity(),tvCity);
-        setTextifNotEmpty(userBean.getCompany(),tvCompany);
-        setTextifNotEmpty(userBean.getLanuage_known(),tvLangSub);
-        setTextifNotEmpty(userBean.getZodiac(),tvZodiac);
+        setTextifNotEmpty(userBean.getOccupation(), tvOccupation);
+        setTextifNotEmpty(userBean.getCity(), tvCity);
+        setTextifNotEmpty(userBean.getCompany(), tvCompany);
+        setTextifNotEmpty(userBean.getLanuage_known(), tvLangSub);
+        setTextifNotEmpty(userBean.getZodiac(), tvZodiac);
 
         RequestManager requestManager = Glide.with(ProfileActivity.this);
         requestManager.load(userBean.getProfile_photo())
@@ -374,24 +444,330 @@ public class ProfileActivity extends AppCompatActivity {
                 .error(R.color.c_efefef)
                 .into(ivProfilePic);
 
-        if(getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+        if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
 
         }
 
     }
-
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK){
-            if(requestCode == 239){
-                userBean = (UserProfile.UserBean) data.getExtras().getSerializable("data");
-                setData(userBean);
+        try {
+            if (resultCode == RESULT_OK) {
+                if (requestCode == 239) {
+                    userBean = (UserProfile.UserBean) data.getExtras().getSerializable("data");
+                    setData(userBean);
+                } else if (resultCode == RESULT_OK && requestCode == 175) {
+
+                    sourceUri = Uri.fromFile(new File(currentPhotoPath));
+                    Log.d("ImageUri>>", sourceUri.toString());
+                    UCrop.Options options = new UCrop.Options();
+                    options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                    options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    options.setToolbarTitle(getString(R.string.app_name));
+                    options.setActiveWidgetColor(getResources().getColor(R.color.colorPrimary));
+                    UCrop.of(sourceUri, sourceUri).withOptions(options).withAspectRatio(1, 1)
+                            .start(ProfileActivity.this, UCrop.REQUEST_CROP);
+
+                } else if (resultCode == RESULT_OK && requestCode == 176) {
+
+                    sourceUri = data.getData();
+                    Log.d("ImageUri>>", sourceUri.toString());
+                    UCrop.Options options = new UCrop.Options();
+                    options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+                    options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    options.setToolbarTitle(getString(R.string.app_name));
+
+                    options.setActiveWidgetColor(getResources().getColor(R.color.colorPrimary));
+                    UCrop.of(sourceUri, Uri.fromFile(setUpPhotoFile().getAbsoluteFile())).
+                            withOptions(options).withAspectRatio(1, 1).start(ProfileActivity.this, UCrop.REQUEST_CROP);
+
+                } else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
+
+                    Uri resultUri = UCrop.getOutput(data);
+                    if (resultUri != null && currentPhotoPath != null) {
+                        addPhotoGallery();
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
+
+                        ivProfilePic.setImageBitmap(bitmap);
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        byte[] b = baos.toByteArray();
+
+                        base64String = Base64.encode(b);
+
+                        updateProfilePic();
+                        Log.d("base64String>>", base64String);
+                        currentPhotoPath = null;
+
+                    }
+
+                } else if (resultCode == RESULT_OK && requestCode == UCrop.RESULT_ERROR) {
+                    Log.d("onActivityResult", "UCrop Error");
+                }
             }
+        } catch (Exception e) {
         }
     }
+
+    private boolean checkPermission() {
+
+        int CAMERA = ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.CAMERA);
+        int read_external = ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int write_external = ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (CAMERA == PackageManager.PERMISSION_GRANTED && read_external == PackageManager.PERMISSION_GRANTED
+                && write_external == PackageManager.PERMISSION_GRANTED) {
+
+            return true;
+
+        } else {
+            //   requestPermission();
+            return false;
+
+        }
+    }
+
+    private void requestPermission() {
+
+
+        ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{Manifest.permission.CAMERA
+                , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
+        }, 10001);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 10001:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    //  Snackbar.make(rel, "Permission Granted.", Snackbar.LENGTH_LONG).show();
+
+                    selectImage();
+                } else {
+
+                    //  Snackbar.make(rel, "Permission Denied.", Snackbar.LENGTH_LONG).show();
+
+                }
+                break;
+        }
+    }
+
+    private void selectImage() {
+
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
+
+        TextView title = new TextView(ProfileActivity.this);
+        title.setText("Add Photo!");
+        title.setBackgroundColor(Color.BLACK);
+        title.setPadding(10, 15, 15, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(22);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                ProfileActivity.this);
+
+
+        builder.setCustomTitle(title);
+
+        // builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Take Photo")) {
+                    // Intent intent = new
+                    // Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    takePhoto();
+
+                } else if (items[item].equals("Choose from Library")) {
+
+                    sharePhoto();
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    public String getAlbumName() {
+        return getString(R.string.app_name);
+    }
+
+    public File getAlbumDir() {
+        File storageDir = null;
+
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            storageDir = albumStorageDirFactory.getAlbumStorageDir(getAlbumName());
+
+            if (storageDir != null) {
+                if (!storageDir.mkdirs()) {
+                    if (!storageDir.exists()) {
+                        Log.d(getString(R.string.app_name), "Failed to Create Directory");
+                    }
+                }
+            } else {
+                storageDir.mkdirs();
+                if (storageDir.exists()) {
+                    Log.d(getString(R.string.app_name), "Success to Create Directory");
+                    return storageDir;
+                }
+            }
+
+        } else {
+            Log.v(getString(R.string.app_name), "External Storage is not Mounted READ/WRITE.");
+        }
+
+        return storageDir;
+    }
+
+
+    public void takePhoto() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File file = null;
+        try {
+            file = setUpPhotoFile();
+            currentPhotoPath = file.getAbsolutePath();
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        } catch (IOException e) {
+            if (e != null) {
+                e.printStackTrace();
+            }
+            file = null;
+            currentPhotoPath = null;
+            return;
+        }
+        startActivityForResult(takePictureIntent, 175);
+    }
+
+    public void sharePhoto() {
+
+        Intent shareIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(shareIntent, 176);
+
+
+    }
+
+    public File setUpPhotoFile() throws IOException {
+        File file = createImageFile();
+        currentPhotoPath = file.getAbsolutePath();
+        return file;
+    }
+
+    public File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
+        File albumF = getAlbumDir();
+        File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
+        return imageF;
+    }
+
+    public void addPhotoGallery() {
+
+        Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+        File file = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(file);
+        mediaScanIntent.setData(contentUri);
+        ProfileActivity.this.sendBroadcast(mediaScanIntent);
+    }
+
+    private void updateProfilePic() {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("user_id", getIntent().getExtras().getString(AppConstants.FETCH_USER_KEY));
+            requestParams.add("profile_photo", base64String);
+            requestParams.add("flag", "0");
+
+            Log.d("fetchProfile>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.UPDATE_PIC, requestParams,
+                new UpdateProfilePic());
+    }
+
+    class UpdateProfilePic extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+
+                AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+            }
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                Log.d("fetchProfile>>", "success" + response);
+
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.getBoolean("success")) {
+
+                    editor.putString("userData",jsonObject.getJSONObject("user").toString());
+                    editor.commit();
+
+                }else{
+
+                    RequestManager requestManager= Glide.with(ProfileActivity.this);
+                    requestManager.load(userBean.getProfile_photo()).error(R.drawable.place_holder)
+                            .placeholder(R.drawable.place_holder).into(ivProfilePic);
+
+                }
+
+                Log.d("fetchProfile>>", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+
+
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+
+    }
+
 }

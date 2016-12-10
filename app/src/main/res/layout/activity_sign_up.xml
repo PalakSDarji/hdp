@@ -48,6 +48,7 @@
             android:id="@+id/ivIcon"
             android:layout_width="@dimen/value_w144"
             android:layout_height="@dimen/value_h124"
+
             android:layout_centerInParent="true"
             android:background="@drawable/rounded_profile"
             android:src="@drawable/signup1_profile"/>

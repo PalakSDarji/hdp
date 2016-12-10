@@ -110,7 +110,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
         tvFollowersCount.setText(sp.getInt("follower",0)+"");
         tvFollowingCount.setText(sp.getInt("following",0)+"");
-        
+
         try {
             jsonObject = new JSONObject(sp.getString("userData",""));
             tvUserName.setText(jsonObject.getString("first_name")+" "+jsonObject.getString("last_name"));
@@ -334,6 +334,17 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(HomeScreen.this);
+        editor = sp.edit();
+
+        initUI();
 
     }
 }
