@@ -158,7 +158,6 @@ public class SignUp_Step1 extends Fragment  {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         try{
-        if (requestCode == REQUEST_CODE_UPDATE_PIC) {
             if (resultCode == RESULT_OK) {
 
                 if(requestCode==175){
@@ -201,7 +200,7 @@ public class SignUp_Step1 extends Fragment  {
             } else if (resultCode == RESULT_OK && requestCode == UCrop.RESULT_ERROR) {
 
 
-            }
+
         }}catch (Exception e){
 
         }
