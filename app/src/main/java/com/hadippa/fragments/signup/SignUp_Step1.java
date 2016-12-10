@@ -189,8 +189,9 @@ public class SignUp_Step1 extends Fragment  {
                 Uri resultUri = UCrop.getOutput(data);
                 if (resultUri != null && currentPhotoPath != null) {
                     addPhotoGallery();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
 
-                    ivIcon.setImageURI(resultUri);
+                    ivIcon.setImageBitmap(bitmap);
 
 
                     currentPhotoPath = null;
