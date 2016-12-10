@@ -64,7 +64,7 @@ import static com.hadippa.R.id.tvNext;
 /**
  * Created by alm-android on 01-12-2015.
  */
-public class SignUp_Step1 extends Fragment  {
+public class SignUp_Step1 extends Fragment {
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -97,9 +97,10 @@ public class SignUp_Step1 extends Fragment  {
         return fragmentFirst;
     }
 
-    public static EditText edtFullname,edtPassword,edtConfirmPassword,edtEmail;
-    RelativeLayout mainRel,imageLayout;
+    public static EditText edtFullname, edtPassword, edtConfirmPassword, edtEmail;
+    RelativeLayout mainRel, imageLayout;
     ImageButton ivIcon;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -112,23 +113,23 @@ public class SignUp_Step1 extends Fragment  {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
-        mainRel = (RelativeLayout)view.findViewById(R.id.mainRel);
-        imageLayout = (RelativeLayout)view.findViewById(R.id.imageLayout);
-        edtFullname = (EditText)view.findViewById(R.id.edtFullName);
-        edtPassword = (EditText)view.findViewById(R.id.edtPassword);
-        edtConfirmPassword = (EditText)view.findViewById(R.id.edtConfirmPassword);
-        edtEmail = (EditText)view.findViewById(R.id.edtEmail);
+        mainRel = (RelativeLayout) view.findViewById(R.id.mainRel);
+        imageLayout = (RelativeLayout) view.findViewById(R.id.imageLayout);
+        edtFullname = (EditText) view.findViewById(R.id.edtFullName);
+        edtPassword = (EditText) view.findViewById(R.id.edtPassword);
+        edtConfirmPassword = (EditText) view.findViewById(R.id.edtConfirmPassword);
+        edtEmail = (EditText) view.findViewById(R.id.edtEmail);
         ivIcon = (ImageButton) view.findViewById(R.id.ivIcon);
-        TextView tvNext = (TextView)view.findViewById(R.id.tvNext);
+        TextView tvNext = (TextView) view.findViewById(R.id.tvNext);
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               // SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
-                if(validate()){
+                // SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
+                if (validate()) {
 
                     signUpStep_1();
-                  //  SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
+                    //  SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
 
                 }
 
@@ -139,9 +140,9 @@ public class SignUp_Step1 extends Fragment  {
         ivIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkPermission()){
+                if (checkPermission()) {
                     selectImage();
-            }else{
+                } else {
                     requestPermission();
                 }
             }
@@ -153,14 +154,16 @@ public class SignUp_Step1 extends Fragment  {
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        try{
-            if (resultCode == RESULT_OK) {
+        try {
 
-                if(requestCode==175){
+          //  Log.d("onActivityResult","onActivityResult Fragemnt: RequestCode" + requestCode + " ResultCode: " + resultCode + " Path: " + data.getData().getPath());
+
+                if (resultCode == RESULT_OK && requestCode == 175) {
+
                     sourceUri = Uri.fromFile(new File(currentPhotoPath));
                     Log.d("ImageUri>>", sourceUri.toString());
                     UCrop.Options options = new UCrop.Options();
@@ -168,44 +171,43 @@ public class SignUp_Step1 extends Fragment  {
                     options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
                     options.setToolbarTitle(getString(R.string.app_name));
                     options.setActiveWidgetColor(getResources().getColor(R.color.colorPrimary));
-                    UCrop.of(sourceUri, sourceUri).withOptions(options).start(getActivity(), UCrop.REQUEST_CROP);
-                }else if(requestCode==176){
+                    UCrop.of(sourceUri, sourceUri).withOptions(options).withAspectRatio(1,1).start(getActivity(), UCrop.REQUEST_CROP);
+
+                } else if (resultCode == RESULT_OK && requestCode == 176) {
+
                     sourceUri = data.getData();
                     Log.d("ImageUri>>", sourceUri.toString());
                     UCrop.Options options = new UCrop.Options();
                     options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
                     options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
                     options.setToolbarTitle(getString(R.string.app_name));
-                    options.setActiveWidgetColor(getResources().getColor(R.color.colorPrimary));
-                    UCrop.of(sourceUri, Uri.fromFile(setUpPhotoFile().getAbsoluteFile())).withOptions(options).start(getActivity(), UCrop.REQUEST_CROP);
 
+                    options.setActiveWidgetColor(getResources().getColor(R.color.colorPrimary));
+                    UCrop.of(sourceUri, Uri.fromFile(setUpPhotoFile().getAbsoluteFile())).withOptions(options).withAspectRatio(1,1).start(getActivity(), UCrop.REQUEST_CROP);
+
+                }else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
+
+                    Uri resultUri = UCrop.getOutput(data);
+                    if (resultUri != null && currentPhotoPath != null) {
+                        addPhotoGallery();
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
+
+                        ivIcon.setImageBitmap(bitmap);
+
+
+                        currentPhotoPath = null;
+
+                    }
+
+                } else if (resultCode == RESULT_OK && requestCode == UCrop.RESULT_ERROR) {
+                    Log.d("onActivityResult",  "UCrop Error");
                 }
                 //encode(myBitmap);
-            } else if (resultCode == RESULT_CANCELED) {
 
-            }  else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
-
-                Uri resultUri = UCrop.getOutput(data);
-                if (resultUri != null && currentPhotoPath != null) {
-                    addPhotoGallery();
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
-
-                    ivIcon.setImageBitmap(bitmap);
-
-
-                    currentPhotoPath = null;
-
-                }
-
-            } else if (resultCode == RESULT_OK && requestCode == UCrop.RESULT_ERROR) {
-
-
-
-        }}catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
-
 
 
     private boolean checkPermission() {
@@ -230,7 +232,7 @@ public class SignUp_Step1 extends Fragment  {
 
 
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA
-                ,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE
+                , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
         }, 10001);
 
     }
@@ -253,70 +255,68 @@ public class SignUp_Step1 extends Fragment  {
         }
     }
 
-    boolean validate(){
+    boolean validate() {
 
-        if(edtFullname.getText().toString().trim().length()==0){
+        if (edtFullname.getText().toString().trim().length() == 0) {
 
             edtFullname.setError("Cannot be empty.");
             return false;
 
         }
 
-        if(!edtFullname.getText().toString().trim().contains(" ")){
+        if (!edtFullname.getText().toString().trim().contains(" ")) {
 
             edtFullname.setError("Enter fullname.");
             return false;
 
         }
-        if(edtEmail.getText().toString().trim().length()==0){
+        if (edtEmail.getText().toString().trim().length() == 0) {
 
             edtEmail.setError("Cannot be empty.");
             return false;
 
         }
 
-        if(edtPassword.getText().toString().trim().length()==0){
+        if (edtPassword.getText().toString().trim().length() == 0) {
 
             edtPassword.setError("Cannot be empty.");
             return false;
 
         }
 
-        if(edtConfirmPassword.getText().toString().trim().length()==0){
+        if (edtConfirmPassword.getText().toString().trim().length() == 0) {
 
             edtConfirmPassword.setError("Cannot be empty.");
             return false;
 
         }
 
-        if(!edtPassword.getText().toString().trim().equals(edtConfirmPassword.getText().toString().trim())){
+        if (!edtPassword.getText().toString().trim().equals(edtConfirmPassword.getText().toString().trim())) {
 
             edtConfirmPassword.setError("Password Mismatch");
             return false;
 
         }
 
-        if(!AppConstants.isValidEmail(edtEmail.getText().toString().trim())){
+        if (!AppConstants.isValidEmail(edtEmail.getText().toString().trim())) {
 
             edtEmail.setError("Invalid email.");
             return false;
         }
 
-        return  true;
+        return true;
 
     }
 
 
-    private void signUpStep_1()
-    {
+    private void signUpStep_1() {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
 
-        try
-        {
+        try {
 
-            requestParams.add( "client_id", AppConstants.CLIENT_ID);
+            requestParams.add("client_id", AppConstants.CLIENT_ID);
 
             requestParams.add("client_secret", AppConstants.CLIENT_SECRET);
 
@@ -325,41 +325,37 @@ public class SignUp_Step1 extends Fragment  {
 
             requestParams.add("device_os_version", String.valueOf(Build.VERSION.SDK_INT));
 
-            requestParams.add("grant_type",sp.getString("grantType","password"));
+            requestParams.add("grant_type", sp.getString("grantType", "password"));
 
-            requestParams.add( "device_type","android");
+            requestParams.add("device_type", "android");
 
-            requestParams.add("device_token",sp.getString("gcmId",""));
+            requestParams.add("device_token", sp.getString("gcmId", ""));
 
             String seperated[] = edtFullname.getText().toString().trim().split(" ");
-            requestParams.add("first_name",seperated[0]);
+            requestParams.add("first_name", seperated[0]);
 
-            requestParams.add("last_name",seperated[1]);
+            requestParams.add("last_name", seperated[1]);
 
-            requestParams.add("password",edtPassword.getText().toString().trim());
+            requestParams.add("password", edtPassword.getText().toString().trim());
 
-            requestParams.add("confirm_password",edtConfirmPassword.getText().toString().trim());
+            requestParams.add("confirm_password", edtConfirmPassword.getText().toString().trim());
 
-            requestParams.add("email",edtEmail.getText().toString().trim());
+            requestParams.add("email", edtEmail.getText().toString().trim());
 
 
-            Log.d("request>>",requestParams.toString());
-        }
-        catch (Exception e)
-        {
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        asyncHttpClient.post(AppConstants.BASE_URL+AppConstants.API_VERSION + AppConstants.SIGN_UP_STEP_1, requestParams,
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.SIGN_UP_STEP_1, requestParams,
                 new SignUpStep_1());
     }
 
-    class SignUpStep_1 extends AsyncHttpResponseHandler
-    {
+    class SignUpStep_1 extends AsyncHttpResponseHandler {
 
         @Override
-        public void onStart()
-        {
+        public void onStart() {
             super.onStart();
 
             //  dataScroll.setVisibility(View.GONE);
@@ -369,8 +365,7 @@ public class SignUp_Step1 extends Fragment  {
 
 
         @Override
-        public void onFinish()
-        {
+        public void onFinish() {
             AppConstants.dismissDialog();
         }
 
@@ -388,25 +383,23 @@ public class SignUp_Step1 extends Fragment  {
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
 
-
-
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-                if(jsonObject.getBoolean("success")){
+                if (jsonObject.getBoolean("success")) {
 
-                    editor.putInt("user",jsonObject.getInt("user"));
+                    editor.putInt("user", jsonObject.getInt("user"));
                     editor.commit();
 
-                      SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem()+1);
+                    SignUp.customViewPager.setCurrentItem(SignUp.customViewPager.getCurrentItem() + 1);
 
-                }else {
-                    AppConstants.showSnackBar(mainRel,"Could not submit details");
+                } else {
+                    AppConstants.showSnackBar(mainRel, "Could not submit details");
                 }
-                Log.d("async","success"+response);
-            }catch (Exception e){
+                Log.d("async", "success" + response);
+            } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("async","success exc  >>"+ e.toString());
+                Log.d("async", "success exc  >>" + e.toString());
             }
         }
 
@@ -414,14 +407,14 @@ public class SignUp_Step1 extends Fragment  {
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
 
-            AppConstants.showSnackBar(mainRel,"Could not submit details");
+            AppConstants.showSnackBar(mainRel, "Could not submit details");
 
             try {
                 String response = new String(responseBody, "UTF-8");
-                Log.d("async","failure"+response);
-            }catch (Exception e){
+                Log.d("async", "failure" + response);
+            } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("async","failure"+e.toString());
+                Log.d("async", "failure" + e.toString());
             }
         }
 
@@ -429,8 +422,8 @@ public class SignUp_Step1 extends Fragment  {
 
     private void selectImage() {
 
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
 
         TextView title = new TextView(getActivity());
         title.setText("Add Photo!");
@@ -443,7 +436,6 @@ public class SignUp_Step1 extends Fragment  {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 getActivity());
-
 
 
         builder.setCustomTitle(title);
@@ -503,27 +495,27 @@ public class SignUp_Step1 extends Fragment  {
 
     public void takePhoto() {
 
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File file = null;
-            try {
-                file = setUpPhotoFile();
-                currentPhotoPath = file.getAbsolutePath();
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-            } catch (IOException e) {
-                if (e != null) {
-                    e.printStackTrace();
-                }
-                file = null;
-                currentPhotoPath = null;
-                return;
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File file = null;
+        try {
+            file = setUpPhotoFile();
+            currentPhotoPath = file.getAbsolutePath();
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+        } catch (IOException e) {
+            if (e != null) {
+                e.printStackTrace();
             }
-            startActivityForResult(takePictureIntent, 175);
+            file = null;
+            currentPhotoPath = null;
+            return;
+        }
+        startActivityForResult(takePictureIntent, 175);
     }
 
     public void sharePhoto() {
 
-         Intent shareIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(shareIntent, 176);
+        Intent shareIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(shareIntent, 176);
 
 
     }

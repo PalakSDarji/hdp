@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.commonclasses.ViewPager.CustomViewPager;
 import com.hadippa.R;
@@ -25,6 +26,7 @@ public class SignUp extends AppCompatActivity {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
+    SignUp_Step1 signUp_step1 = new SignUp_Step1();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,7 @@ public class SignUp extends AppCompatActivity {
 
                 case 0:
 
-                    fragment = new SignUp_Step1();
+                    fragment = signUp_step1;
 
                     break;
 
@@ -118,6 +120,7 @@ public class SignUp extends AppCompatActivity {
 
     }*/
 
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
@@ -127,5 +130,22 @@ public class SignUp extends AppCompatActivity {
             }
         }
     }
+*/
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+     //   Log.d("onActivityResult","onActivityResult Activity: RequestCode" + requestCode + " ResultCode: " + resultCode + " Path: " + data.getData().getPath());
+
+        Log.d("onActivityResult","onActivityResult Activity");
+       /* super.onActivityResult(requestCode, resultCode, data);
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {*/
+                signUp_step1.onActivityResult(requestCode, resultCode, data);
+          /*  }
+        }
+        */
+    }
 }
