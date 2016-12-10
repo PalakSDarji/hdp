@@ -171,7 +171,8 @@ public class SignUp_Step1 extends Fragment {
                     options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
                     options.setToolbarTitle(getString(R.string.app_name));
                     options.setActiveWidgetColor(getResources().getColor(R.color.colorPrimary));
-                    UCrop.of(sourceUri, sourceUri).withOptions(options).withAspectRatio(1,1).start(getActivity(), UCrop.REQUEST_CROP);
+                    UCrop.of(sourceUri, sourceUri).withOptions(options).withAspectRatio(1,1)
+                            .start(getActivity(), UCrop.REQUEST_CROP);
 
                 } else if (resultCode == RESULT_OK && requestCode == 176) {
 
