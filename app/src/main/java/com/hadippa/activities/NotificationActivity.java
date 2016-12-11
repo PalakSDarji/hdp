@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -222,29 +223,43 @@ public class NotificationActivity extends AppCompatActivity {
                         .into(viewHolder.image_view);
             }
 
-            viewHolder.tvDate.setText(notificationsBean.getCreated_at());
+            viewHolder.tvDate.setText(
+                    AppConstants.formatDate(notificationsBean.getCreated_at(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a"));
 
             viewHolder.llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                 @Override
                 public void onClick(View v) {
 
                     if (notificationsBean.getNotification_type().equals("activity_request")) {
 
-                        acceptRequest(String.valueOf(notificationsBean.getId()),String.valueOf(notificationsBean.getSender_id()),viewHolder.tvFollowUnfollow);
+                        if(viewHolder.tvFollowUnfollow.equals("Accept")) {
+                            viewHolder.llFollowUnfollow.setBackground(getResources().getDrawable(R.drawable.rounded_followers_filled));
+                            viewHolder.tvFollowUnfollow.setText(getResources().getColor(R.color.white));
+                            viewHolder.tvFollowUnfollow.setText("Reject");
+                            acceptRequest(String.valueOf(notificationsBean.getId()), String.valueOf(notificationsBean.getSender_id()), viewHolder.tvFollowUnfollow
+                                    ,viewHolder.llFollowUnfollow);
+                        }else{
+
+                            viewHolder.llFollowUnfollow.setBackground(getResources().getDrawable(R.drawable.rounded_followers));
+                            viewHolder.tvFollowUnfollow.setText("Accept");
+                            viewHolder.tvFollowUnfollow.setText(getResources().getColor(R.color.follow_color));
+                            declineRequest(String.valueOf(notificationsBean.getId()),
+                                    String.valueOf(notificationsBean.getSender_id()),viewHolder.tvFollowUnfollow,viewHolder.llFollowUnfollow);
+                        }
                     } else if (notificationsBean.getNotification_type().equals("follow_request")) {
 
                     } else if (notificationsBean.getNotification_type().equals("follow_start")) {
 
-                    } else if (notificationsBean.getNotification_type().equals("invite to join activity")) {
-                        acceptRequest(String.valueOf(notificationsBean.getId()),String.valueOf(notificationsBean.getSender_id()),viewHolder.tvFollowUnfollow);
+                    } else if (notificationsBean.getNotification_type().equals("invite_to_join_activity")) {
+                      //  acceptRequest(String.valueOf(notificationsBean.getId()),String.valueOf(notificationsBean.getSender_id()),viewHolder.tvFollowUnfollow);
                     } else if (notificationsBean.getNotification_type().equals("activity_cancel")) {
 
                     } else if (notificationsBean.getNotification_type().equals("activity_user_delete")) {
 
                     } else if (notificationsBean.getNotification_type().equals("disjoin_from_activity")) {
 
-                        declineRequest(String.valueOf(notificationsBean.getId()),
-                                String.valueOf(notificationsBean.getSender_id()),viewHolder.tvFollowUnfollow);
+
 
                     }
                 }
@@ -265,7 +280,7 @@ public class NotificationActivity extends AppCompatActivity {
             if (notificationsBean.getNotification_type().equals("activity_request")
                     || notificationsBean.getNotification_type().equals("follow_request")) {
                 viewHolder.tvFollowUnfollow.setText("Accept");
-                viewHolder.ivFollowUnfollow.setImageDrawable(null);
+                viewHolder.ivFollowUnfollow.setVisibility(View.GONE);
             } else if (notificationsBean.getNotification_type().equals("follow_start")) {
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
@@ -274,8 +289,10 @@ public class NotificationActivity extends AppCompatActivity {
 
             } else if (notificationsBean.getNotification_type().equals("invite to join activity") ||
                     notificationsBean.getNotification_type().equals("invite_to_join_activity")) {
+
+                //Add web calls of Right and left join2
                 viewHolder.tvFollowUnfollow.setText("Join");
-                viewHolder.ivFollowUnfollow.setImageDrawable(null);
+                viewHolder.ivFollowUnfollow.setVisibility(View.GONE);
             } else if (notificationsBean.getNotification_type().equals("activity_cancel") ||
                     notificationsBean.getNotification_type().equals("activity_accept") ||
                     notificationsBean.getNotification_type().equals("activity_user_delete") ||
@@ -327,7 +344,7 @@ public class NotificationActivity extends AppCompatActivity {
         }
     }
 
-    private void declineRequest(String activity_id, String requester_id,TextView textView) {
+    private void declineRequest(String activity_id, String requester_id,TextView textView,LinearLayout linearLayout) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -344,15 +361,17 @@ public class NotificationActivity extends AppCompatActivity {
         }
 
         asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.ACTIVITY_OTHER_REQUEST_DECLINE, requestParams,
-                new DeclineRequest(textView));
+                new DeclineRequest(textView,linearLayout));
     }
 
     class DeclineRequest extends AsyncHttpResponseHandler {
 
         TextView textView;
-
-        DeclineRequest(TextView textView1){
+        LinearLayout linearLayout;
+        DeclineRequest(TextView textView1,LinearLayout linearLayout1){
             textView = textView1;
+
+            linearLayout = linearLayout1;
         }
         @Override
         public void onStart() {
@@ -377,15 +396,19 @@ public class NotificationActivity extends AppCompatActivity {
         }
 
 
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-                if (jsonObject.getBoolean("success")) {
+                Toast.makeText(NotificationActivity.this,"Response  >> "+response,Toast.LENGTH_SHORT).show();
+                if (!jsonObject.getBoolean("success")) {
 
-                    textView.setText("Accept");
+                    textView.setText("Reject");
+                    textView.setTextColor(getResources().getColor(R.color.white));
+                    linearLayout.setBackground(getResources().getDrawable(R.drawable.rounded_followers_filled));
                     Log.d("response>>", response);
                     //post json stored g\here
 
@@ -410,7 +433,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
-    private void acceptRequest(String activity_id, String requester_id,TextView textView) {
+    private void acceptRequest(String activity_id, String requester_id,TextView textView,LinearLayout linearLayout) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -428,15 +451,16 @@ public class NotificationActivity extends AppCompatActivity {
 
         asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION +
                 AppConstants.ACTIVITY_OTHER_REQUEST_ACCEPT, requestParams,
-                new AcceptRequest(textView));
+                new AcceptRequest(textView,linearLayout));
     }
 
     class AcceptRequest extends AsyncHttpResponseHandler {
 
         TextView textView;
-
-        AcceptRequest(TextView textView1){
+        LinearLayout linearLayout;
+        AcceptRequest(TextView textView1,LinearLayout linearLayout1){
             textView = textView1;
+            linearLayout = linearLayout1;
         }
         @Override
         public void onStart() {
@@ -461,15 +485,21 @@ public class NotificationActivity extends AppCompatActivity {
         }
 
 
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-                if (jsonObject.getBoolean("success")) {
 
-                    textView.setText("Reject");
+                Toast.makeText(NotificationActivity.this,"Response  >> "+response,Toast.LENGTH_SHORT).show();
+                if (!jsonObject.getBoolean("success")) {
+
+                    Toast.makeText(NotificationActivity.this,"Sucess > false",Toast.LENGTH_SHORT).show();
+                    textView.setText("Accept");
+                    textView.setTextColor(getResources().getColor(R.color.follow_color));
+                    linearLayout.setBackground(getResources().getDrawable(R.drawable.rounded_followers));
                     //post json stored g\here
 
                 } else {

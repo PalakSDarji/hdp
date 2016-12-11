@@ -260,7 +260,7 @@ public class ShowCardsNew extends Fragment {
 
 
                 Glide.with(context)
-                        .load(dataModel.getUser().getProfile_photo())
+                        .load("https://scontent.xx.fbcdn.net/v/t1.0-1/13432225_110801492677897_9011418194403241842_n.jpg?oh=07c475711f2346d934404d5110c5a0e7&oe=58FC083A")
                         .placeholder(R.drawable.bg_item_above)
                         .error(R.drawable.bg_item_above)
                         .into(viewHolder.coverImage);
