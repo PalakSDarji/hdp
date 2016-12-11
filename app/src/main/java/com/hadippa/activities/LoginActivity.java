@@ -504,14 +504,9 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(response);
                 if(jsonObject.has("access_token")) {
 
-                    Log.d("async`>>",jsonObject.getJSONObject("user").toString());
+                  //  Log.d("async`>>",jsonObject.getJSONObject("user").toString());
                     //post json stored g\here
-                    editor.putBoolean("loginStatus",true);
-                    editor.putString("grant_type",grant);
-                    editor.putString("userData",jsonObject.getJSONObject("user").toString());
-                    editor.putInt("following",jsonObject.getInt("following"));
-                    editor.putInt("follower",jsonObject.getInt("follower"));
-                    editor.putInt("follower",jsonObject.getInt("follower"));
+
                     if(grant.equals("facebook")){
                         editor.putString("code",code);
 
@@ -523,7 +518,8 @@ public class LoginActivity extends AppCompatActivity {
                     editor.commit();
 
                     if(jsonObject.has("registration_incomplete")){
-                        editor.putInt("user",Integer.parseInt(jsonObject.getString("user")));
+                        editor.putString("grant_type",grant);
+                        editor.putInt("user",jsonObject.getInt("user"));
                         editor.commit();
 
                         Intent intent = new Intent(LoginActivity.this, SignUp.class);
@@ -531,7 +527,12 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }else {
-
+                        editor.putBoolean("loginStatus",true);
+                        editor.putString("grant_type",grant);
+                        editor.putString("userData",jsonObject.getJSONObject("user").toString());
+                        editor.putInt("following",jsonObject.getInt("following"));
+                        editor.putInt("follower",jsonObject.getInt("follower"));
+                        editor.putInt("follower",jsonObject.getInt("follower"));
                         editor.putString("access_token", jsonObject.getString("access_token"));
                         editor.putString("posts", jsonObject.getString("posts"));
                         editor.commit();

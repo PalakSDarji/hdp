@@ -122,7 +122,7 @@ public class PeopleJoinActivity extends AppCompatActivity {
 
                 makeToast(PeopleJoinActivity.this,""+ posts.get(0).getId());
 
-                activityJoinDecline(posts.get(0).getId(),AppConstants.ACTIVITY_REQUEST_DECLINE);
+                activityJoinDecline(String.valueOf(posts.get(0).getId()),AppConstants.ACTIVITY_REQUEST_DECLINE);
                 posts.remove(i);
                 myAppAdapter.notifyDataSetChanged();
 
@@ -136,7 +136,7 @@ public class PeopleJoinActivity extends AppCompatActivity {
             @Override
             public void onRightCardExit(Object dataObject) {
                 makeToast(PeopleJoinActivity.this, "Right!");
-                activityJoinDecline(posts.get(0).getId(),AppConstants.ACTIVITY_REQUEST_JOIN);
+                activityJoinDecline(String.valueOf(posts.get(0).getId()),AppConstants.ACTIVITY_REQUEST_JOIN);
                 posts.remove(i);
                 myAppAdapter.notifyDataSetChanged();
                 /*al.remove(0);

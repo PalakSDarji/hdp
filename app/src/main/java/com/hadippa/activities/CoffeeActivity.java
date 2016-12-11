@@ -349,9 +349,11 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLatitude()),
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLongitude())) + " kms");
 
-            if(restaurantsBean.getRestaurant().getThumb().isEmpty() || restaurantsBean.getRestaurant().getThumb().equals("")){
+            if (restaurantsBean.getRestaurant().getThumb().isEmpty() || restaurantsBean.getRestaurant().getThumb().equals("")) {
                 viewHolder.profileImage.setImageResource(R.drawable.place_holder);
-            }else{
+            } else {
+
+
                 Glide.with(CoffeeActivity.this)
                         .load(restaurantsBean.getRestaurant().getThumb())
                         .error(R.drawable.place_holder)
@@ -360,7 +362,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             }
 
 
-            Log.d("image>>>", position+ " Postion Url >> "+restaurantsBean.getRestaurant().getThumb());
+            Log.d("image>>>", position + " Postion Url >> " + restaurantsBean.getRestaurant().getThumb());
 
             viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -432,7 +434,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
         try {
 
-            requestParams.add("access_token", sp.getString("access_token",""));
+            requestParams.add("access_token", sp.getString("access_token", ""));
             requestParams.add("lat", lat);
             requestParams.add("lon", lon);
             requestParams.add("radius", radius);
@@ -494,13 +496,13 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                         customAdapter.notifyDataSetChanged();
                     }
 
-                    if(nightCLubModel.getResponse().getRestaurants().size() == 0){
+                    if (nightCLubModel.getResponse().getRestaurants().size() == 0) {
 
                     }
 
                     pageNumber = pageNumber + 20;
-                }else {
-                    Toast.makeText(CoffeeActivity.this,nightCLubModel.getErrors(),Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(CoffeeActivity.this, nightCLubModel.getErrors(), Toast.LENGTH_SHORT).show();
                 }
                 Log.d("prepareZomato>>", "Size >> " + response);
                 Log.d("prepareZomato>>", "Size >> " + restaurantsBeanList.size());

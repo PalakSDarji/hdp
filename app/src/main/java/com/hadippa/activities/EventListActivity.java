@@ -541,8 +541,12 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             });
             holder.tvPrice.setText(postBeanList.get(position).getTicket_currencyCode()+" "+postBeanList.get(position).getTicket_price());
             holder.tvEventName.setText(postBeanList.get(position).getTitle());
-            holder.tvAddress.setText(postBeanList.get(position).getAddress1());
-            holder.timings.setText(postBeanList.get(position).getStartDate()+" - "+postBeanList.get(position).getEndDate());
+            holder.tvAddress.setText(postBeanList.get(position).getAddress1()+" "+postBeanList.get(position).getCityName()+" "+postBeanList.get(position).getStateName());
+            holder.timings.setText(AppConstants.formatDate(postBeanList.get(position).getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a")
+                    +
+                    " - "
+                    +
+                    AppConstants.formatDate(postBeanList.get(position).getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a"));
             holder.tvDistance.setText(AppConstants.distanceMeasure(Double.parseDouble(latitude),
                     Double.parseDouble(longitude),
                     (postBeanList.get(position).getLatitude()),

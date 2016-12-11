@@ -108,7 +108,11 @@ public class EventDetailsActivity extends AppCompatActivity {
         tvEventName.setText(dataBean.getTitle());
         tvAddress.setText(dataBean.getAddress1()+" "+dataBean.getAddress2()
                 +" "+dataBean.getCityName()+" "+dataBean.getStateName());
-        tvTime.setText(dataBean.getStartDate()+" - "+dataBean.getEndDate());
+        tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a")
+                +
+                " - "
+                +
+                AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a"));
         tvKm.setText(AppConstants.distanceMeasure(Double.parseDouble(getIntent().getExtras().getString("latitude")),
                 Double.parseDouble(getIntent().getExtras().getString("longitude")),
                 (dataBean.getLatitude()),

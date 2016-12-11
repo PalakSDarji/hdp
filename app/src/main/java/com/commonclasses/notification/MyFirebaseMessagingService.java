@@ -38,7 +38,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "FCM  getSentTime: " + remoteMessage.getSentTime());
         Log.d(TAG, "FCM  getTtl: " + remoteMessage.getTtl());
 
-        Log.d(TAG, "FCM  Data : " + remoteMessage.getData().toString());
+        Log.d(TAG, "FCM  Data : " + remoteMessage.getData().get("message").toString());
 
         if(remoteMessage.getNotification() != null){
             Log.d(TAG, "FCM Notification Message: " +remoteMessage.getNotification().getBody());
@@ -73,13 +73,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setContentTitle(stringStringMap.get("title"))
+                        .setContentTitle("Hadipaa")
                         .setSmallIcon(R.drawable.com_facebook_button_icon)
                         /*.setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(jobj))*/
                         .setSound(soundUri)
                         .setAutoCancel(true)
-                        .setContentText(stringStringMap.get("content"));
+                        .setContentText(stringStringMap.get("message"));
 
 
         mBuilder.setContentIntent(contentIntent);

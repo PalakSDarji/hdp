@@ -364,7 +364,7 @@ public class ShowCardsNew extends Fragment {
             public void onLeftCardExit(Object dataObject) {
                 makeToast(getActivity(),""+ posts.get(0).getId());
 
-                activityJoinDecline(posts.get(0).getId(),AppConstants.ACTIVITY_REQUEST_DECLINE);
+                activityJoinDecline(String.valueOf(posts.get(0).getId()),AppConstants.ACTIVITY_REQUEST_DECLINE);
                 posts.remove(i);
                 myAppAdapter.notifyDataSetChanged();
 
@@ -378,7 +378,7 @@ public class ShowCardsNew extends Fragment {
             @Override
             public void onRightCardExit(Object dataObject) {
                 makeToast(getActivity(), "Right!");
-                activityJoinDecline(posts.get(0).getId(),AppConstants.ACTIVITY_REQUEST_JOIN);
+                activityJoinDecline(String.valueOf(posts.get(0).getId()),AppConstants.ACTIVITY_REQUEST_JOIN);
                 posts.remove(i);
                 myAppAdapter.notifyDataSetChanged();
                 /*al.remove(0);
@@ -468,7 +468,21 @@ public class ShowCardsNew extends Fragment {
         doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
         doublePeoples.add(new DoublePeople(new People("Sahil", ""), null));
 
-        HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples);
+        List<DoublePeople> doublePeoples1 = new ArrayList<>();
+        for(int i = 0;i < dataModel.getPeople_going().size();i++){
+
+            DataModel.PeopleGoingBean.UserBeanX userBeanX1 =null;
+            DataModel.PeopleGoingBean.UserBeanX userBeanX2 = null;
+            if(dataModel.getPeople_going().size() >= i+1){
+                userBeanX1 = dataModel.getPeople_going().get(i).getUser();
+                userBeanX2 = dataModel.getPeople_going().get(i+1).getUser();
+            }
+            doublePeoples1.add(new DoublePeople(userBeanX1,userBeanX2));
+            i = i+1;
+        }
+
+
+        HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples1);
         horizontal_recycler_view.setAdapter(adapter);
 
         mBottomSheetDialog.setContentView(sheetView);
@@ -779,16 +793,16 @@ public class ShowCardsNew extends Fragment {
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             Log.v("hadippa", "onBindViewHolder");
 
-            if(horizontalList.get(position).getPeople1()!=null){
+            if(horizontalList.get(position).getBeanX()!=null){
                 holder.topLinear.setVisibility(View.VISIBLE);
-                holder.text_view1.setText(horizontalList.get(position).getPeople1().getName());
-            }else{
-                holder.topLinear.setVisibility(View.GONE);
-            }
+                holder.text_view1.setText(horizontalList.get(position).getBeanX().getFirst_name());
+        }else{
+            holder.topLinear.setVisibility(View.GONE);
+        }
 
-            if(horizontalList.get(position).getPeople2()!=null){
+            if(horizontalList.get(position).getBeanX1()!=null){
                 holder.bottomLinear.setVisibility(View.VISIBLE);
-                holder.text_view2.setText(horizontalList.get(position).getPeople2().getName());
+                holder.text_view2.setText(horizontalList.get(position).getBeanX1().getFirst_name());
             }else{
                 holder.bottomLinear.setVisibility(View.GONE);
             }
