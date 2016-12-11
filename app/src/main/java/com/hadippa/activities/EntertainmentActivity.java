@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,10 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -43,6 +47,10 @@ public class EntertainmentActivity extends BaseActionsActivity {
     private AlertDialog alertDialog;
     @BindView(R.id.llInvite)
     RelativeLayout llInvite;
+    @BindView(R.id.edtSearch)
+    EditText edtSearch;
+    @BindView(R.id.rlSearch)
+    RelativeLayout rlSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,22 @@ public class EntertainmentActivity extends BaseActionsActivity {
         alCities.add("Jaipur");
         alCities.add("Chennai");
         alCities.add("Pune");
+
+        edtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Log.v("click", "onFocusChange");
+                if(hasFocus){
+                    Log.v("click", "onFocusChange true");
+                    rlSearch.setPressed(true);
+                }
+                else{
+                    Log.v("click", "onFocusChange false");
+                    rlSearch.setPressed(false);
+                }
+            }
+        });
+
 
         tvHeader = (TextView) findViewById(R.id.tvHeader);
 
@@ -92,7 +116,39 @@ public class EntertainmentActivity extends BaseActionsActivity {
         });
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View view = getCurrentFocus();
+            if (view != null && view instanceof EditText) {
+                Rect r = new Rect();
+                view.getGlobalVisibleRect(r);
+                int rawX = (int)ev.getRawX();
+                int rawY = (int)ev.getRawY();
+                if (!r.contains(rawX, rawY)) {
+                    view.clearFocus();
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
+    /*@Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
+    }*/
 
     private void showPopupList(Context context, final List<String> list, String title, final OnOkClickListener onOkClickListener) {
 

@@ -77,10 +77,11 @@
     <RelativeLayout
         android:id="@+id/rlSearch"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/value_h55"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/top"
         android:layout_marginLeft="@dimen/value_w26"
         android:layout_marginRight="@dimen/value_w26"
+        android:focusableInTouchMode="true"
         android:background="@drawable/rounded_edittext_search">
 
         <ImageView
@@ -91,13 +92,23 @@
             android:layout_marginLeft="@dimen/value_w17"
             android:src="@drawable/mysearch"/>
 
+        <!--<ImageView
+            android:id="@+id/tvBookMyShowIcon"
+            android:layout_width="@dimen/value_w32"
+            android:layout_height="@dimen/value_w32"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/value_w17"
+            android:src="@drawable/mysearch"/>-->
+
         <com.hadippa.CustomEditText
             android:id="@+id/edtSearch"
             style="@style/App_EditTextStyle_Search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_toRightOf="@+id/tvBookMyShowIcon"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="@dimen/value_w40"
             android:background="@android:color/transparent"
             android:hint="@string/search_for_movie"
             android:paddingRight="10dp"

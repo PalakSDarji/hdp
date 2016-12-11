@@ -110,6 +110,7 @@
             android:clickable="false"
             android:text="Onwards"
             android:layout_centerHorizontal="true"
+            android:visibility="gone"
             android:layout_below="@+id/tvPrice"
             android:textColor="#585858"
             android:layout_marginLeft="@dimen/value_10"

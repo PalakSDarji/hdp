@@ -45,6 +45,7 @@
                 android:layout_height="@dimen/value_w26"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
+                android:visibility="gone"
                 android:layout_toRightOf="@+id/tvHeader1"
                 android:src="@drawable/info"/>
 

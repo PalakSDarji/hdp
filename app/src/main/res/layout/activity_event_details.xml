@@ -95,7 +95,7 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/vpSlider"
                     android:layout_width="match_parent"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:background="@color/c_efefef"
                     android:layout_height="@dimen/value_h290">
 
@@ -144,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/value_20"
-                android:background="#efefef"/>
+                android:background="@color/vsep_ligher"/>
 
 
             <RelativeLayout
@@ -221,7 +221,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/value_20"
-                android:background="#efefef"/>
+                android:background="@color/vsep_ligher"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -286,7 +286,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/value_20"
-                android:background="#efefef"/>
+                android:background="@color/vsep_ligher"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -581,6 +581,39 @@
                         />
 
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llCustom"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/value_h15"
+                android:paddingBottom="@dimen/value_h15"
+                android:layout_marginLeft="@dimen/value_20"
+                android:layout_marginRight="@dimen/value_5"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/radio3"
+                    style="@style/radio_style"
+                    android:layout_width="@dimen/value_w36"
+                    android:layout_height="@dimen/value_w36"
+                    android:clickable="false"
+                    android:background="@drawable/custom_radio"
+                    android:button="@android:color/transparent"
+                    android:checked="false"/>
+
+                <com.hadippa.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/custom"
+                    android:textColor="@color/c_464646"
+                    android:textSize="@dimen/values_txt_11"
+                    app:customFont="@string/proxima_reg"
+                    />
+
             </LinearLayout>
 
             <RelativeLayout

@@ -58,7 +58,7 @@
             style="@style/custom_activity_tabs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_pink_selector"
+            android:background="@drawable/shape_light_pink_selector"
             android:text="@string/night_club"/>
 
         <com.hadippa.CustomTextView
@@ -66,7 +66,7 @@
             style="@style/custom_activity_tabs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_pink_selector"
+            android:background="@drawable/shape_light_pink_selector"
             android:text="@string/lounge"/>
 
         <com.hadippa.CustomTextView
@@ -74,7 +74,7 @@
             style="@style/custom_activity_tabs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_pink_selector"
+            android:background="@drawable/shape_light_pink_selector"
             android:text="@string/party"/>
 
         <com.hadippa.CustomTextView
@@ -82,8 +82,9 @@
             style="@style/custom_activity_tabs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_pink_selector"
-            android:text="@string/standup_comedy"/>
+            android:background="@drawable/shape_light_pink_selector"
+            android:text="@string/standup_comedy"
+            android:visibility="gone"/>
 
         <com.hadippa.CustomTextView
             android:id="@+id/tvTabCoffee"
@@ -123,7 +124,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_green_selector"
-            android:text="@string/hobby_class"/>
+            android:text="@string/hobby_class"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

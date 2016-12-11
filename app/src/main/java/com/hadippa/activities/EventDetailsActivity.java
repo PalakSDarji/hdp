@@ -63,11 +63,13 @@ public class EventDetailsActivity extends AppCompatActivity {
     @BindView(R.id.llPublicAndFollowing) LinearLayout llPublicAndFollowing;
     @BindView(R.id.llFollowing) LinearLayout llFollowing;
     @BindView(R.id.llPublic) LinearLayout llPublic;
+    @BindView(R.id.llCustom) LinearLayout llCustom;
 
     @BindView(R.id.radio0)
     ImageView radio0;
     @BindView(R.id.radio1) ImageView radio1;
     @BindView(R.id.radio2) ImageView radio2;
+    @BindView(R.id.radio3) ImageView radio3;
 
     @BindView(R.id.tvVisitingDate) TextView tvVisitingDate;
     @BindView(R.id.tvVisitingTime) TextView tvVisitingTime;
@@ -164,6 +166,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 radio0.setSelected(true);
                 radio1.setSelected(false);
                 radio2.setSelected(false);
+                radio3.setSelected(false);
             }
         });
 
@@ -173,6 +176,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 radio0.setSelected(false);
                 radio1.setSelected(true);
                 radio2.setSelected(false);
+                radio3.setSelected(false);
             }
         });
 
@@ -182,6 +186,24 @@ public class EventDetailsActivity extends AppCompatActivity {
                 radio0.setSelected(false);
                 radio1.setSelected(false);
                 radio2.setSelected(true);
+                radio3.setSelected(false);
+            }
+        });
+
+        llCustom.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                //TODO For sahil, define hide_from for this.
+                //hide_from = "custom";
+                radio0.setSelected(false);
+                radio1.setSelected(false);
+                radio2.setSelected(false);
+                radio3.setSelected(true);
+
+                Intent intent = new Intent(EventDetailsActivity.this, InviteToJoinActivity.class);
+                intent.putExtra("selectedId",selectedList);
+                startActivityForResult(intent,555);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
