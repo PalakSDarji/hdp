@@ -69,13 +69,7 @@ public class SignUp_Step1 extends Fragment {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
-    final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
-    private static final int INTENT_REQUEST_GET_N_IMAGES = 14;
-
     private Context mContext;
-
-    Uri imageUri = null;
-    android.support.v4.app.FragmentManager fragmentManager = null;
 
     Uri sourceUri;
     AlbumStorageDirFactory albumStorageDirFactory = null;
@@ -83,11 +77,6 @@ public class SignUp_Step1 extends Fragment {
     final String JPEG_FILE_SUFFIX = ".jpg";
     String currentPhotoPath;
     String base64String="";
-    boolean isSharePhoto = false;
-
-    public static final int REQUEST_CODE_UPDATE_PIC = 0x1;
-
-
 
     public static SignUp_Step1 newInstance(int page, String title) {
         SignUp_Step1 fragmentFirst = new SignUp_Step1();

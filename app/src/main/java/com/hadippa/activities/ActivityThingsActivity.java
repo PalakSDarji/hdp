@@ -20,7 +20,11 @@ import com.hadippa.model.MyPlansModel;
 import com.hadippa.model.UserProfile;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ActivityThingsActivity extends AppCompatActivity {
 
@@ -120,7 +124,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
             viewHolder.activityname.setText(myPlansBean.getActivity_details().getActivity_name());
             viewHolder.tvAddress.setText(myPlansBean.getActivity_location());
             viewHolder.tvActivityDate.setText(myPlansBean.getActivity_date());
-            viewHolder.tvActivityTime.setText(myPlansBean.getActivity_time());
+            viewHolder.tvActivityTime.setText(convertDate(myPlansBean.getActivity_time()));
             viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size()+"");
           /*  if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0){
                 viewHolder.tvCount.setText(myPlansBean.getPeople_going_count().size()+"");
@@ -174,7 +178,23 @@ public class ActivityThingsActivity extends AppCompatActivity {
         }
     }
 
+    String convertDate(String dateInputString) {
 
+        String stringDate = null;
+        try {
+            // obtain date and time from initial string
+            Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(dateInputString);
+            // set date string
+            stringDate = new SimpleDateFormat("dd MMM", Locale.US).format(date).toUpperCase(Locale.ROOT);
+            // set time string
+
+        } catch (ParseException e) {
+            // wrong input
+        }
+
+        return stringDate;
+
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
