@@ -272,14 +272,17 @@ public class NotificationActivity extends AppCompatActivity {
                 // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
 
-            } else if (notificationsBean.getNotification_type().equals("invite o join activity") ||
+            } else if (notificationsBean.getNotification_type().equals("invite to join activity") ||
                     notificationsBean.getNotification_type().equals("invite_to_join_activity")) {
                 viewHolder.tvFollowUnfollow.setText("Join");
                 viewHolder.ivFollowUnfollow.setImageDrawable(null);
             } else if (notificationsBean.getNotification_type().equals("activity_cancel") ||
                     notificationsBean.getNotification_type().equals("activity_accept") ||
                     notificationsBean.getNotification_type().equals("activity_user_delete") ||
-                    notificationsBean.getNotification_type().equals("disjoin_from_activity")) {viewHolder.llFollowUnfollow.setVisibility(View.GONE);
+                    notificationsBean.getNotification_type().equals("disjoin_from_activity")||
+                    notificationsBean.getNotification_type().equals("New Message"))
+            {
+                viewHolder.llFollowUnfollow.setVisibility(View.GONE);
             }
         }
 
