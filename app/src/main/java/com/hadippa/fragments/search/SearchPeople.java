@@ -444,19 +444,19 @@ public class SearchPeople extends Fragment {
             }
         });
 
+        tvFollowUnfollow.setText(peopleModel.getUser_relationship_status());
 
-       /* if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
-            tvFollowUnfollow.setText(getResources().getString(R.string.followling_caps));
+        if (peopleModel.getUser_relationship_status() != null && (peopleModel.getUser_relationship_status().equals("Following") ||
+                peopleModel.getUser_relationship_status().equals("Connected"))) {
+
             tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
-            tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
-            tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_following), null, null, null);
+            llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
+            ivFollowUnfollow.setImageDrawable(getResources().getDrawable(R.drawable.ic_user_following));
         } else {
-            tvFollowUnfollow.setText(getResources().getString(R.string.followers));
+
             tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
-            tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
-            tvFollowUnfollow.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_user_follow), null, null, null);
-        }
-*/
+            llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+            ivFollowUnfollow.setImageDrawable(getResources().getDrawable(R.drawable.ic_user_follow));}
 
       /*  if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
 
@@ -570,7 +570,9 @@ public class SearchPeople extends Fragment {
 
                     //alertDialog.dismiss();
 
-                    if(type.equals(AppConstants.CONNECTION_FOLLOW)){
+                    peopleModel.setUser_relationship_status(jsonObject.getString("status"));
+                    alertDialog.dismiss();
+                  /*  if(type.equals(AppConstants.CONNECTION_FOLLOW)){
 
                      //   peopleModel.setUser_relationship_status("Following");
 
@@ -579,7 +581,7 @@ public class SearchPeople extends Fragment {
                     //    peopleModel.setUser_relationship_status(null);
 
                     }
-
+*/
                 }
                 Log.d("async", "success" + response);
             } catch (Exception e) {

@@ -453,13 +453,14 @@ public class Following extends Fragment {
                 Log.d("response>>", response);
                 if (jsonObject.getBoolean("success")) {
 
-                    if(followersModel.getUser_relationship_status().equals("Following") ||
-                            followersModel.getUser_relationship_status().equals("Connected")
-                            ){
+                    followersModel.setUser_relationship_status(jsonObject.getString("status"));
+                  /*  if(followersModel.getUser_relationship_status().equals("Following")){
+                        followersModel.setUser_relationship_status();
+                    }else if( followersModel.getUser_relationship_status().equals("Connected")){
                         followersModel.setUser_relationship_status("Follower");
                     }else{
                         followersModel.setUser_relationship_status("Following");
-                    }
+                    }*/
 
                     customAdapter.notifyDataSetChanged();
 

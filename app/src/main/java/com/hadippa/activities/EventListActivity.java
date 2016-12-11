@@ -512,6 +512,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         private Context mContext;
 
         RequestManager requestManager = Glide.with(EventListActivity.this);
+
         public EventAdapter(Context context, List<MeraEventPartyModel.DataBean> events) {
             this.list = events;
             mContext = context;

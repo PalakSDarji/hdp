@@ -132,7 +132,8 @@ public class Followers extends Fragment {
                 public void onClick(View v) {
 
                     Log.v("??Followers","clicked " + position+"  "+followers_following.getUser_relationship_status());
-                    if(followers_following.getUser_relationship_status().equals("Connected")){
+                    if(followers_following.getUser_relationship_status().equals("Connected")
+                            || followers_following.getUser_relationship_status().equals("Following")){
                         follow_Unfollow(position,AppConstants.CONNECTION_UNFOLLOW);
                         Log.v("??Followers","clicked " + position);
                     }else{
@@ -152,14 +153,14 @@ public class Followers extends Fragment {
                     followers_following.getUser_relationship_status().equals("Connected") ){
 
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
-                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.following));
+                viewHolder.tvFollowUnfollow.setText(followers_following.getUser_relationship_status());
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
 
             }
             else{
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
-                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
+                viewHolder.tvFollowUnfollow.setText(followers_following.getUser_relationship_status());
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
                 // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
@@ -404,12 +405,7 @@ public class Followers extends Fragment {
                 JSONObject jsonObject = new JSONObject(response);
                 if (jsonObject.getBoolean("success")) {
 
-                    if(followersFollowings.get(position).getUser_relationship_status().equals("Follower")){
-                        followersFollowings.get(position).setUser_relationship_status("Connected");
-                    }else{
-                        followersFollowings.get(position).setUser_relationship_status("Follower");
-                    }
-
+                    followersFollowings.get(position).setUser_relationship_status(jsonObject.getString("status"));
                     customAdapter.notifyDataSetChanged();
 
                     Log.d("response>>", response);

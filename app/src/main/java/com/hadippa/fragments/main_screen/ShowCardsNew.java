@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 import com.APIClass;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.daprlabs.cardstack.SwipeDeck;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.gson.Gson;
@@ -466,19 +467,33 @@ public class ShowCardsNew extends Fragment {
         List<DoublePeople> doublePeoples = new ArrayList<>();
         doublePeoples.add(new DoublePeople(new People("palak", ""), new People("darji", "")));
         doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+
         doublePeoples.add(new DoublePeople(new People("Sahil", ""), null));
 
         List<DoublePeople> doublePeoples1 = new ArrayList<>();
+
         for(int i = 0;i < dataModel.getPeople_going().size();i++){
 
             DataModel.PeopleGoingBean.UserBeanX userBeanX1 =null;
             DataModel.PeopleGoingBean.UserBeanX userBeanX2 = null;
-            if(dataModel.getPeople_going().size() >= i+1){
+
                 userBeanX1 = dataModel.getPeople_going().get(i).getUser();
-                userBeanX2 = dataModel.getPeople_going().get(i+1).getUser();
-            }
-            doublePeoples1.add(new DoublePeople(userBeanX1,userBeanX2));
             i = i+1;
+            if(dataModel.getPeople_going().size() > i){
+                userBeanX2 = dataModel.getPeople_going().get(i).getUser();
+            }
+
+            DoublePeople doublePeople = new DoublePeople(userBeanX1,userBeanX2);
+            doublePeoples1.add(doublePeople);
         }
 
 
@@ -792,21 +807,26 @@ public class ShowCardsNew extends Fragment {
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             Log.v("hadippa", "onBindViewHolder");
+            RequestManager  requestManager = Glide.with(getActivity());
 
             if(horizontalList.get(position).getBeanX()!=null){
                 holder.topLinear.setVisibility(View.VISIBLE);
                 holder.text_view1.setText(horizontalList.get(position).getBeanX().getFirst_name());
+
+                requestManager.load(horizontalList.get(position).getBeanX().getProfile_photo())
+                .placeholder(R.drawable.place_holder).into(holder.image_view1);
+
         }else{
             holder.topLinear.setVisibility(View.GONE);
         }
-
             if(horizontalList.get(position).getBeanX1()!=null){
                 holder.bottomLinear.setVisibility(View.VISIBLE);
                 holder.text_view2.setText(horizontalList.get(position).getBeanX1().getFirst_name());
+                requestManager.load(horizontalList.get(position).getBeanX1().getProfile_photo())
+                        .placeholder(R.drawable.place_holder).into(holder.image_view2);
             }else{
                 holder.bottomLinear.setVisibility(View.GONE);
             }
-
 
             holder.text_view1.setOnClickListener(new View.OnClickListener() {
                 @Override

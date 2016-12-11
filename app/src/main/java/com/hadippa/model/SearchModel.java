@@ -11,7 +11,7 @@ public class SearchModel {
 
     /**
      * success : true
-     * users : [{"id":212,"first_name":"Kartik","last_name":"Mistry","profile_photo":"https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/15055759_1406021772771812_883152813864050013_n.jpg?oh=d6119d16a82588ce6f009a64fd868a01&oe=58C03791","mutual_followers_count":2,"following":[{"id":360,"follower_id":219,"followed_id":212}]},{"id":213,"first_name":"kartik","last_name":"mistry","profile_photo":"default.jpg","mutual_followers_count":3,"following":[{"id":351,"follower_id":219,"followed_id":213}]},{"id":214,"first_name":"Kartik","last_name":"Mistry","profile_photo":"default.jpg","mutual_followers_count":3,"following":[]}]
+     * users : [{"id":213,"first_name":"kartik","last_name":"mistry","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1,"city":"Vadodara","profile_photo_thumbnail":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg","mutual_friends":"Followed by postman test +7 more","user_relationship_status":"Follower","following":[],"follower":[{"id":385,"follower_id":213,"followed_id":219}]},{"id":212,"first_name":"Kartik","last_name":"Mistry","profile_photo":"https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/15055759_1406021772771812_883152813864050013_n.jpg?oh=d6119d16a82588ce6f009a64fd868a01&oe=58C03791","photo_uploaded":0,"city":"Vadodara","profile_photo_thumbnail":"https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/15055759_1406021772771812_883152813864050013_n.jpg?oh=d6119d16a82588ce6f009a64fd868a01&oe=58C03791","mutual_friends":"Followed by Sahil Desai +6 more","user_relationship_status":"Connected","following":[{"id":374,"follower_id":219,"followed_id":212}],"follower":[{"id":305,"follower_id":212,"followed_id":211}]},{"id":214,"first_name":"Kartik","last_name":"Mistry","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","photo_uploaded":1,"city":"Vadodara","profile_photo_thumbnail":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg","mutual_friends":"Followed by postman test +6 more","user_relationship_status":"Following","following":[{"id":377,"follower_id":219,"followed_id":214}],"follower":[]}]
      * tags : []
      * cities : {"location_suggestions":[{"id":32,"name":"Vadodara","country_id":1,"country_name":"India","discovery_enabled":0,"has_new_ad_format":1,"is_state":0,"state_id":0,"state_name":"","state_code":""}],"status":"success","has_more":0,"has_total":0}
      */
@@ -207,20 +207,30 @@ public class SearchModel {
 
     public static class UsersBean {
         /**
-         * id : 212
-         * first_name : Kartik
-         * last_name : Mistry
-         * profile_photo : https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/15055759_1406021772771812_883152813864050013_n.jpg?oh=d6119d16a82588ce6f009a64fd868a01&oe=58C03791
-         * mutual_followers_count : 2
-         * following : [{"id":360,"follower_id":219,"followed_id":212}]
+         * id : 213
+         * first_name : kartik
+         * last_name : mistry
+         * profile_photo : http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg
+         * photo_uploaded : 1
+         * city : Vadodara
+         * profile_photo_thumbnail : http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg
+         * mutual_friends : Followed by postman test +7 more
+         * user_relationship_status : Follower
+         * following : []
+         * follower : [{"id":385,"follower_id":213,"followed_id":219}]
          */
 
         private int id;
         private String first_name;
         private String last_name;
         private String profile_photo;
-        private int mutual_followers_count;
-        private List<FollowingBean> following;
+        private int photo_uploaded;
+        private String city;
+        private String profile_photo_thumbnail;
+        private String mutual_friends;
+        private String user_relationship_status;
+        private List<?> following;
+        private List<FollowerBean> follower;
 
         public int getId() {
             return id;
@@ -254,27 +264,67 @@ public class SearchModel {
             this.profile_photo = profile_photo;
         }
 
-        public int getMutual_followers_count() {
-            return mutual_followers_count;
+        public int getPhoto_uploaded() {
+            return photo_uploaded;
         }
 
-        public void setMutual_followers_count(int mutual_followers_count) {
-            this.mutual_followers_count = mutual_followers_count;
+        public void setPhoto_uploaded(int photo_uploaded) {
+            this.photo_uploaded = photo_uploaded;
         }
 
-        public List<FollowingBean> getFollowing() {
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getProfile_photo_thumbnail() {
+            return profile_photo_thumbnail;
+        }
+
+        public void setProfile_photo_thumbnail(String profile_photo_thumbnail) {
+            this.profile_photo_thumbnail = profile_photo_thumbnail;
+        }
+
+        public String getMutual_friends() {
+            return mutual_friends;
+        }
+
+        public void setMutual_friends(String mutual_friends) {
+            this.mutual_friends = mutual_friends;
+        }
+
+        public String getUser_relationship_status() {
+            return user_relationship_status;
+        }
+
+        public void setUser_relationship_status(String user_relationship_status) {
+            this.user_relationship_status = user_relationship_status;
+        }
+
+        public List<?> getFollowing() {
             return following;
         }
 
-        public void setFollowing(List<FollowingBean> following) {
+        public void setFollowing(List<?> following) {
             this.following = following;
         }
 
-        public static class FollowingBean {
+        public List<FollowerBean> getFollower() {
+            return follower;
+        }
+
+        public void setFollower(List<FollowerBean> follower) {
+            this.follower = follower;
+        }
+
+        public static class FollowerBean {
             /**
-             * id : 360
-             * follower_id : 219
-             * followed_id : 212
+             * id : 385
+             * follower_id : 213
+             * followed_id : 219
              */
 
             private int id;
