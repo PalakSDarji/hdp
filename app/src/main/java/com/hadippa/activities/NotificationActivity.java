@@ -286,6 +286,7 @@ public class NotificationActivity extends AppCompatActivity {
                 viewHolder.llFollowUnfollow.setVisibility(View.VISIBLE);
 
             } else if (notificationsBean.getNotification_type().equals("follow_start")) {
+
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
                 // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
