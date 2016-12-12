@@ -293,6 +293,7 @@ public class NotificationActivity extends AppCompatActivity {
                 viewHolder.llFollowUnfollow.setVisibility(View.VISIBLE);
             } else if (notificationsBean.getNotification_type().equals("invite to join activity") ||
                     notificationsBean.getNotification_type().equals("invite_to_join_activity")) {
+
                 viewHolder.llFollowUnfollow.setVisibility(View.VISIBLE);
 
                 //Add web calls of Right and left join2
