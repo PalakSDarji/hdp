@@ -283,14 +283,17 @@ public class NotificationActivity extends AppCompatActivity {
                     || notificationsBean.getNotification_type().equals("follow_request")) {
                 viewHolder.tvFollowUnfollow.setText("Accept");
                 viewHolder.ivFollowUnfollow.setVisibility(View.GONE);
+                viewHolder.llFollowUnfollow.setVisibility(View.VISIBLE);
+
             } else if (notificationsBean.getNotification_type().equals("follow_start")) {
                 viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
                 // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
-
+                viewHolder.llFollowUnfollow.setVisibility(View.VISIBLE);
             } else if (notificationsBean.getNotification_type().equals("invite to join activity") ||
                     notificationsBean.getNotification_type().equals("invite_to_join_activity")) {
+                viewHolder.llFollowUnfollow.setVisibility(View.VISIBLE);
 
                 //Add web calls of Right and left join2
                 if(viewHolder.tvFollowUnfollow.getText().toString().equals("Decline")){
