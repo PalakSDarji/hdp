@@ -298,6 +298,7 @@ public class NotificationActivity extends AppCompatActivity {
                 viewHolder.llFollowUnfollow.setVisibility(View.VISIBLE);
 
                 //Add web calls of Right and left join2
+
                 if(viewHolder.tvFollowUnfollow.getText().toString().equals("Decline")){
                     viewHolder.tvFollowUnfollow.setText("Join");
                     viewHolder.ivFollowUnfollow.setVisibility(View.GONE);
