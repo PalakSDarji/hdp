@@ -147,7 +147,7 @@ public class Following extends Fragment {
                     followers_following.getUser_relationship_status().equals("Connected") ){
 
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
-                viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.following));
+                viewHolder.tvFollowUnfollow.setText("Following");
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
                 //viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);

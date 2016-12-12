@@ -1,5 +1,6 @@
 package com.hadippa.activities;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -203,6 +204,7 @@ public class NotificationActivity extends AppCompatActivity {
             return new ViewHolder(v);
         }
 
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
@@ -291,8 +293,23 @@ public class NotificationActivity extends AppCompatActivity {
                     notificationsBean.getNotification_type().equals("invite_to_join_activity")) {
 
                 //Add web calls of Right and left join2
-                viewHolder.tvFollowUnfollow.setText("Join");
-                viewHolder.ivFollowUnfollow.setVisibility(View.GONE);
+                if(viewHolder.tvFollowUnfollow.getText().toString().equals("Decline")){
+                    viewHolder.tvFollowUnfollow.setText("Join");
+                    viewHolder.ivFollowUnfollow.setVisibility(View.GONE);
+                    viewHolder.llFollowUnfollow.setBackground(getResources().getDrawable(R.drawable.rounded_followers));
+
+                    activityJoinDecline(String.valueOf(notificationsBean.getNotification_details().getActivity_id()),
+                            AppConstants.ACTIVITY_REQUEST_JOIN      ,viewHolder.tvFollowUnfollow,viewHolder.llFollowUnfollow);
+                }else{
+                    viewHolder.tvFollowUnfollow.setText("Decline");
+                    viewHolder.ivFollowUnfollow.setVisibility(View.GONE);
+                    viewHolder.llFollowUnfollow.setBackground(getResources().getDrawable(R.drawable.rounded_followers_filled));
+
+                    activityJoinDecline(String.valueOf(notificationsBean.getNotification_details().getActivity_id()),
+                            AppConstants.ACTIVITY_REQUEST_DECLINE,viewHolder.tvFollowUnfollow,viewHolder.llFollowUnfollow);
+
+                }
+
             } else if (notificationsBean.getNotification_type().equals("activity_cancel") ||
                     notificationsBean.getNotification_type().equals("activity_accept") ||
                     notificationsBean.getNotification_type().equals("activity_user_delete") ||
@@ -522,4 +539,96 @@ public class NotificationActivity extends AppCompatActivity {
         }
 
     }
+
+    private void activityJoinDecline(String activity_id,String requestFor,TextView textView,LinearLayout linearLayout) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+            requestParams.add("activity_id", activity_id);
+
+            requestParams.add("access_token", (sp.getString("access_token", "")));
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + requestFor, requestParams,
+                new ActivityJoinDecline(requestFor,textView,linearLayout));
+
+    }
+
+    class ActivityJoinDecline extends AsyncHttpResponseHandler {
+
+        String requestFor;
+        TextView textView;
+        LinearLayout linearLayout;
+
+        public ActivityJoinDecline(String requestFor, TextView textView, LinearLayout linearLayout) {
+            this.requestFor = requestFor;
+            this.textView = textView;
+            this.linearLayout = linearLayout;
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            //  dataScroll.setVisibility(View.GONE);
+            //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            //  AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+
+                if(!jsonObject.getBoolean("success")){
+
+                    if(requestFor.equals(AppConstants.ACTIVITY_REQUEST_DECLINE)){
+                        textView.setText("Decline");
+                        linearLayout.setBackground(getResources().getDrawable(R.drawable.rounded_followers_filled));
+
+                    }else{
+                        textView.setText("Decline");
+                        linearLayout.setBackground(getResources().getDrawable(R.drawable.rounded_followers));
+
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Could not register. try again");
+        }
+
+    }
+
 }

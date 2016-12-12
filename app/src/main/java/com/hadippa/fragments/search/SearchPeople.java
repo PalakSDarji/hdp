@@ -444,16 +444,17 @@ public class SearchPeople extends Fragment {
             }
         });
 
-        tvFollowUnfollow.setText(peopleModel.getUser_relationship_status());
 
-        if (peopleModel.getUser_relationship_status() != null && (peopleModel.getUser_relationship_status().equals("Following") ||
+
+        if ((peopleModel.getUser_relationship_status().equals("Following") ||
                 peopleModel.getUser_relationship_status().equals("Connected"))) {
-
+            tvFollowUnfollow.setText("Following");
             tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
             llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
             ivFollowUnfollow.setImageDrawable(getResources().getDrawable(R.drawable.ic_user_following));
         } else {
 
+            tvFollowUnfollow.setText("Follow");
             tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
             llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
             ivFollowUnfollow.setImageDrawable(getResources().getDrawable(R.drawable.ic_user_follow));}
@@ -471,13 +472,15 @@ public class SearchPeople extends Fragment {
             public void onClick(View v) {
                 //cancelThisDialog();
 
-                if(tvFollowUnfollow.getText().toString().equals(getResources().getString(R.string.follow))) {
-                    setFollowButtonView(true);
-                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, String.valueOf(peopleModel.getId()));
+                if((peopleModel.getUser_relationship_status().equals("Following") ||
+                        peopleModel.getUser_relationship_status().equals("Connected"))) {
+                    setFollowButtonView(false);
+                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_UNFOLLOW,
+                            String.valueOf(peopleModel.getId()));
                 }
                 else{
-                    setFollowButtonView(false);
-                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_UNFOLLOW, String.valueOf(peopleModel.getId()));
+                    setFollowButtonView(true);
+                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, String.valueOf(peopleModel.getId()));
                 }
             }
         });

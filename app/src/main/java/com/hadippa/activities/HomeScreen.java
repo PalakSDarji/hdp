@@ -108,12 +108,12 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         edtSearch = (EditText)findViewById(R.id.edtSearch);
         edtSearch.setOnClickListener(this);
 
-        tvFollowersCount.setText(sp.getInt("follower",0)+"");
-        tvFollowingCount.setText(sp.getInt("following",0)+"");
 
         try {
             jsonObject = new JSONObject(sp.getString("userData",""));
             tvUserName.setText(jsonObject.getString("first_name")+" "+jsonObject.getString("last_name"));
+            tvFollowersCount.setText(jsonObject.getInt("followers_count")+"");
+            tvFollowingCount.setText(jsonObject.getInt("following_count")+"");
             if(jsonObject.getString("profile_photo").equals(null) || jsonObject.getString("profile_photo").equals("")){
 
                 Log.v("Home","Profile pic "+ jsonObject.getString("profile_photo"));

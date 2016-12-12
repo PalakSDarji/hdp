@@ -153,14 +153,14 @@ public class Followers extends Fragment {
                     followers_following.getUser_relationship_status().equals("Connected") ){
 
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
-                viewHolder.tvFollowUnfollow.setText(followers_following.getUser_relationship_status());
+                viewHolder.tvFollowUnfollow.setText("Following");
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
 
             }
             else{
                 viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
-                viewHolder.tvFollowUnfollow.setText(followers_following.getUser_relationship_status());
+                viewHolder.tvFollowUnfollow.setText("Follow");
                 viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
                 // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                 viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);

@@ -233,8 +233,8 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
                     }
                     editor.putString("access_token", jsonObject.getString("access_token"));
                     editor.putString("userData",jsonObject.getJSONObject("user").toString());
-                    editor.putInt("following",jsonObject.getInt("following"));
-                    editor.putInt("follower",jsonObject.getInt("follower"));
+                   /* editor.putInt("following",jsonObject.getInt("following"));
+                    editor.putInt("follower",jsonObject.getInt("follower"));*/
                     editor.putString("posts", jsonObject.getString("posts"));
                     editor.commit();
 

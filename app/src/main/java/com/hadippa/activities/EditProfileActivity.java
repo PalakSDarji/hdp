@@ -149,6 +149,11 @@ public class EditProfileActivity extends AppCompatActivity {
         etDateOfBirth.setText(userBean.getDob()+"");
         etOccupation.setText(userBean.getOccupation());
 
+        if(userBean.getPrivate_account() == 0){
+            switchPrivateProfile.setChecked(false);
+        }else{
+            switchPrivateProfile.setChecked(true);
+        }
         etDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -323,6 +328,12 @@ public class EditProfileActivity extends AppCompatActivity {
             requestParams.add("mobile", etPhone.getText().toString());
             requestParams.add("gender", gender);
             requestParams.add("dob", etDateOfBirth.getText().toString());
+
+            if(switchPrivateProfile.isChecked()){
+                requestParams.add("profile_type", "1");
+            }else{
+                requestParams.add("profile_type", "0");
+            }
 
             Log.d("fetchProfile>>", requestParams.toString());
         } catch (Exception e) {
