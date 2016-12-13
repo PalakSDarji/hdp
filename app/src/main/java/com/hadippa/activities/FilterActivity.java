@@ -37,7 +37,8 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         /*, View.OnLongClickListener*/ {
 
     TextView tvMovie, tvTheatrePlay, tvEvent, tvFestival, tvNightClub,
-            tvLongue, tvParty, tvStandUpComedy, tvCoffee, tvAirplane, tvTrain, tvBus, tvAdventure, tvIndoor, tvOutdoor, tvHobby, tvOtherActivity;
+            tvLongue, tvParty, tvStandUpComedy, tvCoffee,
+            tvAirplane, tvTrain, tvBus, tvAdventure, tvIndoor, tvOutdoor, tvHobby, tvOtherActivity;
     RecyclerView dateList;
     LayoutInflater inflater;
 
@@ -69,7 +70,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 //plz handle this case.
                 Intent intent = new Intent(FilterActivity.this, FilterChooserActivity.class);
 
-                Log.d("activity_id>>??;;",activity_id.toString());
+                Log.d("activity_id>>??;;", activity_id.toString());
                 if (hasTravel) {
                     intent.putExtra("hasTravel", true);
 
@@ -202,11 +203,11 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.tvMovie:
 
-               // changeEntertainment(tvMovie);
+                // changeEntertainment(tvMovie);
 
                 intent = new Intent(FilterActivity.this, EntertainmentActivity.class);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_MOVIE);
-                startActivityForResult(intent,166);
+                startActivityForResult(intent, 166);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
@@ -218,18 +219,18 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_THEATER);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_THEATER);
                 intent.putExtra("selectedList", activity_id);
-                startActivityForResult(intent,166);
+                startActivityForResult(intent, 166);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.tvEvent:
 
-            //    changeEntertainment(tvEvent);
+                //    changeEntertainment(tvEvent);
                 intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_EVENT);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_EVENT);
                 intent.putExtra("selectedList", activity_id);
-                startActivityForResult(intent,166);
+                startActivityForResult(intent, 166);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
@@ -240,7 +241,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_FESTIVAL);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_FESTIVAL);
                 intent.putExtra("selectedList", activity_id);
-                startActivityForResult(intent,166);
+                startActivityForResult(intent, 166);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
@@ -316,51 +317,56 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.tvParty:
 
-             //   changeHotels(tvParty);
+                //   changeHotels(tvParty);
                 intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_PARTY);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_PARTY);
                 intent.putExtra("selectedList", activity_id);
-                startActivityForResult(intent,166);
+                startActivityForResult(intent, 166);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case R.id.tvStandUpComedy:
 
-               // changeHotels(tvStandUpComedy);
+                 changeStandUp(tvStandUpComedy);
+                if (activityType.size() > 0) {
+                    tvNext.setVisibility(View.VISIBLE);
+                } else {
+                    tvNext.setVisibility(View.GONE);
+                }
 
                 break;
 
             case R.id.tvAdventure:
 
-               // changeSports(tvAdventure);
+                // changeSports(tvAdventure);
 
                 intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_ADV_SPORTS);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_AVD_SPORTS);
                 intent.putExtra("selectedList", activity_id);
-                startActivityForResult(intent,166);
+                startActivityForResult(intent, 166);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.tvIndoor:
 
-              //  changeSports(tvIndoor);
+                //  changeSports(tvIndoor);
                 intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_INDOOR_SPORTS);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_INDOOR);
                 intent.putExtra("selectedList", activity_id);
-                startActivityForResult(intent,166);
+                startActivityForResult(intent, 166);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
             case R.id.tvOutdoor:
 
-              //  changeSports(tvOutdoor);
+                //  changeSports(tvOutdoor);
                 intent = new Intent(FilterActivity.this, CoffeeActivityFilter.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_OUTDOOR_SPORTS);
                 intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_OUTDOOR);
                 intent.putExtra("selectedList", activity_id);
-                startActivityForResult(intent,166);
+                startActivityForResult(intent, 166);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
 
@@ -368,11 +374,48 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
                 changeHobby(tvHobby);
 
+              /*  if(tvHobby.isSelected()){
+                    for(int i =0; i <activityType.size();i++ ){
+                        if(activityType.get(i) == AppConstants.API_ACTIVITY_ID_HOBBY){
+                            activityType.remove(i);
+                        }
+                    }
+
+                    tvHobby.setSelected(false);
+                }else{
+                    activityType.add(AppConstants.API_ACTIVITY_ID_HOBBY);
+                    tvHobby.setSelected(true);
+                }
+*/
+                if (activityType.size() > 0) {
+                    tvNext.setVisibility(View.VISIBLE);
+                } else {
+                    tvNext.setVisibility(View.GONE);
+                }
+
                 break;
 
             case R.id.tvOtherActivity:
 
                 changeOtherActivity(tvOtherActivity);
+               /* if(tvOtherActivity.isSelected()){
+                    for(int i =0; i <activityType.size();i++ ){
+                        if(activityType.get(i) == AppConstants.API_ACTIVITY_ID_OTHER){
+                            activityType.remove(i);
+                        }
+                    }
+
+                    tvOtherActivity.setSelected(false);
+                }else{
+                    activityType.add(AppConstants.API_ACTIVITY_ID_OTHER);
+                    tvOtherActivity.setSelected(true);
+                }
+*/
+                if (activityType.size() > 0) {
+                    tvNext.setVisibility(View.VISIBLE);
+                } else {
+                    tvNext.setVisibility(View.GONE);
+                }
 
                 break;
 
@@ -449,6 +492,23 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    void changeStandUp(TextView textView) {
+
+        if (textView.getCurrentTextColor() == getResources().getColor(R.color.filter_text)) {
+            textView.setBackground(getResources().getDrawable(R.drawable.rounded_hotels_selected));
+            textView.setTextColor(getResources().getColor(R.color.white));
+            activityType.add(AppConstants.API_ACTIVITY_ID_STAND_UP_COMEDY);
+        } else {
+            textView.setBackground(getResources().getDrawable(R.drawable.rounded_hotel));
+            textView.setTextColor(getResources().getColor(R.color.filter_text));
+            for (int i = 0; i < activityType.size(); i++) {
+                if (activityType.get(i) == AppConstants.API_ACTIVITY_ID_STAND_UP_COMEDY) {
+                    activityType.remove(i);
+                }
+            }}
+
+    }
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     void changeHotels(TextView textView) {
 
         if (textView.getCurrentTextColor() == getResources().getColor(R.color.filter_text)) {
@@ -506,9 +566,17 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         if (textView.getCurrentTextColor() == getResources().getColor(R.color.filter_text)) {
             textView.setBackground(getResources().getDrawable(R.drawable.rounded_hobby_selected));
             textView.setTextColor(getResources().getColor(R.color.white));
+            activityType.add(AppConstants.API_ACTIVITY_ID_HOBBY);
         } else {
             textView.setBackground(getResources().getDrawable(R.drawable.rounded_hotel));
             textView.setTextColor(getResources().getColor(R.color.filter_text));
+
+            for (int i = 0; i < activityType.size(); i++) {
+                if (activityType.get(i) == AppConstants.API_ACTIVITY_ID_HOBBY) {
+                    activityType.remove(i);
+                }
+            }
+
         }
 
     }
@@ -519,9 +587,15 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         if (textView.getCurrentTextColor() == getResources().getColor(R.color.filter_text)) {
             textView.setBackground(getResources().getDrawable(R.drawable.rounded_other_selected));
             textView.setTextColor(getResources().getColor(R.color.white));
+            activityType.add(AppConstants.API_ACTIVITY_ID_OTHER);
         } else {
             textView.setBackground(getResources().getDrawable(R.drawable.rounded_other));
             textView.setTextColor(getResources().getColor(R.color.filter_text));
+            for (int i = 0; i < activityType.size(); i++) {
+                if (activityType.get(i) == AppConstants.API_ACTIVITY_ID_OTHER) {
+                    activityType.remove(i);
+                }
+            }
         }
 
     }
@@ -555,8 +629,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 travelTo = data.getExtras().getString(AppConstants.TRAVEL_TO_KEY);
 
 
-
-
                 if (!activityType.contains(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE))) {
                     activityType.add(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE));
                 }
@@ -582,11 +654,11 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                     changeEntertainment(tvEvent);
                 } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_THEATER) {
                     changeEntertainment(tvTheatrePlay);
-                }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_INDOOR) {
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_INDOOR) {
                     changeSports(tvIndoor);
                 } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_OUTDOOR) {
                     changeSports(tvOutdoor);
-                }else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_AVD_SPORTS) {
+                } else if (data.getExtras().getInt(AppConstants.ACTIVITY_TYPE) == AppConstants.API_ACTIVITY_ID_AVD_SPORTS) {
                     changeSports(tvAdventure);
                 }
                 if (!activityType.contains(data.getExtras().getInt(AppConstants.ACTIVITY_TYPE))) {
@@ -609,8 +681,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 Log.d("activtiy_id>>?", activityType.toString());
                 Log.d("activtiy_id>>?", activity_id.toString());
-            }
-            else if (requestCode == 110) {
+            } else if (requestCode == 110) {
 
                 Log.d("activtiy_id>>?", "110");
 
@@ -643,11 +714,12 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             }
         } else {
 
-            if(getIntent().getStringArrayListExtra("selectedList") == null || getIntent().getStringArrayListExtra("selectedList").size() == 0) {
-               // activity_id.clear();
+            if (getIntent().getStringArrayListExtra("selectedList") == null || getIntent().getStringArrayListExtra("selectedList").size() == 0) {
+                // activity_id.clear();
                 tvNext.setVisibility(View.GONE);
-            }}
-            // Toast.makeText(FilterActivity.this,"Fail",Toast.LENGTH_SHORT).show();
+            }
+        }
+        // Toast.makeText(FilterActivity.this,"Fail",Toast.LENGTH_SHORT).show();
 
     }
 

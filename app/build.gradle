@@ -74,5 +74,10 @@ dependencies {
     apt 'com.github.hotchemi:permissionsdispatcher-processor:2.2.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.yalantis:ucrop:2.2.0'
-}
+    compile 'pl.charmas.android:android-reactive-location:0.10@aar'
+    compile 'com.google.android.gms:play-services-location:9.6.1' //you can use newer GMS version if you need
+    compile 'com.google.android.gms:play-services-places:9.6.1'
+    compile 'io.reactivex:rxjava:1.2.0' //you can override RxJava version if you need
+    //
+    }
 apply plugin: 'com.google.gms.google-services'

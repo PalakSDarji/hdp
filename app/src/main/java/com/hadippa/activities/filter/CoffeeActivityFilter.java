@@ -995,6 +995,8 @@ public class CoffeeActivityFilter extends BaseActionsActivity implements Locatio
                         activity_id.add(String.valueOf(postBeanList.get(position).getId()));
                     }
 
+                    Log.d("add activity_id??",activity_id.toString());
+
                     notifyDataSetChanged();
                 }
             });

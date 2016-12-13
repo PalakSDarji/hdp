@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -182,6 +184,7 @@ public class AppConstants {
     public static final int API_ACTIVITY_ID_AVD_SPORTS = 15;
     public static final int API_ACTIVITY_ID_HOBBY = 20;
     public static final int API_ACTIVITY_ID_FESTIVAL = 9;
+    public static final int API_ACTIVITY_ID_OTHER = 25;
 
 
     //GOOGLE PLACES
@@ -283,4 +286,26 @@ public class AppConstants {
 
     }
 
+    public static boolean isLocationEnabled(Context context) {
+        int locationMode = 0;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            try {
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+
+        }else{
+            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProviders);
+        }
+
+
+    }
 }

@@ -107,7 +107,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
         edtSearch = (EditText)findViewById(R.id.edtSearch);
         edtSearch.setOnClickListener(this);
-
+        edtSearch.setText(sp.getString("cityName","Search"));
 
         try {
             jsonObject = new JSONObject(sp.getString("userData",""));

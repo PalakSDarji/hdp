@@ -6,6 +6,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
@@ -39,6 +42,9 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.location.places.PlaceFilter;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -59,6 +65,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 import permissions.dispatcher.NeedsPermission;
@@ -67,6 +74,9 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
+import pl.charmas.android.reactivelocation.ReactiveLocationProvider;
+import rx.functions.Action1;
+import rx.subscriptions.CompositeSubscription;
 
 @RuntimePermissions
 public class LoginActivity extends AppCompatActivity {
@@ -235,16 +245,85 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+      /*  if(AppConstants.isLocationEnabled(LoginActivity.this)){
+
+            checkLoginStatus();
+
+        }else{
+
+            Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");
+            intent.putExtra("enabled", true);
+            sendBroadcast(intent);
+
+            checkLoginStatus();
+        }
+
+
+*/
+
+        ReactiveLocationProvider locationProvider = new ReactiveLocationProvider(getApplicationContext());
+        locationProvider.getLastKnownLocation()
+                .subscribe(new Action1<Location>() {
+                    @Override
+                    public void call(Location location) {
+
+                        Log.d("LocationProvider>>??",location.getLatitude()+"  "+location.getLongitude());
+                        //doSthImportantWithObtainedLocation(location);
+
+                        getCurrentCity(location.getLatitude(),location.getLongitude());
+                    }
+                });
+
+
+      /*  CompositeSubscription compositeSubscription = new CompositeSubscription();
+        compositeSubscription.add(locationProvider.getCurrentPlace(null).subscribe(new Action1<PlaceLikelihoodBuffer>() {
+            @Override
+            public void call(PlaceLikelihoodBuffer buffer) {
+                PlaceLikelihood likelihood = buffer.get(0);
+                if (likelihood != null) {
+                    //currentPlaceView.setText(likelihood.getPlace().getName());
+                    Log.d("LocationProvider>>??",likelihood.getPlace().getName()+"" +
+                            "  "+likelihood.getPlace().getName());
+
+                }
+                buffer.release();
+            }
+        }))
+        ;*/
+
+
+    }
+
+
+    void getCurrentCity(double lat,double lng){
+        try{
+        Geocoder gcd = new Geocoder(LoginActivity.this, Locale.getDefault());
+        List<Address> addresses = gcd.getFromLocation(lat, lng, 1);
+        if (addresses.size() > 0)
+        {
+            Log.d("LocationProvider>>??",addresses.get(0).getLocality());
+            editor.putString("appLatitude",String.valueOf(lat));
+            editor.putString("appLongitude",String.valueOf(lng));
+            editor.putString("cityName",addresses.get(0).getLocality());
+            editor.commit();
+        }
+        else
+        {
+            // do your staff
+        }
+    }catch (Exception e){
+        }
+    }
+    void checkLoginStatus(){
         if(sp.getBoolean("loginStatus",false)){
 
             if(sp.getString("grant_type","password").equals("password")){
                 login("password", sp.getString("username",""),
-                            sp.getString("password",""), "");
+                        sp.getString("password",""), "");
             }else{
                 login("facebook","","", sp.getString("code",""));
             }
         }
-
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
