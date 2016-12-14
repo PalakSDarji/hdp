@@ -36,7 +36,12 @@ import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.activities.BaseActionsActivity;
+import com.hadippa.activities.CoffeeActivity;
 import com.hadippa.activities.CreateActivityActvity;
+import com.hadippa.activities.FilterActivity;
+import com.hadippa.activities.FilterChooserActivity;
+import com.hadippa.model.FilterModel;
+import com.hadippa.model.FilterSelection;
 import com.hadippa.model.MeraEventPartyModel;
 import com.hadippa.model.NightCLubModel;
 import com.loopj.android.http.AsyncHttpClient;
@@ -48,7 +53,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,6 +96,7 @@ public class CoffeeActivityFilter extends BaseActionsActivity implements Locatio
 
     int activity_id_;
     ArrayList<String> activity_id = new ArrayList<>();
+    ArrayList<FilterSelection> filterModels = new ArrayList<>();
 
     boolean callZomato = true;
 
@@ -409,12 +417,34 @@ public class CoffeeActivityFilter extends BaseActionsActivity implements Locatio
             @Override
             public void onClick(View v) {
                 if (activity_id.size() > 0) {
-                    Intent intent = getIntent();
+                    Intent intent = new Intent(CoffeeActivityFilter.this, FilterChooserActivity.class);
 
-                    intent.putExtra(AppConstants.ACTIVITY_TYPE, activity_id_);
+
+                    ArrayList<Integer> activityType = new ArrayList<Integer>();
+
+                    activityType.addAll(getIntent().getIntegerArrayListExtra("activity_type"));
+                    for(int i = 0; i < filterModels.size();i++) {
+
+                        FilterSelection filterSelection = filterModels.get(i);
+
+                        activityType.add(filterSelection.activityType);
+
+                    }
+                    if(getIntent().getExtras().getBoolean("hasTravel")){
+                        intent.putExtra("hasTravel", true);
+
+                        intent.putExtra("activity_name", getIntent().getExtras().getString("activity_name"));
+                        intent.putExtra("activity_to", getIntent().getExtras().getString("activity_to"));
+                        intent.putExtra("activity_from", getIntent().getExtras().getString("activity_from"));
+                    }
+                    Set<Integer> hs = new HashSet<>();
+                    hs.addAll(activityType);
+                    activityType.clear();
+                    activityType.addAll(hs);
+                    intent.putExtra("activity_type", activityType);
                     intent.putExtra("selectedList", activity_id);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    intent.putExtra("filterSelection", filterModels);
+                    startActivity(intent);
                     overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
                 } else {
                     Toast.makeText(CoffeeActivityFilter.this, "Please select atleast one to continue", Toast.LENGTH_SHORT).show();
@@ -426,9 +456,12 @@ public class CoffeeActivityFilter extends BaseActionsActivity implements Locatio
             @Override
             public void onClick(View v) {
 
+
                 Intent intent = new Intent();
+                intent.putExtra(AppConstants.ACTIVITY_TYPE, activity_id_);
                 intent.putExtra("selectedList",activity_id);
-                setResult(RESULT_CANCELED);
+                intent.putExtra("filterSelection", filterModels);
+                setResult(RESULT_OK, intent);
                 finish();
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
@@ -551,6 +584,17 @@ public class CoffeeActivityFilter extends BaseActionsActivity implements Locatio
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra(AppConstants.ACTIVITY_TYPE, activity_id_);
+        intent.putExtra("selectedList",activity_id);
+        intent.putExtra("filterSelection", filterModels);
+        setResult(RESULT_OK, intent);
+        finish();
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
     }
 
     private boolean checkPermission() {
@@ -676,21 +720,14 @@ public class CoffeeActivityFilter extends BaseActionsActivity implements Locatio
                 @Override
                 public void onClick(View v) {
 
-                    /*Intent intent = new Intent(CoffeeActivityFilter.this, CreateActivityActvity.class);
-                    Log.d("getIntent().", activityKey + "");
-                    intent.putExtra(AppConstants.ACTIVITY_KEY, getIntent().getIntExtra(AppConstants.ACTIVITY_KEY, 0));
-                    intent.putExtra("activity_id", getIntent().getExtras().getInt("activity_id"));
-                    intent.putExtra("data", restaurantsBean);
-                    intent.putExtra("latitude", latitude);
-                    intent.putExtra("longitude", longitude);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
 
+                    FilterSelection filterSelection = new FilterSelection(activity_id_,restaurantsBean.getRestaurant().getId());
                     if (activity_id.contains(restaurantsBean.getRestaurant().getId())) {
                         activity_id.remove(restaurantsBean.getRestaurant().getId());
-
+                        filterModels.remove(filterSelection);
                     } else {
                         activity_id.add(restaurantsBean.getRestaurant().getId());
+                        filterModels.add(filterSelection);
                     }
 
                     Log.d("add activity_id??",activity_id.toString());
@@ -988,11 +1025,14 @@ public class CoffeeActivityFilter extends BaseActionsActivity implements Locatio
             holder.rlContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (activity_id.contains(postBeanList.get(position).getId())) {
-                        activity_id.remove(String.valueOf(postBeanList.get(position).getId()));
+                    FilterSelection filterSelection = new FilterSelection(activity_id_,String.valueOf(postBeanList.get(position).getId()));
 
+                    if (activity_id.contains(String.valueOf(postBeanList.get(position).getId()))) {
+                        activity_id.remove(String.valueOf(postBeanList.get(position).getId()));
+                        filterModels.remove(filterSelection);
                     } else {
                         activity_id.add(String.valueOf(postBeanList.get(position).getId()));
+                        filterModels.add(filterSelection);
                     }
 
                     Log.d("add activity_id??",activity_id.toString());

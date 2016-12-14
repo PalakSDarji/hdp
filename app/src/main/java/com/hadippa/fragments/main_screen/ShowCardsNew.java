@@ -54,6 +54,7 @@ import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.activities.HomeScreen;
 import com.hadippa.activities.LoginActivity;
+import com.hadippa.activities.MapsActivity;
 import com.hadippa.activities.MyPlan;
 import com.hadippa.activities.PostActivity;
 import com.hadippa.activities.ProfileActivity;
@@ -199,7 +200,7 @@ public class ShowCardsNew extends Fragment {
         }
 
         private class ViewHolder {
-            LinearLayout llGoing;
+            LinearLayout llGoing,llDistance;
             ImageView imageView, coverImage;
             TextView tvGoing, tvName_Age, tvDistance,
                     tvActivityName, tvActivtyTime, tvActivtyDate, tvAddress, tvCount;
@@ -217,6 +218,7 @@ public class ShowCardsNew extends Fragment {
                 // configure view holder
                 viewHolder = new ViewHolder();
                 viewHolder.llGoing = (LinearLayout) convertView.findViewById(R.id.llGoing);
+                viewHolder.llDistance = (LinearLayout) convertView.findViewById(R.id.llDistance);
                 viewHolder.tvGoing = (TextView) convertView.findViewById(R.id.tvGoing);
                 viewHolder.tvName_Age = (TextView) convertView.findViewById(R.id.tvName_Age);
                 viewHolder.tvDistance = (TextView) convertView.findViewById(R.id.tvDistance);
@@ -274,6 +276,30 @@ public class ShowCardsNew extends Fragment {
                     myAppAdapter.getItem(position);
 
                     showBottomPeopleGoing(posts.get(position));
+                }
+            });
+
+            viewHolder.llDistance.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), MapsActivity.class);
+                    intent.putExtra("latitide",posts.get(position).getActivity_location_lat());
+                    intent.putExtra("longitude",posts.get(position).getActivity_location_lon());
+                    intent.putExtra("location",posts.get(position).getActivity_location());
+                    startActivity(intent);
+
+                }
+            });
+
+            viewHolder.tvAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), MapsActivity.class);
+                    intent.putExtra("latitide",posts.get(position).getActivity_location_lat());
+                    intent.putExtra("longitude",posts.get(position).getActivity_location_lon());
+                    intent.putExtra("location",posts.get(position).getActivity_location());
+                    startActivity(intent);
+
                 }
             });
             //viewHolder.DataText.setText(parkingList.get(position).getDescription() + "");

@@ -3,12 +3,14 @@ package com.hadippa.activities;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
@@ -261,20 +263,6 @@ public class LoginActivity extends AppCompatActivity {
 
 */
 
-        ReactiveLocationProvider locationProvider = new ReactiveLocationProvider(getApplicationContext());
-        locationProvider.getLastKnownLocation()
-                .subscribe(new Action1<Location>() {
-                    @Override
-                    public void call(Location location) {
-
-                        Log.d("LocationProvider>>??",location.getLatitude()+"  "+location.getLongitude());
-                        //doSthImportantWithObtainedLocation(location);
-
-                        getCurrentCity(location.getLatitude(),location.getLongitude());
-                    }
-                });
-
-
       /*  CompositeSubscription compositeSubscription = new CompositeSubscription();
         compositeSubscription.add(locationProvider.getCurrentPlace(null).subscribe(new Action1<PlaceLikelihoodBuffer>() {
             @Override
@@ -291,6 +279,7 @@ public class LoginActivity extends AppCompatActivity {
         }))
         ;*/
 
+        checkLocation(LoginActivity.this);
 
     }
 
@@ -312,6 +301,8 @@ public class LoginActivity extends AppCompatActivity {
             // do your staff
         }
     }catch (Exception e){
+        }finally {
+            checkLoginStatus();
         }
     }
     void checkLoginStatus(){
@@ -365,8 +356,11 @@ public class LoginActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode==110){
+            checkLocation(LoginActivity.this);
+        }else{
         callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+    }}
 
 /*
     protected void startRegistration() {
@@ -713,5 +707,57 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
+
+    void checkLocation(final Context context){
+        LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}
+
+        if(!gps_enabled && !network_enabled) {
+            // notify user
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+            dialog.setMessage("Hadippa requires your location. Please turn it on.");
+            dialog.setPositiveButton("Open Settings", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+                    Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(myIntent,110);
+                    //get gps
+
+
+                }
+            });
+
+            dialog.show();
+        }else{
+
+            ReactiveLocationProvider locationProvider = new ReactiveLocationProvider(getApplicationContext());
+            locationProvider.getLastKnownLocation()
+                    .subscribe(new Action1<Location>() {
+                        @Override
+                        public void call(Location location) {
+
+                            Log.d("LocationProvider>>??",location.getLatitude()+"  "+location.getLongitude());
+                            //doSthImportantWithObtainedLocation(location);
+
+                            getCurrentCity(location.getLatitude(),location.getLongitude());
+                        }
+                    });
+
+
+        }
+}
+
+
 
 }

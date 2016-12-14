@@ -239,4 +239,5 @@
     <string name="accept">Accept</string>
     <string name="join">Join</string>
     <string name="custom">Custom</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
