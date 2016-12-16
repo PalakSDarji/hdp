@@ -1,11 +1,12 @@
 package com.hadippa.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by HP on 01-08-2016.
  */
-public class FollowingModel {
+public class FollowingModel implements Serializable{
 
 
     /**
@@ -42,7 +43,7 @@ public class FollowingModel {
         this.following = following;
     }
 
-    public static class FollowingBean {
+    public static class FollowingBean implements Serializable{
         /**
          * id : 317
          * follower_id : 219
@@ -127,7 +128,7 @@ public class FollowingModel {
             this.followed = followed;
         }
 
-        public static class FollowedBean {
+        public static class FollowedBean implements Serializable {
             /**
              * id : 4
              * first_name : Vishal
