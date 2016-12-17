@@ -1,65 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/white"
-    android:paddingTop="@dimen/sign_up_padding"
-    android:paddingBottom="@dimen/sign_up_padding"
-  >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/sign_up_padding"
+              android:paddingTop="@dimen/sign_up_padding">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/ivLocation"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:layout_marginLeft="@dimen/value_w24"
+        android:src="@drawable/map_marker"/>
 
-        <LinearLayout
-            android:layout_marginLeft="@dimen/textview_or_margin_top"
-            android:layout_toRightOf="@+id/card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/city"
-                android:textColor="#464646"
-                android:textStyle="bold"
-                android:textSize="@dimen/card_bottom_text_size"
-                android:text="Vadodara"/>
-
-            <TextView
-                android:id="@+id/country"
-                android:textColor="#464646"
-                android:textStyle="bold"
-                android:textSize="@dimen/card_bottom_text_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=", India"/>
-
-        </LinearLayout>
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vadodara"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/value_w24"
+        android:layout_gravity="center"
+        android:textColor="#464646"
+        android:textSize="@dimen/card_bottom_text_size"
+        android:textStyle="bold"/>
 
 
-
-
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/ivRightLogo"
+        android:layout_marginRight="@dimen/value_w17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginLeft="@dimen/value_w24"
+        android:src="@drawable/chevron_right"/>
 
 
     <TextView
-        android:visibility="gone"
+        android:id="@+id/tvId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvId"/>
+        android:visibility="gone"/>
 
     <TextView
-        android:visibility="gone"
+        android:id="@+id/tvPickId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvPickId"/>
+        android:visibility="gone"/>
 
 </LinearLayout>

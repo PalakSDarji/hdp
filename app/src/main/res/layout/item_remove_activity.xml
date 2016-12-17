@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/white"
+              android:layout_height="match_parent">
+
+    <com.hadippa.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/value_h15"
+        android:paddingLeft="@dimen/value_w26"
+        android:paddingTop="@dimen/value_h21"
+        android:text="Options"
+        android:clickable="true"
+        android:textColor="@color/c_6b696a"
+        android:textSize="@dimen/values_txt_14"
+        app:customFont="@string/proxima_bold"/>
+
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvDeleteActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/value_h31"
+        android:paddingLeft="@dimen/value_w26"
+        android:paddingTop="@dimen/value_h31"
+        android:text="Delete Activity"
+        android:clickable="true"
+        android:textColor="@color/c_454545"
+        android:textSize="@dimen/values_txt_14"
+        app:customFont="@string/proxima_reg"/>
+
+
+</LinearLayout>

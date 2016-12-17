@@ -24,8 +24,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,10 @@ import com.APIClass;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.commonclasses.imagetobase64.Base64;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.demo.AlbumStorageDirFactory;
 import com.demo.BaseAlbumDirFactory;
 import com.google.gson.Gson;
@@ -60,13 +66,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener{
 
     @BindView(R.id.rvMutualFriend)
     RecyclerView rvMutualFriend;
@@ -80,8 +87,8 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView ivChat;
     @BindView(R.id.ivMore)
     ImageView ivMore;
-    @BindView(R.id.ivProfilePic)
-    SquareImageView ivProfilePic;
+   /* @BindView(R.id.ivProfilePic)
+    SquareImageView ivProfilePic;*/
     @BindView(R.id.tvActivityVal)
     CustomTextView tvActivityVal;
     @BindView(R.id.tvApproaching2Val)
@@ -124,6 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
     final String JPEG_FILE_SUFFIX = ".jpg";
     String currentPhotoPath;
     String base64String = "";
+    private SliderLayout slider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,7 +211,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.ivProfilePic).setOnClickListener(new View.OnClickListener() {
+       /* findViewById(R.id.ivProfilePic).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -216,7 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }}
         });
-
+*/
 
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(ProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
         rvMutualFriend.setLayoutManager(horizontalLayoutManagaer);
@@ -249,7 +257,53 @@ public class ProfileActivity extends AppCompatActivity {
         InstagramAdapter instaAdapter = new InstagramAdapter(instaContacts);
         //rvRecentInstagram.setAdapter(instaAdapter);
 
+        slider = (SliderLayout)findViewById(R.id.slider);
+
+        HashMap<String,String> url_maps = new HashMap<String, String>();
+        url_maps.put("a", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
+        url_maps.put("b", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
+        url_maps.put("c", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
+        url_maps.put("d", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
+
+        for(String name : url_maps.keySet()){
+            TextSliderView textSliderView = new TextSliderView(this);
+            // initialize a SliderLayout
+            textSliderView
+                    .description("")
+                    .image(url_maps.get(name))
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                    .setOnSliderClickListener(ProfileActivity.this);
+
+            //add your extra information
+            textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
+                    .putString("extra",name);
+
+            slider.addSlider(textSliderView);
+        }
+
+        slider.setPresetTransformer(SliderLayout.Transformer.Default);
+        slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        //slider.setCustomAnimation(new DescriptionAnimation());
+        slider.setDuration(4000);
+        /*slider.addOnPageChangeListener(this);
+        ListView l = (ListView)findViewById(R.id.transformers);
+        l.setAdapter(new TransformerAdapter(this));
+        l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mDemoSlider.setPresetTransformer(((TextView) view).getText().toString());
+                Toast.makeText(MainActivity.this, ((TextView) view).getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+
         fetchProfile();
+    }
+
+    @Override
+    public void onSliderClick(BaseSliderView slider) {
+
     }
 
 
@@ -438,11 +492,11 @@ public class ProfileActivity extends AppCompatActivity {
         setTextifNotEmpty(userBean.getLanuage_known(), tvLangSub);
         setTextifNotEmpty(userBean.getZodiac(), tvZodiac);
 
-        RequestManager requestManager = Glide.with(ProfileActivity.this);
+        /*RequestManager requestManager = Glide.with(ProfileActivity.this);
         requestManager.load(userBean.getProfile_photo())
                 .placeholder(R.color.c_efefef)
                 .error(R.color.c_efefef)
-                .into(ivProfilePic);
+                .into(ivProfilePic);*/
 
         if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
@@ -493,7 +547,7 @@ public class ProfileActivity extends AppCompatActivity {
                         addPhotoGallery();
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
 
-                        ivProfilePic.setImageBitmap(bitmap);
+//                        ivProfilePic.setImageBitmap(bitmap);
 
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -745,10 +799,12 @@ public class ProfileActivity extends AppCompatActivity {
                     editor.commit();
 
                 }else{
+/*
 
                     RequestManager requestManager= Glide.with(ProfileActivity.this);
                     requestManager.load(userBean.getProfile_photo()).error(R.drawable.place_holder)
                             .placeholder(R.drawable.place_holder).into(ivProfilePic);
+*/
 
                 }
 

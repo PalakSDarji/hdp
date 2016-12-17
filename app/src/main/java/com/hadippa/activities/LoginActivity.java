@@ -89,9 +89,9 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
 
- /*   protected GoogleCloudMessaging gcm;
-    public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
- */   protected String regId;
+    /*   protected GoogleCloudMessaging gcm;
+       public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    */   protected String regId;
     public static List<DataModel> posts;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -310,7 +310,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if(sp.getString("grant_type","password").equals("password")){
                 login("password", sp.getString("username",""),
-                        sp.getString("password",""), "");
+                            sp.getString("password",""), "");
             }else{
                 login("facebook","","", sp.getString("code",""));
             }
@@ -510,7 +510,9 @@ public class LoginActivity extends AppCompatActivity {
 
             requestParams.add( "device_type","android");
 
-            requestParams.add("device_token",FirebaseInstanceId.getInstance().getToken());
+            //requestParams.add("device_token",FirebaseInstanceId.getInstance().getToken());
+            requestParams.add("device_token","ahsdjahvbsdkjahbsdkhasbd");
+
 
             if(grant_type.equals("facebook")){
 

@@ -1,8 +1,10 @@
 package com.hadippa.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -83,6 +85,11 @@ public class MyPlan extends AppCompatActivity {
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
+        private Context context;
+
+        public CustomAdapter(Context context) {
+            this.context = context;
+        }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -134,12 +141,15 @@ public class MyPlan extends AppCompatActivity {
                 viewHolder.vSep.setVisibility(View.VISIBLE);
                 viewHolder.tvApprovedPeople.setVisibility(View.VISIBLE);
                 viewHolder.recyclerView.setVisibility(View.VISIBLE);
+                viewHolder.ivChat.setVisibility(View.VISIBLE);
             }
             else{
                 Log.v(TAG, "myPlansBean.isOpened() 2: "+ myPlansBean.isOpened());
                 viewHolder.vSep.setVisibility(View.GONE);
                 viewHolder.tvApprovedPeople.setVisibility(View.GONE);
                 viewHolder.recyclerView.setVisibility(View.GONE);
+                viewHolder.ivChat.setVisibility(View.GONE);
+
             }
 
             viewHolder.activityname.setText(myPlansBean.getActivity_details().getActivity_name());
@@ -190,6 +200,15 @@ public class MyPlan extends AppCompatActivity {
                         .into(viewHolder.profileImage);
             }
 
+            viewHolder.ivMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(context);
+                    View sheetView = LayoutInflater.from(context).inflate(R.layout.item_remove_activity, null);
+                    mBottomSheetDialog.setContentView(sheetView);
+                    mBottomSheetDialog.show();
+                }
+            });
 
         }
 
@@ -208,6 +227,7 @@ public class MyPlan extends AppCompatActivity {
         private final LinearLayout llGoing;
         CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount,tvApprovedPeople,goingWith;
         RoundedImageView profileImage;
+        ImageView ivMore,ivChat;
 
         public ViewHolder(final View v) {
             super(v);
@@ -228,6 +248,9 @@ public class MyPlan extends AppCompatActivity {
             });
 
             llGoing = (LinearLayout) v.findViewById(R.id.llGoing);
+
+            ivMore = (ImageView) v.findViewById(R.id.ivMore);
+            ivChat = (ImageView) v.findViewById(R.id.ivChat);
 
             vSep = (View) v.findViewById(R.id.vSep);
             recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
@@ -420,7 +443,7 @@ public class MyPlan extends AppCompatActivity {
 
                     Log.d("myplan>>", response);
                     myPlansBeen = myPlansModel.getMy_plans();
-                    myPlanRecycler.setAdapter(new CustomAdapter());
+                    myPlanRecycler.setAdapter(new CustomAdapter(MyPlan.this));
                     //post json stored g\here
 
                 } else {

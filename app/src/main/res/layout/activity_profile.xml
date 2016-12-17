@@ -74,17 +74,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hadippa.SquareImageView
+            <!--<com.hadippa.SquareImageView
                 android:id="@+id/ivProfilePic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/c_efefef"/>
+                android:background="@color/c_efefef"/>-->
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@color/c_efefef"
+                />
 
             <LinearLayout
                 android:id="@+id/llCounters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ivProfilePic"
+                android:layout_below="@+id/slider"
                 android:layout_marginTop="@dimen/value_10"
                 android:orientation="horizontal"
                 android:weightSum="3">

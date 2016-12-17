@@ -79,6 +79,11 @@ public class EventDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tvTime) TextView tvTime;
     @BindView(R.id.tvKm) TextView tvKm;
     @BindView(R.id.tvAddress) TextView tvAddress;
+    @BindView(R.id.ivMoreDetail) ImageView ivMoreDetail;
+    @BindView(R.id.vSep1) View vSep1;
+    @BindView(R.id.tvDescriptionVal) TextView tvDescriptionVal;
+    @BindView(R.id.tvDescription) TextView tvDescription;
+
     
     @BindView(R.id.tvAvailableTill)
     TextView tvAvailableTill;/*
@@ -100,6 +105,23 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        ivMoreDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(vSep1.getVisibility() == View.VISIBLE){
+                    vSep1.setVisibility(View.GONE);
+                    tvDescriptionVal.setVisibility(View.GONE);
+                    tvDescription.setVisibility(View.GONE);
+                    ivMoreDetail.setImageResource(R.drawable.group_chat_more);
+                }
+                else{
+                    vSep1.setVisibility(View.VISIBLE);
+                    tvDescriptionVal.setVisibility(View.VISIBLE);
+                    tvDescription.setVisibility(View.VISIBLE);
+                    ivMoreDetail.setImageResource(R.drawable.group_chat_less);
+                }
+            }
+        });
 
         dateFormatter = new SimpleDateFormat("MMM", Locale.US);
 

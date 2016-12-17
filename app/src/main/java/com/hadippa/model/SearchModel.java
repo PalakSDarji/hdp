@@ -122,6 +122,33 @@ public class SearchModel {
             private int state_id;
             private String state_name;
             private String state_code;
+            private boolean isHeader;
+            private boolean isFromCityList;
+            private boolean isCurrentLocation;
+
+            public boolean isCurrentLocation() {
+                return isCurrentLocation;
+            }
+
+            public void setCurrentLocation(boolean currentLocation) {
+                isCurrentLocation = currentLocation;
+            }
+
+            public boolean isHeader() {
+                return isHeader;
+            }
+
+            public void setHeader(boolean header) {
+                isHeader = header;
+            }
+
+            public boolean isFromCityList() {
+                return isFromCityList;
+            }
+
+            public void setFromCityList(boolean fromCityList) {
+                isFromCityList = fromCityList;
+            }
 
             public int getId() {
                 return id;

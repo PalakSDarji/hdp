@@ -191,6 +191,7 @@
     <string name="select_fight">Select Flight</string>
     <string name="where">Where</string>
     <string name="on_button_to_get_notify">\"ON\" button to get notify\nfor the same Activity</string>
+    <string name="on_button_to_get_notify_long">\"ON\" button to get notify for the same Activity, which will be posted by others too</string>
     <string name="party_name">Party Name</string>
     <string name="standup_comedy_name">Standup Comedy Name</string>
     <string name="game_name">Game Name</string>
