@@ -345,7 +345,7 @@
             android:layout_centerVertical="true"
             android:paddingLeft="@dimen/value_10"
             android:paddingRight="@dimen/value_10"
-            android:src="@drawable/ic_chat"/>
+          />
 
 
     </RelativeLayout>

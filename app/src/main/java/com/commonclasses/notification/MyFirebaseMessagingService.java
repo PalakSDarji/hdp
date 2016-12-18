@@ -15,8 +15,11 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 import com.hadippa.R;
 import com.hadippa.activities.HomeScreen;
+import com.hadippa.database.ChatDBHelper;
+import com.hadippa.model.MessageModel;
 
 import java.util.Map;
 
@@ -26,6 +29,23 @@ import java.util.Map;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFMService";
+
+   // {"send_id":211,"thread_id":4,
+    // "send_name":"Sahil",
+    //
+    // "profile_photo_thumbnail":
+    // "https:\/\/scontent.xx.fbcdn.net\/v\/t1.0-1\/p480x480\/1937043_978044888911311_1642937164755094085_n.jpg?
+    // oh=c222bd311efa77a7d6e9f3864b387f73&oe=58B15762",
+    // "msg_type":"1","message":"gggbbbf"}
+
+    ChatDBHelper chatDBHelper;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        chatDBHelper = new ChatDBHelper(this);
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -85,6 +105,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         mBuilder.setContentIntent(contentIntent);
 
         mNotificationManager.notify(12, mBuilder.build());
+
+        MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(stringStringMap.get("message")
+                , MessageModel.ThreadBean.MessagesBean.class);
+
+        chatDBHelper.insertMessage(messagesBean,0);
+        newMessageBroadCast(stringStringMap.get("message"));
+
+
+    }
+
+    void newMessageBroadCast(String message){
+
+        Intent sendBroadCast = new Intent("NEW_MESSAGE_BROADCAST");
+        sendBroadCast.putExtra("messageData",message);
+        sendBroadcast(sendBroadCast);
 
     }
 

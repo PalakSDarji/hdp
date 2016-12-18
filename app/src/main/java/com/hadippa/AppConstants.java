@@ -186,6 +186,8 @@ public class AppConstants {
     public static final int API_ACTIVITY_ID_FESTIVAL = 9;
     public static final int API_ACTIVITY_ID_OTHER = 25;
 
+    public static final String MESSAGE_TYPE_TEXT = "1";
+
 
     //GOOGLE PLACES
     public static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";

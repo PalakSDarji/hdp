@@ -510,8 +510,8 @@ public class LoginActivity extends AppCompatActivity {
 
             requestParams.add( "device_type","android");
 
-            //requestParams.add("device_token",FirebaseInstanceId.getInstance().getToken());
-            requestParams.add("device_token","ahsdjahvbsdkjahbsdkhasbd");
+            requestParams.add("device_token",FirebaseInstanceId.getInstance().getToken());
+           // requestParams.add("device_token","ahsdjahvbsdkjahbsdkhasbd");
 
 
             if(grant_type.equals("facebook")){

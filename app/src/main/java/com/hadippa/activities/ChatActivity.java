@@ -1,6 +1,9 @@
 package com.hadippa.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
@@ -18,12 +21,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.APIClass;
 import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.database.ChatDBHelper;
 import com.hadippa.database.HadippaDatabase;
 import com.hadippa.model.Contact;
 import com.hadippa.model.FollowingModel;
@@ -44,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,16 +72,21 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.rlGroupDetail)
     RelativeLayout rlGroupDetail;
 
+    ChatDBHelper chatDBHelper ;
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     int threadId;
 
+    ChatAdapter chatAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
+
+        chatDBHelper = new ChatDBHelper(this);
+
         getWindow().setBackgroundDrawableResource(R.drawable.chat_bg);
         sp = PreferenceManager.getDefaultSharedPreferences(ChatActivity.this);
         editor = sp.edit();
@@ -136,7 +147,10 @@ public class ChatActivity extends AppCompatActivity {
 
 
         } else {
-            showChat(String.valueOf(getIntent().getExtras().getInt("threadId")));
+          //  showChat(String.valueOf(getIntent().getExtras().getInt("threadId")));
+
+            chatAdapter = new ChatAdapter(getIntent().getExtras().getInt("threadId"));
+         //   alMessages = chatDBHelper.fetchMessagesFromThread();
         }
 
         //     mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
@@ -152,6 +166,7 @@ public class ChatActivity extends AppCompatActivity {
 
             requestParams.add("access_token", sp.getString("access_token", ""));
             requestParams.add("thread_id", thread_id);
+            requestParams.add("msg_type", AppConstants.MESSAGE_TYPE_TEXT);
 
 
             Log.d("request>>", requestParams.toString());
@@ -202,6 +217,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     alMessages = messageModel.getThread().getMessages();
 
+
                     mRecyclerView.setAdapter(new ChatAdapter(alMessages));
 
                     mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount() - 1);
@@ -239,6 +255,7 @@ public class ChatActivity extends AppCompatActivity {
             requestParams.add("access_token", sp.getString("access_token", ""));
             requestParams.add("thread_id", thread_id);
             requestParams.add("message", message);
+            requestParams.add("msg_type", AppConstants.MESSAGE_TYPE_TEXT);
 
 
             Log.d("request>>", requestParams.toString());
@@ -283,8 +300,15 @@ public class ChatActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(response);
                 if (jsonObject.getBoolean("success")) {
 
+                    Log.d("response>>", response);
+
+                    MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(jsonObject.getString("msg_data"), MessageModel.ThreadBean.MessagesBean.class);
+
+
+                    chatAdapter.addData(messagesBean);
+
                     etChat.setText("");
-                    showChat(String.valueOf(getIntent().getExtras().getInt("threadId")));
+                    //  showChat(String.valueOf(getIntent().getExtras().getInt("threadId")));
                     Log.d("response>>", response);
                     //post json stored g\here
 
@@ -388,10 +412,31 @@ public class ChatActivity extends AppCompatActivity {
   */  public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         private List<MessageModel.ThreadBean.MessagesBean> items;
+        int thread_id;
 
         public ChatAdapter(List<MessageModel.ThreadBean.MessagesBean> items) {
             this.items = items;
         }
+
+        public ChatAdapter(int thread_id) {
+            this.thread_id = thread_id;
+
+            items.addAll(chatDBHelper.fetchMessagesFromThread(thread_id));
+        }
+
+
+        public void addData(MessageModel.ThreadBean.MessagesBean  messagesBean){
+
+            if(messagesBean.getThread_id() == threadId){
+                chatDBHelper.updateMessage(threadId);
+                items.add(messagesBean);
+                notifyItemInserted(getItemCount()-1);
+            }else {
+                //chatDBHelper.insertMessage(messagesBean, 0);
+            }
+
+        }
+
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -480,6 +525,7 @@ public class ChatActivity extends AppCompatActivity {
             requestParams.add("access_token", sp.getString("access_token", ""));
             requestParams.add("message", msg);
             requestParams.add("receiver_id", receiver);
+            requestParams.add("msg_type", AppConstants.MESSAGE_TYPE_TEXT);
 
 
             Log.d("request>>", requestParams.toString());
@@ -551,5 +597,41 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        registerReceiver(broadcastReceiver,new IntentFilter("NEW_MESSAGE_BROADCAST"));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+
+            try {
+              //  JSONObject jsonObject = new JSONObject(intent.getExtras().getString("messageData"));
+
+                  MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(intent.getExtras().getString("messageData"), MessageModel.ThreadBean.MessagesBean.class);
+           /* alMessages.add(messagesBean);
+
+
+            mRecyclerView.getAdapter().notifyDataSetChanged();*/
+              chatAdapter.addData(messagesBean);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
 
 }

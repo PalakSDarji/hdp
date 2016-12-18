@@ -136,6 +136,15 @@ public class MessageModel {
             private String created_at;
             private String updated_at;
             private UserBean user;
+            private String message_type;
+
+            public String getMessage_type() {
+                return message_type;
+            }
+
+            public void setMessage_type(String message_type) {
+                this.message_type = message_type;
+            }
 
             public int getId() {
                 return id;
