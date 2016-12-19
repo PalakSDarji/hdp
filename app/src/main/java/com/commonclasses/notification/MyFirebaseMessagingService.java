@@ -17,6 +17,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 import com.hadippa.R;
+import com.hadippa.activities.ChatActivity;
 import com.hadippa.activities.HomeScreen;
 import com.hadippa.database.ChatDBHelper;
 import com.hadippa.model.MessageModel;
@@ -72,6 +73,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotificationPost(Map<String,String> stringStringMap) {
 
 
+        MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(stringStringMap.get("message")
+                , MessageModel.ThreadBean.MessagesBean.class);
+
         NotificationManager mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -93,22 +97,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setContentTitle("Hadipaa")
+                        .setContentTitle(messagesBean.getUser().getFirst_name()+" "+messagesBean.getUser().getLast_name())
                         .setSmallIcon(R.drawable.com_facebook_button_icon)
                         /*.setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(jobj))*/
                         .setSound(soundUri)
                         .setAutoCancel(true)
-                        .setContentText(stringStringMap.get("message"));
+                        .setContentText(messagesBean.getBody());
 
 
         mBuilder.setContentIntent(contentIntent);
 
-        mNotificationManager.notify(12, mBuilder.build());
+        if(messagesBean.getThread_id() != ChatActivity.threadId){
+            mNotificationManager.notify(12, mBuilder.build());
+        }
 
-        MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(stringStringMap.get("message")
-                , MessageModel.ThreadBean.MessagesBean.class);
 
+
+
+        Log.d("message >>",stringStringMap.get("message"));
         chatDBHelper.insertMessage(messagesBean,0);
         newMessageBroadCast(stringStringMap.get("message"));
 

@@ -76,7 +76,7 @@ public class ChatActivity extends AppCompatActivity {
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-    int threadId;
+    public static int threadId = -1;
 
     ChatAdapter chatAdapter;
     @Override
@@ -113,6 +113,18 @@ public class ChatActivity extends AppCompatActivity {
 
         ((CustomTextView) findViewById(R.id.tvHeader)).setText(getIntent().getExtras().getString("userName"));
 
+        etChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(chatAdapter != null){
+                    if(chatAdapter.getItemCount()>0){
+
+                        mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+
+                    }
+                }
+            }
+        });
         findViewById(R.id.tvSend).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,20 +148,16 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.etChat).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount()-1);
-            }
-        });
 
         if (getIntent().getExtras().getBoolean("newChat")) {
 
 
         } else {
-          //  showChat(String.valueOf(getIntent().getExtras().getInt("threadId")));
+
 
             chatAdapter = new ChatAdapter(getIntent().getExtras().getInt("threadId"));
+            mRecyclerView.setAdapter(chatAdapter);
+            mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
          //   alMessages = chatDBHelper.fetchMessagesFromThread();
         }
 
@@ -215,13 +223,13 @@ public class ChatActivity extends AppCompatActivity {
                     Log.d("showChat>>", response);
                     //post json stored g\here
 
-                    alMessages = messageModel.getThread().getMessages();
+                 /*   alMessages = messageModel.getThread().getMessages();
 
 
                     mRecyclerView.setAdapter(new ChatAdapter(alMessages));
 
                     mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount() - 1);
-
+*/
 
                 } else {
 
@@ -304,6 +312,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(jsonObject.getString("msg_data"), MessageModel.ThreadBean.MessagesBean.class);
 
+                    chatDBHelper.insertMessage(messagesBean,1);
 
                     chatAdapter.addData(messagesBean);
 
@@ -334,89 +343,10 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * send message to server
-     *
-     * @return send status
-     */
-  /*  private boolean sendNewMessage() {
+   public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
-        String message = etChat.getText().toString().trim();
-        String deviceId= preferencesHelper.getString(PreferencesHelper.DEVICE_ID);
-        if (!TextUtils.isEmpty(message)) {
-
-            Message newMessage = new Message();
-            newMessage.setMessageID(Utils.randomNum());
-            newMessage.setUserID(userID);
-            newMessage.setMessageStateID(0);
-            newMessage.setMessageTypeID(3); // Instant Message
-            newMessage.setMessageSourceID(3); // Mobile Device
-            newMessage.setMessageDirectionID(1); // 0 = OUT | 1 = IN
-            newMessage.setIdentifier(deviceId);
-            newMessage.setMessageBody(message);
-            newMessage.setTarget(contact.getImei());
-            //newMessage.setAction(Constants.MQTT.MESSAGE_ACTION_CREATED);
-            newMessage.setLeft(false);
-            newMessage.setCreateTS(Utils.getDateTimeNow(Constants.TIMESTAMP_FORMAT_WITH_TIMEZONE));
-
-            if (mDB != null) {
-                long isInserted = mDB.insertMessage(newMessage,preferencesHelper.getString(PreferencesHelper.DEVICE_ID));
-                Log.v("chat","isInserted : "+ isInserted);
-            }
-            etChat.setText("");
-
-            *//*MQTTInstantMessage newIM = new MQTTInstantMessage(newMessage);
-
-            MessageService.getInstance().publishInstantMessage(newIM);
-*//*
-            if (!Utils.hasConnection(this)) {
-                //TODO toast error msg
-            }
-
-            //update message adapter.
-            refreshMessageAdapter();
-
-            return true;
-        }
-        return false;
-    }
-*/
-  /*  private void refreshMessageAdapter() {
-
-        if (chatAdapter != null) {
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    try {
-                        //get messages from database
-                        List<Message> msgListFromDb = mDB.getAllMessagesByFilter(" (identifier = '" + contact.getImei() + "' OR target = '" + contact.getImei() + "') ", "create_ts", Constants.MESSAGE_LIMIT, userID);
-
-                        //sort messages when display to the user
-                        Collections.sort(msgListFromDb, new Comparator<Message>() {
-                            public int compare(Message m1, Message m2) {
-                                return Utils.timestampStringToDate(m1.getCreateTS()).compareTo(Utils.timestampStringToDate(m2.getCreateTS()));
-                            }
-                        });
-                        if(msgListFromDb != null && !msgListFromDb.isEmpty()){
-                            chatAdapter.setData(msgListFromDb);
-                        }
-                        mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
-                    }
-                    catch (Exception e) {
-                        //if (Constants.showErrorMessages) Log.e(TAG, e.toString());
-                    }
-                }
-            });
-        }
-    }
-
-  */  public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-
-        private List<MessageModel.ThreadBean.MessagesBean> items;
+        private List<MessageModel.ThreadBean.MessagesBean> items = new ArrayList<>();
         int thread_id;
-
-        public ChatAdapter(List<MessageModel.ThreadBean.MessagesBean> items) {
-            this.items = items;
-        }
 
         public ChatAdapter(int thread_id) {
             this.thread_id = thread_id;
@@ -427,10 +357,11 @@ public class ChatActivity extends AppCompatActivity {
 
         public void addData(MessageModel.ThreadBean.MessagesBean  messagesBean){
 
-            if(messagesBean.getThread_id() == threadId){
-                chatDBHelper.updateMessage(threadId);
+            if(messagesBean.getThread_id() == thread_id){
+                chatDBHelper.updateMessage(thread_id);
                 items.add(messagesBean);
                 notifyItemInserted(getItemCount()-1);
+                mRecyclerView.scrollToPosition(getItemCount()-1);
             }else {
                 //chatDBHelper.insertMessage(messagesBean, 0);
             }
@@ -458,9 +389,7 @@ public class ChatActivity extends AppCompatActivity {
             holder.tvText.setText(item.getBody());
             holder.tvName.setText(item.getUser().getFirst_name());
             holder.tvDate.setText(AppConstants.formatDate(item.getCreated_at(),"yyyy-mm-dd hh:mm:ss","hh:mm"));
-            //holder.image.setImageBitmap(null);
-            /*Picasso.with(holder.image.getContext()).cancelRequest(holder.image);
-            Picasso.with(holder.image.getContext()).load(item.getImage()).into(holder.image);*/
+
             holder.itemView.setTag(item);
 
 
@@ -499,7 +428,7 @@ public class ChatActivity extends AppCompatActivity {
 
             try {
                 jsonObject = new JSONObject(sp.getString("userData", ""));
-                if (alMessages.get(position).getUser_id() == jsonObject.getInt("id")) {
+                if (items.get(position).getUser_id() == jsonObject.getInt("id")) {
                     return 1;
                 } else {
                     return 0;
@@ -570,10 +499,16 @@ public class ChatActivity extends AppCompatActivity {
                 if (jsonObject.getBoolean("success")) {
 
                     chatInitiated = true;
-                    Log.d("response>>", response);
+                    MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(jsonObject.getString("msg_data"), MessageModel.ThreadBean.MessagesBean.class);
+
+                    chatDBHelper.insertMessage(messagesBean,1);
+
+                    chatAdapter.addData(messagesBean);
+
+                    etChat.setText("");
 
                     threadId = jsonObject.getInt("thred_id");
-                    showChat(String.valueOf(jsonObject.getInt("thred_id")));
+                   // showChat(String.valueOf(jsonObject.getInt("thred_id")));
                     //post json stored g\here
 
                 } else {
@@ -602,12 +537,25 @@ public class ChatActivity extends AppCompatActivity {
         super.onResume();
 
         registerReceiver(broadcastReceiver,new IntentFilter("NEW_MESSAGE_BROADCAST"));
+
+        if (getIntent().getExtras().getBoolean("newChat")) {
+
+
+        } else {
+
+
+            threadId = getIntent().getExtras().getInt("threadId");
+
+            //   alMessages = chatDBHelper.fetchMessagesFromThread();
+        }
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
+        threadId = -1;
         unregisterReceiver(broadcastReceiver);
     }
 

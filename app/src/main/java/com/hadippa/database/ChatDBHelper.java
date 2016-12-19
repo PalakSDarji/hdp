@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.hadippa.AppConstants;
@@ -63,7 +64,10 @@ public class ChatDBHelper {
             contentValues.put(KEY_STATUS, status);
             contentValues.put(KEY_CREATED_AT, messagesBean.getCreated_at());
 
-            sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
+            long gg= sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
+
+            Log.d("sqLiteDatabase> INsert",""+gg);
+
         }
 
     }
