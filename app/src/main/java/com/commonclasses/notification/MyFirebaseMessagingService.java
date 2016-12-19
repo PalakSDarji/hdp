@@ -113,9 +113,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
 
-
-
-        Log.d("message >>",stringStringMap.get("message"));
         chatDBHelper.insertMessage(messagesBean,0);
         newMessageBroadCast(stringStringMap.get("message"));
 

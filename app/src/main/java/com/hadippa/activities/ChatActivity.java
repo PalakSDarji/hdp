@@ -1,5 +1,6 @@
 package com.hadippa.activities;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -160,6 +161,9 @@ public class ChatActivity extends AppCompatActivity {
             mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
          //   alMessages = chatDBHelper.fetchMessagesFromThread();
         }
+
+        NotificationManager manager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancelAll();
 
         //     mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
     }
