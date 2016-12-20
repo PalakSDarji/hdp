@@ -92,7 +92,10 @@
                     android:layout_marginLeft="@dimen/value_w32"
                     android:layout_marginRight="@dimen/value_w32"
                     android:layout_marginTop="@dimen/value_h27"
+                    android:gravity="center"
                     android:text="Guitar"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:textColor="@color/c_605e5f"
                     android:textSize="@dimen/values_txt_18"
                     app:customFont="@string/proxima_reg"/>
@@ -104,9 +107,14 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/value_h27"
                     android:layout_marginTop="@dimen/value_h21"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/value_w26"
+                    android:paddingRight="@dimen/value_w26"
                     android:text="Ashim class, Andheri west"
                     android:textColor="@color/c_605e5f"
                     android:textSize="@dimen/values_txt_12"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     app:customFont="@string/proxima_reg"/>
             </LinearLayout>
 
@@ -137,7 +145,7 @@
 
                     <com.hadippa.CustomEditText
                         android:id="@+id/etSelectDate"
-                        android:layout_width="@dimen/value_w144"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvSelectDate"
                         android:layout_centerHorizontal="true"
@@ -188,7 +196,7 @@
 
                     <com.hadippa.CustomEditText
                         android:id="@+id/etSelectTime"
-                        android:layout_width="@dimen/value_w144"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvSelectTime"
                         android:layout_centerHorizontal="true"
@@ -234,6 +242,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="@dimen/value_w32"
                     android:layout_marginRight="@dimen/value_w32"
+                    android:gravity="center"
                     android:text="@string/cut_off_time_to_join_you"
                     android:textColor="@color/c_464646"
                     android:textSize="@dimen/values_txt_14"

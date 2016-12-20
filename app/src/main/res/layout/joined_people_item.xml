@@ -28,6 +28,8 @@
         android:layout_centerHorizontal="true"
         android:text="Sania Mirza"
         android:textColor="@color/c_454545"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="@dimen/values_txt_13"
         app:customFont="@string/proxima_reg"/>
 

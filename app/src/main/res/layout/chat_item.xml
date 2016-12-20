@@ -18,6 +18,7 @@
             android:id="@+id/rlNameContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tvDate"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/value_w32"
             android:layout_toRightOf="@+id/profileImage"

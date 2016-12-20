@@ -45,7 +45,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:clickable="false"
+                    android:layout_alignParentLeft="true"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="Sarabajit (2016)"
+                    android:layout_toLeftOf="@+id/tvFollowUnfollow"
                     android:textColor="@color/c_f31755"
                     android:textSize="@dimen/values_txt_13"
                     app:customFont="@string/proxima_bold"/>
@@ -75,6 +79,8 @@
                 android:clickable="false"
                 android:text="Biography,Drama | Hindi"
                 android:textColor="#9b9697"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="@dimen/values_txt_11"
                 app:customFont="@string/proxima_reg"/>
 
@@ -85,6 +91,8 @@
                 android:text="Aishwariya Rai Bachan,Randeep"
                 android:textColor="#9b9697"
                 android:textSize="@dimen/values_txt_11"
+                android:maxLines="1"
+                android:ellipsize="end"
                 app:customFont="@string/proxima_reg"/>
 
             <com.hadippa.CustomTextView
@@ -94,6 +102,8 @@
                 android:text="Length : 2hrs 12 Minuts"
                 android:textColor="#9b9697"
                 android:textSize="@dimen/values_txt_11"
+                android:maxLines="1"
+                android:ellipsize="end"
                 app:customFont="@string/proxima_reg"/>
 
         </LinearLayout>

@@ -11,7 +11,9 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/value_w24"
+        android:layout_toLeftOf="@+id/llFollowUnfollow"
         android:layout_marginTop="@dimen/value_h21"
         android:orientation="horizontal">
 
@@ -41,6 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="David Beckham"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="#464646"
                 app:customFont="@string/proxima_bold"
                 android:textSize="@dimen/values_txt_14"
@@ -52,6 +56,8 @@
                 android:layout_height="wrap_content"
                 android:text="Footballer"
                 app:customFont="@string/proxima_reg"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/c_9a9697"
                 android:textSize="@dimen/values_txt_11"
                 android:visibility="visible"/>

@@ -23,9 +23,9 @@
             android:layout_height="match_parent"
             android:clickable="false"
             android:focusable="false"
+            android:padding="2dp"
             android:scaleType="centerCrop"
             android:src="@drawable/foof"
-            android:padding="2dp"
             app:riv_corner_radius="9dp"/>
 
         <RelativeLayout
@@ -43,11 +43,11 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:maxWidth="@dimen/value_w470"
                 android:paddingTop="@dimen/value_h10"
                 android:text="Amigos Cafe"
-                android:maxLines="2"
-                android:layout_alignParentLeft="true"
-                android:ellipsize="end"
                 android:textColor="@color/white"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_bold"/>
@@ -60,7 +60,6 @@
                 android:layout_marginLeft="@dimen/value_w17"
                 android:layout_toRightOf="@+id/name"
                 android:background="@drawable/rounded_following_parrot"
-                android:gravity="center"
                 android:paddingBottom="@dimen/value_h10"
                 android:paddingLeft="@dimen/value_w17"
                 android:paddingRight="@dimen/value_w17"
@@ -73,12 +72,11 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/name"
-                android:layout_toLeftOf="@+id/llKms"
                 android:layout_alignParentLeft="true"
+                android:layout_below="@+id/name"
                 android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/llKms"
                 android:orientation="vertical">
-
 
                 <com.hadippa.CustomTextView
                     android:id="@+id/type"
@@ -95,8 +93,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
                     android:text="Bandra, Mumbai"
                     android:textColor="@color/white"
                     android:textSize="@dimen/values_txt_10"

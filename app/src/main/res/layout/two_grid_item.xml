@@ -82,7 +82,7 @@
             android:maxEms="5"
             android:maxLines="1"
             android:singleLine="true"
-            android:text="Sania Mirza"
+            android:text="Sania Mirzaas"
             android:textColor="@color/c_454545"
             android:textSize="@dimen/values_txt_11"
             app:customFont="@string/proxima_reg"/>

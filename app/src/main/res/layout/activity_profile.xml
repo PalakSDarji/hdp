@@ -32,6 +32,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/imageBack"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="Sania Singh, 25"
             android:textColor="@color/c_2f2f2f"
             android:textSize="@dimen/values_txt_18"
@@ -92,6 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/slider"
+                android:paddingLeft="@dimen/value_10"
+                android:paddingRight="@dimen/value_10"
                 android:layout_marginTop="@dimen/value_10"
                 android:orientation="horizontal"
                 android:weightSum="3">
@@ -123,6 +127,9 @@
                         android:layout_below="@+id/tvActivityVal"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/value_h15"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:text="Activities"
                         android:textColor="@color/c_2f2f2f"
                         android:textSize="@dimen/values_txt_11"
@@ -175,6 +182,9 @@
                         android:layout_marginTop="@dimen/value_h15"
                         android:text="Approached by"
                         android:textColor="@color/c_2f2f2f"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:textSize="@dimen/values_txt_11"
                         app:customFont="@string/proxima_reg"/>
 
@@ -275,7 +285,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Sky Height Company"
+                android:text="Sky Height Company "
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>

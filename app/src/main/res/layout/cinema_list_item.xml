@@ -14,5 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/values_txt_12"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:text="PVR Cinema: Juhu"/>
 </LinearLayout>

@@ -44,6 +44,8 @@
         android:layout_marginLeft="@dimen/value_w24"
         android:layout_toRightOf="@+id/image_view"
         android:text="Sania Mirza"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/c_454545"
         android:textSize="@dimen/values_txt_13"/>
 

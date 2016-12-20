@@ -27,6 +27,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="Name"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/c_565455"
         android:textSize="@dimen/values_txt_10"/>
 

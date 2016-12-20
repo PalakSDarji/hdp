@@ -57,6 +57,8 @@
                 android:paddingTop="@dimen/value_10"
                 android:layout_toRightOf="@+id/ivSearch"
                 android:textSize="@dimen/values_txt_16"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:layout_centerVertical="true"

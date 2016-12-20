@@ -187,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:gravity="center"
-                        android:text="04 May"
+                        android:text="04 Mayasd"
                         android:textColor="@color/c_908e8f"
                         android:textSize="@dimen/values_txt_10"
                         app:customFont="@string/proxima_reg"/>

@@ -12,7 +12,6 @@
             android:id="@+id/image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginBottom="4dp"/>
 
     <TextView
@@ -21,6 +20,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textColor="@android:color/black"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textSize="10dp"/>
 
 </LinearLayout>
