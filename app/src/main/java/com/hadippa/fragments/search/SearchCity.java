@@ -33,6 +33,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -57,6 +58,8 @@ public class SearchCity extends Fragment {
     public SharedPreferences.Editor editor;
 
     public RecyclerView mRecyclerView;
+
+    ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean> recentSearchData = new ArrayList<>();
 //no staic :D
     // I was trying this today..
     //buttokay nai thatu ?
@@ -100,6 +103,13 @@ public class SearchCity extends Fragment {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
+        Gson gson = new Gson();
+
+        if (!sp.getString("recentSearch", "").equals("")) {
+            recentSearchData = gson.fromJson(sp.getString("recentSearch", ""),
+                    new TypeToken<List<SearchModel.CitiesBean.LocationSuggestionsBean>>() {
+                    }.getType());
+        }
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -111,10 +121,26 @@ public class SearchCity extends Fragment {
 
         //crashed
 
-        setPreviousData();
+        //setPreviousData();
 
+        if (recentSearchData != null) {
 
+            removeExtra();
+            setAdapter(recentSearchData);
+        } else {
+            recentSearchData = new ArrayList<>();
+            setAdapter(recentSearchData);
+        }
         return view;
+    }
+
+
+    void removeExtra() {
+
+        if (recentSearchData.size() > 5) {
+            recentSearchData.subList(5, recentSearchData.size()).clear();
+
+        }
     }
 
     @Override
@@ -128,6 +154,7 @@ public class SearchCity extends Fragment {
         /*((TextView)getView().findViewById(R.id.tvSample)).setText("OK");*/
 
         progressBar = (ProgressBar) getView().findViewById(R.id.progressBar);
+
 
         mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
         relMain = (RelativeLayout) getView().findViewById(R.id.relMain);
@@ -195,6 +222,7 @@ public class SearchCity extends Fragment {
                     break;
 
                 case CITY_DATA:
+
                     final CityViewHolder cityViewHolder = (CityViewHolder) viewHolder;
                     SearchModel.CitiesBean.LocationSuggestionsBean cityModel = locationSuggestionsBeen.get(position);
 
@@ -204,16 +232,15 @@ public class SearchCity extends Fragment {
                         cityViewHolder.getIvLocation().setVisibility(View.VISIBLE);
                     }
 
-                    if(cityModel.getCountry_name() != null){
+                    if (cityModel.getCountry_name() != null) {
                         cityViewHolder.getCity().setText(cityModel.getName() + ", " + cityModel.getCountry_name());
-                    }
-                    else{
+                    } else {
                         cityViewHolder.getCity().setText(cityModel.getName());
                     }
 
                     cityViewHolder.getId().setText(String.valueOf(cityModel.getId()));
 
-                    if(locationSuggestionsBeen.get(position).isCurrentLocation()){
+                    if (locationSuggestionsBeen.get(position).isCurrentLocation()) {
                         cityViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -222,14 +249,35 @@ public class SearchCity extends Fragment {
                             }
                         });
                         cityViewHolder.getIvRightLogo().setVisibility(View.GONE);
-                    }
-                    else{
+                    } else {
                         cityViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                SearchActivity.searchPeople.fetchPeople(cityViewHolder.getCity().getText().toString());
-                                SearchActivity.pager.setCurrentItem(1);
+                                if (recentSearchData != null) {
+
+                                    for (int i = 0; i < recentSearchData.size(); i++) {
+                                        if (recentSearchData.get(i).getId() == (locationSuggestionsBeen.get(position).getId())) {
+                                            recentSearchData.remove(i);
+                                        }
+                                    }
+                                    recentSearchData.add(0, locationSuggestionsBeen.get(position));
+
+                                    removeExtra();
+
+                                    editor.putString("recentSearch", new Gson().toJson(recentSearchData));
+                                    editor.commit();
+                                } else {
+                                    recentSearchData = new ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean>();
+
+                                    recentSearchData.add(0, locationSuggestionsBeen.get(position));
+
+                                    removeExtra();
+
+                                    editor.putString("recentSearch", new Gson().toJson(recentSearchData));
+                                    editor.commit();
+                                }
+                                setAdapter(recentSearchData);
 
                             }
                         });
@@ -292,161 +340,59 @@ public class SearchCity extends Fragment {
         }
     }
 
-  /*  public void fetchCities(String query) {
-
-        cityModelArrayList.clear();
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-
-        RequestParams requestParams = new RequestParams();
-
-        try {
-
-            requestParams.add("access_token", sp.getString("access_token", ""));
-            requestParams.add("query", query);
-
-
-            //Sahil , i will see it tomorrow, meanwhile keep trying!
-            //Yeah, sure. Csn i use static ? its the easiest of alll.
-            // give it a try
-            //already did. but palak asked to not to use staic variables so i changed it to this.
-            //do palak and you work together on this proj?
-            //yeah.. ok well static prevents reference n it ha its own adv n disadv..somewhere its best somewhere it isnt..// one more
-
-            //thing, it would be better if we prefer to use TabLayout given in support lib
-            //ok thanks sahil to cooperating ,
-             //see u tomorrow
-//yea bro, thanks for helping out.. will try this tomorrow again.. and let you know if done..
-            // thanks.. Good night :) yeah gn tc
-            Log.d("request>>", requestParams.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.SEARCH_CITY, requestParams,
-                new GetCity());
-
-    }
-
-    public class GetCity extends AsyncHttpResponseHandler {
-
-        @Override
-        public void onStart() {
-            super.onStart();
-
-            //NUll aave che....
-            progressBar.setVisibility(View.VISIBLE);
-            // AppConstants.showProgressDialog(getActivity(), "Please Wait");
-
-        }
-
-
-        @Override
-        public void onFinish() {
-            //   AppConstants.dismissDialog();
-            progressBar.setVisibility(View.GONE);
-        }
-
-
-        @Override
-        public void onProgress(long bytesWritten, long totalSize) {
-            super.onProgress(bytesWritten, totalSize);
-            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
-
-//            updateDonut((int) ((totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
-        }
-
-
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-
-            try {
-                String response = new String(responseBody, "UTF-8");
-                JSONObject jsonObject = new JSONObject(response);
-                Log.d("async_step_2", "success" + response);
-                if (jsonObject.getBoolean("success")) {
-
-                    JSONObject cites = jsonObject.getJSONObject("cities");
-                    if(cites.getJSONArray("location_suggestions").length()==0){
-                      //  AppConstants.showSnackBar(relMain, "No followers yet.");
-                    }else {
-                        Type listType = new TypeToken<ArrayList<CityModel>>() {
-                        }.getType();
-                        GsonBuilder gsonBuilder = new GsonBuilder();
-
-                        Gson gson = gsonBuilder.create();
-                        cityModelArrayList = new ArrayList<>();
-                        cityModelArrayList = (gson.fromJson(String.valueOf(cites.getJSONArray("location_suggestions")), listType));
-
-                        editor.putString("location_suggestions",cites.getJSONArray("location_suggestions").toString());
-                        editor.commit();
-                    }
-
-                    customAdapter = new CustomAdapter();
-                    mRecyclerView.setAdapter(customAdapter);
-                } else {
-                    AppConstants.showSnackBar(relMain, "Could not refresh feed");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("async", "success exc  >>" + e.toString());
-            }
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            AppConstants.showSnackBar(relMain, "Could not refresh feed");
-        }
-
-    }
-*/
-
-
- /*   @Override
-    public void onDetach() {
-        super.onDetach();
-
-        Gson gson = new Gson();
-        JsonElement element = gson.toJsonTree(cityModelArrayList, new TypeToken<List<CityModel>>() {}.getType());
-
-        JsonArray jsonArray = element.getAsJsonArray();
-        editor.putString("location_suggestions", jsonArray.toString());
-        editor.commit();
-    }*/
 
     public List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen = new ArrayList<>();
 
     public void setAdapter(List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen1) {
 
-        SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-        locationSuggestionsBean.setName("Quick Search");
-        locationSuggestionsBean.setHeader(true);
-        locationSuggestionsBeen1.add(0, locationSuggestionsBean);
+        locationSuggestionsBeen.clear();
+        try {
 
-        locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-        locationSuggestionsBean.setName("Current Location");
-        locationSuggestionsBean.setHeader(false);
-        locationSuggestionsBean.setCurrentLocation(true);
-        locationSuggestionsBeen1.add(1, locationSuggestionsBean);
+            if (locationSuggestionsBeen1.size() > 0) {
+                SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+                locationSuggestionsBean.setName("Quick Search");
+                locationSuggestionsBean.setHeader(true);
+                locationSuggestionsBeen.add(0, locationSuggestionsBean);
 
-        locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-        locationSuggestionsBean.setName("Select City");
-        locationSuggestionsBean.setHeader(true);
-        locationSuggestionsBeen1.add(locationSuggestionsBean);
+                locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+                locationSuggestionsBean.setName("Current Location");
+                locationSuggestionsBean.setHeader(false);
+                locationSuggestionsBean.setCurrentLocation(true);
+                locationSuggestionsBeen.addAll(locationSuggestionsBeen1);
 
-        locationSuggestionsBeen1.addAll(prepareFakeCityList());
+            }
 
+            String s = sp.getString("cities", "");
 
-        this.locationSuggestionsBeen = locationSuggestionsBeen1;
-        customAdapter = new CustomAdapter();
-        //aa pan fragment j che
-        //null here
-        mRecyclerView.setAdapter(customAdapter);
+            JSONObject jsonObject = new JSONObject(s);
 
 
+            JSONArray jsonArray = jsonObject.getJSONArray("city_list");
+
+            SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+            locationSuggestionsBean.setName("Select City");
+            locationSuggestionsBean.setHeader(true);
+            locationSuggestionsBeen.add(locationSuggestionsBean);
+            Log.d("cityList>", s);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                SearchModel.CitiesBean.LocationSuggestionsBean bean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+
+                bean.setName(jsonObject1.getString("name"));
+                bean.setId(jsonObject1.getInt("id"));
+                bean.setState_id(jsonObject1.getInt("state_id"));
+                bean.setHeader(false);
+                locationSuggestionsBeen.add(bean);
+            }
+
+            customAdapter = new CustomAdapter();
+            mRecyclerView.setAdapter(customAdapter);
+
+        } catch (Exception adapter) {
+
+        }
     }
 
     private ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean> prepareFakeCityList() {
@@ -480,27 +426,32 @@ public class SearchCity extends Fragment {
         return locationSuggestionsBeens;
     }
 
+/*
     void setPreviousData() {
 
 
         locationSuggestionsBeen.clear();
-        if (sp.getString("previous_search", "").equals("")) {
+      */
+/*  if (sp.getString("previous_search", "").equals("")) {
 
 
-        } else {
+        } else {*//*
+
             Type listType = new TypeToken<SearchModel>() {
             }.getType();
             GsonBuilder gsonBuilder = new GsonBuilder();
 
             Gson gson = gsonBuilder.create();
 
-            SearchModel searchModel = (gson.fromJson(String.valueOf(sp.getString("previous_search", "")), listType));
+            SearchModel searchModel = (gson.fromJson(String.valueOf(sp.getString("recentSearch", "")), listType));
+
 
             setAdapter(searchModel.getCities().getLocation_suggestions());
 
-        }
+      //  }
 
     }
+*/
 
 }
 

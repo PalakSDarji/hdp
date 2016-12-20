@@ -236,6 +236,8 @@ public class SignUp_Step4 extends Fragment implements View.OnClickListener {
                    /* editor.putInt("following",jsonObject.getInt("following"));
                     editor.putInt("follower",jsonObject.getInt("follower"));*/
                     editor.putString("posts", jsonObject.getString("posts"));
+                    editor.putString("cities",jsonObject.getString("city"));
+
                     editor.commit();
 
                     Intent intent = new Intent(getActivity(), HomeScreen.class);

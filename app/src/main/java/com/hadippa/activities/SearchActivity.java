@@ -94,7 +94,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         editor = sp.edit();
         edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch);
 
-        Set<String> tasksSet = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+       /* Set<String> tasksSet = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
                 .getStringSet("searchOptions", new HashSet<String>());
         previousSearchList = new ArrayList<>(tasksSet);
 
@@ -119,7 +119,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
                 edtSearch.dismissDropDown();
 
             }
-        });
+        });*/
         imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,14 +168,14 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                         Log.v("searchCity", "searchCity" + searchCity);
 
-                        previousSearchList.add(0,edtSearch.getText().toString().trim());
-                        adapter.notifyDataSetChanged();
+                    /*    previousSearchList.add(0,edtSearch.getText().toString().trim());
+                      //  adapter.notifyDataSetChanged();
                         Set<String> tasksSet = new HashSet<String>(previousSearchList);
                         PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
                                 .edit()
                                 .putStringSet("searchOptions", tasksSet)
                                 .commit();
-
+*/
                        /* if (pager.getCurrentItem() == 2) {
                             searchTag.fetchByTags(String.valueOf(s));
                             searchPeople.fetchPeople(String.valueOf(s));
@@ -190,7 +190,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             }
         });
 
-        edtSearch.setOnClickListener(new View.OnClickListener() {
+      /*  edtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 edtSearch.showDropDown();
@@ -201,10 +201,10 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    edtSearch.showDropDown();
+                 //   edtSearch.showDropDown();
                 }
             }
-        });
+        });*/
 
 
     }
