@@ -52,7 +52,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     ImageView profileImage;
 
     LinearLayout linearNotification, linearPreference, linearHome, linearFeedback;
-    EditText edtSearch;
+    public static EditText edtSearch;
     private LinearLayout linearMyPlan;
     @BindView(R.id.rlSearch) RelativeLayout rlSearch;
     @BindView(R.id.ivIcon) ImageView ivIcon;

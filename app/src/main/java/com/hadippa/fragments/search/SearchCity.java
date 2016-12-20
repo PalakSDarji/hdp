@@ -134,6 +134,8 @@ public class SearchCity extends Fragment {
         return view;
     }
 
+    public static boolean updatePost = false;
+
 
     void removeExtra() {
 
@@ -277,7 +279,12 @@ public class SearchCity extends Fragment {
                                     editor.putString("recentSearch", new Gson().toJson(recentSearchData));
                                     editor.commit();
                                 }
-                                setAdapter(recentSearchData);
+
+                                editor.putString("cityName",locationSuggestionsBeen.get(position).getName());
+                                editor.commit();
+                                updatePost = true;
+                                getActivity().finish();
+                                //  setAdapter(recentSearchData);
 
                             }
                         });

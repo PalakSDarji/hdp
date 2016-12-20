@@ -73,6 +73,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
     private ViewPagerAdapter pagerAdapter;
     ImageView imageBack;
 
+
     //Fragment na object banaya.. and trying to using them
     //kayu object?
 

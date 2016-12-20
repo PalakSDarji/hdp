@@ -59,6 +59,7 @@ import com.hadippa.activities.MyPlan;
 import com.hadippa.activities.PostActivity;
 import com.hadippa.activities.ProfileActivity;
 import com.hadippa.activities.TravelActivity;
+import com.hadippa.fragments.search.SearchCity;
 import com.hadippa.fragments.signup.SignUp_Step1;
 import com.hadippa.fragments.signup.SignUp_Step3;
 import com.hadippa.model.DataModel;
@@ -1284,6 +1285,15 @@ public class ShowCardsNew extends Fragment {
         super.onResume();
 
         getPreferences();
+
+        if(SearchCity.updatePost){
+
+            fetchPosts();
+            SearchCity.updatePost = false;
+            HomeScreen.edtSearch.setText(sp.getString("cityName","Search"));
+
+
+        }
     }
 
     private void rollbackActivity(String activity_id) {
@@ -1362,5 +1372,96 @@ public class ShowCardsNew extends Fragment {
 
     }
 
+    private void fetchPosts() {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+
+            requestParams.add("city", sp.getString("cityName",""));
+            requestParams.add("access_token", sp.getString("access_token",""));
+
+            Log.d("prepareMeraEvents", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.FETCH_POST, requestParams,
+                new FetchPosts());
+    }
+
+    class FetchPosts extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+        //    AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+          //  AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+
+                posts.clear();
+                String response = new String(responseBody, "UTF-8");
+                Log.d("restaurantsBeanList", "Size >> " + response);
+                JSONObject obj = new JSONObject(response);
+
+                if(obj.getBoolean("success")) {
+                    editor.putString("posts", obj.getString("posts"));
+                    editor.commit();
+
+                    Type listType = new TypeToken<ArrayList<DataModel>>() {
+                    }.getType();
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+
+                    Gson gson = gsonBuilder.create();
+
+                    if(obj.getJSONArray("posts").length() == 0){
+
+                        posts.clear();
+
+                       myAppAdapter.notifyDataSetChanged();
+                    }else{
+                        posts = gson.fromJson(sp.getString("posts", ""), listType);
+
+                        myAppAdapter.notifyDataSetChanged();
+                    }
+
+                Toast.makeText(getActivity(),"Sisw"+posts.size(),Toast.LENGTH_SHORT).show();
+
+                }
+                Log.d("restaurantsBeanList", "Size >> " + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
 
 }
