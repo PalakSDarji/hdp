@@ -52,6 +52,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import cz.msebera.android.httpclient.Header;
@@ -73,16 +74,13 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
     private ViewPagerAdapter pagerAdapter;
     ImageView imageBack;
 
-
-    //Fragment na object banaya.. and trying to using them
-    //kayu object?
-
     public static SearchPeople searchPeople = new SearchPeople();
     public static SearchCity searchCity = new SearchCity();
 
     public static AutoCompleteTextView edtSearch;
 
     ArrayList<String> previousSearchList = new ArrayList<String>();
+    ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean> recentSearchData = new ArrayList<>();
 
 
     @Override
@@ -207,6 +205,36 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             }
         });*/
 
+        Gson gson = new Gson();
+
+        if (!sp.getString("recentSearch", "").equals("")) {
+            recentSearchData = gson.fromJson(sp.getString("recentSearch", ""),
+                    new TypeToken<List<SearchModel.CitiesBean.LocationSuggestionsBean>>() {
+                    }.getType());
+        }
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(recentSearchData != null){
+                    searchCity.setAdapter(recentSearchData,edtSearch.getText().toString().trim());
+                }else{
+                    recentSearchData = new ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean>();
+                    searchCity.setAdapter(recentSearchData,edtSearch.getText().toString().trim());
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 
@@ -345,7 +373,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                     Log.d("async", "success exc  >> Locaion" + searchModel.getCities().getLocation_suggestions().size());
                     Log.d("async", "success exc  >> Locaion" + searchModel.getUsers());
-                    searchCity.setAdapter(searchModel.getCities().getLocation_suggestions());
+                    searchCity.setAdapter(searchModel.getCities().getLocation_suggestions(),"");
                     searchPeople.setAdapter(searchModel.getUsers());
 
                     editor.putString("previous_search", response);

@@ -1,5 +1,7 @@
 package com.hadippa.fragments.search;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -8,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
+import com.hadippa.activities.FilterChooserActivity;
+import com.hadippa.activities.HomeScreen;
 import com.hadippa.activities.SearchActivity;
 import com.hadippa.model.CityModel;
 import com.hadippa.model.DataModel;
@@ -126,10 +131,10 @@ public class SearchCity extends Fragment {
         if (recentSearchData != null) {
 
             removeExtra();
-            setAdapter(recentSearchData);
+            setAdapter(recentSearchData,"");
         } else {
             recentSearchData = new ArrayList<>();
-            setAdapter(recentSearchData);
+            setAdapter(recentSearchData,"");
         }
         return view;
     }
@@ -171,6 +176,15 @@ public class SearchCity extends Fragment {
 
     public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final String TAG = "CustomAdapter";
+        private List<SearchModel.CitiesBean.LocationSuggestionsBean> listItems, filterList;
+
+        public CustomAdapter(List<SearchModel.CitiesBean.LocationSuggestionsBean> listItems) {
+            this.listItems = listItems;
+
+            this.filterList = new ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean>();
+            // we copy the original list to the filter list and use it for setting row values
+            this.filterList.addAll(this.listItems);
+        }
 
         @Override
         public int getItemViewType(int position) {
@@ -226,7 +240,7 @@ public class SearchCity extends Fragment {
                 case CITY_DATA:
 
                     final CityViewHolder cityViewHolder = (CityViewHolder) viewHolder;
-                    SearchModel.CitiesBean.LocationSuggestionsBean cityModel = locationSuggestionsBeen.get(position);
+                    SearchModel.CitiesBean.LocationSuggestionsBean cityModel = filterList.get(position);
 
                     if (cityModel.isFromCityList()) {
                         cityViewHolder.getIvLocation().setVisibility(View.GONE);
@@ -283,9 +297,12 @@ public class SearchCity extends Fragment {
                                 editor.putString("cityName",locationSuggestionsBeen.get(position).getName());
                                 editor.commit();
                                 updatePost = true;
-                                getActivity().finish();
-                                //  setAdapter(recentSearchData);
 
+                                //  setAdapter(recentSearchData);
+                             /*   Intent intent = new Intent(getActivity(), HomeScreen.class);
+                                startActivity(intent);
+                                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+                                getActivity().finish();
                             }
                         });
                         cityViewHolder.getIvRightLogo().setVisibility(View.VISIBLE);
@@ -300,7 +317,48 @@ public class SearchCity extends Fragment {
         @Override
         public int getItemCount() {
 
-            return locationSuggestionsBeen.size();
+            return (null != filterList ? filterList.size() : 0);
+
+        }
+
+        // Do Search...
+        public void filter(final String text) {
+
+            // Searching could be complex..so we will dispatch it to a different thread...
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    // Clear the filter list
+                    filterList.clear();
+
+                    // If there is no search value, then add all original list items to filter list
+                    if (TextUtils.isEmpty(text)) {
+
+                        filterList.addAll(listItems);
+
+                    } else {
+                        // Iterate in the original List and add it to filter list...
+                        for (SearchModel.CitiesBean.LocationSuggestionsBean item : listItems) {
+                            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                                // Adding Matched items
+                                filterList.add(item);
+                            }
+                        }
+                    }
+
+                    // Set on UI Thread
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Notify the List that the DataSet has changed...
+                            notifyDataSetChanged();
+                        }
+                    });
+
+                }
+            }).start();
+
         }
     }
 
@@ -350,9 +408,11 @@ public class SearchCity extends Fragment {
 
     public List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen = new ArrayList<>();
 
-    public void setAdapter(List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen1) {
+    public void setAdapter(List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen1,String query) {
 
         locationSuggestionsBeen.clear();
+
+        if(query.equals("")){
         try {
 
             if (locationSuggestionsBeen1.size() > 0) {
@@ -394,71 +454,73 @@ public class SearchCity extends Fragment {
                 locationSuggestionsBeen.add(bean);
             }
 
-            customAdapter = new CustomAdapter();
+            customAdapter = new CustomAdapter(locationSuggestionsBeen);
             mRecyclerView.setAdapter(customAdapter);
 
         } catch (Exception adapter) {
 
         }
+    }else{
+
+            try {
+
+                if (locationSuggestionsBeen1.size() > 0) {
+                    SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+                    locationSuggestionsBean.setName("Quick Search");
+                    locationSuggestionsBean.setHeader(true);
+                    locationSuggestionsBeen.add(0, locationSuggestionsBean);
+
+                    locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+                    locationSuggestionsBean.setName("Current Location");
+                    locationSuggestionsBean.setHeader(false);
+                    locationSuggestionsBean.setCurrentLocation(true);
+
+                    for(int i = 0 ; i < locationSuggestionsBeen1.size();i++){
+                        if(locationSuggestionsBeen1.get(i).getName().toLowerCase().contains(query.toLowerCase())){
+                            locationSuggestionsBeen.add(locationSuggestionsBeen1.get(i));
+                        }
+                    }
+
+                }
+
+                String s = sp.getString("cities", "");
+
+                JSONObject jsonObject = new JSONObject(s);
+
+
+                JSONArray jsonArray = jsonObject.getJSONArray("city_list");
+
+                SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+                locationSuggestionsBean.setName("Select City");
+                locationSuggestionsBean.setHeader(true);
+                locationSuggestionsBeen.add(locationSuggestionsBean);
+                Log.d("cityList>", s);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                    SearchModel.CitiesBean.LocationSuggestionsBean bean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+
+                    bean.setName(jsonObject1.getString("name"));
+                    bean.setId(jsonObject1.getInt("id"));
+                    bean.setState_id(jsonObject1.getInt("state_id"));
+                    bean.setHeader(false);
+                    if(jsonObject1.getString("name").toLowerCase().contains(query.toLowerCase())){
+                        locationSuggestionsBeen.add(bean);
+                    }
+
+                }
+
+                customAdapter = new CustomAdapter(locationSuggestionsBeen);
+                mRecyclerView.setAdapter(customAdapter);
+
+            } catch (Exception adapter) {
+
+            }
+
+
+        }
     }
-
-    private ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean> prepareFakeCityList() {
-
-        ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeens = new ArrayList<>();
-
-        SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-        locationSuggestionsBean.setHeader(false);
-        locationSuggestionsBean.setFromCityList(true);
-        locationSuggestionsBean.setName("Vadodara");
-        locationSuggestionsBeens.add(locationSuggestionsBean);
-
-        locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-        locationSuggestionsBean.setHeader(false);
-        locationSuggestionsBean.setFromCityList(true);
-        locationSuggestionsBean.setName("Surat");
-        locationSuggestionsBeens.add(locationSuggestionsBean);
-
-        locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-        locationSuggestionsBean.setHeader(false);
-        locationSuggestionsBean.setFromCityList(true);
-        locationSuggestionsBean.setName("Ahmedabad");
-        locationSuggestionsBeens.add(locationSuggestionsBean);
-
-        locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-        locationSuggestionsBean.setHeader(false);
-        locationSuggestionsBean.setFromCityList(true);
-        locationSuggestionsBean.setName("Agra");
-        locationSuggestionsBeens.add(locationSuggestionsBean);
-
-        return locationSuggestionsBeens;
-    }
-
-/*
-    void setPreviousData() {
-
-
-        locationSuggestionsBeen.clear();
-      */
-/*  if (sp.getString("previous_search", "").equals("")) {
-
-
-        } else {*//*
-
-            Type listType = new TypeToken<SearchModel>() {
-            }.getType();
-            GsonBuilder gsonBuilder = new GsonBuilder();
-
-            Gson gson = gsonBuilder.create();
-
-            SearchModel searchModel = (gson.fromJson(String.valueOf(sp.getString("recentSearch", "")), listType));
-
-
-            setAdapter(searchModel.getCities().getLocation_suggestions());
-
-      //  }
-
-    }
-*/
 
 }
 

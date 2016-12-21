@@ -156,27 +156,9 @@ public class SearchPeople extends Fragment {
 
     public void setAdapter(List<SearchModel.UsersBean> usersBeen1){
 
-     //   onCreateView(getActivity().getLayoutInflater(),null,null);
         usersBeen = usersBeen1 ;
         customAdapter = new CustomAdapter();
-       /* View view = getActivity().getLayoutInflater().inflate(R.layout.follow, null, false);
-
-        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        editor = sp.edit();
-
-        context = getActivity();
-
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        relMain = (RelativeLayout) view.findViewById(R.id.relMain);
-        progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
-
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        progressBar.setVisibility(View.GONE);
-*/
         mRecyclerView.setAdapter(customAdapter);
-
 
     }
 
@@ -265,157 +247,8 @@ public class SearchPeople extends Fragment {
         public ImageView getProfileImage() {
             return profileImage;
         }
-      /*  public TextView getTvStatus() {
-            return tvStatus;
-        }
-
-        public TextView getName() {
-            return tvDonarName;
-        }
-
-        public TextView getId() {
-            return id;
-        }
-
-        public ImageView getProfileImage() {
-            return foodImage;
-        }
-
-
-        public TextView getTvDonarPh() {
-            return tvDonarPh;
-        }
-
-        public TextView getTvAddress() {
-            return tvAddress;
-        }
-
-        public TextView getTvFoodfor() {
-            return tvFoodfor;
-        }
-
-        public View getTypeView() {
-            return typeView;
-        }
-*/
 
     }
-
-
-    public void fetchPeople(String query) {
-
-        usersBeen.clear();
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        RequestParams requestParams = new RequestParams();
-
-        try {
-
-            requestParams.add("access_token", sp.getString("access_token", ""));
-            requestParams.add("query", query);
-
-
-
-
-            Log.d("request>>", requestParams.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.SEARCH_PEOPLE, requestParams,
-                new GetCity());
-
-    }
-
-    public class GetCity extends AsyncHttpResponseHandler {
-
-        @Override
-        public void onStart() {
-            super.onStart();
-
-            progressBar.setVisibility(View.VISIBLE);
-            // AppConstants.showProgressDialog(getActivity(), "Please Wait");
-
-        }
-
-
-        @Override
-        public void onFinish() {
-            //   AppConstants.dismissDialog();
-            progressBar.setVisibility(View.GONE);
-        }
-
-
-        @Override
-        public void onProgress(long bytesWritten, long totalSize) {
-            super.onProgress(bytesWritten, totalSize);
-            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
-
-//            updateDonut((int) ((totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
-        }
-
-
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-
-            try {
-                String response = new String(responseBody, "UTF-8");
-                JSONObject jsonObject = new JSONObject(response);
-                Log.d("async_step_2", "success" + response);
-                if (jsonObject.getBoolean("success")) {
-
-
-                    if(jsonObject.getJSONArray("users").length()==0){
-                     //   AppConstants.showSnackBar(relMain, "No followers yet.");
-                    }else {
-                        Type listType = new TypeToken<ArrayList<SearchModel.UsersBean>>() {
-                        }.getType();
-                        GsonBuilder gsonBuilder = new GsonBuilder();
-
-                        Gson gson = gsonBuilder.create();
-                        usersBeen = new ArrayList<>();
-
-                        usersBeen = (gson.fromJson(String.valueOf(jsonObject.getJSONArray("users")), listType));
-
-
-                        editor.putString("people_users",jsonObject.getJSONArray("users").toString());
-                        editor.commit();
-                    }
-
-                    customAdapter = new CustomAdapter();
-                    mRecyclerView.setAdapter(customAdapter);
-                } else {
-                    AppConstants.showSnackBar(relMain, "Could not refresh feed");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("async", "success exc  >>" + e.toString());
-            }
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            AppConstants.showSnackBar(relMain, "Could not refresh feed");
-        }
-
-    }
-
-
-   /* @Override
-    public void onDetach() {
-        super.onDetach();
-
-        Gson gson = new Gson();
-        JsonElement element = gson.toJsonTree(peopleModelArrayList, new TypeToken<List<PeopleModel>>() {}.getType());
-
-        JsonArray jsonArray = element.getAsJsonArray();
-        editor.putString("people_users", jsonArray.toString());
-        editor.commit();
-    }
-*/
 
     public void showPopupDialog(final SearchModel.UsersBean peopleModel) {
 
@@ -575,16 +408,6 @@ public class SearchPeople extends Fragment {
 
                     peopleModel.setUser_relationship_status(jsonObject.getString("status"));
                     alertDialog.dismiss();
-                  /*  if(type.equals(AppConstants.CONNECTION_FOLLOW)){
-
-                     //   peopleModel.setUser_relationship_status("Following");
-
-                    }else{
-
-                    //    peopleModel.setUser_relationship_status(null);
-
-                    }
-*/
                 }
                 Log.d("async", "success" + response);
             } catch (Exception e) {

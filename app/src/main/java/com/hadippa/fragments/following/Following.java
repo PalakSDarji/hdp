@@ -172,8 +172,21 @@ public class Following extends Fragment {
                     Log.v("Followers","clicked " + position);
                     if(followers_following.getUser_relationship_status().equals("Following") ||
                             followers_following.getUser_relationship_status().equals("Connected") ){
+
+                        viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                        viewHolder.tvFollowUnfollow.setText(getResources().getString(R.string.follow));
+                        viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+                        // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                        viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
                         follow_Unfollow(followers_following,AppConstants.CONNECTION_UNFOLLOW);
+
                     }else{
+                        viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
+                        viewHolder.tvFollowUnfollow.setText("Following");
+                        viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+                        //viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers_filled);
+                        viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
+
                         follow_Unfollow(followers_following,AppConstants.CONNECTION_FOLLOW);
                     }
 
@@ -425,14 +438,14 @@ public class Following extends Fragment {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(getActivity(), "Please Wait");
+           // AppConstants.showProgressDialog(getActivity(), "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+           // AppConstants.dismissDialog();
         }
 
         @Override
@@ -451,32 +464,19 @@ public class Following extends Fragment {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
                 Log.d("response>>", response);
-                if (jsonObject.getBoolean("success")) {
-
-                    followersModel.setUser_relationship_status(jsonObject.getString("status"));
-                  /*  if(followersModel.getUser_relationship_status().equals("Following")){
-                        followersModel.setUser_relationship_status();
-                    }else if( followersModel.getUser_relationship_status().equals("Connected")){
-                        followersModel.setUser_relationship_status("Follower");
-                    }else{
-                        followersModel.setUser_relationship_status("Following");
-                    }*/
+                if (!jsonObject.getBoolean("success")) {
 
                     customAdapter.notifyDataSetChanged();
 
-                    Log.d("response>>", response);
-                    //post json stored g\here
-
                 } else {
 
-
-                    //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
+                    followersModel.setUser_relationship_status(jsonObject.getString("status"));
+                    customAdapter.notifyDataSetChanged();
 
                 }
                 Log.d("async", "success" + response);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("async", "success exc  >>" + e.toString());
             }
         }
 

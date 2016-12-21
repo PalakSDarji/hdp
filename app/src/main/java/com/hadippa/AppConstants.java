@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -222,19 +224,26 @@ public class AppConstants {
                 .show();
 
     }
+
+    public static KProgressHUD hud;
+
     public static void showProgressDialog(Context context,String message){
+        // PROGRESS_DIALOG.show();
 
-        PROGRESS_DIALOG = new ProgressDialog(context);
-        PROGRESS_DIALOG.setMessage(message);
-        PROGRESS_DIALOG.setCanceledOnTouchOutside(false);
-        PROGRESS_DIALOG.setCancelable(false);
-        PROGRESS_DIALOG.show();
-
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.pink))
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .show();
     }
 
     public static void dismissDialog(){
 
-        if(PROGRESS_DIALOG != null) PROGRESS_DIALOG.dismiss();
+        if(hud != null) hud.dismiss();
+
 
 
     }

@@ -1,6 +1,8 @@
 package com.hadippa.fragments.main_screen;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
@@ -113,9 +116,10 @@ public class ShowCardsNew extends Fragment {
     private String mParam2;
 
     private boolean menuOpened = false;
-    public static MyAppAdapter myAppAdapter;
+    public MyAppAdapter myAppAdapter;
     private ArrayList<DataModel> al;
     private SwipeFlingAdapterView flingContainer;
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -329,7 +333,7 @@ public class ShowCardsNew extends Fragment {
 
     }
 
-    public static List<DataModel> posts;
+    public List<DataModel> posts= new ArrayList<>();
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -1283,17 +1287,18 @@ public class ShowCardsNew extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         getPreferences();
 
-        if(SearchCity.updatePost){
 
-            fetchPosts();
-            SearchCity.updatePost = false;
-            HomeScreen.edtSearch.setText(sp.getString("cityName","Search"));
+    }
 
+    Activity activity1;
 
-        }
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        activity1 = activity;
     }
 
     private void rollbackActivity(String activity_id) {
@@ -1372,96 +1377,6 @@ public class ShowCardsNew extends Fragment {
 
     }
 
-    private void fetchPosts() {
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
-        RequestParams requestParams = new RequestParams();
-
-        try {
-
-
-            requestParams.add("city", sp.getString("cityName",""));
-            requestParams.add("access_token", sp.getString("access_token",""));
-
-            Log.d("prepareMeraEvents", requestParams.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.FETCH_POST, requestParams,
-                new FetchPosts());
-    }
-
-    class FetchPosts extends AsyncHttpResponseHandler {
-
-        @Override
-        public void onStart() {
-            super.onStart();
-
-        //    AppConstants.showProgressDialog(getActivity(), "Please Wait");
-
-        }
-
-
-        @Override
-        public void onFinish() {
-          //  AppConstants.dismissDialog();
-        }
-
-        @Override
-        public void onProgress(long bytesWritten, long totalSize) {
-            super.onProgress(bytesWritten, totalSize);
-
-        }
-
-
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-            try {
-
-                posts.clear();
-                String response = new String(responseBody, "UTF-8");
-                Log.d("restaurantsBeanList", "Size >> " + response);
-                JSONObject obj = new JSONObject(response);
-
-                if(obj.getBoolean("success")) {
-                    editor.putString("posts", obj.getString("posts"));
-                    editor.commit();
-
-                    Type listType = new TypeToken<ArrayList<DataModel>>() {
-                    }.getType();
-                    GsonBuilder gsonBuilder = new GsonBuilder();
-
-                    Gson gson = gsonBuilder.create();
-
-                    if(obj.getJSONArray("posts").length() == 0){
-
-                        posts.clear();
-
-                       myAppAdapter.notifyDataSetChanged();
-                    }else{
-                        posts = gson.fromJson(sp.getString("posts", ""), listType);
-
-                        myAppAdapter.notifyDataSetChanged();
-                    }
-
-                Toast.makeText(getActivity(),"Sisw"+posts.size(),Toast.LENGTH_SHORT).show();
-
-                }
-                Log.d("restaurantsBeanList", "Size >> " + response);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("async", "success exc  >>" + e.toString());
-            }
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            //  AppConstants.showSnackBar(mainRel,"Try again!");
-        }
-
-    }
 
 }

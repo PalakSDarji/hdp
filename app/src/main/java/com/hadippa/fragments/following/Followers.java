@@ -134,10 +134,24 @@ public class Followers extends Fragment {
                     Log.v("??Followers","clicked " + position+"  "+followers_following.getUser_relationship_status());
                     if(followers_following.getUser_relationship_status().equals("Connected")
                             || followers_following.getUser_relationship_status().equals("Following")){
+
+                        viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                        viewHolder.tvFollowUnfollow.setText("Follow");
+                        viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+                        // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                        viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
                         follow_Unfollow(position,AppConstants.CONNECTION_UNFOLLOW);
+
                         Log.v("??Followers","clicked " + position);
                     }else{
+
+                        viewHolder.llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
+                        viewHolder.tvFollowUnfollow.setText("Following");
+                        viewHolder.tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+                        viewHolder.ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
+
                         follow_Unfollow(position,AppConstants.CONNECTION_FOLLOW);
+
                         Log.v("??Followers","CONECTFOLLOW clicked " + position);
                     }
 
@@ -391,9 +405,7 @@ public class Followers extends Fragment {
         @Override
         public void onProgress(long bytesWritten, long totalSize) {
             super.onProgress(bytesWritten, totalSize);
-          /*  Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
-*/
+
         }
 
 
@@ -403,18 +415,15 @@ public class Followers extends Fragment {
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-                if (jsonObject.getBoolean("success")) {
+                if (!jsonObject.getBoolean("success")) {
 
-                    followersFollowings.get(position).setUser_relationship_status(jsonObject.getString("status"));
+
                     customAdapter.notifyDataSetChanged();
 
-                    Log.d("response>>", response);
-                    //post json stored g\here
 
                 } else {
-
-
-                    //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
+                    followersFollowings.get(position).setUser_relationship_status(jsonObject.getString("status"));
+                    customAdapter.notifyDataSetChanged();
 
                 }
                 Log.d("async", "success" + response);
@@ -427,7 +436,6 @@ public class Followers extends Fragment {
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-            //  AppConstants.showSnackBar(mainRel,"Try again!");
         }
 
     }
