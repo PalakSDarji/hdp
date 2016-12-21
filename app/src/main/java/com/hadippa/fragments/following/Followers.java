@@ -392,14 +392,14 @@ public class Followers extends Fragment {
         public void onStart() {
             super.onStart();
 
-              AppConstants.showProgressDialog(getActivity(), "Please Wait");
+           //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+            //AppConstants.dismissDialog();
         }
 
         @Override

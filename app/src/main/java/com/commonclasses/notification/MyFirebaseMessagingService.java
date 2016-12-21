@@ -22,6 +22,8 @@ import com.hadippa.activities.HomeScreen;
 import com.hadippa.database.ChatDBHelper;
 import com.hadippa.model.MessageModel;
 
+import org.json.JSONObject;
+
 import java.util.Map;
 
 /**
@@ -72,50 +74,68 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void sendNotificationPost(Map<String,String> stringStringMap) {
 
-
-        MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(stringStringMap.get("message")
-                , MessageModel.ThreadBean.MessagesBean.class);
-
-        NotificationManager mNotificationManager = (NotificationManager)
-                this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        Log.d(TAG, "sendNotification");
-
-        Intent intent;
-
-        intent = new Intent(this, HomeScreen.class);
+        try {
 
 
 
 
-        //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            NotificationManager mNotificationManager = (NotificationManager)
+                    this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Log.d(TAG, "sendNotification");
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Intent intent;
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setContentTitle(messagesBean.getUser().getFirst_name()+" "+messagesBean.getUser().getLast_name())
-                        .setSmallIcon(R.drawable.com_facebook_button_icon)
+            intent = new Intent(this, HomeScreen.class);
+
+
+            //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                    intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.drawable.com_facebook_button_icon)
                         /*.setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(jobj))*/
-                        .setSound(soundUri)
-                        .setAutoCancel(true)
-                        .setContentText(messagesBean.getBody());
+                            .setSound(soundUri)
+                            .setAutoCancel(true)
+                           ;
 
 
-        mBuilder.setContentIntent(contentIntent);
+            mBuilder.setContentIntent(contentIntent);
 
-        if(messagesBean.getThread_id() != ChatActivity.threadId){
-            mNotificationManager.notify(12, mBuilder.build());
+            JSONObject jsonObject = new JSONObject(stringStringMap.get("message").toString());
+            if (jsonObject.has("thread_id")){
+                MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(stringStringMap.get("message")
+                        , MessageModel.ThreadBean.MessagesBean.class);
+
+                if (messagesBean.getThread_id() != ChatActivity.threadId) {
+                    mBuilder.setContentTitle(messagesBean.getUser().getFirst_name() + " " + messagesBean.getUser().getLast_name());
+                    mBuilder.setContentText(messagesBean.getBody());
+
+                    mNotificationManager.notify(12, mBuilder.build());
+                }
+
+
+                chatDBHelper.insertMessage(messagesBean, 0);
+                newMessageBroadCast(stringStringMap.get("message"));
+            }else{
+
+                mBuilder.setContentTitle("Hadipaa");
+                mBuilder.setContentText(stringStringMap.get("message"));
+
+                mNotificationManager.notify(12, mBuilder.build());
+
+            }
+
+
+        }catch (Exception e){
+
         }
-
-
-        chatDBHelper.insertMessage(messagesBean,0);
-        newMessageBroadCast(stringStringMap.get("message"));
-
 
     }
 
