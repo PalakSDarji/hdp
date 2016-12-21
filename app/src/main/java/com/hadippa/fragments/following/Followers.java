@@ -435,7 +435,7 @@ public class Followers extends Fragment {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+            customAdapter.notifyDataSetChanged();
         }
 
     }

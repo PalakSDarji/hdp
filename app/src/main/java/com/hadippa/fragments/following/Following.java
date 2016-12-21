@@ -482,7 +482,7 @@ public class Following extends Fragment {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+            customAdapter.notifyDataSetChanged();
             //  AppConstants.showSnackBar(mainRel,"Try again!");
         }
 
