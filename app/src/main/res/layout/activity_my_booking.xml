@@ -33,6 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="My Booking"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/c_2f2f2f"
             android:textSize="@dimen/values_txt_16"
             app:customFont="@string/proxima_bold"/>

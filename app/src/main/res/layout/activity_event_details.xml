@@ -36,6 +36,11 @@
             android:text="@string/event_name"
             android:textColor="@color/c_2f2f2f"
             android:textSize="@dimen/values_txt_16"
+            android:maxLines="1"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:layout_toRightOf="@+id/imageBack"
+            android:layout_toLeftOf="@+id/llInvite"
             app:customFont="@string/proxima_bold"/>
 
         <LinearLayout
@@ -383,6 +388,7 @@
                         android:background="@android:color/transparent"
                         android:clickable="true"
                         android:text="Tap Here"
+                        android:gravity="center"
                         android:textColor="@color/c_454545"
                         android:textSize="@dimen/values_txt_16"
                         app:customFont="@string/proxima_bold"
@@ -428,6 +434,7 @@
                         android:layout_below="@+id/tvVisTime"
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="@dimen/value_w32"
+                        android:gravity="center"
                         android:layout_marginRight="@dimen/value_w32"
                         android:layout_marginTop="@dimen/value_h31"
                         android:background="@android:color/transparent"
@@ -476,6 +483,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:gravity="center"
                     android:hint="Tap here"
                     android:textColor="@color/c_454545"
                     android:textSize="@dimen/values_txt_16"

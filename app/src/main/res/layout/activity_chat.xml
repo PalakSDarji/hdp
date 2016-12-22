@@ -9,45 +9,6 @@
     tools:context="com.hadippa.activities.ChatListActivity">
 
 
-    <RelativeLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/white"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/imageBack"
-            android:layout_width="@dimen/value_40"
-            android:layout_height="@dimen/value_28"
-            android:layout_centerVertical="true"
-            android:padding="4dp"
-            android:src="@drawable/ic_back"/>
-
-        <com.hadippa.CustomTextView
-            android:id="@+id/tvHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Sania Mirza"
-            android:textColor="@color/c_2f2f2f"
-            android:textSize="@dimen/values_txt_16"
-            app:customFont="@string/proxima_bold"/>
-
-
-        <ImageView
-            android:id="@+id/ivMore"
-            android:layout_width="@dimen/value_h42"
-            android:layout_height="@dimen/value_h42"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/overflow_pink"/>
-
-    </RelativeLayout>
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -79,14 +40,14 @@
 
     <RelativeLayout
         android:id="@+id/rlGroupDetail"
-        android:layout_below="@+id/top"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top"
         android:background="@color/white"
-        android:visibility="gone"
+        android:paddingBottom="@dimen/value_h21"
         android:paddingLeft="@dimen/value_w26"
         android:paddingRight="@dimen/value_w26"
-        android:paddingBottom="@dimen/value_h21"
-        android:layout_height="wrap_content">
+        android:visibility="gone">
 
         <com.hadippa.CustomTextView
             android:id="@+id/tvDetail1"
@@ -100,8 +61,8 @@
         <com.hadippa.CustomTextView
             android:id="@+id/tvDetail2"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/tvDetail1"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDetail1"
             android:layout_marginTop="4dp"
             android:text="Monday, 2 Augest (6:00PM)"
             android:textColor="@color/c_727071"
@@ -111,17 +72,17 @@
         <com.hadippa.CustomTextView
             android:id="@+id/tvAction"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/tvDetail1"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tvDetail1"
+            android:layout_below="@+id/tvDetail1"
+            android:layout_marginBottom="@dimen/value_5"
             android:background="@drawable/book_shape"
-            android:paddingTop="@dimen/value_h15"
             android:paddingBottom="@dimen/value_h15"
             android:paddingLeft="@dimen/value_w43"
             android:paddingRight="@dimen/value_w43"
+            android:paddingTop="@dimen/value_h15"
             android:text="BOOK"
-            android:layout_marginBottom="@dimen/value_5"
-            android:layout_alignTop="@+id/tvDetail1"
             android:textColor="@color/white"
             android:textSize="@dimen/values_txt_13"
             app:customFont="@string/proxima_bold"/>
@@ -138,14 +99,14 @@
 
     <ImageView
         android:id="@+id/ivMoreDetail"
-        android:clickable="true"
         android:layout_width="@dimen/value_w66"
-        android:layout_centerHorizontal="true"
+        android:layout_height="@dimen/value_h48"
         android:layout_alignBaseline="@+id/vSep2"
         android:layout_below="@+id/rlGroupDetail"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="-10dp"
-        android:src="@drawable/group_chat_more"
-        android:layout_height="@dimen/value_h48"/>
+        android:clickable="true"
+        android:src="@drawable/group_chat_more"/>
 
     <RelativeLayout
         android:id="@+id/rlInput"
@@ -171,18 +132,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/value_h38"
             android:layout_marginBottom="@dimen/value_h38"
+            android:layout_marginTop="@dimen/value_h38"
             android:layout_toLeftOf="@+id/tvSend"
             android:layout_toRightOf="@+id/tvSmily"
             android:background="@drawable/profile_edittext_bg"
+            android:ellipsize="end"
+            android:hint="type here.."
+            android:maxLines="3"
+            android:paddingBottom="@dimen/value_h18"
             android:paddingLeft="@dimen/value_w26"
             android:paddingRight="@dimen/value_w26"
             android:paddingTop="@dimen/value_h18"
-            android:paddingBottom="@dimen/value_h18"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:hint="type here.."
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:textSize="@dimen/values_txt_12"
@@ -202,6 +163,50 @@
             android:padding="3dp"
             android:src="@drawable/send_arrow"/>
 
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/ivMore"
+            android:layout_toRightOf="@+id/imageBack"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Sania Mirza"
+            android:textColor="@color/c_2f2f2f"
+            android:textSize="@dimen/values_txt_16"
+            app:customFont="@string/proxima_bold"/>
+
+
+        <ImageView
+            android:id="@+id/ivMore"
+            android:layout_width="@dimen/value_h42"
+            android:layout_height="@dimen/value_h42"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/overflow_pink"/>
 
     </RelativeLayout>
 

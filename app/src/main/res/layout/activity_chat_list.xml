@@ -29,6 +29,11 @@
 
         <com.hadippa.CustomTextView
             android:id="@+id/tvHeader"
+            android:layout_toRightOf="@+id/imageBack"
+            android:layout_toLeftOf="@+id/ivPlus"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

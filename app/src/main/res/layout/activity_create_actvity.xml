@@ -35,6 +35,11 @@
             android:text="@string/create_activity"
             android:textColor="@color/c_2f2f2f"
             android:textSize="@dimen/values_txt_16"
+            android:maxLines="1"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:layout_toRightOf="@+id/imageBack"
+            android:layout_toLeftOf="@+id/llInvite"
             app:customFont="@string/proxima_bold"/>
 
         <LinearLayout
@@ -235,7 +240,8 @@
                         android:layout_marginRight="@dimen/value_w32"
                         android:layout_marginTop="@dimen/value_h27"
                         android:layout_toLeftOf="@+id/imageArrow"
-                        android:text="Guitar"
+                        android:text="Activity"
+                        android:gravity="center"
                         android:textColor="@color/c_605e5f"
                         android:textSize="@dimen/values_txt_18"
                         app:customFont="@string/proxima_reg"/>
@@ -257,8 +263,9 @@
                         android:layout_marginLeft="@dimen/value_w32"
                         android:layout_marginRight="@dimen/value_w32"
                         android:layout_marginTop="@dimen/value_h27"
+                        android:gravity="center"
                         android:layout_toRightOf="@+id/imageArrow"
-                        android:text="Guitar"
+                        android:text="Activity"
                         android:textColor="@color/c_605e5f"
                         android:textSize="@dimen/values_txt_18"
                         app:customFont="@string/proxima_reg"/>
@@ -272,7 +279,12 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/value_h27"
                     android:layout_marginTop="5dp"
-                    android:text="Ashim class, Andheri west"
+                    android:paddingLeft="@dimen/value_w32"
+                    android:paddingRight="@dimen/value_w32"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:text="Address"
                     android:textColor="@color/c_605e5f"
                     android:textSize="@dimen/values_txt_12"
                     app:customFont="@string/proxima_reg"/>
@@ -411,8 +423,9 @@
                         android:layout_marginTop="@dimen/value_h31"
                         android:background="@android:color/transparent"
                         android:clickable="true"
-
-android:hint="@string/date"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:hint="@string/date"
                         android:textColor="@color/c_454545"
                         android:textSize="@dimen/values_txt_16"
                         app:customFont="@string/proxima_bold"
@@ -457,8 +470,8 @@ android:hint="@string/date"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvVisTime"
                         android:layout_centerHorizontal="true"
-
-                     android:hint="@string/time"   android:layout_marginLeft="@dimen/value_w32"
+                        android:hint="@string/time"
+                        android:layout_marginLeft="@dimen/value_w32"
                         android:layout_marginRight="@dimen/value_w32"
                         android:layout_marginTop="@dimen/value_h31"
                         android:background="@android:color/transparent"
@@ -495,6 +508,7 @@ android:hint="@string/date"
 
                 <LinearLayout
                     android:id="@+id/rlAvaTill"
+                    android:layout_centerHorizontal="true"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">

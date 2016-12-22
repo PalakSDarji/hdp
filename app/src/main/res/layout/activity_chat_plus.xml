@@ -61,6 +61,8 @@
                 android:layout_marginLeft="@dimen/value_w17"
                 android:layout_toRightOf="@+id/ivSearch"
                 android:textSize="@dimen/values_txt_12"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:layout_centerVertical="true"
