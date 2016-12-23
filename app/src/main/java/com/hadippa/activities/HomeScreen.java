@@ -107,7 +107,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         }
          else {
             super.onBackPressed();
-            overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+           // overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
         }
     }
 

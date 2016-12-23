@@ -21,8 +21,18 @@ public class UserProfile implements Serializable {
 
     private boolean success;
     private UserBean user;
+    @SerializedName("all activity")
+    int all_activity;
     private Object next;
     private List<ActivityBeanX> activity;
+
+    public int getAll_activity() {
+        return all_activity;
+    }
+
+    public void setAll_activity(int all_activity) {
+        this.all_activity = all_activity;
+    }
 
     public boolean isSuccess() {
         return success;
@@ -120,7 +130,7 @@ public class UserProfile implements Serializable {
         private String city;
         private int age_range_from;
         private int age_range_to;
-        private int fb_id;
+        private long fb_id;
         private long mobile;
         private int mobile_verified;
         private int mobile_verification_code;
@@ -136,8 +146,8 @@ public class UserProfile implements Serializable {
         private int photo_uploaded;
         private int active;
         private int private_account;
-        private int current_lat;
-        private int current_lon;
+        private double current_lat;
+        private double current_lon;
         private int radius;
         private int registration_complete;
         private String device_token;
@@ -277,11 +287,11 @@ public class UserProfile implements Serializable {
             this.age_range_to = age_range_to;
         }
 
-        public int getFb_id() {
+        public long getFb_id() {
             return fb_id;
         }
 
-        public void setFb_id(int fb_id) {
+        public void setFb_id(long fb_id) {
             this.fb_id = fb_id;
         }
 
@@ -405,19 +415,19 @@ public class UserProfile implements Serializable {
             this.private_account = private_account;
         }
 
-        public int getCurrent_lat() {
+        public double getCurrent_lat() {
             return current_lat;
         }
 
-        public void setCurrent_lat(int current_lat) {
+        public void setCurrent_lat(double current_lat) {
             this.current_lat = current_lat;
         }
 
-        public int getCurrent_lon() {
+        public double getCurrent_lon() {
             return current_lon;
         }
 
-        public void setCurrent_lon(int current_lon) {
+        public void setCurrent_lon(double current_lon) {
             this.current_lon = current_lon;
         }
 

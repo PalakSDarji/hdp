@@ -142,6 +142,13 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         sp = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
         editor = sp.edit();
         albumStorageDirFactory = new BaseAlbumDirFactory();
+        slider = (SliderLayout)findViewById(R.id.slider);
+
+
+        slider.setPresetTransformer(SliderLayout.Transformer.Default);
+        slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        //slider.setCustomAnimation(new DescriptionAnimation());
+        slider.setDuration(4000);
 
         if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
             llFollowUnfollow.setVisibility(View.GONE);
@@ -168,6 +175,11 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 userBean.setMobile(jsonObject.getLong("mobile"));
                 userBean.setZodiac(jsonObject.getString("zodiac"));
                 userBean.setProfile_photo(jsonObject.getString("profile_photo"));
+                userBean.setProfile_photo_1(jsonObject.getString("profile_photo_1"));
+                userBean.setProfile_photo_2(jsonObject.getString("profile_photo_2"));
+                userBean.setProfile_photo_3(jsonObject.getString("profile_photo_3"));
+                userBean.setProfile_photo_4(jsonObject.getString("profile_photo_4"));
+                userBean.setProfile_photo_5(jsonObject.getString("profile_photo_5"));
                 userBean.setPrivate_account(jsonObject.getInt("private_account"));
                 userBean.setDob(jsonObject.getString("dob"));
                 userBean.setAge(jsonObject.getInt("age"));
@@ -203,10 +215,12 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 if (tvActivityVal.getText().toString().equals("0")) {
 
                 } else {
-                    Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
-                    intent.putExtra("data", activityData);
+                    if(activityData.equals("")) {
+                        Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
+                        intent.putExtra("data", activityData);
 
-                    startActivity(intent);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -257,35 +271,6 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         InstagramAdapter instaAdapter = new InstagramAdapter(instaContacts);
         //rvRecentInstagram.setAdapter(instaAdapter);
 
-        slider = (SliderLayout)findViewById(R.id.slider);
-
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        url_maps.put("a", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        url_maps.put("b", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
-        url_maps.put("c", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-        url_maps.put("d", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
-
-        for(String name : url_maps.keySet()){
-            TextSliderView textSliderView = new TextSliderView(this);
-            // initialize a SliderLayout
-            textSliderView
-                    .description("")
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
-                    .setOnSliderClickListener(ProfileActivity.this);
-
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
-
-            slider.addSlider(textSliderView);
-        }
-
-        slider.setPresetTransformer(SliderLayout.Transformer.Default);
-        slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        //slider.setCustomAnimation(new DescriptionAnimation());
-        slider.setDuration(4000);
         /*slider.addOnPageChangeListener(this);
         ListView l = (ListView)findViewById(R.id.transformers);
         l.setAdapter(new TransformerAdapter(this));
@@ -445,12 +430,17 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 if (userProfile.isSuccess()) {
 
                     userBean = userProfile.getUser();
-                    activityBeanX = userProfile.getActivity();
                     setData(userBean);
-                    tvActivityVal.setText("" + activityBeanX.size());
-
-                    activityData = response;
                     userProfile1 = userProfile;
+                    if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+                        tvActivityVal.setText("" + userProfile.getAll_activity());
+
+                    }else {
+                        activityBeanX = userProfile.getActivity();
+                        tvActivityVal.setText("" + activityBeanX.size());
+
+                        activityData = response;
+                    }
 
                 }
 
@@ -492,11 +482,41 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         setTextifNotEmpty(userBean.getLanuage_known(), tvLangSub);
         setTextifNotEmpty(userBean.getZodiac(), tvZodiac);
 
-        /*RequestManager requestManager = Glide.with(ProfileActivity.this);
-        requestManager.load(userBean.getProfile_photo())
-                .placeholder(R.color.c_efefef)
-                .error(R.color.c_efefef)
-                .into(ivProfilePic);*/
+        HashMap<String,String> url_maps = new HashMap<String, String>();
+
+        url_maps.put("a", userBean.getProfile_photo());
+        if(!((String) userBean.getProfile_photo_1()).equals("")){
+            url_maps.put("a", (String) userBean.getProfile_photo_1());
+        }
+        if(!((String) userBean.getProfile_photo_2()).equals("")){
+            url_maps.put("a", (String) userBean.getProfile_photo_2());
+        }
+        if(!((String) userBean.getProfile_photo_3()).equals("")){
+            url_maps.put("a", (String) userBean.getProfile_photo_3());
+        }
+        if(!((String) userBean.getProfile_photo_4()).equals("")){
+            url_maps.put("a", (String) userBean.getProfile_photo_4());
+        }
+        if(!((String) userBean.getProfile_photo_5()).equals("")){
+            url_maps.put("a", (String) userBean.getProfile_photo_5());
+        }
+
+        for(String name : url_maps.keySet()){
+            TextSliderView textSliderView = new TextSliderView(this);
+            // initialize a SliderLayout
+            textSliderView
+                    .description("")
+                    .image(url_maps.get(name))
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                    .setOnSliderClickListener(ProfileActivity.this);
+
+            //add your extra information
+            textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
+                    .putString("extra",name);
+
+            slider.addSlider(textSliderView);
+        }
 
         if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 

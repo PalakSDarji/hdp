@@ -50,15 +50,16 @@ public class ActivityThingsActivity extends AppCompatActivity {
         Gson gson = new Gson();
         UserProfile userProfile = gson.fromJson(getIntent().getExtras().getString("data"),UserProfile.class);
 
-        activityBeanX = userProfile.getActivity();
+        if(userProfile.getActivity()!=null) {
+            activityBeanX = userProfile.getActivity();
 
-        myRecycler = (RecyclerView)findViewById(R.id.myRecycler);
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        myRecycler.setLayoutManager(mLayoutManager);
+            myRecycler = (RecyclerView) findViewById(R.id.myRecycler);
+            final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            myRecycler.setLayoutManager(mLayoutManager);
 
-        myRecycler.setAdapter(new CustomAdapter());
-    }
+            myRecycler.setAdapter(new CustomAdapter());
+        }}
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";

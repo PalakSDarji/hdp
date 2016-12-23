@@ -252,14 +252,14 @@ public class ShowCardsNew extends Fragment {
                         Intent intent = new Intent(getActivity(), ProfileActivity.class);
                         //intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
                         intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.OTHERS_PROFILE);
-                        intent.putExtra(AppConstants.FETCH_USER_KEY, dataModel.getUser().getId());
+                        intent.putExtra(AppConstants.FETCH_USER_KEY, String .valueOf(dataModel.getUser().getId()));
                         startActivity(intent);
                         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 });
 
                 viewHolder.tvActivityName.setText(dataModel.getActivity_details().getActivity_name());
-                viewHolder.tvActivtyTime.setText(dataModel.getActivity_time());
+                viewHolder.tvActivtyTime.setText(AppConstants.formatDate(dataModel.getActivity_time(),"HH:mm","hh:mm a"));
                 viewHolder.tvActivtyDate.setText(convertDate(dataModel.getActivity_date()));
                 viewHolder.tvAddress.setText(dataModel.getActivity_location());
                 viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size()) + " Going");
@@ -267,7 +267,7 @@ public class ShowCardsNew extends Fragment {
 
 
                 Glide.with(context)
-                        .load("https://scontent.xx.fbcdn.net/v/t1.0-1/13432225_110801492677897_9011418194403241842_n.jpg?oh=07c475711f2346d934404d5110c5a0e7&oe=58FC083A")
+                        .load(dataModel.getUser().getProfile_photo_thumbnail())
                         .placeholder(R.drawable.bg_item_above)
                         .error(R.drawable.bg_item_above)
                         .into(viewHolder.coverImage);
