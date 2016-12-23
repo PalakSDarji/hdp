@@ -3,8 +3,10 @@ package com.hadippa.fragments.search;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -252,45 +254,46 @@ public class SearchPeople extends Fragment {
 
     public void showPopupDialog(final SearchModel.UsersBean peopleModel) {
 
-        final View view = getActivity().getLayoutInflater().inflate(R.layout.peek_view, null);
+        try {
+            final View view = getActivity().getLayoutInflater().inflate(R.layout.peek_view, null);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle);
-        builder.setView(view);
-        builder.setMessage(null);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AppCompatAlertDialogStyle);
+            builder.setView(view);
+            builder.setMessage(null);
 
-        llFollowUnfollow = (LinearLayout) view.findViewById(R.id.llFollowUnfollow);
-        ivFollowUnfollow = (ImageView) view.findViewById(R.id.ivFollowUnfollow);
+            llFollowUnfollow = (LinearLayout) view.findViewById(R.id.llFollowUnfollow);
+            ivFollowUnfollow = (ImageView) view.findViewById(R.id.ivFollowUnfollow);
 
 
-        tvFollowUnfollow = (TextView) view.findViewById(R.id.tvFollowUnfollow);
-        ((TextView) view.findViewById(R.id.tvName_Age)).setText(peopleModel.getFirst_name() + " " + peopleModel.getLast_name());
-        ((TextView) view.findViewById(R.id.tvName_Age)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(alertDialog != null && alertDialog.isShowing()) alertDialog.dismiss();
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.OTHERS_PROFILE);
-                intent.putExtra(AppConstants.FETCH_USER_KEY,String.valueOf(peopleModel.getId()));
-                //TODO pass id
-                startActivity(intent);
+            tvFollowUnfollow = (TextView) view.findViewById(R.id.tvFollowUnfollow);
+            ((TextView) view.findViewById(R.id.tvName_Age)).setText(peopleModel.getFirst_name() + " " + peopleModel.getLast_name());
+            ((TextView) view.findViewById(R.id.tvName_Age)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (alertDialog != null && alertDialog.isShowing()) alertDialog.dismiss();
+                    Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                    intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.OTHERS_PROFILE);
+                    intent.putExtra(AppConstants.FETCH_USER_KEY, String.valueOf(peopleModel.getId()));
+                    //TODO pass id
+                    startActivity(intent);
 
+                }
+            });
+
+
+            if ((peopleModel.getUser_relationship_status().equals("Following") ||
+                    peopleModel.getUser_relationship_status().equals("Connected"))) {
+                tvFollowUnfollow.setText("Following");
+                tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+                llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
+                ivFollowUnfollow.setImageDrawable(getResources().getDrawable(R.drawable.ic_user_following));
+            } else {
+
+                tvFollowUnfollow.setText("Follow");
+                tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+                llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                ivFollowUnfollow.setImageDrawable(getResources().getDrawable(R.drawable.ic_user_follow));
             }
-        });
-
-
-
-        if ((peopleModel.getUser_relationship_status().equals("Following") ||
-                peopleModel.getUser_relationship_status().equals("Connected"))) {
-            tvFollowUnfollow.setText("Following");
-            tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
-            llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
-            ivFollowUnfollow.setImageDrawable(getResources().getDrawable(R.drawable.ic_user_following));
-        } else {
-
-            tvFollowUnfollow.setText("Follow");
-            tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
-            llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
-            ivFollowUnfollow.setImageDrawable(getResources().getDrawable(R.drawable.ic_user_follow));}
 
       /*  if (peopleModel.getUser_relationship_status() != null && peopleModel.getUser_relationship_status().equals("Following")) {
 
@@ -300,46 +303,53 @@ public class SearchPeople extends Fragment {
             setFollowButtonView(false);
         }
 */
-        llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //cancelThisDialog();
+            llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //cancelThisDialog();
 
-                if((peopleModel.getUser_relationship_status().equals("Following") ||
-                        peopleModel.getUser_relationship_status().equals("Connected"))) {
-                    setFollowButtonView(false);
-                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_UNFOLLOW,
-                            String.valueOf(peopleModel.getId()));
+                    if ((peopleModel.getUser_relationship_status().equals("Following") ||
+                            peopleModel.getUser_relationship_status().equals("Connected"))) {
+                        setFollowButtonView(false);
+                        follow_Unfollow(peopleModel, AppConstants.CONNECTION_UNFOLLOW,
+                                String.valueOf(peopleModel.getId()));
+                    } else {
+                        setFollowButtonView(true);
+                        follow_Unfollow(peopleModel, AppConstants.CONNECTION_FOLLOW, String.valueOf(peopleModel.getId()));
+                    }
                 }
-                else{
-                    setFollowButtonView(true);
-                    follow_Unfollow(peopleModel,AppConstants.CONNECTION_FOLLOW, String.valueOf(peopleModel.getId()));
-                }
-            }
-        });
+            });
 
-        Glide.with(context)
-                .load(peopleModel.getProfile_photo())
-                .into((SquareImageView) view.findViewById(R.id.image));
+            Glide.with(context)
+                    .load(peopleModel.getProfile_photo())
+                    .into((SquareImageView) view.findViewById(R.id.image));
 
-        alertDialog = builder.create();
-        alertDialog.show();
+            alertDialog = builder.create();
+            alertDialog.show();
+        }catch (Exception e){
 
+        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void setFollowButtonView(boolean isFollowing){
 
         if(isFollowing){
             tvFollowUnfollow.setText(getResources().getString(R.string.following));
+            tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+            // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+            llFollowUnfollow.setBackground(getResources().getDrawable(R.drawable.rounded_following));
+            ivFollowUnfollow.setVisibility(View.VISIBLE);
             ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
-            llFollowUnfollow.setSelected(true);
-            tvFollowUnfollow.setSelected(true);
+            llFollowUnfollow.setVisibility(View.VISIBLE);
+
         }
         else{
             tvFollowUnfollow.setText(getResources().getString(R.string.follow));
+            tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+            llFollowUnfollow.setBackground(getResources().getDrawable(R.drawable.rounded_followers));
+            ivFollowUnfollow.setVisibility(View.VISIBLE);
             ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
-            tvFollowUnfollow.setSelected(false);
-            llFollowUnfollow.setSelected(false);
         }
     }
     public void follow_Unfollow(SearchModel.UsersBean peopleModel,String type, String id) {
@@ -387,8 +397,6 @@ public class SearchPeople extends Fragment {
         @Override
         public void onProgress(long bytesWritten, long totalSize) {
             super.onProgress(bytesWritten, totalSize);
-            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
 
         }
 

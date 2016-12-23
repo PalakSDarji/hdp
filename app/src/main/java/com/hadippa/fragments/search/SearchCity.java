@@ -449,7 +449,7 @@ public class SearchCity extends Fragment {
 
                 bean.setName(jsonObject1.getString("name"));
                 bean.setId(jsonObject1.getInt("id"));
-                bean.setState_id(jsonObject1.getInt("state_id"));
+                bean.setState_name(jsonObject1.getString("state"));
                 bean.setHeader(false);
                 locationSuggestionsBeen.add(bean);
             }

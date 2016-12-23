@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
@@ -128,10 +129,22 @@ public class ChatListActivity extends AppCompatActivity {
 
             final ChatMainList.ThreadsBean contact = alContacts.get(position);
 
-            viewHolder.name.setText(contact.getSubject());
+            //             * date : 2016-12-23 23:12:42.000000
 
+          //  if(contact.getChat_type()==0){
+                viewHolder.name.setText(contact.getSubject());
+          //  }else{
 
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+         //   }
+
+            viewHolder.lastMsg.setText(contact.getLast_msg());
+            viewHolder.tvDate.setText(contact.getLast_message_time().getDate().split(" ")[1].substring(0,5));
+
+            RequestManager requestManager = Glide.with(ChatListActivity.this);
+
+            requestManager.load(contact.getProfile_photo_thumbnail()).error(R.drawable.place_holder).placeholder(R.drawable.place_holder).into(viewHolder.profileImage);
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ChatListActivity.this,ChatActivity.class);
@@ -153,7 +166,7 @@ public class ChatListActivity extends AppCompatActivity {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         //Dummy
-        private TextView name;
+        private TextView name,lastMsg,tvDate;
         private RoundedImageView profileImage;
 
         public ViewHolder(final View v) {
@@ -170,6 +183,8 @@ public class ChatListActivity extends AppCompatActivity {
             });
 
             name = (TextView) v.findViewById(R.id.name);
+            lastMsg = (TextView) v.findViewById(R.id.lastMsg);
+            tvDate = (TextView) v.findViewById(R.id.tvDate);
             profileImage = (RoundedImageView)v.findViewById(R.id.profileImage);
         }
     }

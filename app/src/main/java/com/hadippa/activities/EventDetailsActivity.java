@@ -329,13 +329,14 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                 String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
-                if(strHrsToShow.length()==1){
+             /*   if(strHrsToShow.length()==1){
                     strHrsToShow = "0"+strHrsToShow;
                 }
+*/
                 String min = String.valueOf(selectedMinute);
-                if(String.valueOf(selectedMinute).length() == 1){
+                /*if(String.valueOf(selectedMinute).length() == 1){
                     min = "0"+String.valueOf(selectedMinute);
-                }
+                }*/
 
 
                 tvVisitingTime.setText(strHrsToShow + ":" + min+" "+am_pm);
@@ -408,6 +409,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             requestParams.add("invite_list", selectedList.toString().replace("[","").replace("]",""));
             requestParams.add("hide_from", hide_from);
             Log.d("date>>", requestParams.toString());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

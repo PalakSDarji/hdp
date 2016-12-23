@@ -1,5 +1,7 @@
 package com.hadippa.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -120,6 +122,7 @@ public class SearchModel {
             private int has_new_ad_format;
             private int is_state;
             private int state_id;
+            @SerializedName("state")
             private String state_name;
             private String state_code;
             private boolean isHeader;

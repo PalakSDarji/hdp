@@ -354,9 +354,6 @@ public class CreateActivityActvity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Log.d("convertTime12TO24",selectedDate);
-                Log.d("convertTime12TO24",convertTime12TO24(tvAvailableTill.getText().toString()));
-                Log.d("convertTime12TO24",convertTime12TO24(tvVisitingTime.getText().toString()));
                 post();
             }
         });
@@ -525,15 +522,15 @@ public class CreateActivityActvity extends AppCompatActivity {
 
                 String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
-                if(strHrsToShow.length()==1){
+                /*if(strHrsToShow.length()==1){
                     strHrsToShow = "0"+strHrsToShow;
                 }
-
+*/
                 String min = String.valueOf(selectedMinute);
-                if(String.valueOf(selectedMinute).length() == 1){
+  /*              if(String.valueOf(selectedMinute).length() == 1){
                     min = "0"+String.valueOf(selectedMinute);
                 }
-
+*/
 
                 tvVisitingTime.setText(strHrsToShow+":"+min+" "+am_pm);
 
@@ -557,14 +554,14 @@ public class CreateActivityActvity extends AppCompatActivity {
 
                 String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
-                if(strHrsToShow.length()==1){
+                /*if(strHrsToShow.length()==1){
                     strHrsToShow = "0"+strHrsToShow;
-                }
+                }*/
                 String min = String.valueOf(selectedMinute);
-                if(String.valueOf(selectedMinute).length() == 1){
+               /* if(String.valueOf(selectedMinute).length() == 1){
                     min = "0"+String.valueOf(selectedMinute);
                 }
-
+*/
 
                 tvAvailableTill.setText(strHrsToShow+ ":"+min+" "+am_pm);
             }
@@ -585,9 +582,9 @@ public class CreateActivityActvity extends AppCompatActivity {
             requestParams.add("access_token", sharedPreferences.getString("access_token", ""));
             requestParams.add("activity_type", String.valueOf(getIntent().getExtras().getInt("activity_id")));
             requestParams.add("activity_name", name.getText().toString());
-            requestParams.add("activity_date", selectedDate + " " + convertTime12TO24(tvVisitingTime.getText().toString()));
+            requestParams.add("activity_date",selectedDate + " " + convertTime12TO24(tvVisitingTime.getText().toString()));
+            //requestParams.add("activity_date", );
             requestParams.add("activity_location", address.getText().toString());
-
             if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
 
                 requestParams.add("from", tvFrom.getText().toString());
@@ -691,12 +688,16 @@ public class CreateActivityActvity extends AppCompatActivity {
         try {
 
 
+            Log.d("dateIssue>>",timeNow);
             SimpleDateFormat inFormat = new SimpleDateFormat("hh:mm a");
             SimpleDateFormat outFormat = new SimpleDateFormat("HH:mm");
             String time24 = outFormat.format(inFormat.parse(timeNow));
-
+            Log.d("dateIssue>>",time24);
             return time24+":00";
         } catch (Exception e){
+            Log.d("dateIssue>>",e.toString());
+
+            Toast.makeText(CreateActivityActvity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
             return  "";
         }
     }

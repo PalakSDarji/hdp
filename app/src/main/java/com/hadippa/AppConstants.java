@@ -235,7 +235,7 @@ public class AppConstants {
                 .setWindowColor(context.getResources().getColor(R.color.pink))
                 .setLabel(message)
                 .setDimAmount(0.5f)
-                .setCancellable(false)
+                .setCancellable(true)
                 .setAnimationSpeed(2)
                 .show();
     }
@@ -292,6 +292,8 @@ public class AppConstants {
             String parsedDate = formatter.format(initDate);
             return parsedDate;
         }catch (Exception e){
+
+            Log.d("exception>>",e.getMessage());
             return "";
         }
 
