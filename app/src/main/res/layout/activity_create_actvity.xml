@@ -533,25 +533,6 @@
 
                 </LinearLayout>
 
-                <com.hadippa.CustomTextView
-                    android:id="@+id/tvAvailableTill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/rlAvaTill"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="@dimen/value_w32"
-                    android:layout_marginRight="@dimen/value_w32"
-                    android:layout_marginTop="@dimen/value_h31"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:hint="Tap here"
-                    android:textColor="@color/c_454545"
-                    android:textSize="@dimen/values_txt_16"
-                    app:customFont="@string/proxima_bold"
-                    />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -563,6 +544,21 @@
                     android:layout_marginTop="3dp"
                     android:background="@color/c_e8e6e7"
                     />
+
+                <com.hadippa.CustomTextView
+                    android:id="@+id/tvAvailableTill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:hint="Tap here"
+                    android:textColor="@color/c_454545"
+                    android:textSize="@dimen/values_txt_16"
+                    app:customFont="@string/proxima_bold"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true" />
 
 
             </RelativeLayout>

@@ -212,6 +212,9 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             @Override
             public void onClick(View v) {
 
+                if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+                    return;
+                }
                 if (tvActivityVal.getText().toString().equals("0")) {
 
                 } else {

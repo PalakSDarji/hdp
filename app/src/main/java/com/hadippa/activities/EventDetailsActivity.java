@@ -141,7 +141,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 Double.parseDouble(getIntent().getExtras().getString("longitude")),
                 (dataBean.getLatitude()),
                 (dataBean.getLongitude())) + " kms");
-
+        tvDescriptionVal.setText(dataBean.getDescription());
         /*if(dataBean.getBannerPath().isEmpty() || dataBean.getBannerPath().equals("")){
 
             profileImage.setImageResource(R.drawable.place_holder);
