@@ -175,6 +175,8 @@ public class CreateActivityActvity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         selectedList.clear();
+
+
         dateFormatter = new SimpleDateFormat("MMM", Locale.US);
 
         activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY, 0);
