@@ -1,1 +1,1 @@
-include ':app', ':cardstack', ':dialogplus', ':library'
+include ':app', ':cardstack', ':dialogplus', ':library', ':kprogresshud'
