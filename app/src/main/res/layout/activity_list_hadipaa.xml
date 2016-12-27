@@ -86,7 +86,7 @@
                     android:layout_weight="70"
                     android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/standup_comedy"
-                    android:textSize="@dimen/values_txt_16"
+                    android:textSize="@dimen/values_txt_12"
                     android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
                 <com.hadippa.CustomTextView
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textSize="@dimen/values_txt_16"
+                    android:textSize="@dimen/values_txt_12"
                     android:layout_weight="30"
                     android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/party"
@@ -121,7 +121,7 @@
                     android:layout_weight="40"
                     android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/live_music"
-                    android:textSize="@dimen/values_txt_16"
+                    android:textSize="@dimen/values_txt_12"
                     android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
                 <com.hadippa.CustomTextView
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textSize="@dimen/values_txt_16"
+                    android:textSize="@dimen/values_txt_12"
                     android:layout_weight="60"
                     android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/adventure_sports"
@@ -155,8 +155,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="65"
                     android:background="@drawable/rounded_list_with_selected"
-                    android:text="@string/theatre_party"
-                    android:textSize="@dimen/values_txt_16"
+                    android:text="@string/theatre_play"
+                    android:textSize="@dimen/values_txt_12"
                     android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
                 <com.hadippa.CustomTextView
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textSize="@dimen/values_txt_16"
+                    android:textSize="@dimen/values_txt_12"
                     android:layout_weight="35"
                     android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/event"
@@ -192,7 +192,57 @@
                     android:layout_weight="60"
                     android:background="@drawable/rounded_list_with_selected"
                     android:text="@string/hobby_classes"
-                    android:textSize="@dimen/values_txt_16"
+                    android:textSize="@dimen/values_txt_12"
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
+
+                <com.hadippa.CustomTextView
+                    app:customFont="@string/proxima_reg"
+                    android:id="@+id/tvFestival"
+                    style="@style/activity_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/rounded_list_with_selected"
+                    android:text="@string/festival"
+                    android:textSize="@dimen/values_txt_12"
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/value_h27"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <com.hadippa.CustomTextView
+                    app:customFont="@string/proxima_reg"
+                    android:id="@+id/tvIndoor"
+                    style="@style/activity_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:background="@drawable/rounded_list_with_selected"
+                    android:text="@string/indoor_sports"
+                    android:textSize="@dimen/values_txt_12"
+                    android:textColor="@color/selector_txt_list_with_hadipaa"/>
+
+                <com.hadippa.CustomTextView
+                    app:customFont="@string/proxima_reg"
+                    android:id="@+id/tvOutdoor"
+                    style="@style/activity_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/rounded_list_with_selected"
+                    android:text="@string/outdoor_sports"
+                    android:textSize="@dimen/values_txt_12"
                     android:textColor="@color/selector_txt_list_with_hadipaa"/>
 
             </LinearLayout>
