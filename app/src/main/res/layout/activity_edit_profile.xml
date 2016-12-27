@@ -276,6 +276,51 @@
                 android:layout_height="1dp"
                 android:background="@color/edittextborder"/>
 
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/etGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/value_h13"
+                android:paddingLeft="@dimen/value_w26"
+                android:paddingRight="@dimen/value_w26"
+                android:paddingTop="@dimen/value_h42"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:hint="Gender"
+                android:textColor="@color/c_303030"
+                android:textSize="@dimen/values_txt_13"
+                app:customFont="@string/proxima_reg"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/edittextborder"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/etDateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/value_h13"
+                android:paddingLeft="@dimen/value_w26"
+                android:paddingRight="@dimen/value_w26"
+                android:paddingTop="@dimen/value_h42"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:hint="Date of birth"
+                android:textColor="@color/c_303030"
+                android:textSize="@dimen/values_txt_13"
+                app:customFont="@string/proxima_reg"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/edittextborder"/>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -376,49 +421,6 @@
                 android:layout_height="1dp"
                 android:background="@color/edittextborder"/>
 
-            <com.hadippa.CustomTextView
-                android:id="@+id/etGender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/value_h13"
-                android:paddingLeft="@dimen/value_w26"
-                android:paddingRight="@dimen/value_w26"
-                android:paddingTop="@dimen/value_h42"
-                android:background="@android:color/transparent"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:hint="Gender"
-                android:textColor="@color/c_303030"
-                android:textSize="@dimen/values_txt_13"
-                app:customFont="@string/proxima_reg"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/edittextborder"/>
-
-            <com.hadippa.CustomTextView
-                android:id="@+id/etDateOfBirth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/value_h13"
-                android:paddingLeft="@dimen/value_w26"
-                android:paddingRight="@dimen/value_w26"
-                android:paddingTop="@dimen/value_h42"
-                android:background="@android:color/transparent"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:hint="Date of birth"
-                android:textColor="@color/c_303030"
-                android:textSize="@dimen/values_txt_13"
-                app:customFont="@string/proxima_reg"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/edittextborder"/>
 
             <View
                 android:layout_width="match_parent"

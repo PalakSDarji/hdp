@@ -689,11 +689,13 @@
                 android:layout_marginRight="@dimen/value_20"
                 android:layout_marginTop="@dimen/value_h42">
 
+
+                <!--android:text="@string/on_button_to_get_notify_long"-->
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvNotify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/on_button_to_get_notify_long"
+                    android:text="@string/on_button_new_text"
                     android:textColor="@color/c_464646"
                     android:layout_toLeftOf="@+id/switchCompat"
                     android:layout_marginRight="@dimen/value_10"

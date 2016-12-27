@@ -99,6 +99,8 @@
                     android:background="@android:color/transparent"
                     android:focusable="false"
                     android:hint="@string/search"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/c_a5a1a0"
                     android:textSize="@dimen/values_txt_11"
                     android:textStyle="normal"

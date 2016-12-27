@@ -247,7 +247,8 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
-            tvNotify.setText(getResources().getString(R.string.on_button_to_get_notify));
+            //tvNotify.setText(getResources().getString(R.string.on_button_to_get_notify));
+            tvNotify.setText(getResources().getString(R.string.on_button_new_text));
             ivArrow.setVisibility(View.GONE);
         } else if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
 
@@ -259,7 +260,8 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.select_date));
             tvVisTime.setText(getResources().getString(R.string.select_time));
             tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
-            tvNotify.setText(getResources().getString(R.string.want_to_receive_notification_for_same_activity));
+            /*tvNotify.setText(getResources().getString(R.string.want_to_receive_notification_for_same_activity));*/
+            tvNotify.setText(getResources().getString(R.string.on_button_new_text));
 
             tvFrom.setText(getIntent().getExtras().getString(AppConstants.TRAVEL_FROM_KEY));
             tvTo.setText(getIntent().getExtras().getString(AppConstants.TRAVEL_TO_KEY));

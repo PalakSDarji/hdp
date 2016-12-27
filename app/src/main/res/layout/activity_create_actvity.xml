@@ -32,14 +32,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/llInvite"
+            android:layout_toRightOf="@+id/imageBack"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
             android:text="@string/create_activity"
             android:textColor="@color/c_2f2f2f"
             android:textSize="@dimen/values_txt_16"
-            android:maxLines="1"
-            android:gravity="center"
-            android:ellipsize="end"
-            android:layout_toRightOf="@+id/imageBack"
-            android:layout_toLeftOf="@+id/llInvite"
             app:customFont="@string/proxima_bold"/>
 
         <LinearLayout
@@ -97,7 +97,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                   >
+                    >
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/profileImage"
@@ -106,10 +106,17 @@
                         android:layout_height="match_parent"
                         android:clickable="false"
                         android:focusable="false"
+                        android:padding="2dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/foof"
-                        android:padding="2dp"
                         app:riv_corner_radius="9dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_rounded_trans_black"
+                        />
+
                     <RelativeLayout
                         android:id="@+id/linearData"
                         android:layout_width="match_parent"
@@ -120,11 +127,15 @@
                         android:paddingLeft="@dimen/value_w32"
                         android:paddingRight="@dimen/value_w32">
 
+
                         <com.hadippa.CustomTextView
                             android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Amigos Cafe"
+                            android:maxWidth="@dimen/value_w470"
+                            android:ellipsize="end"
+                            android:maxLines="2"
                             android:textColor="@color/white"
                             android:textSize="@dimen/values_txt_13"
                             app:customFont="@string/proxima_bold"/>
@@ -136,6 +147,7 @@
                             android:layout_alignBaseline="@+id/name"
                             android:layout_marginLeft="@dimen/value_w17"
                             android:layout_toRightOf="@+id/name"
+                            android:layout_centerVertical="true"
                             android:background="@drawable/rounded_following_parrot"
                             android:gravity="center"
                             android:paddingBottom="@dimen/value_h10"
@@ -150,8 +162,10 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
                             android:layout_below="@+id/name"
                             android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/llKms"
                             android:orientation="vertical">
 
 
@@ -178,6 +192,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/llKms"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -240,8 +255,8 @@
                         android:layout_marginRight="@dimen/value_w32"
                         android:layout_marginTop="@dimen/value_h27"
                         android:layout_toLeftOf="@+id/imageArrow"
-                        android:text="Activity"
                         android:gravity="center"
+                        android:text="Activity"
                         android:textColor="@color/c_605e5f"
                         android:textSize="@dimen/values_txt_18"
                         app:customFont="@string/proxima_reg"/>
@@ -263,8 +278,8 @@
                         android:layout_marginLeft="@dimen/value_w32"
                         android:layout_marginRight="@dimen/value_w32"
                         android:layout_marginTop="@dimen/value_h27"
-                        android:gravity="center"
                         android:layout_toRightOf="@+id/imageArrow"
+                        android:gravity="center"
                         android:text="Activity"
                         android:textColor="@color/c_605e5f"
                         android:textSize="@dimen/values_txt_18"
@@ -279,11 +294,11 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/value_h27"
                     android:layout_marginTop="5dp"
-                    android:paddingLeft="@dimen/value_w32"
-                    android:paddingRight="@dimen/value_w32"
-                    android:maxLines="2"
                     android:ellipsize="end"
                     android:gravity="center"
+                    android:maxLines="2"
+                    android:paddingLeft="@dimen/value_w32"
+                    android:paddingRight="@dimen/value_w32"
                     android:text="Address"
                     android:textColor="@color/c_605e5f"
                     android:textSize="@dimen/values_txt_12"
@@ -357,12 +372,12 @@
                         android:id="@+id/etAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/ivLocation"
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:layout_marginRight="5dp"
                         android:singleLine="true"
-                        android:layout_toLeftOf="@+id/ivLocation"
                         android:text="Juhu Beach, Mumbai"
                         android:textColor="@color/c_464646"
                         android:textSize="@dimen/values_txt_14"
@@ -423,9 +438,9 @@
                         android:layout_marginTop="@dimen/value_h31"
                         android:background="@android:color/transparent"
                         android:clickable="true"
-                        android:maxLines="1"
                         android:ellipsize="end"
                         android:hint="@string/date"
+                        android:maxLines="1"
                         android:textColor="@color/c_454545"
                         android:textSize="@dimen/values_txt_16"
                         app:customFont="@string/proxima_bold"
@@ -470,12 +485,12 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvVisTime"
                         android:layout_centerHorizontal="true"
-                        android:hint="@string/time"
                         android:layout_marginLeft="@dimen/value_w32"
                         android:layout_marginRight="@dimen/value_w32"
                         android:layout_marginTop="@dimen/value_h31"
                         android:background="@android:color/transparent"
                         android:ellipsize="end"
+                        android:hint="@string/time"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textColor="@color/c_454545"
@@ -508,10 +523,10 @@
 
                 <LinearLayout
                     android:id="@+id/rlAvaTill"
-                    android:layout_centerHorizontal="true"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal">
 
                     <com.hadippa.CustomTextView
                         android:id="@+id/tvAvaTill"
@@ -526,9 +541,9 @@
 
                     <ImageView
                         android:id="@+id/ivArrow"
-                        android:layout_gravity="center"
                         android:layout_width="10dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:src="@drawable/available_till_arrow"/>
 
                 </LinearLayout>
@@ -549,16 +564,17 @@
                     android:id="@+id/tvAvailableTill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/rlAvaTill"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
+                    android:hint="Tap here"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:hint="Tap here"
                     android:textColor="@color/c_454545"
                     android:textSize="@dimen/values_txt_16"
-                    app:customFont="@string/proxima_bold"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true" />
+                    app:customFont="@string/proxima_bold"/>
 
 
             </RelativeLayout>
@@ -581,23 +597,23 @@
 
                 <LinearLayout
                     android:id="@+id/llPublicAndFollowing"
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/value_h15"
-                    android:paddingBottom="@dimen/value_h15"
                     android:layout_marginRight="@dimen/value_5"
-                    android:orientation="horizontal">
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/value_h15"
+                    android:paddingTop="@dimen/value_h15">
 
                     <ImageView
                         android:id="@+id/radio0"
                         style="@style/radio_style"
                         android:layout_width="@dimen/value_w36"
                         android:layout_height="@dimen/value_w36"
-                        android:clickable="false"
                         android:background="@drawable/custom_radio"
                         android:button="@android:color/transparent"
-                        android:checked="false"/>
+                        android:checked="false"
+                        android:clickable="false"/>
 
                     <com.hadippa.CustomTextView
                         android:layout_width="wrap_content"
@@ -613,23 +629,23 @@
 
                 <LinearLayout
                     android:id="@+id/llFollowing"
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/value_5"
-                    android:paddingTop="@dimen/value_h15"
+                    android:clickable="true"
+                    android:orientation="horizontal"
                     android:paddingBottom="@dimen/value_h15"
-                    android:orientation="horizontal">
+                    android:paddingTop="@dimen/value_h15">
 
                     <ImageView
                         android:id="@+id/radio1"
                         android:layout_width="@dimen/value_w36"
-                        android:clickable="false"
                         android:layout_height="@dimen/value_w36"
                         android:layout_marginLeft="@dimen/value_w17"
                         android:background="@drawable/custom_radio"
                         android:button="@android:color/transparent"
-                        android:checked="false"/>
+                        android:checked="false"
+                        android:clickable="false"/>
 
                     <com.hadippa.CustomTextView
                         android:layout_width="wrap_content"
@@ -646,21 +662,21 @@
 
                 <LinearLayout
                     android:id="@+id/llPublic"
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/value_h15"
+                    android:clickable="true"
+                    android:orientation="horizontal"
                     android:paddingBottom="@dimen/value_h15"
-                    android:orientation="horizontal">
+                    android:paddingTop="@dimen/value_h15">
 
                     <ImageView
                         android:id="@+id/radio2"
                         android:layout_width="@dimen/value_w36"
                         android:layout_height="@dimen/value_w36"
-                        android:clickable="false"
                         android:layout_marginLeft="@dimen/value_w17"
                         android:background="@drawable/custom_radio"
                         android:button="@android:color/transparent"
+                        android:clickable="false"
                         />
 
                     <com.hadippa.CustomTextView
@@ -679,23 +695,23 @@
 
             <LinearLayout
                 android:id="@+id/llCustom"
-                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/value_h15"
-                android:paddingBottom="@dimen/value_h15"
                 android:layout_marginRight="@dimen/value_5"
-                android:orientation="horizontal">
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/value_h15"
+                android:paddingTop="@dimen/value_h15">
 
                 <ImageView
                     android:id="@+id/radio3"
                     style="@style/radio_style"
                     android:layout_width="@dimen/value_w36"
                     android:layout_height="@dimen/value_w36"
-                    android:clickable="false"
                     android:background="@drawable/custom_radio"
                     android:button="@android:color/transparent"
-                    android:checked="false"/>
+                    android:checked="false"
+                    android:clickable="false"/>
 
                 <com.hadippa.CustomTextView
                     android:layout_width="wrap_content"
@@ -714,12 +730,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_h42">
 
+                <!--android:text="@string/want_to_receive_notification_for_same_activity"-->
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvNotify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/want_to_receive_notification_for_same_activity"
+                    android:text="@string/on_button_new_text"
                     android:textColor="@color/c_464646"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/switchCompat"
                     android:textSize="@dimen/values_txt_14"
                     app:customFont="@string/proxima_reg"/>
 
@@ -732,9 +751,9 @@
                     android:backgroundTint="@color/follow_color"
                     android:buttonTint="@color/follow_color"
                     android:checked="true"
+                    android:textColor="@color/pref_sub_text"
                     android:theme="@style/switchStyle"
-                    app:theme="@style/switchStyle"
-                    android:textColor="@color/pref_sub_text"/>
+                    app:theme="@style/switchStyle"/>
 
                 <!--
                 <ToggleButton

@@ -115,7 +115,7 @@ public class Preference extends Activity implements View.OnClickListener {
                 }
 
                 discreteBarkms.setProgress(Integer.parseInt(user_preference.getString("radius")));
-                tvDistance.setText(user_preference.getString("radius"));
+                tvDistance.setText(user_preference.getString("radius") + " km");
                 radius = user_preference.getString("radius");
 
                 /*rangeSeekBar.setSelectedMaxValue(Integer.parseInt(user_preference.getString("age_range_to")));

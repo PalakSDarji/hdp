@@ -370,9 +370,11 @@
                 <com.hadippa.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Notify to get the same activity\npost alert"
+                    android:text="@string/on_button_new_text"
                     android:textColor="@color/c_464646"
                     android:textSize="@dimen/values_txt_14"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/switchCompat"
                     app:customFont="@string/proxima_reg"/>
 
                 <android.support.v7.widget.SwitchCompat

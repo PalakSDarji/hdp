@@ -149,6 +149,8 @@
                 android:layout_toRightOf="@+id/tvBookMyShowIcon"
                 android:background="@android:color/transparent"
                 android:hint="@string/search_movies"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:paddingRight="10dp"
                 android:textColor="@color/c_b2aead"
                 android:textColorHint="@color/c_b2aead"
