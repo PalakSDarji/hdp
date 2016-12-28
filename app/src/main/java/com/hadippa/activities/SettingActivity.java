@@ -79,8 +79,12 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        blockList =  new ArrayList<>();
         ButterKnife.bind(this);
+
+        blockList =  new ArrayList<>();
+        blockList.add("");
+        blockList.add("");
+        blockList.add("");
 
         tvBlockList.setOnClickListener(new View.OnClickListener() {
             @Override
