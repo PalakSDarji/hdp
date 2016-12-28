@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_setting"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pref_bg"
+    tools:context="com.hadippa.activities.SettingActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/value_40"
+            android:layout_height="@dimen/value_28"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_back"/>
+
+        <com.hadippa.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/setting"
+            android:textColor="@color/c_2f2f2f"
+            android:textSize="@dimen/values_txt_18"
+            app:customFont="@string/proxima_bold"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/value_w17"
+            android:paddingBottom="@dimen/value_5"
+            android:paddingLeft="@dimen/value_5"
+            android:paddingTop="@dimen/value_5"
+            android:text="DONE"
+            android:textColor="@color/c_f25e5e"
+            android:textSize="@dimen/values_txt_16"
+            android:visibility="gone"
+            app:customFont="@string/proxima_bold"/>
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scContainer"
+        android:layout_width="match_parent"
+        android:background="#f8f8f8"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvBlockList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/value_16"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/value_16"
+                android:text="@string/block_list"
+                android:textColor="@color/pref_sub_text"
+                android:textSize="@dimen/pref_card_title_size"
+                android:textStyle="bold"
+                app:customFont="@string/proxima_bold"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcvBlockList"
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/c_a19fa0"/>
+
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvNotifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/value_16"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/value_16"
+                android:text="@string/notifications"
+                android:textColor="@color/pref_sub_text"
+                android:textSize="@dimen/pref_card_title_size"
+                android:textStyle="bold"
+                app:customFont="@string/proxima_bold"
+                />
+
+            <LinearLayout
+                android:id="@+id/llNotifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switchMessages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/pref_card_switch_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:backgroundTint="@color/follow_color"
+                    android:buttonTint="@color/follow_color"
+                    android:checked="true"
+                    android:text="Messages"
+                    android:textColor="@color/pref_sub_text"
+                    android:theme="@style/switchStyle"
+                    app:theme="@style/switchStyle"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switchNotify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/pref_card_switch_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:backgroundTint="@color/follow_color"
+                    android:buttonTint="@color/follow_color"
+                    android:checked="true"
+                    android:text="@string/notify"
+                    android:textColor="@color/pref_sub_text"
+                    android:theme="@style/switchStyle"
+                    app:theme="@style/switchStyle"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switchJoiningRequest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/pref_card_switch_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:backgroundTint="@color/follow_color"
+                    android:buttonTint="@color/follow_color"
+                    android:checked="true"
+                    android:text="@string/joining_request"
+                    android:textColor="@color/pref_sub_text"
+                    android:theme="@style/switchStyle"
+                    app:theme="@style/switchStyle"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switchAllAlert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:backgroundTint="@color/follow_color"
+                    android:buttonTint="@color/follow_color"
+                    android:checked="true"
+                    android:paddingBottom="@dimen/value_16"
+                    android:text="@string/all_alert"
+                    android:textColor="@color/pref_sub_text"
+                    android:theme="@style/switchStyle"
+                    app:theme="@style/switchStyle"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/c_a19fa0"/>
+
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvFAQ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/value_16"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/value_16"
+                android:text="@string/f_amp_q"
+                android:textColor="@color/pref_sub_text"
+                android:textSize="@dimen/pref_card_title_size"
+                android:textStyle="bold"
+                app:customFont="@string/proxima_bold"
+                />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/c_a19fa0"/>
+
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvPrivacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/value_16"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/value_16"
+                android:text="@string/privacy_policy"
+                android:textColor="@color/pref_sub_text"
+                android:textSize="@dimen/pref_card_title_size"
+                android:textStyle="bold"
+                app:customFont="@string/proxima_bold"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/c_a19fa0"/>
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/value_16"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/value_16"
+                android:text="@string/logout"
+                android:textColor="@color/pref_sub_text"
+                android:textSize="@dimen/pref_card_title_size"
+                android:textStyle="bold"
+                app:customFont="@string/proxima_bold"
+                />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>
