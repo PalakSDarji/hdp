@@ -28,6 +28,7 @@ import java.util.Locale;
 
 public class ActivityThingsActivity extends AppCompatActivity {
 
+    //Demo Github
     RecyclerView myRecycler;
     ImageView imageBack;
     List<UserProfile.ActivityBeanX> activityBeanX;
