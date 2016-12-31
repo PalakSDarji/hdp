@@ -588,7 +588,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             requestParams.add("access_token", sharedPreferences.getString("access_token", ""));
             requestParams.add("activity_type", String.valueOf(getIntent().getExtras().getInt("activity_id")));
             requestParams.add("activity_name", name.getText().toString());
-            requestParams.add("activity_date",selectedDate + " " + convertTime12TO24(tvVisitingTime.getText().toString()));
+            requestParams.add("activity_date",selectedDate + " " + convertTime12TO24(tvVisitingTime.getText().toString().trim()));
             //requestParams.add("activity_date", );
             requestParams.add("activity_location", address.getText().toString());
             if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
@@ -608,7 +608,7 @@ public class CreateActivityActvity extends AppCompatActivity {
                     getIntent().getExtras().getInt("activity_id") == 5 ||
                     getIntent().getExtras().getInt("activity_id") == 6 ||
                     getIntent().getExtras().getInt("activity_id") == 7) {
-                requestParams.add("available_till", selectedDate + " " + convertTime12TO24(tvAvailableTill.getText().toString()));
+                requestParams.add("available_till", selectedDate + " " + convertTime12TO24(tvAvailableTill.getText().toString().trim()));
             }
 
             if (activityKey == AppConstants.ACTIVITY_FROM_COFFEE ||

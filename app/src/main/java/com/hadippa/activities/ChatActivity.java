@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.IntegerRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -73,13 +75,14 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.rlGroupDetail)
     RelativeLayout rlGroupDetail;
 
-    ChatDBHelper chatDBHelper ;
+    ChatDBHelper chatDBHelper;
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     public static int threadId = -1;
 
     ChatAdapter chatAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,10 +120,10 @@ public class ChatActivity extends AppCompatActivity {
         etChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(chatAdapter != null){
-                    if(chatAdapter.getItemCount()>0){
+                if (chatAdapter != null) {
+                    if (chatAdapter.getItemCount() > 0) {
 
-                        mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                        mRecyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
 
                     }
                 }
@@ -133,16 +136,20 @@ public class ChatActivity extends AppCompatActivity {
 
                 if (etChat.getText().toString().trim().length() > 0) {
                     //  sendNewMessage();
+                    int tempID = (int) new Date().getTime() / 1000;
 
                     if (getIntent().getExtras().getBoolean("newChat")) {
+
                         if (!chatInitiated) {
-                            createChat(etChat.getText().toString(), getIntent().getExtras().getString("userid"));
+                            createChat(tempID, etChat.getText().toString(), getIntent().getExtras().getString("userid"));
                         } else {
-                            updateMessage(String.valueOf(threadId), etChat.getText().toString());
+                            chatInitiated = true;
+                            updateMessage(tempID, String.valueOf(threadId), etChat.getText().toString());
                         }
 
-                    }else{
-                        updateMessage(String.valueOf(getIntent().getExtras().getInt("threadId")),
+                    } else {
+                        chatInitiated = true;
+                        updateMessage(tempID, String.valueOf(getIntent().getExtras().getInt("threadId")),
                                 etChat.getText().toString());
                     }
                 }
@@ -151,21 +158,20 @@ public class ChatActivity extends AppCompatActivity {
 
 
         if (getIntent().getExtras().getBoolean("newChat")) {
-
+            chatAdapter = new ChatAdapter(-1);
+            mRecyclerView.setAdapter(chatAdapter);
 
         } else {
-
-
             chatAdapter = new ChatAdapter(getIntent().getExtras().getInt("threadId"));
             mRecyclerView.setAdapter(chatAdapter);
-            mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
-         //   alMessages = chatDBHelper.fetchMessagesFromThread();
+            mRecyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
+            //alMessages = chatDBHelper.fetchMessagesFromThread();
         }
 
-        NotificationManager manager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancelAll();
 
-        //     mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+        //mRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
     }
 
     private void showChat(String thread_id) {
@@ -256,7 +262,7 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    private void updateMessage(String thread_id, String message) {
+    private void updateMessage(int tempID, String thread_id, String message) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -264,10 +270,32 @@ public class ChatActivity extends AppCompatActivity {
 
         try {
 
+            requestParams.add("temp_msg_id", String.valueOf(tempID));
             requestParams.add("access_token", sp.getString("access_token", ""));
             requestParams.add("thread_id", thread_id);
             requestParams.add("message", message);
             requestParams.add("msg_type", AppConstants.MESSAGE_TYPE_TEXT);
+
+            JSONObject jsonObject = new JSONObject(sp.getString("userData", ""));
+
+            MessageModel.ThreadBean.MessagesBean.UserBean userbean = new MessageModel.ThreadBean.MessagesBean.UserBean();
+            userbean.setFirst_name(jsonObject.getString("first_name"));
+            userbean.setLast_name(jsonObject.getString("last_name"));
+            userbean.setProfile_photo(jsonObject.getString("profile_photo"));
+
+            MessageModel.ThreadBean.MessagesBean messagesBean = new MessageModel.ThreadBean.MessagesBean();
+            messagesBean.setBody(message);
+            messagesBean.setId(tempID);
+            messagesBean.setUser(userbean);
+            messagesBean.setMessage_type("");
+            messagesBean.setCreated_at("");
+            messagesBean.setUpdated_at("");
+            messagesBean.setThread_id(Integer.parseInt(thread_id));
+
+            chatDBHelper.insertMessage(messagesBean, 1);
+            chatAdapter.addData(messagesBean);
+
+            etChat.setText("");
 
 
             Log.d("request>>", requestParams.toString());
@@ -316,11 +344,11 @@ public class ChatActivity extends AppCompatActivity {
 
                     MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(jsonObject.getString("msg_data"), MessageModel.ThreadBean.MessagesBean.class);
 
-                    chatDBHelper.insertMessage(messagesBean,1);
+                    chatAdapter.thread_id = messagesBean.getThread_id();
 
-                    chatAdapter.addData(messagesBean);
+                    chatDBHelper.updateTempMessage(jsonObject.getInt("temp_msg_id"), messagesBean, 1);
+                    chatAdapter.updateData(jsonObject.getInt("temp_msg_id"), messagesBean);
 
-                    etChat.setText("");
                     //  showChat(String.valueOf(getIntent().getExtras().getInt("threadId")));
                     Log.d("response>>", response);
                     //post json stored g\here
@@ -347,7 +375,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-   public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
+    public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         private List<MessageModel.ThreadBean.MessagesBean> items = new ArrayList<>();
         int thread_id;
@@ -355,21 +383,43 @@ public class ChatActivity extends AppCompatActivity {
         public ChatAdapter(int thread_id) {
             this.thread_id = thread_id;
 
-            items.addAll(chatDBHelper.fetchMessagesFromThread(thread_id));
+            if (thread_id != -1) {
+                items.addAll(chatDBHelper.fetchMessagesFromThread(thread_id));
+            }
         }
 
 
-        public void addData(MessageModel.ThreadBean.MessagesBean  messagesBean){
+        public void addData(MessageModel.ThreadBean.MessagesBean messagesBean) {
 
-            if(messagesBean.getThread_id() == thread_id){
+
+            if (messagesBean.getThread_id() == -1) {
+
+                items.add(messagesBean);
+                notifyItemInserted(getItemCount() - 1);
+                mRecyclerView.scrollToPosition(getItemCount() - 1);
+
+            } else if (messagesBean.getThread_id() == thread_id) {
+
                 chatDBHelper.updateMessage(thread_id);
                 items.add(messagesBean);
-                notifyItemInserted(getItemCount()-1);
-                mRecyclerView.scrollToPosition(getItemCount()-1);
-            }else {
+                notifyItemInserted(getItemCount() - 1);
+                mRecyclerView.scrollToPosition(getItemCount() - 1);
+
+            } else {
                 //chatDBHelper.insertMessage(messagesBean, 0);
             }
+        }
 
+
+        public void updateData(int tempId, MessageModel.ThreadBean.MessagesBean messagesBean) {
+
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getId() == tempId) {
+                    items.set(i, messagesBean);
+                    notifyItemChanged(i);
+                    break;
+                }
+            }
         }
 
 
@@ -392,8 +442,13 @@ public class ChatActivity extends AppCompatActivity {
             MessageModel.ThreadBean.MessagesBean item = items.get(position);
             holder.tvText.setText(item.getBody());
             holder.tvName.setText(item.getUser().getFirst_name());
-            holder.tvDate.setText(AppConstants.formatDate(item.getCreated_at(),"yyyy-mm-dd hh:mm:ss","hh:mm"));
 
+            if (item.getCreated_at() == null || item.getCreated_at().equals("")) {
+                holder.tvDate.setVisibility(View.GONE);
+            } else {
+                holder.tvDate.setVisibility(View.VISIBLE);
+                holder.tvDate.setText(AppConstants.formatDate(item.getCreated_at(), "yyyy-mm-dd hh:mm:ss", "hh:mm"));
+            }
             holder.itemView.setTag(item);
 
 
@@ -415,7 +470,7 @@ public class ChatActivity extends AppCompatActivity {
                 image = (ImageView) itemView.findViewById(R.id.image);
                 tvText = (TextView) itemView.findViewById(R.id.tvText);
                 tvName = (TextView) itemView.findViewById(R.id.tvName);
-                tvDate = (CustomTextView)itemView.findViewById(R.id.tvDate);
+                tvDate = (CustomTextView) itemView.findViewById(R.id.tvDate);
             }
         }
 
@@ -447,7 +502,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    private void createChat(String msg, String receiver) {
+    private void createChat(int tempID, String msg, String receiver) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -455,13 +510,35 @@ public class ChatActivity extends AppCompatActivity {
 
         try {
 
+            requestParams.add("temp_msg_id", String.valueOf(tempID));
             requestParams.add("access_token", sp.getString("access_token", ""));
             requestParams.add("message", msg);
             requestParams.add("receiver_id", receiver);
             requestParams.add("msg_type", AppConstants.MESSAGE_TYPE_TEXT);
 
+            JSONObject jsonObject = new JSONObject(sp.getString("userData", ""));
+
+            MessageModel.ThreadBean.MessagesBean.UserBean userbean = new MessageModel.ThreadBean.MessagesBean.UserBean();
+            userbean.setFirst_name(jsonObject.getString("first_name"));
+            userbean.setLast_name(jsonObject.getString("last_name"));
+            userbean.setProfile_photo(jsonObject.getString("profile_photo"));
+
+            MessageModel.ThreadBean.MessagesBean messagesBean = new MessageModel.ThreadBean.MessagesBean();
+            messagesBean.setBody(msg);
+            messagesBean.setId(tempID);
+            messagesBean.setUser(userbean);
+            messagesBean.setMessage_type("");
+            messagesBean.setCreated_at("");
+            messagesBean.setUpdated_at("");
+            messagesBean.setThread_id(-1);
+
+            chatDBHelper.insertMessage(messagesBean, 1);
+            chatAdapter.addData(messagesBean);
+
+            etChat.setText("");
 
             Log.d("request>>", requestParams.toString());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -475,7 +552,6 @@ public class ChatActivity extends AppCompatActivity {
         @Override
         public void onStart() {
             super.onStart();
-
             //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
 
         }
@@ -503,20 +579,17 @@ public class ChatActivity extends AppCompatActivity {
                 if (jsonObject.getBoolean("success")) {
 
                     chatInitiated = true;
+                    threadId = jsonObject.getInt("thred_id");
                     MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(jsonObject.getString("msg_data"), MessageModel.ThreadBean.MessagesBean.class);
 
-                    chatDBHelper.insertMessage(messagesBean,1);
+                    chatAdapter.thread_id = messagesBean.getThread_id();
+                    chatDBHelper.updateTempMessage(jsonObject.getInt("temp_msg_id"), messagesBean, 1);
+                    chatAdapter.updateData(jsonObject.getInt("temp_msg_id"), messagesBean);
 
-                    chatAdapter.addData(messagesBean);
-
-                    etChat.setText("");
-
-                    threadId = jsonObject.getInt("thred_id");
-                   // showChat(String.valueOf(jsonObject.getInt("thred_id")));
+                    // showChat(String.valueOf(jsonObject.getInt("thred_id")));
                     //post json stored g\here
 
                 } else {
-
 
                     //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
 
@@ -540,7 +613,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        registerReceiver(broadcastReceiver,new IntentFilter("NEW_MESSAGE_BROADCAST"));
+        registerReceiver(broadcastReceiver, new IntentFilter("NEW_MESSAGE_BROADCAST"));
 
         if (getIntent().getExtras().getBoolean("newChat")) {
 
@@ -567,18 +640,15 @@ public class ChatActivity extends AppCompatActivity {
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
-
-
+            
             try {
-              //  JSONObject jsonObject = new JSONObject(intent.getExtras().getString("messageData"));
+                //  JSONObject jsonObject = new JSONObject(intent.getExtras().getString("messageData"));
 
-                  MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(intent.getExtras().getString("messageData"), MessageModel.ThreadBean.MessagesBean.class);
+                MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(intent.getExtras().getString("messageData"), MessageModel.ThreadBean.MessagesBean.class);
            /* alMessages.add(messagesBean);
 
-
             mRecyclerView.getAdapter().notifyDataSetChanged();*/
-              chatAdapter.addData(messagesBean);
+                chatAdapter.addData(messagesBean);
             } catch (Exception e) {
                 e.printStackTrace();
             }

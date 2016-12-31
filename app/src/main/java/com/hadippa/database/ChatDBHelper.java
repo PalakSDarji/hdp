@@ -52,7 +52,6 @@ public class ChatDBHelper {
 
         if (sqLiteDatabase != null) {
 
-
             Gson gson = new Gson();
             ContentValues contentValues = new ContentValues();
             contentValues.put(KEY_ID, messagesBean.getId());
@@ -64,9 +63,9 @@ public class ChatDBHelper {
             contentValues.put(KEY_STATUS, status);
             contentValues.put(KEY_CREATED_AT, messagesBean.getCreated_at());
 
-            long gg= sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
+            long gg = sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
 
-            Log.d("sqLiteDatabase> INsert",""+gg);
+            Log.d("sqLiteDatabase> INsert", "" + gg);
 
         }
 
@@ -124,4 +123,24 @@ public class ChatDBHelper {
         }
 
     }
+
+    public void updateTempMessage(int temp_id, MessageModel.ThreadBean.MessagesBean messagesBean, int status) {
+
+        if (sqLiteDatabase != null) {
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(KEY_ID, messagesBean.getId());
+            contentValues.put(KEY_USER_ID, messagesBean.getUser_id());
+            contentValues.put(KEY_THREAD_ID, messagesBean.getThread_id());
+            contentValues.put(KEY_USER, new Gson().toJson(messagesBean.getUser()));
+            contentValues.put(KEY_MESSAGE_TYPE, AppConstants.MESSAGE_TYPE_TEXT);
+            contentValues.put(KEY_BODY, messagesBean.getBody());
+            contentValues.put(KEY_STATUS, status);
+            contentValues.put(KEY_CREATED_AT, messagesBean.getCreated_at());
+
+            sqLiteDatabase.update(TABLE_NAME, contentValues, KEY_ID + " =" + temp_id, null);
+        }
+
+    }
+
 }
