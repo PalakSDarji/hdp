@@ -292,6 +292,9 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     @Override
     public void onSliderClick(BaseSliderView slider) {
 
+        Intent intent = new Intent(ProfileActivity.this,EditProfilePicsActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
     }
 
 

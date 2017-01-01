@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rlContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/value_w210"
+                android:clickable="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:paddingTop="13dp">
+
+    <com.hadippa.SquareImageView
+        android:id="@+id/image_view"
+        android:layout_width="@dimen/value_w40"
+        android:layout_height="@dimen/value_w40"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:src="@drawable/plus"/>
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/value_10"
+        android:text="@string/add_photo"
+        android:textColor="@color/bel_grey_text"/>
+
+
+</RelativeLayout>
