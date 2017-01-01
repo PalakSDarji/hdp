@@ -36,6 +36,7 @@ public class GroupPeopleActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+
         contacts = new ArrayList<>();
         contacts.add(new Contact());
         contacts.add(new Contact());
