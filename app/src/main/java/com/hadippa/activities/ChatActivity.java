@@ -168,6 +168,12 @@ public class ChatActivity extends AppCompatActivity {
             //alMessages = chatDBHelper.fetchMessagesFromThread();
         }
 
+
+        if(getIntent().getExtras().getInt("chatType") == 1){
+            ivMore.setVisibility(View.GONE);
+            ivMoreDetail.setVisibility(View.GONE
+            );
+        }
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancelAll();
 
@@ -282,6 +288,7 @@ public class ChatActivity extends AppCompatActivity {
             userbean.setFirst_name(jsonObject.getString("first_name"));
             userbean.setLast_name(jsonObject.getString("last_name"));
             userbean.setProfile_photo(jsonObject.getString("profile_photo"));
+            userbean.setId(jsonObject.getInt("id"));
 
             MessageModel.ThreadBean.MessagesBean messagesBean = new MessageModel.ThreadBean.MessagesBean();
             messagesBean.setBody(message);
@@ -522,6 +529,7 @@ public class ChatActivity extends AppCompatActivity {
             userbean.setFirst_name(jsonObject.getString("first_name"));
             userbean.setLast_name(jsonObject.getString("last_name"));
             userbean.setProfile_photo(jsonObject.getString("profile_photo"));
+            userbean.setId(jsonObject.getInt("id"));
 
             MessageModel.ThreadBean.MessagesBean messagesBean = new MessageModel.ThreadBean.MessagesBean();
             messagesBean.setBody(msg);
@@ -531,7 +539,6 @@ public class ChatActivity extends AppCompatActivity {
             messagesBean.setCreated_at("");
             messagesBean.setUpdated_at("");
             messagesBean.setThread_id(-1);
-
             chatDBHelper.insertMessage(messagesBean, 1);
             chatAdapter.addData(messagesBean);
 

@@ -146,6 +146,7 @@ public class ChatPlusActivity extends AppCompatActivity {
                         intent.putExtra("userid",String.valueOf(followers_following.getFollowed().getId()));
                         intent.putExtra("userName",followers_following.getFollowed().getFirst_name());
                         intent.putExtra("newChat",true);
+                        intent.putExtra("chatType",1);
                         startActivity(intent);
 
                     } catch (Exception e) {

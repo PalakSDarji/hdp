@@ -22,6 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.fragments.main_screen.DoublePeople;
@@ -36,6 +40,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -77,9 +82,12 @@ public class PeopleJoinActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
         });
+        Type listType = new TypeToken<ArrayList<DataModel>>() {
+        }.getType();
+        GsonBuilder gsonBuilder = new GsonBuilder();
 
         posts = new ArrayList<>();
-        posts.add(null);
+        posts = (new Gson().fromJson(getIntent().getExtras().getString("similar_posts"),listType));
 
         /*ArrayList<DataModel> dataModels = gson.fromJson(sp.getString("posts", ""), listType);
         if(dataModels != null && dataModels.size()>0){
@@ -190,23 +198,50 @@ public class PeopleJoinActivity extends AppCompatActivity {
 
     private void showBottomPeopleGoing(DataModel dataModel){
 
-        Log.v("PeopleJoin","ShowBottom");
-        BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(this);
-        View sheetView = this.getLayoutInflater().inflate(R.layout.bottom_people_going, null);
+        BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(PeopleJoinActivity.this);
+        View sheetView = getLayoutInflater().inflate(R.layout.bottom_people_going, null);
 
         RecyclerView horizontal_recycler_view = (RecyclerView) sheetView.findViewById(R.id.horizontal_recycler_view);
-        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(PeopleJoinActivity.this, LinearLayoutManager.HORIZONTAL, false);
         horizontal_recycler_view.setLayoutManager(horizontalLayoutManagaer);
 
-       // dataModel.getPeople_going();
+        dataModel.getPeople_going();
 
         //Sample arraylist..
         List<DoublePeople> doublePeoples = new ArrayList<>();
         doublePeoples.add(new DoublePeople(new People("palak", ""), new People("darji", "")));
         doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
-        doublePeoples.add(new DoublePeople(new People("Sahil", ""), new People("bhai", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
+        doublePeoples.add(new DoublePeople(new People("kartick", ""), new People("boss", "")));
 
-        HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples);
+        doublePeoples.add(new DoublePeople(new People("Sahil", ""), null));
+
+        List<DoublePeople> doublePeoples1 = new ArrayList<>();
+
+        for(int i = 0;i < dataModel.getPeople_going().size();i++){
+
+            DataModel.PeopleGoingBean.UserBeanX userBeanX1 =null;
+            DataModel.PeopleGoingBean.UserBeanX userBeanX2 = null;
+
+            userBeanX1 = dataModel.getPeople_going().get(i).getUser();
+            i = i+1;
+            if(dataModel.getPeople_going().size() > i){
+                userBeanX2 = dataModel.getPeople_going().get(i).getUser();
+            }
+
+            DoublePeople doublePeople = new DoublePeople(userBeanX1,userBeanX2);
+            doublePeoples1.add(doublePeople);
+        }
+
+
+        HorizontalAdapter adapter = new HorizontalAdapter(doublePeoples1);
         horizontal_recycler_view.setAdapter(adapter);
 
         mBottomSheetDialog.setContentView(sheetView);
@@ -430,12 +465,16 @@ public class PeopleJoinActivity extends AppCompatActivity {
             private ImageView image_view1;
             private ImageView image_view2;
 
+            private LinearLayout topLinear,bottomLinear;
+
             public MyViewHolder(View view) {
                 super(view);
                 text_view1 = (TextView) view.findViewById(R.id.text_view1);
                 text_view2 = (TextView) view.findViewById(R.id.text_view2);
                 image_view1 = (ImageView) view.findViewById(R.id.image_view1);
                 image_view2 = (ImageView) view.findViewById(R.id.image_view2);
+                topLinear = (LinearLayout)view.findViewById(R.id.topLinear);
+                bottomLinear = (LinearLayout)view.findViewById(R.id.bottomLinear);
             }
         }
 
@@ -455,8 +494,26 @@ public class PeopleJoinActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             Log.v("hadippa", "onBindViewHolder");
-            holder.text_view1.setText(horizontalList.get(position).getPeople1().getName());
-            holder.text_view2.setText(horizontalList.get(position).getPeople1().getName());
+            RequestManager requestManager = Glide.with(PeopleJoinActivity.this);
+
+            if(horizontalList.get(position).getBeanX()!=null){
+                holder.topLinear.setVisibility(View.VISIBLE);
+                holder.text_view1.setText(horizontalList.get(position).getBeanX().getFirst_name());
+
+                requestManager.load(horizontalList.get(position).getBeanX().getProfile_photo())
+                        .placeholder(R.drawable.place_holder).into(holder.image_view1);
+
+            }else{
+                holder.topLinear.setVisibility(View.GONE);
+            }
+            if(horizontalList.get(position).getBeanX1()!=null){
+                holder.bottomLinear.setVisibility(View.VISIBLE);
+                holder.text_view2.setText(horizontalList.get(position).getBeanX1().getFirst_name());
+                requestManager.load(horizontalList.get(position).getBeanX1().getProfile_photo())
+                        .placeholder(R.drawable.place_holder).into(holder.image_view2);
+            }else{
+                holder.bottomLinear.setVisibility(View.GONE);
+            }
 
             holder.text_view1.setOnClickListener(new View.OnClickListener() {
                 @Override

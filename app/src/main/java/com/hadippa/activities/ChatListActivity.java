@@ -138,8 +138,9 @@ public class ChatListActivity extends AppCompatActivity {
          //   }
 
             viewHolder.lastMsg.setText(contact.getLast_msg());
-            viewHolder.tvDate.setText(contact.getLast_message_time().getDate().split(" ")[1].substring(0,5));
-
+            if(contact.getUpdated_at()!=null) {
+                viewHolder.tvDate.setText(contact.getUpdated_at().split(" ")[1].substring(0, 5));
+            }
             RequestManager requestManager = Glide.with(ChatListActivity.this);
 
             requestManager.load(contact.getProfile_photo_thumbnail()).error(R.drawable.place_holder).placeholder(R.drawable.place_holder).into(viewHolder.profileImage);
@@ -151,6 +152,8 @@ public class ChatListActivity extends AppCompatActivity {
                     intent.putExtra("newChat",false);
                     intent.putExtra("userName",contact.getSubject());
                     intent.putExtra("threadId",contact.getId());
+                    intent.putExtra("chatType",contact.getChat_type());
+
                     startActivity(intent);
                 }
             });

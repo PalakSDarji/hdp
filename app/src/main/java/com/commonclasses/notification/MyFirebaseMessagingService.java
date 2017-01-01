@@ -4,6 +4,7 @@ package com.commonclasses.notification;
  * Created by HP on 27-11-2016.
  */
 
+import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -24,6 +26,7 @@ import com.hadippa.model.MessageModel;
 
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -117,7 +120,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     mBuilder.setContentTitle(messagesBean.getUser().getFirst_name() + " " + messagesBean.getUser().getLast_name());
                     mBuilder.setContentText(messagesBean.getBody());
 
-                    mNotificationManager.notify(12, mBuilder.build());
+                    ActivityManager activityManager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
+                    List<ActivityManager.RunningTaskInfo> services = activityManager
+                            .getRunningTasks(Integer.MAX_VALUE);
+                    boolean isActivityFound = false;
+
+                    if (services.get(0).topActivity.getPackageName().toString()
+                            .equalsIgnoreCase(this.getPackageName().toString())) {
+                        isActivityFound = true;
+                    }
+
+                    if (isActivityFound) {
+                        Toast.makeText(this,messagesBean.getUser().getFirst_name()+" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody(),Toast.LENGTH_SHORT).show();
+                    } else {
+                        // write your code to build a notification.
+                        // return the notification you built here
+                        mNotificationManager.notify(12, mBuilder.build());
+                    }
                 }
 
 

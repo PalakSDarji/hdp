@@ -30,7 +30,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class APIClass {
 
-
     SharedPreferences sp;
 
     //GET PREFERENCS
