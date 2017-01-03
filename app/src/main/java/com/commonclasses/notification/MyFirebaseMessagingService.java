@@ -133,14 +133,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     }
 
                     if (isActivityFound) {
-                       /* Intent sendBroadCast = new Intent("SNACKBAR_MESSAGE");
+                        Intent sendBroadCast = new Intent("SNACKBAR_MESSAGE");
                         sendBroadCast.putExtra("messageData",messagesBean.getUser().getFirst_name()
                                 +" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody());
                         sendBroadcast(sendBroadCast);
-*/
-                        Toast.makeText(this,messagesBean.getUser().getFirst_name()
+  /*                      Toast.makeText(this,messagesBean.getUser().getFirst_name()
                                 +" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody(),Toast.LENGTH_SHORT).show();
-                    } else {
+  */                  } else {
                         // write your code to build a notification.
                         // return the notification you built here
                         mNotificationManager.notify(12, mBuilder.build());
