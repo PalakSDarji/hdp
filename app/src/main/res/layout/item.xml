@@ -311,16 +311,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingBottom="@dimen/value_h27"
+                android:paddingBottom="@dimen/value_h18"
                 android:paddingLeft="@dimen/value_w32"
                 android:paddingRight="@dimen/value_w36"
-                android:paddingTop="@dimen/value_h27">
+                android:paddingTop="@dimen/value_h18">
 
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvName_Age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:text="Maria Sharopava, 29"
                     android:textColor="@color/c_6c6a6b"
                     android:maxLines="1"
@@ -330,6 +329,19 @@
                     android:textStyle="bold"
                     android:layout_toLeftOf="@+id/tvFollowing"
                     app:customFont="@string/proxima_bold"/>
+
+                <com.hadippa.CustomTextView
+                    android:id="@+id/tvAvaTill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvName_Age"
+                    android:text="Available till 1 AM"
+                    android:layout_marginTop="@dimen/value_3"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/tvFollowing"
+                    android:textColor="@color/c_6c6a6b"
+                    android:textSize="@dimen/values_txt_11"
+                    app:customFont="@string/proxima_reg"/>
 
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvFollowing"

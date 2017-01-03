@@ -170,6 +170,7 @@ public class CreateActivityActvity extends AppCompatActivity {
     NightCLubModel.ResponseBean.RestaurantsBean restaurantsBean;
 
     String selectedDate,dateVisTime,dateAvaTill;
+    private int selectedRadio = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -370,11 +371,19 @@ public class CreateActivityActvity extends AppCompatActivity {
         llPublicAndFollowing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+
                 hide_from = "public and following";
-                radio0.setSelected(true);
+                if(selectedRadio == 0){
+                    radio0.setSelected(true);
+                }
+                else{
+                    radio0.setSelected(false);
+                }
                 radio1.setSelected(false);
                 radio2.setSelected(false);
                 radio3.setSelected(false);
+                selectedRadio = 0;
+                setRadios(0);
             }
         });
 
@@ -382,9 +391,16 @@ public class CreateActivityActvity extends AppCompatActivity {
             public void onClick(View v) {
                 hide_from = "following";
                 radio0.setSelected(false);
-                radio1.setSelected(true);
+                if(selectedRadio == 1){
+                    radio1.setSelected(true);
+                }
+                else{
+                    radio1.setSelected(false);
+                }
                 radio2.setSelected(false);
                 radio3.setSelected(false);
+                selectedRadio = 1;
+                setRadios(1);
             }
         });
 
@@ -393,8 +409,16 @@ public class CreateActivityActvity extends AppCompatActivity {
                 hide_from = "public";
                 radio0.setSelected(false);
                 radio1.setSelected(false);
-                radio2.setSelected(true);
+                if(selectedRadio == 2){
+                    radio2.setSelected(true);
+                }
+                else{
+                    radio2.setSelected(false);
+                }
                 radio3.setSelected(false);
+                selectedRadio = 2;
+
+                setRadios(2);
             }
         });
 
@@ -406,8 +430,15 @@ public class CreateActivityActvity extends AppCompatActivity {
                 radio0.setSelected(false);
                 radio1.setSelected(false);
                 radio2.setSelected(false);
-                radio3.setSelected(true);
+                if(selectedRadio == 3){
+                    radio3.setSelected(true);
+                }
+                else{
+                    radio3.setSelected(false);
+                }
+                selectedRadio = 3;
 
+                setRadios(3);
                 Intent intent = new Intent(CreateActivityActvity.this, InviteToJoinActivity.class);
                 intent.putExtra("selectedId",selectedList);
                 startActivityForResult(intent,555);
@@ -452,6 +483,49 @@ public class CreateActivityActvity extends AppCompatActivity {
 
     }
 
+    private void setRadios(int pos){
+
+        radio0.setSelected(false);
+        radio1.setSelected(false);
+        radio2.setSelected(false);
+        radio3.setSelected(false);
+
+        if(pos == 0){
+            if(selectedRadio == pos){
+                radio0.setSelected(false);
+            }
+            else{
+                radio0.setSelected(true);
+            }
+        }
+
+        if(pos == 1){
+            if(selectedRadio == pos){
+                radio1.setSelected(false);
+            }
+            else{
+                radio1.setSelected(true);
+            }
+        }
+
+        if(pos == 2){
+            if(selectedRadio == pos){
+                radio2.setSelected(false);
+            }
+            else{
+                radio2.setSelected(true);
+            }
+        }
+
+        if(pos == 3){
+            if(selectedRadio == pos){
+                radio3.setSelected(false);
+            }
+            else{
+                radio3.setSelected(true);
+            }
+        }
+    }
     ArrayList<String> getSelectedList = new ArrayList<>();
     boolean aBoolean = false;
 

@@ -255,4 +255,6 @@
     <string name="edit_photo">Edit Photo</string>
     <string name="delete_photo">Delete photo</string>
     <string name="set_as_main_photo">Set as Main Photo</string>
+    <string name="know_more">Know More</string>
+    <string name="know_less">Know less</string>
 </resources>

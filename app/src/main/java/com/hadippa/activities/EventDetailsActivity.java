@@ -82,6 +82,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tvTime) TextView tvTime;
     @BindView(R.id.tvKm) TextView tvKm;
     @BindView(R.id.tvAddress) TextView tvAddress;
+    @BindView(R.id.tvKnowMore) TextView tvKnowMore;
     @BindView(R.id.ivMoreDetail) ImageView ivMoreDetail;
     @BindView(R.id.vSep1) View vSep1;
     @BindView(R.id.tvDescriptionVal) TextView tvDescriptionVal;
@@ -115,12 +116,14 @@ public class EventDetailsActivity extends AppCompatActivity {
                     vSep1.setVisibility(View.GONE);
                     tvDescriptionVal.setVisibility(View.GONE);
                     tvDescription.setVisibility(View.GONE);
+                    tvKnowMore.setText(R.string.know_more);
                     ivMoreDetail.setImageResource(R.drawable.group_chat_more);
                 }
                 else{
                     vSep1.setVisibility(View.VISIBLE);
                     tvDescriptionVal.setVisibility(View.VISIBLE);
                     tvDescription.setVisibility(View.VISIBLE);
+                    tvKnowMore.setText(R.string.know_less);
                     ivMoreDetail.setImageResource(R.drawable.group_chat_less);
                 }
             }

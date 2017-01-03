@@ -344,7 +344,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_5"
-                android:text="Know More"
+                android:text="@string/know_more"
                 android:layout_gravity="center"
                 android:textColor="#35a8e6"
                 android:textSize="@dimen/values_txt_10"
