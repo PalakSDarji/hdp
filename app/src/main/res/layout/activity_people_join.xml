@@ -172,15 +172,30 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.hadippa.tindercard.SwipeFlingAdapterView
-        android:id="@+id/frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
         android:layout_above="@+id/footer"
         android:layout_below="@+id/top"
-        app:rotation_degrees="10.0"
-        tools:context=".HomeScreen"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="No one is going there\n on this date"
+            android:layout_centerInParent="true"
+            android:id="@+id/nopost"/>
+        <com.hadippa.tindercard.SwipeFlingAdapterView
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:rotation_degrees="10.0"
+            tools:context=".HomeScreen"/>
+
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

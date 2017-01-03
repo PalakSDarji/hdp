@@ -103,7 +103,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.com_facebook_button_icon)
+                            .setSmallIcon(R.mipmap.ic_launcher)
                         /*.setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(jobj))*/
                             .setSound(soundUri)

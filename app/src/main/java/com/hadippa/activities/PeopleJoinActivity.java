@@ -118,8 +118,18 @@ public class PeopleJoinActivity extends AppCompatActivity {
         });
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
-        myAppAdapter = new MyAppAdapter(posts, PeopleJoinActivity.this);
-        flingContainer.setAdapter(myAppAdapter);
+        if(posts.size()>0) {
+            myAppAdapter = new MyAppAdapter(posts, PeopleJoinActivity.this);
+            flingContainer.setAdapter(myAppAdapter);
+            ((TextView)findViewById(R.id.nopost)).setVisibility(View.GONE);
+            ((LinearLayout)findViewById(R.id.footer)).setVisibility(View.VISIBLE);
+
+        }else{
+            flingContainer.setVisibility(View.GONE);
+            ((TextView)findViewById(R.id.nopost)).setVisibility(View.VISIBLE);
+
+            ((LinearLayout)findViewById(R.id.footer)).setVisibility(View.GONE);
+        }
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {

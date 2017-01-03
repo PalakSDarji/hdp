@@ -455,9 +455,11 @@ public class EventDetailsActivity extends AppCompatActivity {
                 AppConstants.dismissDialog();
                 if(jsonObject.getBoolean("success")) {
                     Toast.makeText(getApplicationContext(),"Post created",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
+                    Intent intent = new Intent(getApplicationContext(), PeopleJoinActivity.class);
+                    intent.putExtra("similar_posts",jsonObject.getJSONArray("similar_posts").toString());
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+
                 }else{
                     Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
                 }
