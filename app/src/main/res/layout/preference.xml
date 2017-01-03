@@ -113,6 +113,7 @@
                         android:layout_marginTop="@dimen/value_h42"
                         rsb:absoluteMinValue="25"
                         rsb:activeColor="@color/follow_color"
+                        rsb:alwaysActive="true"
                         rsb:barHeight="@dimen/value_8"
                         rsb:defaultColor="@color/blue_off"
                         rsb:showLabels="false"
