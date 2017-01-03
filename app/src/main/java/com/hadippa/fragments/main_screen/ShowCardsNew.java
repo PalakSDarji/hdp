@@ -266,6 +266,7 @@ public class ShowCardsNew extends Fragment {
                 viewHolder.tvCount.setText(String.valueOf(dataModel.getId()));
 
 
+                Log.v("TESTING",""+dataModel.getUser().getProfile_photo_thumbnail());
                 Glide.with(context)
                         .load(dataModel.getUser().getProfile_photo_thumbnail())
                         .placeholder(R.drawable.bg_item_above)
