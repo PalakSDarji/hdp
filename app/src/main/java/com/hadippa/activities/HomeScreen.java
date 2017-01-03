@@ -470,15 +470,9 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d("broadCast?","yes");
 
         registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        unregisterReceiver(broadcastReceiver);
     }
 
     @Override
@@ -507,6 +501,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     protected void onStop() {
         super.onStop();
 
+        Log.d("broadCast?","no");
         unregisterReceiver(broadcastReceiver);
     }
 

@@ -728,21 +728,13 @@ public class CreateActivityActvity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+
         if (aBoolean == true) {
             selectedList = getSelectedList;
             Log.d("selectedId >> 1*", selectedList.toString());
         }
     }
 
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        unregisterReceiver(broadcastReceiver);
-    }
 
 
 

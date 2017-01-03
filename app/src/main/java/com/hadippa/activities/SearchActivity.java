@@ -417,19 +417,6 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        unregisterReceiver(broadcastReceiver);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
-    }
 
     @Override
     protected void onStop() {

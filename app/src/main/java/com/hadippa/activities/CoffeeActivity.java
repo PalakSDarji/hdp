@@ -539,19 +539,6 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        unregisterReceiver(broadcastReceiver);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
-    }
 
     @Override
     protected void onStop() {

@@ -150,20 +150,6 @@ public class FollowingMain extends FragmentActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
-        unregisterReceiver(broadcastReceiver);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
 

@@ -121,19 +121,6 @@ public class MyBookingActivity extends AppCompatActivity {
         registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        unregisterReceiver(broadcastReceiver);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
-    }
 
     @Override
     protected void onStop() {
