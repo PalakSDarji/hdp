@@ -2,10 +2,14 @@ package com.hadippa;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -41,8 +45,25 @@ public class Hadippa extends Application {
 
             getApplicationCreds(this);
         }
+
+        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
     }
 
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+           // AppConstants.showSnackBarforMessage(Hadippa.this,intent.getExtras().getString("messageData"));
+        }
+    };
     public static synchronized Hadippa getInstance() {
         return sInstance;
     }

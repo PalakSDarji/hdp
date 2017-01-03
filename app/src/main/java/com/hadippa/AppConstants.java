@@ -217,6 +217,16 @@ public class AppConstants {
         return b;
     }
 
+    public static void showSnackBarforMessage(Activity activity,String message){
+
+/*
+        Snackbar.make(activity,message , Snackbar.LENGTH_LONG)
+                .show();
+*/
+
+    }
+
+
     public static void showSnackBar(RelativeLayout relativeLayout, String message){
 
         Snackbar.make(relativeLayout,message , Snackbar.LENGTH_LONG)

@@ -32,6 +32,7 @@ import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.database.ChatDBHelper;
 import com.hadippa.database.HadippaDatabase;
+import com.hadippa.model.ChatMainList;
 import com.hadippa.model.Contact;
 import com.hadippa.model.FollowingModel;
 import com.hadippa.model.Message;
@@ -129,6 +130,17 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
+
+        findViewById(R.id.ivMore).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ChatMainList.ThreadsBean chatMainList = (ChatMainList.ThreadsBean)getIntent().getExtras().getSerializable("threadBean");
+                Intent intent  = new Intent(ChatActivity.this,GroupPeopleActivity.class);
+                intent.putExtra("threadBean",chatMainList);
+                startActivity(intent);
+            }
+        });
         findViewById(R.id.tvSend).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,8 +183,8 @@ public class ChatActivity extends AppCompatActivity {
 
         if(getIntent().getExtras().getInt("chatType") == 1){
             ivMore.setVisibility(View.GONE);
-            ivMoreDetail.setVisibility(View.GONE
-            );
+           /* ivMoreDetail.setVisibility(View.GONE
+            );*/
         }
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancelAll();

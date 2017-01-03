@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.activities.ChatActivity;
 import com.hadippa.activities.HomeScreen;
@@ -131,7 +133,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     }
 
                     if (isActivityFound) {
-                        Toast.makeText(this,messagesBean.getUser().getFirst_name()+" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody(),Toast.LENGTH_SHORT).show();
+                       /* Intent sendBroadCast = new Intent("SNACKBAR_MESSAGE");
+                        sendBroadCast.putExtra("messageData",messagesBean.getUser().getFirst_name()
+                                +" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody());
+                        sendBroadcast(sendBroadCast);
+*/
+                        Toast.makeText(this,messagesBean.getUser().getFirst_name()
+                                +" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody(),Toast.LENGTH_SHORT).show();
                     } else {
                         // write your code to build a notification.
                         // return the notification you built here

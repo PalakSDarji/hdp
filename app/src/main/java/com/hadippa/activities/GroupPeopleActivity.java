@@ -13,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.hadippa.R;
+import com.hadippa.model.ChatMainList;
 import com.hadippa.model.Contact;
 
 import java.util.ArrayList;
@@ -29,13 +32,16 @@ public class GroupPeopleActivity extends AppCompatActivity {
     CustomAdapter customAdapter;
     private ImageView imageBack;
 
+    ArrayList<ChatMainList.ThreadsBean.ParticipantBean> participantBeanArrayList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_people);
 
         ButterKnife.bind(this);
-
+        ChatMainList.ThreadsBean chatMainList = (ChatMainList.ThreadsBean)getIntent().getExtras().getSerializable("threadBean");
+        participantBeanArrayList.addAll(chatMainList.getParticipant());
 
         contacts = new ArrayList<>();
         contacts.add(new Contact());
@@ -50,7 +56,7 @@ public class GroupPeopleActivity extends AppCompatActivity {
         contacts.add(new Contact());
         contacts.add(new Contact());
 
-        imageBack = (ImageView)findViewById(R.id.imageBack);
+        imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +72,7 @@ public class GroupPeopleActivity extends AppCompatActivity {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        customAdapter = new CustomAdapter(this,contacts);
+        customAdapter = new CustomAdapter(this, participantBeanArrayList);
         mRecyclerView.setAdapter(customAdapter);
     }
 
@@ -74,13 +80,14 @@ public class GroupPeopleActivity extends AppCompatActivity {
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         LayoutInflater inflator;
-        List<Contact> alContacts;
+        List<ChatMainList.ThreadsBean.ParticipantBean> alContacts;
 
-        CustomAdapter(Context context, List<Contact> alContacts){
+        CustomAdapter(Context context, List<ChatMainList.ThreadsBean.ParticipantBean> alContacts) {
 
             inflator = LayoutInflater.from(context);
             this.alContacts = alContacts;
         }
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
@@ -92,7 +99,15 @@ public class GroupPeopleActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
-            final Contact contact = alContacts.get(position);
+            final ChatMainList.ThreadsBean.ParticipantBean contact = alContacts.get(position);
+
+            viewHolder.name.setText(contact.getUser().getFirst_name() + " " + contact.getUser().getLast_name());
+
+            RequestManager requestManager = Glide.with(GroupPeopleActivity.this);
+
+            requestManager.load(contact.getUser().getProfile_photo())
+                    .placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(viewHolder.image_view);
+
         }
 
         @Override
@@ -102,25 +117,16 @@ public class GroupPeopleActivity extends AppCompatActivity {
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder
-    {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         //Dummy
         private TextView name;
+        ImageView image_view;
 
         public ViewHolder(final View v) {
             super(v);
 
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v){
-                    /*Intent intent1 = new Intent(ChatPlusActivity.this, ChatActivity.class);
-                    intent1.putExtra("contact",contacts.get(getAdapterPosition()));
-                    startActivity(intent1);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
-                }
-            });
-
-            name = (TextView) v.findViewById(R.id.name);
+            image_view = (ImageView) v.findViewById(R.id.image_view);
+            name = (TextView) v.findViewById(R.id.text_view);
         }
     }
 }

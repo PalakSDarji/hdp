@@ -153,6 +153,7 @@ public class ChatListActivity extends AppCompatActivity {
                     intent.putExtra("userName",contact.getSubject());
                     intent.putExtra("threadId",contact.getId());
                     intent.putExtra("chatType",contact.getChat_type());
+                    intent.putExtra("threadBean",contact);
 
                     startActivity(intent);
                 }
@@ -203,7 +204,7 @@ public class ChatListActivity extends AppCompatActivity {
             requestParams.add("access_token", sp.getString("access_token", ""));
 
 
-            Log.d("mychat>>", requestParams.toString());
+            Log.d("c", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
