@@ -1,6 +1,9 @@
 package com.hadippa.activities;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.model.Contact;
 
@@ -227,4 +231,42 @@ public class EditProfilePicsActivity extends AppCompatActivity {
             rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
         }
     }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
 }

@@ -46,24 +46,8 @@ public class Hadippa extends Application {
             getApplicationCreds(this);
         }
 
-        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
     }
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-
-        unregisterReceiver(broadcastReceiver);
-    }
-
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-
-           // AppConstants.showSnackBarforMessage(Hadippa.this,intent.getExtras().getString("messageData"));
-        }
-    };
     public static synchronized Hadippa getInstance() {
         return sInstance;
     }

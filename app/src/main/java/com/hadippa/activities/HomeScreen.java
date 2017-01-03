@@ -2,7 +2,10 @@ package com.hadippa.activities;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
@@ -365,27 +368,6 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        sp = PreferenceManager.getDefaultSharedPreferences(HomeScreen.this);
-        editor = sp.edit();
-
-        initUI();
-
-
-        if(SearchCity.updatePost){
-            SearchCity.updatePost = false;
-            fetchPosts();
-
-            HomeScreen.edtSearch.setText(sp.getString("cityName","Search"));
-
-
-        }
-
-    }
-
     private void fetchPosts() {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
@@ -475,4 +457,57 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         }
 
     }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(HomeScreen.this);
+        editor = sp.edit();
+
+        registerReceiver(broadcastReceiver,new IntentFilter("SNACKBAR_MESSAGE"));
+        initUI();
+
+
+        if(SearchCity.updatePost){
+            SearchCity.updatePost = false;
+            fetchPosts();
+
+            HomeScreen.edtSearch.setText(sp.getString("cityName","Search"));
+
+
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
 }

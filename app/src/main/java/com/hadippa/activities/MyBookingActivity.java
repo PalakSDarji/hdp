@@ -1,5 +1,9 @@
 package com.hadippa.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -9,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.SlidingTab.SlidingTabLayout;
+import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.fragments.BookingTicketsFragment;
 
@@ -99,4 +104,42 @@ public class MyBookingActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
     }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
 }

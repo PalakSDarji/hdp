@@ -2,7 +2,10 @@ package com.hadippa.activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -469,17 +472,6 @@ public class CreateActivityActvity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (aBoolean == true) {
-            selectedList = getSelectedList;
-            Log.d("selectedId >> 1*", selectedList.toString());
-        }
-    }
-
     private void setDateTimePicker() {
 
         Calendar newCalendar = Calendar.getInstance();
@@ -714,6 +706,51 @@ public class CreateActivityActvity extends AppCompatActivity {
             Toast.makeText(CreateActivityActvity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
             return  "";
         }
+    }
+
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+        if (aBoolean == true) {
+            selectedList = getSelectedList;
+            Log.d("selectedId >> 1*", selectedList.toString());
+        }
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(broadcastReceiver);
+    }
+
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        unregisterReceiver(broadcastReceiver);
     }
 
 }
