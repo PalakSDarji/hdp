@@ -331,4 +331,18 @@ public class AppConstants {
 
 
     }
+
+    public static long calculateDays(String dateEarlyq, String dateLaterq) {
+
+        try{
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        Date dateEarly = simpleDateFormat.parse(dateEarlyq);
+        Date dateLater = simpleDateFormat.parse(dateLaterq);
+        return (dateLater.getTime() - dateEarly.getTime()) / (24 * 60 * 60 * 1000);
+    }catch (Exception e){
+        }
+        return -1;
+    }
 }

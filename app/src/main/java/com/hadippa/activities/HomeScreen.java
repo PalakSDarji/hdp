@@ -314,6 +314,21 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             }
         });
 
+        findViewById(R.id.linearFeedback).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+/* Fill it with Data */
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"support@gohadipaa.com"});
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
+                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+
+/* Send it off to the Activity-Chooser */
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            }
+        });
         rlSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

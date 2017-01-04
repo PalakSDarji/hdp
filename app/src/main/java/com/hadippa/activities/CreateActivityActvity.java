@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -363,6 +364,23 @@ public class CreateActivityActvity extends AppCompatActivity {
         findViewById(R.id.tvPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(tvVisitingDate.getText().toString().equals("Tap Here")){
+
+                    Snackbar.make(getCurrentFocus().getRootView(),"Select date",Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+
+                if(tvVisitingTime.getText().toString().equals("Tap Here")){
+
+                    Snackbar.make(getCurrentFocus().getRootView(),"Select time",Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+                if(tvAvailableTill.getText().toString().equals("Tap Here")){
+
+                    Snackbar.make(getCurrentFocus().getRootView(),"Select available till",Snackbar.LENGTH_LONG).show();
+                    return;
+                }
 
                 post();
             }
@@ -795,6 +813,8 @@ public class CreateActivityActvity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
 
     }
 

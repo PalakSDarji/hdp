@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.model.MeraEventPartyModel;
@@ -138,16 +141,41 @@ public class EventDetailsActivity extends AppCompatActivity {
         tvEventName.setText(dataBean.getTitle());
         tvAddress.setText(dataBean.getAddress1()+" "+dataBean.getAddress2()
                 +" "+dataBean.getCityName()+" "+dataBean.getStateName());
-        tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a")
-                +
-                " - "
-                +
-                AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a"));
+
+
+        if(AppConstants.calculateDays(dataBean.getStartDate(),dataBean.getEndDate()) == 0){
+
+            tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")
+                    +
+                    " - "
+                    +
+                    AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")+"\n"
+            +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy"));
+
+        }else{
+
+            tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")
+                    +
+                    " - "
+                    +
+                    AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")+"\n"
+                    +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy") +" to "
+                    +AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy"));
+
+        }
         tvKm.setText(AppConstants.distanceMeasure(Double.parseDouble(getIntent().getExtras().getString("latitude")),
                 Double.parseDouble(getIntent().getExtras().getString("longitude")),
                 (dataBean.getLatitude()),
                 (dataBean.getLongitude())) + " kms");
-        tvDescriptionVal.setText(dataBean.getDescription());
+        tvDescriptionVal.setText(Html.fromHtml(dataBean.getDescription()));
+
+        RequestManager requestManager = Glide.with(EventDetailsActivity.this);
+
+        requestManager.load(dataBean.getBannerPath()).error(R.drawable.bg_item_above)
+                .placeholder(R.drawable.bg_item_above)
+                .into(((ImageView)findViewById(R.id.profileImage)));
+
+
         /*if(dataBean.getBannerPath().isEmpty() || dataBean.getBannerPath().equals("")){
 
             profileImage.setImageResource(R.drawable.place_holder);
@@ -182,6 +210,23 @@ public class EventDetailsActivity extends AppCompatActivity {
         findViewById(R.id.tvPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(tvVisitingDate.getText().toString().equals("Tap Here")){
+
+                    Snackbar.make(getCurrentFocus().getRootView(),"Select date",Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+
+                if(tvVisitingTime.getText().toString().equals("Tap Here")){
+
+                    Snackbar.make(getCurrentFocus().getRootView(),"Select time",Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+                if(tvAvailableTill.getText().toString().equals("Tap Here")){
+
+                    Snackbar.make(getCurrentFocus().getRootView(),"Select available till",Snackbar.LENGTH_LONG).show();
+                    return;
+                }
                post();
             }
         });
@@ -317,6 +362,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
 
         timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override

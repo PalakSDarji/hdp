@@ -183,8 +183,8 @@ public class ChatActivity extends AppCompatActivity {
 
         if(getIntent().getExtras().getInt("chatType") == 1){
             ivMore.setVisibility(View.GONE);
-           /* ivMoreDetail.setVisibility(View.GONE
-            );*/
+            ivMoreDetail.setVisibility(View.GONE
+            );
         }
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancelAll();
