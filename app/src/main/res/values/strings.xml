@@ -257,4 +257,6 @@
     <string name="set_as_main_photo">Set as Main Photo</string>
     <string name="know_more">Know More</string>
     <string name="know_less">Know less</string>
+    <string name="details">Details</string>
+    <string name="less">Less</string>
 </resources>

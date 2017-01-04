@@ -1,5 +1,6 @@
 package com.hadippa.activities;
 
+import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
@@ -7,20 +8,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,8 +38,10 @@ import android.widget.ToggleButton;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.hadippa.AppConstants;
+import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.model.MeraEventPartyModel;
+import com.hadippa.model.NotificationModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -41,6 +52,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -70,6 +82,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     @BindView(R.id.llFollowing) LinearLayout llFollowing;
     @BindView(R.id.llPublic) LinearLayout llPublic;
     @BindView(R.id.llCustom) LinearLayout llCustom;
+    @BindView(R.id.scrollView) NestedScrollView scrollView;
 
     @BindView(R.id.radio0)
     ImageView radio0;
@@ -90,8 +103,16 @@ public class EventDetailsActivity extends AppCompatActivity {
     @BindView(R.id.vSep1) View vSep1;
     @BindView(R.id.tvDescriptionVal) TextView tvDescriptionVal;
     @BindView(R.id.tvDescription) TextView tvDescription;
+    @BindView(R.id.rlPrice) RelativeLayout rlPrice;
+    @BindView(R.id.tvDetails) TextView tvDetails;
+    @BindView(R.id.rcvPrice) RecyclerView rcvPrice;
+    @BindView(R.id.vSep5) View vSep5;
+    private PriceAdapter priceAdapter;
 
-    
+    private static final int PRICE_ITEM = 0;
+    private static final int TOTAL_ITEM = 1;
+
+
     @BindView(R.id.tvAvailableTill)
     TextView tvAvailableTill;/*
 
@@ -137,7 +158,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         dataBean =
                 (MeraEventPartyModel.DataBean) getIntent().getExtras().getSerializable("data");
 
-        tvPrice.setText(dataBean.getTicket_currencyCode()+" "+dataBean.getTicket_price());
+        tvPrice.setText(dataBean.getTicket_currencyCode().trim()+" "+dataBean.getTicket_price());
         tvEventName.setText(dataBean.getTitle());
         tvAddress.setText(dataBean.getAddress1()+" "+dataBean.getAddress2()
                 +" "+dataBean.getCityName()+" "+dataBean.getStateName());
@@ -312,6 +333,34 @@ public class EventDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 timePickerDialog1.show();
+            }
+        });
+
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rcvPrice.setLayoutManager(mLayoutManager);
+
+        ArrayList priceList = new ArrayList<String>();
+        priceList.add("price1");
+        priceList.add("price2");
+        priceList.add("total");
+        priceAdapter = new PriceAdapter(priceList);
+        rcvPrice.setAdapter(priceAdapter);
+        rcvPrice.setNestedScrollingEnabled(false);
+
+        rlPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(vSep5.getVisibility() == View.VISIBLE){
+                    vSep5.setVisibility(View.GONE);
+                    rcvPrice.setVisibility(View.GONE);
+                    tvDetails.setText(getString(R.string.details));
+                }
+                else{
+                    vSep5.setVisibility(View.VISIBLE);
+                    rcvPrice.setVisibility(View.VISIBLE);
+                    tvDetails.setText(getString(R.string.less));
+                }
             }
         });
 
@@ -566,4 +615,86 @@ public class EventDetailsActivity extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
+    class PriceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        private List<String> data = null;
+        private LayoutInflater mInflater;
+
+        PriceAdapter(List<String> data) {
+            this.data = data;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+
+            if(position == data.size()-1){
+                return TOTAL_ITEM;
+            }
+            else {
+                return PRICE_ITEM;
+            }
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+            switch (viewType) {
+                case 0:
+                    View view1 = LayoutInflater.from(parent.getContext()).inflate( R.layout.item_event_price, parent, false);
+                    return new ViewHolder(view1);
+                case 1: View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_total_price, parent, false);
+                    return new TotalViewHolder(view2);
+            }
+            return null;
+        }
+
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+        @Override
+        public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
+
+            final String str = data.get(position);
+        }
+
+        public String getItem(int position) {
+            return data.get(position);
+        }
+
+        @Override
+        public int getItemCount() {
+
+            return data.size();
+        }
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        CustomTextView tvPriceName;
+        CustomTextView tvSitting;
+        CustomTextView tvSittingDetails;
+        ImageView ivPlus;
+        ImageView ivMinus;
+        TextView tvTicketNo;
+
+        public ViewHolder(final View v) {
+            super(v);
+
+            tvPriceName = (CustomTextView) v.findViewById(R.id.tvPriceName);
+            tvSitting = (CustomTextView) v.findViewById(R.id.tvSitting);
+            tvSittingDetails = (CustomTextView) v.findViewById(R.id.tvSittingDetails);
+            ivPlus = (ImageView) v.findViewById(R.id.ivPlus);
+            ivMinus = (ImageView) v.findViewById(R.id.ivMinus);
+            tvTicketNo = (CustomTextView) v.findViewById(R.id.tvTicketNo);
+        }
+    }
+
+    public class TotalViewHolder extends RecyclerView.ViewHolder {
+
+        CustomTextView tvTotalPrice;
+
+        public TotalViewHolder(final View v) {
+            super(v);
+
+            tvTotalPrice = (CustomTextView) v.findViewById(R.id.tvTotalPrice);
+        }
+    }
 }

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/value_12"
+                android:paddingLeft="@dimen/value_20"
+                android:paddingRight="@dimen/value_20"
+                android:paddingTop="@dimen/value_12">
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvPriceName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/rlTicket"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="INR 0000"
+        android:textColor="@color/c_454545"
+        android:textSize="@dimen/values_txt_14"
+        app:customFont="@string/proxima_bold"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvSitting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvPriceName"
+        android:layout_marginTop="@dimen/value_5"
+        android:layout_toLeftOf="@+id/rlTicket"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Day 0 Gold Sitting"
+        android:textColor="@color/c_fd636b"
+        android:textSize="@dimen/values_txt_10"
+        app:customFont="@string/proxima_reg"/>
+
+    <com.hadippa.CustomTextView
+        android:id="@+id/tvSittingDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvSitting"
+        android:layout_marginTop="@dimen/value_5"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Day 0 Gold Sitting alsdkn lakjsdnk jasn dkjasnd kasdklaklsjdnkalsjdnaksjldn laksjdbnlaskjdn"
+        android:textColor="@color/c_454545"
+        android:textSize="@dimen/values_txt_10"
+        app:customFont="@string/proxima_reg"/>
+
+    <RelativeLayout
+        android:id="@+id/rlTicket"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/value_20">
+
+        <ImageView
+            android:id="@+id/ivPlus"
+            android:layout_width="@dimen/value_w50"
+            android:layout_height="@dimen/value_w50"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/value_5"
+            android:src="@color/c_fd636b"/>
+
+        <com.hadippa.CustomTextView
+            android:id="@+id/tvTicketNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/value_10"
+            android:layout_marginRight="@dimen/value_10"
+            android:layout_toLeftOf="@+id/ivPlus"
+            android:text="0"
+            android:textColor="@color/c_454545"
+            android:textSize="@dimen/values_txt_14"
+            app:customFont="@string/proxima_bold"/>
+
+        <ImageView
+            android:id="@+id/ivMinus"
+            android:layout_width="@dimen/value_w50"
+            android:layout_height="@dimen/value_w50"
+            android:layout_toLeftOf="@+id/tvTicketNo"
+            android:padding="@dimen/value_5"
+            android:src="@color/c_fd636b"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
