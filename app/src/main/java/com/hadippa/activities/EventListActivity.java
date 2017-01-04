@@ -1,6 +1,7 @@
 package com.hadippa.activities;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -29,12 +30,17 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,15 +50,18 @@ import com.bumptech.glide.RequestManager;
 import com.commonclasses.location.GPSTracker;
 import com.google.gson.Gson;
 import com.hadippa.AppConstants;
+import com.hadippa.CustomEditText;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.model.MeraEventPartyModel;
 import com.hadippa.model.NightCLubModel;
+import com.hadippa.model.SearchModel;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -624,6 +633,292 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         unregisterReceiver(broadcastReceiver);
     }
 
+
+
+    CustomAdapter1 adapter1 = null;
+
+    void showCityDialog() {
+
+        try {
+            RelativeLayout relMain;
+            ProgressBar progressBar;
+            RecyclerView mRecyclerView;
+
+
+            final CustomEditText customEditText;
+            ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen = new ArrayList<>();
+
+            Dialog dialog = new Dialog(EventListActivity.this);
+            dialog.setContentView(R.layout.dialog_select_city);
+            progressBar = (ProgressBar) dialog.findViewById(R.id.progressBar);
+
+            customEditText =
+                    (CustomEditText)dialog.findViewById(R.id.edtSearch);
+            mRecyclerView = (RecyclerView) dialog.findViewById(R.id.recyclerView);
+            relMain = (RelativeLayout) dialog.findViewById(R.id.relMain);
+
+            final LinearLayoutManager mLayoutManager = new LinearLayoutManager(EventListActivity.this);
+            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+
+            customEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    adapter1.filter(customEditText.getText().toString().trim());
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
+            String s = sp.getString("cities", "");
+
+            JSONObject jsonObject = new JSONObject(s);
+
+
+            JSONArray jsonArray = jsonObject.getJSONArray("city_list");
+
+            SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+            locationSuggestionsBean.setName("Select City");
+            locationSuggestionsBean.setHeader(true);
+            locationSuggestionsBeen.add(locationSuggestionsBean);
+            Log.d("cityList>", s);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                SearchModel.CitiesBean.LocationSuggestionsBean bean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+
+                bean.setName(jsonObject1.getString("name"));
+                bean.setId(jsonObject1.getInt("id"));
+                bean.setState_name(jsonObject1.getString("state"));
+                bean.setHeader(false);
+                locationSuggestionsBeen.add(bean);
+            }
+
+            adapter1 = new CustomAdapter1(dialog, locationSuggestionsBeen);
+            mRecyclerView.setAdapter(adapter1);
+
+
+            dialog.show();
+        } catch (Exception e) {
+
+        }
+    }
+
+    private static final int CITY_HEADER = 0;
+    private static final int CITY_DATA = 1;
+
+    public class CustomAdapter1 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        private static final String TAG = "CustomAdapter";
+        private List<SearchModel.CitiesBean.LocationSuggestionsBean> listItems, filterList;
+        Dialog dialog;
+
+        public CustomAdapter1(Dialog dialog1, List<SearchModel.CitiesBean.LocationSuggestionsBean> listItems) {
+            this.listItems = listItems;
+
+            this.dialog = dialog1;
+            this.filterList = new ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean>();
+            // we copy the original list to the filter list and use it for setting row values
+            this.filterList.addAll(this.listItems);
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+
+            if (filterList == null) {
+                return -1;
+            }
+            if (filterList.get(position) == null) {
+                return -1;
+            }
+
+            if (filterList.get(position).isHeader()) {
+                return CITY_HEADER;
+            } else {
+                return CITY_DATA;
+            }
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+
+            Log.v(TAG, "OnCreateViewHolder called  : " + viewType);
+            switch (viewType) {
+                case CITY_HEADER:
+                    View v1 = LayoutInflater.from(viewGroup.getContext())
+                            .inflate(R.layout.search_city_header, viewGroup, false);
+                    return new HeaderViewHolder(v1);
+
+                case CITY_DATA:
+                    View v2 = LayoutInflater.from(viewGroup.getContext())
+                            .inflate(R.layout.search_city_list_item, viewGroup, false);
+                    return new CityViewHolder(v2);
+
+                default:
+                    View v3 = LayoutInflater.from(viewGroup.getContext())
+                            .inflate(R.layout.search_city_header, viewGroup, false);
+                    return new HeaderViewHolder(v3);
+            }
+        }
+
+        @Override
+        public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
+            Log.d(TAG, "Element " + position + " set.");
+
+            switch (viewHolder.getItemViewType()) {
+                case CITY_HEADER:
+                    HeaderViewHolder headerViewHolder = (HeaderViewHolder) viewHolder;
+                    SearchModel.CitiesBean.LocationSuggestionsBean cityHeader = filterList.get(position);
+
+                    headerViewHolder.tvSearchCityHeader.setText(cityHeader.getName());
+                    break;
+
+                case CITY_DATA:
+
+                    final CityViewHolder cityViewHolder = (CityViewHolder) viewHolder;
+                    SearchModel.CitiesBean.LocationSuggestionsBean cityModel = filterList.get(position);
+
+                    if (cityModel.isFromCityList()) {
+                        cityViewHolder.getIvLocation().setVisibility(View.GONE);
+                    } else {
+                        cityViewHolder.getIvLocation().setVisibility(View.VISIBLE);
+                    }
+
+                    if (cityModel.getCountry_name() != null) {
+                        cityViewHolder.getCity().setText(cityModel.getName() + ", " + cityModel.getCountry_name());
+                    } else {
+                        cityViewHolder.getCity().setText(cityModel.getName());
+                    }
+
+                    cityViewHolder.getId().setText(String.valueOf(cityModel.getId()));
+
+                    if (filterList.get(position).isCurrentLocation()) {
+                        cityViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                //TODO define click listener to get location. (Sahil)
+                            }
+                        });
+                        cityViewHolder.getIvRightLogo().setVisibility(View.GONE);
+                    } else {
+                        cityViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                ((TextView) findViewById(R.id.tvHeader2)).setText(cityViewHolder.getCity().getText().toString().trim());
+
+                                dialog.dismiss();
+                            }
+                        });
+                        cityViewHolder.getIvRightLogo().setVisibility(View.VISIBLE);
+                    }
+
+                    break;
+            }
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+
+            return (null != filterList ? filterList.size() : 0);
+
+        }
+
+        // Do Search...
+        public void filter(final String text) {
+
+            // Searching could be complex..so we will dispatch it to a different thread...
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    // Clear the filter list
+                    filterList.clear();
+
+                    // If there is no search value, then add all original list items to filter list
+                    if (TextUtils.isEmpty(text)) {
+
+                        filterList.addAll(listItems);
+
+                    } else {
+                        // Iterate in the original List and add it to filter list...
+                        for (SearchModel.CitiesBean.LocationSuggestionsBean item : listItems) {
+                            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                                // Adding Matched items
+                                filterList.add(item);
+                            }
+                        }
+                    }
+
+                    // Set on UI Thread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Notify the List that the DataSet has changed...
+                            notifyDataSetChanged();
+                        }
+                    });
+
+                }
+            }).start();
+
+        }
+    }
+
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
+        TextView tvSearchCityHeader;
+
+        public HeaderViewHolder(final View v) {
+            super(v);
+
+            tvSearchCityHeader = (TextView) v.findViewById(R.id.tvSearchCityHeader);
+        }
+    }
+
+    public class CityViewHolder extends RecyclerView.ViewHolder {
+        private final TextView id;
+        private final ImageView ivLocation;
+        private final ImageView ivRightLogo;
+        private final TextView city;
+
+        public CityViewHolder(final View v) {
+            super(v);
+
+
+            id = (TextView) v.findViewById(R.id.tvId);
+            city = (TextView) v.findViewById(R.id.city);
+            ivLocation = (ImageView) v.findViewById(R.id.ivLocation);
+            ivRightLogo = (ImageView) v.findViewById(R.id.ivRightLogo);
+        }
+
+        public TextView getCity() {
+            return city;
+        }
+
+        public TextView getId() {
+            return id;
+        }
+
+        public ImageView getIvRightLogo() {
+            return ivRightLogo;
+        }
+
+        public ImageView getIvLocation() {
+            return ivLocation;
+        }
+    }
 
 
 }

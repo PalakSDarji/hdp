@@ -208,7 +208,7 @@ public class ShowCardsNew extends Fragment {
             LinearLayout llGoing,llDistance;
             ImageView imageView, coverImage;
             TextView tvGoing, tvName_Age, tvDistance,
-                    tvActivityName, tvActivtyTime, tvActivtyDate, tvAddress, tvCount;
+                    tvActivityName, tvActivtyTime, tvActivtyDate, tvAddress, tvCount,tvAvailableTill;
             TextView txtDesc;
         }
 
@@ -232,6 +232,7 @@ public class ShowCardsNew extends Fragment {
                 viewHolder.tvActivtyDate = (TextView) convertView.findViewById(R.id.tvActivityDate);
                 viewHolder.tvCount = (TextView) convertView.findViewById(R.id.tvCount);
                 viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
+                viewHolder.tvAvailableTill = (TextView) convertView.findViewById(R.id.tvAvailableTill);
                 viewHolder.coverImage = (ImageView) convertView.findViewById(R.id.coverImage);
                 convertView.setTag(viewHolder);
             } else {
@@ -265,10 +266,27 @@ public class ShowCardsNew extends Fragment {
                 viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size()) + " Going");
                 viewHolder.tvCount.setText(String.valueOf(dataModel.getId()));
 
+                if(dataModel.getActivity().getActivity_category().getId() == 1 || dataModel.getActivity().getActivity_category().getId() == 2){
+                    if(dataModel.getCut_off_time().equals("0000-00-00 00:00:00")){
+                        viewHolder.tvAvailableTill.setText("Cut off time : NA");
+                    }else{
+                        viewHolder.tvAvailableTill.setText("Cut off time  " +
+                                AppConstants.formatDate(dataModel.getCut_off_time(),"yyyy-mm-dd HH:mm:ss","hh:mm a"));
+                    }
+                }else{
+
+                    if(dataModel.getAvailable_till().equals("0000-00-00 00:00:00")){
+                        viewHolder.tvAvailableTill.setText("Not available");
+                    }else{
+                        viewHolder.tvAvailableTill.setText("Available Till " +
+                                AppConstants.formatDate(dataModel.getAvailable_till(),"yyyy-mm-dd HH:mm:ss","hh:mm a"));
+                    }
+                }
+
 
                 Log.v("TESTING",""+dataModel.getUser().getProfile_photo_thumbnail());
                 Glide.with(context)
-                        .load(dataModel.getUser().getProfile_photo_thumbnail())
+                        .load(dataModel.getUser().getProfile_photo())
                         .placeholder(R.drawable.bg_item_above)
                         .error(R.drawable.bg_item_above)
                         .into(viewHolder.coverImage);

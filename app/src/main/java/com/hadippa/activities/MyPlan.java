@@ -32,8 +32,12 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -55,16 +59,16 @@ public class MyPlan extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(MyPlan.this);
         editor = sp.edit();
 
-        ((ImageView)findViewById(R.id.history)).setOnClickListener(new View.OnClickListener() {
+        ((ImageView) findViewById(R.id.history)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MyPlan.this,HistoryPlan.class);
+                Intent intent = new Intent(MyPlan.this, HistoryPlan.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_left,R.anim.slide_in_right);
+                overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
             }
         });
-        imageBack = (ImageView)findViewById(R.id.imageBack);
+        imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,11 +79,10 @@ public class MyPlan extends AppCompatActivity {
             }
         });
 
-        myPlanRecycler = (RecyclerView)findViewById(R.id.myPlanRecycler);
+        myPlanRecycler = (RecyclerView) findViewById(R.id.myPlanRecycler);
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(MyPlan.this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         myPlanRecycler.setLayoutManager(mLayoutManager);
-
 
 
         myPlans();
@@ -90,7 +93,7 @@ public class MyPlan extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(), intent.getExtras().getString("messageData"));
         }
     };
 
@@ -132,45 +135,41 @@ public class MyPlan extends AppCompatActivity {
 
             final MyPlansModel.MyPlansBean myPlansBean = myPlansBeen.get(position);
 
-            if(myPlansBean.getPeople_going().size() == 0){
+            if (myPlansBean.getPeople_going().size() == 0) {
                 viewHolder.recyclerView.setVisibility(View.GONE);
-            }else {
+            } else {
                 viewHolder.recyclerView.setVisibility(View.VISIBLE);
                 viewHolder.recyclerView.setAdapter(new Approved(myPlansBean.getPeople_going()));
             }
 
 
-            Log.v(TAG,"LLGoing  " + myPlansBean.getPeople_going_count());
-            if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0) {
+            Log.v(TAG, "LLGoing  " + myPlansBean.getPeople_going_count());
+            if (myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0) {
 
                 viewHolder.llGoing.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //TODO sahil. look at this
-                        Log.v(TAG,"LLGoing  " + myPlansBean.isOpened());
+                        Log.v(TAG, "LLGoing  " + myPlansBean.isOpened());
 
                         myPlansBean.setOpened(!myPlansBean.isOpened());
                         notifyDataSetChanged();
 
                     }
                 });
-            }
-            else{
+            } else {
                 viewHolder.llGoing.setOnClickListener(null);
             }
 
 
-
-
-            if(myPlansBean.isOpened()){
-                Log.v(TAG, "myPlansBean.isOpened(): 1"+ myPlansBean.isOpened());
+            if (myPlansBean.isOpened()) {
+                Log.v(TAG, "myPlansBean.isOpened(): 1" + myPlansBean.isOpened());
                 viewHolder.vSep.setVisibility(View.VISIBLE);
                 viewHolder.tvApprovedPeople.setVisibility(View.VISIBLE);
                 viewHolder.recyclerView.setVisibility(View.VISIBLE);
                 viewHolder.ivChat.setVisibility(View.VISIBLE);
-            }
-            else{
-                Log.v(TAG, "myPlansBean.isOpened() 2: "+ myPlansBean.isOpened());
+            } else {
+                Log.v(TAG, "myPlansBean.isOpened() 2: " + myPlansBean.isOpened());
                 viewHolder.vSep.setVisibility(View.GONE);
                 viewHolder.tvApprovedPeople.setVisibility(View.GONE);
                 viewHolder.recyclerView.setVisibility(View.GONE);
@@ -178,22 +177,24 @@ public class MyPlan extends AppCompatActivity {
 
             }
 
+            viewHolder.tvPersonName.setText(myPlansBean.getUser().getFirst_name()+" "+myPlansBean.getUser().getLast_name()+", "+
+            myPlansBean.getUser().getAge());
             viewHolder.activityname.setText(myPlansBean.getActivity_details().getActivity_name());
             viewHolder.tvAddress.setText(myPlansBean.getActivity_location());
-            viewHolder.tvActivityDate.setText(myPlansBean.getActivity_date());
-            viewHolder.tvActivityTime.setText(myPlansBean.getActivity_time());
-            viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size()+"");
-            if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0){
-                viewHolder.tvCount.setText(myPlansBean.getPeople_going_count().size()+"");
+            viewHolder.tvActivityDate.setText(convertDate(myPlansBean.getActivity_date()));
+            viewHolder.tvActivityTime.setText(AppConstants.formatDate(myPlansBean.getActivity_time(), "HH:mm", "hh:mm a"));
+            viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size() + "");
+            if (myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0) {
+                viewHolder.tvCount.setText(myPlansBean.getPeople_going_count().size() + "");
 
                 String text = "";
-                if(myPlansBean.getPeople_going().size()>2) {
+                if (myPlansBean.getPeople_going().size() > 2) {
 
 
                     text = "You are going with " + myPlansBean.getPeople_going().get(0).getUser().getFirst_name()
-                            + " " + myPlansBean.getPeople_going().get(0).getUser().getLast_name() + " and "+
-                            (myPlansBean.getPeople_going().size()-2) +" people";
-                }else{
+                            + " " + myPlansBean.getPeople_going().get(0).getUser().getLast_name() + " and " +
+                            (myPlansBean.getPeople_going().size() - 2) + " people";
+                } else {
 
                     text = "You are going with " + myPlansBean.getPeople_going().get(0).getUser().getFirst_name()
                             + " " + myPlansBean.getPeople_going().get(0).getUser().getLast_name();
@@ -204,20 +205,17 @@ public class MyPlan extends AppCompatActivity {
                 viewHolder.goingWith.setVisibility(View.VISIBLE);
 
 
-            }
-            else{
+            } else {
                 viewHolder.goingWith.setVisibility(View.GONE);
                 viewHolder.tvCount.setText("0");
             }
 
 
-
-
-            if(myPlansBean.getUser().getProfile_photo().isEmpty() ||
-                    myPlansBean.getUser().getProfile_photo().equals("") ){
+            if (myPlansBean.getUser().getProfile_photo().isEmpty() ||
+                    myPlansBean.getUser().getProfile_photo().equals("")) {
 
                 viewHolder.profileImage.setImageResource(R.drawable.place_holder);
-            }else{
+            } else {
 
                 Glide.with(MyPlan.this)
                         .load(myPlansBean.getUser().getProfile_photo())
@@ -245,15 +243,33 @@ public class MyPlan extends AppCompatActivity {
         }
     }
 
+    String convertDate(String dateInputString) {
+
+        String stringDate = null;
+        try {
+            // obtain date and time from initial string
+            Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(dateInputString);
+            // set date string
+            stringDate = new SimpleDateFormat("dd MMM", Locale.US).format(date).toUpperCase(Locale.ROOT);
+            // set time string
+
+        } catch (ParseException e) {
+            // wrong input
+        }
+
+        return stringDate;
+
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final View vSep;
         private final RecyclerView recyclerView;
         private final LinearLayout llGoing;
-        CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount,tvApprovedPeople,goingWith;
+        CustomTextView tvPersonName, activityname, tvAddress, tvActivityDate, tvActivityTime, tvGoing, tvCount, tvApprovedPeople, goingWith;
         RoundedImageView profileImage;
-        ImageView ivMore,ivChat;
+        ImageView ivMore, ivChat;
 
         public ViewHolder(final View v) {
             super(v);
@@ -280,21 +296,22 @@ public class MyPlan extends AppCompatActivity {
 
             vSep = (View) v.findViewById(R.id.vSep);
             recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
-            activityname = (CustomTextView)v.findViewById(R.id.activityname);
-            tvAddress = (CustomTextView)v.findViewById(R.id.tvAddress);
-            tvActivityDate = (CustomTextView)v.findViewById(R.id.tvActivityDate);
-            tvActivityTime = (CustomTextView)v.findViewById(R.id.tvActivityTime);
-            tvApprovedPeople = (CustomTextView)v.findViewById(R.id.tvApprovedPeople);
-            tvGoing = (CustomTextView)v.findViewById(R.id.tvGoing);
-            tvCount = (CustomTextView)v.findViewById(R.id.tvCount);
-            goingWith= (CustomTextView)v.findViewById(R.id.goingWith);
-            profileImage = (RoundedImageView)v.findViewById(R.id.profileImage);
+            tvPersonName = (CustomTextView) v.findViewById(R.id.tvPersonName);
+            activityname = (CustomTextView) v.findViewById(R.id.activityname);
+            tvAddress = (CustomTextView) v.findViewById(R.id.tvAddress);
+            tvActivityDate = (CustomTextView) v.findViewById(R.id.tvActivityDate);
+            tvActivityTime = (CustomTextView) v.findViewById(R.id.tvActivityTime);
+            tvApprovedPeople = (CustomTextView) v.findViewById(R.id.tvApprovedPeople);
+            tvGoing = (CustomTextView) v.findViewById(R.id.tvGoing);
+            tvCount = (CustomTextView) v.findViewById(R.id.tvCount);
+            goingWith = (CustomTextView) v.findViewById(R.id.goingWith);
+            profileImage = (RoundedImageView) v.findViewById(R.id.profileImage);
 
             final LinearLayoutManager mLayoutManager = new LinearLayoutManager(MyPlan.this);
             mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             recyclerView.setLayoutManager(mLayoutManager);
 
-           // recyclerView.setAdapter(new Approved());
+            // recyclerView.setAdapter(new Approved());
 
 
 
@@ -314,9 +331,9 @@ public class MyPlan extends AppCompatActivity {
         }
 
 
-      //  public LinearLayout getLinearDate() {
-      //      return linearDate;
-       // }
+        //  public LinearLayout getLinearDate() {
+        //      return linearDate;
+        // }
 
 
     }
@@ -325,7 +342,7 @@ public class MyPlan extends AppCompatActivity {
         private static final String TAG = "CustomAdapter";
 
         List<MyPlansModel.MyPlansBean.PeopleGoingBean>
-        activityDetailsBeen;
+                activityDetailsBeen;
 
         public Approved(List<MyPlansModel.MyPlansBean.PeopleGoingBean> activityDetailsBeen) {
             this.activityDetailsBeen = activityDetailsBeen;
@@ -350,7 +367,7 @@ public class MyPlan extends AppCompatActivity {
             requestManager.load(peopleGoingBean.getUser().getProfile_photo()).error(R.drawable.place_holder).placeholder(R.drawable.place_holder)
                     .into(viewHolder.image_view);
 
-            viewHolder.text_view.setText(peopleGoingBean.getUser().getFirst_name()+" "+peopleGoingBean.getUser().getLast_name());
+            viewHolder.text_view.setText(peopleGoingBean.getUser().getFirst_name() + " " + peopleGoingBean.getUser().getLast_name());
         }
 
         @Override
@@ -386,8 +403,8 @@ public class MyPlan extends AppCompatActivity {
                 }
             });
 
-            text_view = (CustomTextView)v.findViewById(R.id.text_view);
-            image_view = (ImageView)v.findViewById(R.id.image_view);
+            text_view = (CustomTextView) v.findViewById(R.id.text_view);
+            image_view = (ImageView) v.findViewById(R.id.image_view);
             //   linearDate = (LinearLayout)v.findViewById(R.id.linearDate);
 
            /*  linearDate.setOnClickListener(new View.OnClickListener() {
@@ -438,7 +455,7 @@ public class MyPlan extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-              AppConstants.showProgressDialog(MyPlan.this, "Please Wait");
+            AppConstants.showProgressDialog(MyPlan.this, "Please Wait");
 
         }
 

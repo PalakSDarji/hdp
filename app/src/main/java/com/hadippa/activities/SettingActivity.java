@@ -207,6 +207,8 @@ public class SettingActivity extends AppCompatActivity {
         super.onStop();
 
         unregisterReceiver(broadcastReceiver);
+
+
     }
 
 }

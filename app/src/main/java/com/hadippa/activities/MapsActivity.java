@@ -40,6 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         tvHeader.setSelected(true);
 
+        ((TextView)findViewById(R.id.tvHeader)).setText(getIntent().getExtras().getString("location"));
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +67,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(getIntent().getExtras().getDouble("latitide"), getIntent().getExtras().getDouble("longitude"));
         mMap.addMarker(new MarkerOptions().position(sydney).title(getIntent().getExtras().getString("location")));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,12));
+
     }
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {

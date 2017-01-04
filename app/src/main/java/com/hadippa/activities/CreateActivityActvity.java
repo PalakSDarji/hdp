@@ -668,7 +668,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
             requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
             if (getIntent().getExtras().getInt("activity_id") == 1 || getIntent().getExtras().getInt("activity_id") == 2) {
-                requestParams.add("cut_off_time", name.getText().toString());
+                requestParams.add("cut_off_time", selectedDate + " " + convertTime12TO24(tvAvailableTill.getText().toString().trim()));
             } else if (getIntent().getExtras().getInt("activity_id") == 3 ||
                     getIntent().getExtras().getInt("activity_id") == 4 ||
                     getIntent().getExtras().getInt("activity_id") == 5 ||

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_margin="@dimen/value_w24">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/value_w24">
     <!--
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
 
@@ -29,14 +29,14 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/llControls"
             android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
             android:background="@drawable/bg_item_above"
-            android:src="@drawable/customl"
             android:padding="@dimen/value_1"
-            app:riv_corner_radius="1dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/customl"
             app:riv_border_color="@color/c_e3e3e3"
+            app:riv_corner_radius="1dp"
             app:riv_corner_radius_top_left="@dimen/value_10"
-            app:riv_corner_radius_top_right="@dimen/value_10"/>
+            app:riv_corner_radius_top_right="@dimen/value_10" />
         <!--
                 </com.github.captain_miao.optroundcardview.OptRoundCardView>
         -->
@@ -46,12 +46,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginTop="-1dp"
             android:layout_weight="35"
             android:background="@drawable/bg_item_below"
-            android:layout_marginTop="-1dp"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/value_1"
             android:paddingBottom="@dimen/value_1"
+            android:paddingLeft="@dimen/value_1"
             android:paddingRight="@dimen/value_1">
 
             <RelativeLayout
@@ -69,20 +69,20 @@
                         android:id="@+id/llActivityName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="@dimen/value_h64"
-                        android:gravity="center"
-                        android:layout_alignParentLeft="true"
                         android:layout_toLeftOf="@+id/ivDownArrow"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/imageView"
                             android:layout_width="@dimen/value_w29"
                             android:layout_height="@dimen/value_w29"
-                            android:layout_marginLeft="@dimen/value_10"
                             android:layout_gravity="center"
-                            android:src="@drawable/movie"/>
+                            android:layout_marginLeft="@dimen/value_10"
+                            android:src="@drawable/movie" />
 
                         <com.hadippa.CustomTextView
                             android:id="@+id/tvActivityName"
@@ -90,14 +90,14 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginLeft="5dp"
+                            android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="2"
-                            android:ellipsize="end"
                             android:text="Sarabjit Movie"
                             android:textColor="@color/pink_text"
                             android:textSize="@dimen/values_txt_16"
                             android:textStyle="bold"
-                            app:customFont="@string/proxima_bold"/>
+                            app:customFont="@string/proxima_bold" />
 
                     </LinearLayout>
 
@@ -121,8 +121,7 @@
                         android:layout_height="@dimen/value_w26"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/tvCount"
-                        android:src="@drawable/red_down"
-                        />
+                        android:src="@drawable/red_down" />
 
                     <com.hadippa.CustomTextView
                         android:id="@+id/tvCount"
@@ -137,17 +136,17 @@
                         android:text="100"
                         android:textColor="@color/c_8e8e8e"
                         android:textSize="@dimen/values_txt_11"
-                        app:customFont="@string/proxima_reg"/>
+                        app:customFont="@string/proxima_reg" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layouttop1"
+                    android:layout_marginLeft="@dimen/value_10"
                     android:layout_marginRight="@dimen/value_10"
                     android:layout_marginTop="@dimen/value_h21"
                     android:gravity="center"
-                    android:layout_marginLeft="@dimen/value_10"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -156,21 +155,20 @@
                         android:layout_height="@dimen/value_h21"
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/value_10"
-                        android:src="@drawable/landing_pages_address_icon"
-                        />
+                        android:src="@drawable/landing_pages_address_icon" />
 
                     <com.hadippa.CustomTextView
                         android:id="@+id/tvAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:ellipsize="end"
+                        android:gravity="center"
                         android:maxLines="2"
                         android:text="PVR Cinemas, Lower Parel"
                         android:textColor="@color/c_6b696a"
                         android:textSize="@dimen/values_txt_11"
-                        app:customFont="@string/proxima_reg"/>
+                        app:customFont="@string/proxima_reg" />
 
 
                 </LinearLayout>
@@ -198,7 +196,7 @@
                         android:layout_width="@dimen/value_w36"
                         android:layout_height="@dimen/value_w36"
                         android:layout_gravity="center"
-                        android:src="@drawable/cal"/>
+                        android:src="@drawable/cal" />
 
                     <com.hadippa.CustomTextView
                         android:id="@+id/tvActivityDate"
@@ -206,12 +204,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/value_8"
+                        android:ellipsize="end"
                         android:gravity="center"
+                        android:maxLines="2"
                         android:text="04 May"
                         android:textSize="@dimen/values_txt_10"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        app:customFont="@string/proxima_reg"/>
+                        app:customFont="@string/proxima_reg" />
 
                 </LinearLayout>
 
@@ -226,7 +224,7 @@
                         android:layout_width="@dimen/value_w36"
                         android:layout_height="@dimen/value_w36"
                         android:layout_gravity="center"
-                        android:src="@drawable/clock"/>
+                        android:src="@drawable/clock" />
 
                     <com.hadippa.CustomTextView
                         android:id="@+id/tvActivtyTime"
@@ -234,12 +232,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/value_8"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="2"
-                        android:ellipsize="end"
                         android:text="12.15 pm"
                         android:textSize="@dimen/values_txt_10"
-                        app:customFont="@string/proxima_reg"/>
+                        app:customFont="@string/proxima_reg" />
 
                 </LinearLayout>
 
@@ -254,7 +252,7 @@
                         android:layout_width="@dimen/value_w36"
                         android:layout_height="@dimen/value_w36"
                         android:layout_gravity="center"
-                        android:src="@drawable/loc"/>
+                        android:src="@drawable/loc" />
 
                     <com.hadippa.CustomTextView
                         android:id="@+id/tvDistance"
@@ -262,12 +260,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/value_8"
-                        android:gravity="center"
-                        android:text="10 Km"
-                        android:maxLines="2"
                         android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="10 Km"
                         android:textSize="@dimen/values_txt_10"
-                        app:customFont="@string/proxima_reg"/>
+                        app:customFont="@string/proxima_reg" />
 
                 </LinearLayout>
 
@@ -283,19 +281,19 @@
                         android:layout_width="@dimen/value_w50"
                         android:layout_height="@dimen/value_h48"
                         android:layout_gravity="center"
-                        android:src="@drawable/people"/>
+                        android:src="@drawable/people" />
 
                     <com.hadippa.CustomTextView
                         android:id="@+id/tvGoing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="10 Going"
-                        android:maxLines="2"
                         android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="10 Going"
                         android:textSize="@dimen/values_txt_10"
-                        app:customFont="@string/proxima_reg"/>
+                        app:customFont="@string/proxima_reg" />
 
                 </LinearLayout>
 
@@ -320,28 +318,29 @@
                     android:id="@+id/tvName_Age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/tvFollowing"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="Maria Sharopava, 29"
                     android:textColor="@color/c_6c6a6b"
-                    android:maxLines="1"
-                    android:ellipsize="end"
                     android:textSize="@dimen/values_txt_12"
-                    android:layout_alignParentLeft="true"
                     android:textStyle="bold"
-                    android:layout_toLeftOf="@+id/tvFollowing"
-                    app:customFont="@string/proxima_bold"/>
+                    app:customFont="@string/proxima_bold" />
 
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvAvaTill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvName_Age"
-                    android:text="Available till 1 AM"
-                    android:layout_marginTop="@dimen/value_3"
                     android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tvName_Age"
+                    android:layout_marginTop="@dimen/value_3"
                     android:layout_toLeftOf="@+id/tvFollowing"
+                    android:text="Available till 1 AM"
                     android:textColor="@color/c_6c6a6b"
                     android:textSize="@dimen/values_txt_11"
-                    app:customFont="@string/proxima_reg"/>
+                    android:visibility="gone"
+                    app:customFont="@string/proxima_reg" />
 
                 <com.hadippa.CustomTextView
                     android:id="@+id/tvFollowing"
@@ -352,7 +351,16 @@
                     android:text="FOLLOWLING"
                     android:textColor="@color/c_6c6a6b"
                     android:textSize="@dimen/values_txt_11"
-                    app:customFont="@string/proxima_reg"/>
+                    app:customFont="@string/proxima_reg" />
+
+                <com.hadippa.CustomTextView
+                    android:id="@+id/tvAvailableTill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvName_Age"
+                    android:textColor="@color/c_6c6a6b"
+                    android:textSize="@dimen/values_txt_11"
+                    app:customFont="@string/proxima_reg" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -373,7 +381,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:alpha="0"
-        android:background="@drawable/like"/>
+        android:background="@drawable/like" />
 
     <View
         android:id="@+id/item_swipe_right_indicator"
@@ -381,7 +389,7 @@
         android:layout_height="100dp"
         android:layout_gravity="right"
         android:alpha="0"
-        android:background="@drawable/nope"/>
+        android:background="@drawable/nope" />
 
 
 </FrameLayout>
