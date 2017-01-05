@@ -121,6 +121,7 @@ public class ShowCardsNew extends Fragment {
     private SwipeFlingAdapterView flingContainer;
 
 
+    ArrayList<DataModel> rollBackIds = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
     // ArrayList<String> al;
@@ -415,6 +416,7 @@ public class ShowCardsNew extends Fragment {
             public void onLeftCardExit(Object dataObject) {
                 makeToast(getActivity(),""+ posts.get(0).getId());
 
+                rollBackIds.add(posts.get(0));
                 activityJoinDecline(String.valueOf(posts.get(0).getId()),AppConstants.ACTIVITY_REQUEST_DECLINE);
                 posts.remove(i);
                 myAppAdapter.notifyDataSetChanged();
@@ -493,6 +495,10 @@ public class ShowCardsNew extends Fragment {
             @Override
             public void onClick(View v) {
 
+
+                if(rollBackIds.size() > 0){
+                    rollbackActivity(String.valueOf(rollBackIds.get(0).getId()));
+                }
             //    rollbackActivity("8");
 
 
@@ -1330,7 +1336,7 @@ public class ShowCardsNew extends Fragment {
             requestParams.add("access_token", sp.getString("access_token", ""));
             requestParams.add("activity_id", activity_id);
 
-            Log.d("request>>", requestParams.toString());
+            Log.d("rollBack?>>", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1358,8 +1364,6 @@ public class ShowCardsNew extends Fragment {
         @Override
         public void onProgress(long bytesWritten, long totalSize) {
             super.onProgress(bytesWritten, totalSize);
-            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
 
         }
 
@@ -1370,21 +1374,28 @@ public class ShowCardsNew extends Fragment {
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-                if (jsonObject.has("access_token")) {
+                Log.d("rollBack?>>", "success" + response);
 
-                    Log.d("response>>", response);
-                    //post json stored g\here
-
-                } else {
+                if(jsonObject.getBoolean("success")){
 
 
-                    //  AppConstants.showSnackBar(mainRel,"Invalid username or password");
+                    Log.d("rollBack?>>", "success  " + posts.size());
 
+                    posts.add(0,rollBackIds.get(0));
+                    myAppAdapter = new MyAppAdapter(posts,getActivity());
+                    flingContainer.setAdapter(myAppAdapter);
+                    rollBackIds.remove(0);
+                    Toast.makeText(getActivity(),"Rollback success",Toast.LENGTH_SHORT).show();
+                    Log.d("rollBack?>>", "success  " + posts.size());
+
+                }else{
+
+                    Toast.makeText(getActivity(),"Rollback failed",Toast.LENGTH_SHORT).show();
                 }
-                Log.d("async", "success" + response);
+               Log.d("rollBack?>>", "success" + response);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("async", "success exc  >>" + e.toString());
+                Log.d("rollBack?>>", "success exc  >>" + e.toString());
             }
         }
 
