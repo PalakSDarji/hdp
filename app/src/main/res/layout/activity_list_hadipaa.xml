@@ -78,8 +78,9 @@
                 android:weightSum="100">
 
                 <com.hadippa.CustomTextView
+
                     app:customFont="@string/proxima_reg"
-                    android:id="@+id/tvMovie"
+                    android:id="@+id/tvStandUpCom"
                     style="@style/activity_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -91,7 +92,7 @@
 
                 <com.hadippa.CustomTextView
                     app:customFont="@string/proxima_reg"
-                    android:id="@+id/tvTheatrePlay"
+                    android:id="@+id/tvParty"
                     style="@style/activity_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -149,7 +150,7 @@
 
                 <com.hadippa.CustomTextView
                     app:customFont="@string/proxima_reg"
-                    android:id="@+id/tvTheatreParty"
+                    android:id="@+id/tvTheatrePlay"
                     style="@style/activity_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -235,6 +236,7 @@
                     app:customFont="@string/proxima_reg"
                     android:id="@+id/tvOutdoor"
                     style="@style/activity_name"
+
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"

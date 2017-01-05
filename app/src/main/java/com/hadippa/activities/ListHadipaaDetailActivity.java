@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomEditText;
+import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.model.MyPlansModel;
 import com.loopj.android.http.AsyncHttpClient;
@@ -47,6 +48,7 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
         edtCompany = (CustomEditText)findViewById(R.id.edtCompany);
         edtCompanyWeb = (CustomEditText)findViewById(R.id.edtCompanyWeb);
 
+        ((CustomTextView)findViewById(R.id.title)).setText(getIntent().getExtras().getString("category"));
         imageBack = (ImageView)findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
