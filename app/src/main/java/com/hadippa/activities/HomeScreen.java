@@ -473,6 +473,22 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
     }
 
+
+
+    BroadcastReceiver updateActivity = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            fm = getSupportFragmentManager();
+            fragment = new ShowCardsNew();
+            fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.frame, fragment, "home_fragment");
+            fragmentTransaction.commit();
+
+
+
+        }
+    };
+
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -488,6 +504,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         Log.d("broadCast?","yes");
 
         registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+        registerReceiver(updateActivity, new IntentFilter("update_activity"));
     }
 
     @Override
@@ -518,6 +535,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
         Log.d("broadCast?","no");
         unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(updateActivity);
     }
 
 }

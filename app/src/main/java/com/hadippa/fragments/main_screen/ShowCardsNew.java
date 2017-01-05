@@ -206,10 +206,10 @@ public class ShowCardsNew extends Fragment {
         }
 
         private class ViewHolder {
-            LinearLayout llGoing,llDistance;
+            LinearLayout llGoing, llDistance;
             ImageView imageView, coverImage;
             TextView tvGoing, tvName_Age, tvDistance,
-                    tvActivityName, tvActivtyTime, tvActivtyDate, tvAddress, tvCount,tvAvailableTill;
+                    tvActivityName, tvActivtyTime, tvActivtyDate, tvAddress, tvCount, tvAvailableTill;
             TextView txtDesc;
         }
 
@@ -242,7 +242,7 @@ public class ShowCardsNew extends Fragment {
 
             final DataModel dataModel = parkingList.get(position);
 
-            if(dataModel.getUser() != null){
+            if (dataModel.getUser() != null) {
 
                 viewHolder.tvName_Age.setText(dataModel.getUser().getFirst_name()
                         + " " + dataModel.getUser().getLast_name() + ", " +
@@ -254,38 +254,38 @@ public class ShowCardsNew extends Fragment {
                         Intent intent = new Intent(getActivity(), ProfileActivity.class);
                         //intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_FROM_POST);
                         intent.putExtra(AppConstants.PROFILE_KEY, AppConstants.OTHERS_PROFILE);
-                        intent.putExtra(AppConstants.FETCH_USER_KEY, String .valueOf(dataModel.getUser().getId()));
+                        intent.putExtra(AppConstants.FETCH_USER_KEY, String.valueOf(dataModel.getUser().getId()));
                         startActivity(intent);
                         getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 });
 
                 viewHolder.tvActivityName.setText(dataModel.getActivity_details().getActivity_name());
-                viewHolder.tvActivtyTime.setText(AppConstants.formatDate(dataModel.getActivity_time(),"HH:mm","hh:mm a"));
+                viewHolder.tvActivtyTime.setText(AppConstants.formatDate(dataModel.getActivity_time(), "HH:mm", "hh:mm a"));
                 viewHolder.tvActivtyDate.setText(convertDate(dataModel.getActivity_date()));
                 viewHolder.tvAddress.setText(dataModel.getActivity_location());
                 viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size()) + " Going");
                 viewHolder.tvCount.setText(String.valueOf(dataModel.getId()));
 
-                if(dataModel.getActivity().getActivity_category().getId() == 1 || dataModel.getActivity().getActivity_category().getId() == 2){
-                    if(dataModel.getCut_off_time().equals("0000-00-00 00:00:00")){
+                if (dataModel.getActivity().getActivity_category().getId() == 1 || dataModel.getActivity().getActivity_category().getId() == 2) {
+                    if (dataModel.getCut_off_time().equals("0000-00-00 00:00:00")) {
                         viewHolder.tvAvailableTill.setText("Cut off time : NA");
-                    }else{
+                    } else {
                         viewHolder.tvAvailableTill.setText("Cut off time  " +
-                                AppConstants.formatDate(dataModel.getCut_off_time(),"yyyy-mm-dd HH:mm:ss","hh:mm a"));
+                                AppConstants.formatDate(dataModel.getCut_off_time(), "yyyy-mm-dd HH:mm:ss", "hh:mm a"));
                     }
-                }else{
+                } else {
 
-                    if(dataModel.getAvailable_till().equals("0000-00-00 00:00:00")){
+                    if (dataModel.getAvailable_till().equals("0000-00-00 00:00:00")) {
                         viewHolder.tvAvailableTill.setText("Not available");
-                    }else{
+                    } else {
                         viewHolder.tvAvailableTill.setText("Available Till " +
-                                AppConstants.formatDate(dataModel.getAvailable_till(),"yyyy-mm-dd HH:mm:ss","hh:mm a"));
+                                AppConstants.formatDate(dataModel.getAvailable_till(), "yyyy-mm-dd HH:mm:ss", "hh:mm a"));
                     }
                 }
 
 
-                Log.v("TESTING",""+dataModel.getUser().getProfile_photo_thumbnail());
+                Log.v("TESTING", "" + dataModel.getUser().getProfile_photo_thumbnail());
                 Glide.with(context)
                         .load(dataModel.getUser().getProfile_photo())
                         .placeholder(R.drawable.bg_item_above)
@@ -308,9 +308,9 @@ public class ShowCardsNew extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), MapsActivity.class);
-                    intent.putExtra("latitide",posts.get(position).getActivity_location_lat());
-                    intent.putExtra("longitude",posts.get(position).getActivity_location_lon());
-                    intent.putExtra("location",posts.get(position).getActivity_location());
+                    intent.putExtra("latitide", posts.get(position).getActivity_location_lat());
+                    intent.putExtra("longitude", posts.get(position).getActivity_location_lon());
+                    intent.putExtra("location", posts.get(position).getActivity_location());
                     startActivity(intent);
 
                 }
@@ -320,9 +320,9 @@ public class ShowCardsNew extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), MapsActivity.class);
-                    intent.putExtra("latitide",posts.get(position).getActivity_location_lat());
-                    intent.putExtra("longitude",posts.get(position).getActivity_location_lon());
-                    intent.putExtra("location",posts.get(position).getActivity_location());
+                    intent.putExtra("latitide", posts.get(position).getActivity_location_lat());
+                    intent.putExtra("longitude", posts.get(position).getActivity_location_lon());
+                    intent.putExtra("location", posts.get(position).getActivity_location());
                     startActivity(intent);
 
                 }
@@ -353,7 +353,7 @@ public class ShowCardsNew extends Fragment {
 
     }
 
-    public List<DataModel> posts= new ArrayList<>();
+    public List<DataModel> posts = new ArrayList<>();
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -366,7 +366,7 @@ public class ShowCardsNew extends Fragment {
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         editor = sp.edit();
 
-      //  getPreferences();
+        //  getPreferences();
         Type listType = new TypeToken<ArrayList<DataModel>>() {
         }.getType();
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -375,10 +375,10 @@ public class ShowCardsNew extends Fragment {
         posts = new ArrayList<>();
 
         ArrayList<DataModel> dataModels = gson.fromJson(sp.getString("posts", ""), listType);
-        if(dataModels != null && dataModels.size()>0){
+        if (dataModels != null && dataModels.size() > 0) {
             posts.addAll(dataModels);
         }
-      //  posts.add(new DataModel());
+        //  posts.add(new DataModel());
         Log.d("posts>>", sp.getString("posts", ""));
 
 
@@ -409,15 +409,15 @@ public class ShowCardsNew extends Fragment {
             public void removeFirstObjectInAdapter() {
 
                 Log.d("LIST", "removed object!");
-              //  myAppAdapter.remove(0);
+                //  myAppAdapter.remove(0);
             }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                makeToast(getActivity(),""+ posts.get(0).getId());
+                makeToast(getActivity(), "" + posts.get(0).getId());
 
                 rollBackIds.add(posts.get(0));
-                activityJoinDecline(String.valueOf(posts.get(0).getId()),AppConstants.ACTIVITY_REQUEST_DECLINE);
+                activityJoinDecline(String.valueOf(posts.get(0).getId()), AppConstants.ACTIVITY_REQUEST_DECLINE);
                 posts.remove(i);
                 myAppAdapter.notifyDataSetChanged();
 
@@ -431,7 +431,7 @@ public class ShowCardsNew extends Fragment {
             @Override
             public void onRightCardExit(Object dataObject) {
                 makeToast(getActivity(), "Right!");
-                activityJoinDecline(String.valueOf(posts.get(0).getId()),AppConstants.ACTIVITY_REQUEST_JOIN);
+                activityJoinDecline(String.valueOf(posts.get(0).getId()), AppConstants.ACTIVITY_REQUEST_JOIN);
                 posts.remove(i);
                 myAppAdapter.notifyDataSetChanged();
                 /*al.remove(0);
@@ -496,10 +496,10 @@ public class ShowCardsNew extends Fragment {
             public void onClick(View v) {
 
 
-                if(rollBackIds.size() > 0){
+                if (rollBackIds.size() > 0) {
                     rollbackActivity(String.valueOf(rollBackIds.get(0).getId()));
                 }
-            //    rollbackActivity("8");
+                //    rollbackActivity("8");
 
 
             }
@@ -508,7 +508,7 @@ public class ShowCardsNew extends Fragment {
         return view;
     }
 
-    private void showBottomPeopleGoing(DataModel dataModel){
+    private void showBottomPeopleGoing(DataModel dataModel) {
 
         BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getActivity());
         View sheetView = getActivity().getLayoutInflater().inflate(R.layout.bottom_people_going, null);
@@ -537,18 +537,18 @@ public class ShowCardsNew extends Fragment {
 
         List<DoublePeople> doublePeoples1 = new ArrayList<>();
 
-        for(int i = 0;i < dataModel.getPeople_going().size();i++){
+        for (int i = 0; i < dataModel.getPeople_going().size(); i++) {
 
-            DataModel.PeopleGoingBean.UserBeanX userBeanX1 =null;
+            DataModel.PeopleGoingBean.UserBeanX userBeanX1 = null;
             DataModel.PeopleGoingBean.UserBeanX userBeanX2 = null;
 
-                userBeanX1 = dataModel.getPeople_going().get(i).getUser();
-            i = i+1;
-            if(dataModel.getPeople_going().size() > i){
+            userBeanX1 = dataModel.getPeople_going().get(i).getUser();
+            i = i + 1;
+            if (dataModel.getPeople_going().size() > i) {
                 userBeanX2 = dataModel.getPeople_going().get(i).getUser();
             }
 
-            DoublePeople doublePeople = new DoublePeople(userBeanX1,userBeanX2);
+            DoublePeople doublePeople = new DoublePeople(userBeanX1, userBeanX2);
             doublePeoples1.add(doublePeople);
         }
 
@@ -834,7 +834,7 @@ public class ShowCardsNew extends Fragment {
             private ImageView image_view1;
             private ImageView image_view2;
 
-            private LinearLayout topLinear,bottomLinear;
+            private LinearLayout topLinear, bottomLinear;
 
             public MyViewHolder(View view) {
                 super(view);
@@ -842,8 +842,8 @@ public class ShowCardsNew extends Fragment {
                 text_view2 = (TextView) view.findViewById(R.id.text_view2);
                 image_view1 = (ImageView) view.findViewById(R.id.image_view1);
                 image_view2 = (ImageView) view.findViewById(R.id.image_view2);
-                topLinear = (LinearLayout)view.findViewById(R.id.topLinear);
-                bottomLinear = (LinearLayout)view.findViewById(R.id.bottomLinear);
+                topLinear = (LinearLayout) view.findViewById(R.id.topLinear);
+                bottomLinear = (LinearLayout) view.findViewById(R.id.bottomLinear);
             }
         }
 
@@ -863,24 +863,24 @@ public class ShowCardsNew extends Fragment {
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             Log.v("hadippa", "onBindViewHolder");
-            RequestManager  requestManager = Glide.with(getActivity());
+            RequestManager requestManager = Glide.with(getActivity());
 
-            if(horizontalList.get(position).getBeanX()!=null){
+            if (horizontalList.get(position).getBeanX() != null) {
                 holder.topLinear.setVisibility(View.VISIBLE);
                 holder.text_view1.setText(horizontalList.get(position).getBeanX().getFirst_name());
 
                 requestManager.load(horizontalList.get(position).getBeanX().getProfile_photo())
-                .placeholder(R.drawable.place_holder).into(holder.image_view1);
+                        .placeholder(R.drawable.place_holder).into(holder.image_view1);
 
-        }else{
-            holder.topLinear.setVisibility(View.GONE);
-        }
-            if(horizontalList.get(position).getBeanX1()!=null){
+            } else {
+                holder.topLinear.setVisibility(View.GONE);
+            }
+            if (horizontalList.get(position).getBeanX1() != null) {
                 holder.bottomLinear.setVisibility(View.VISIBLE);
                 holder.text_view2.setText(horizontalList.get(position).getBeanX1().getFirst_name());
                 requestManager.load(horizontalList.get(position).getBeanX1().getProfile_photo())
                         .placeholder(R.drawable.place_holder).into(holder.image_view2);
-            }else{
+            } else {
                 holder.bottomLinear.setVisibility(View.GONE);
             }
 
@@ -1158,7 +1158,7 @@ public class ShowCardsNew extends Fragment {
         return (bitmap);
     }
 
-    private void activityJoinDecline(String activity_id,String requestFor) {
+    private void activityJoinDecline(String activity_id, String requestFor) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -1186,14 +1186,14 @@ public class ShowCardsNew extends Fragment {
             super.onStart();
 
             //  dataScroll.setVisibility(View.GONE);
-         //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-          //  AppConstants.dismissDialog();
+            //  AppConstants.dismissDialog();
         }
 
         @Override
@@ -1211,7 +1211,7 @@ public class ShowCardsNew extends Fragment {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
 
-                if(jsonObject.getBoolean("success")){
+                if (jsonObject.getBoolean("success")) {
 
                 }
 
@@ -1224,42 +1224,36 @@ public class ShowCardsNew extends Fragment {
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-          //  AppConstants.showSnackBar(mainRel,"Could not register. try again");
+            //  AppConstants.showSnackBar(mainRel,"Could not register. try again");
         }
 
     }
 
     //GET PREFERENCS
-    private void getPreferences()
-    {
+    private void getPreferences() {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
 
 
-        try
-        {
+        try {
 
-            requestParams.add("access_token",sp.getString("access_token",""));
+            requestParams.add("access_token", sp.getString("access_token", ""));
 
 
-            Log.d("request>>",requestParams.toString());
-        }
-        catch (Exception e)
-        {
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        asyncHttpClient.post(AppConstants.BASE_URL+AppConstants.API_VERSION + AppConstants.PREFERENCES, requestParams,
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.PREFERENCES, requestParams,
                 new GetPreferences());
     }
 
-    class GetPreferences extends AsyncHttpResponseHandler
-    {
+    class GetPreferences extends AsyncHttpResponseHandler {
 
         @Override
-        public void onStart()
-        {
+        public void onStart() {
             super.onStart();
 
             //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
@@ -1268,8 +1262,7 @@ public class ShowCardsNew extends Fragment {
 
 
         @Override
-        public void onFinish()
-        {
+        public void onFinish() {
             AppConstants.dismissDialog();
         }
 
@@ -1289,15 +1282,15 @@ public class ShowCardsNew extends Fragment {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
 
-                if(jsonObject.getBoolean("success")){
-                    editor.putString("user_preference",jsonObject.getString("user_preference"));
+                if (jsonObject.getBoolean("success")) {
+                    editor.putString("user_preference", jsonObject.getString("user_preference"));
                     editor.commit();
                 }
 
-                Log.d("async","success"+response);
-            }catch (Exception e){
+                Log.d("async", "success" + response);
+            } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("async","success exc  >>"+ e.toString());
+                Log.d("async", "success exc  >>" + e.toString());
             }
         }
 
@@ -1376,23 +1369,26 @@ public class ShowCardsNew extends Fragment {
                 JSONObject jsonObject = new JSONObject(response);
                 Log.d("rollBack?>>", "success" + response);
 
-                if(jsonObject.getBoolean("success")){
+                if (jsonObject.getBoolean("success")) {
 
 
                     Log.d("rollBack?>>", "success  " + posts.size());
 
-                    posts.add(0,rollBackIds.get(0));
-                    myAppAdapter = new MyAppAdapter(posts,getActivity());
-                    flingContainer.setAdapter(myAppAdapter);
-                    rollBackIds.remove(0);
-                    Toast.makeText(getActivity(),"Rollback success",Toast.LENGTH_SHORT).show();
+                    posts.add(0, rollBackIds.get(0));
+
+                    editor.putString("posts", new Gson().toJson(posts));
+                    editor.commit();
+
+                    Intent intent = new Intent("update_activity");
+                    getActivity().sendBroadcast(intent);
+                    Toast.makeText(getActivity(), "Rollback success", Toast.LENGTH_SHORT).show();
                     Log.d("rollBack?>>", "success  " + posts.size());
 
-                }else{
+                } else {
 
-                    Toast.makeText(getActivity(),"Rollback failed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Rollback failed", Toast.LENGTH_SHORT).show();
                 }
-               Log.d("rollBack?>>", "success" + response);
+                Log.d("rollBack?>>", "success" + response);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d("rollBack?>>", "success exc  >>" + e.toString());
@@ -1406,7 +1402,6 @@ public class ShowCardsNew extends Fragment {
         }
 
     }
-
 
 
 }
