@@ -64,7 +64,7 @@
             android:layout_height="@dimen/value_w50"
             android:layout_alignParentRight="true"
             android:padding="@dimen/value_5"
-            android:src="@color/c_fd636b"/>
+            android:src="@drawable/ic_add_ticket"/>
 
         <com.hadippa.CustomTextView
             android:id="@+id/tvTicketNo"
@@ -85,7 +85,7 @@
             android:layout_height="@dimen/value_w50"
             android:layout_toLeftOf="@+id/tvTicketNo"
             android:padding="@dimen/value_5"
-            android:src="@color/c_fd636b"/>
+            android:src="@drawable/ic_remove_ticket"/>
 
     </RelativeLayout>
 

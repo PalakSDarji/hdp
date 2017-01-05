@@ -53,6 +53,8 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         ,ShowCardsNew.OnFragmentInteractionListener {
 
 
+    public static ArrayList<DataModel> rollBackIds = new ArrayList<>();
+
     android.support.v4.app.Fragment fragment;
     android.support.v4.app.FragmentManager fm;
     android.support.v4.app.FragmentTransaction fragmentTransaction;

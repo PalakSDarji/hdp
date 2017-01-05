@@ -97,6 +97,8 @@ import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.hadippa.activities.HomeScreen.rollBackIds;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -121,7 +123,6 @@ public class ShowCardsNew extends Fragment {
     private SwipeFlingAdapterView flingContainer;
 
 
-    ArrayList<DataModel> rollBackIds = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
     // ArrayList<String> al;
@@ -416,9 +417,9 @@ public class ShowCardsNew extends Fragment {
             public void onLeftCardExit(Object dataObject) {
                 makeToast(getActivity(), "" + posts.get(0).getId());
 
-                rollBackIds.add(posts.get(0));
+                rollBackIds.add(0,posts.get(0));
                 activityJoinDecline(String.valueOf(posts.get(0).getId()), AppConstants.ACTIVITY_REQUEST_DECLINE);
-                posts.remove(i);
+                posts.remove(0);
                 myAppAdapter.notifyDataSetChanged();
 
                 // myAppAdapter.notifyDataSetChanged();
@@ -432,7 +433,7 @@ public class ShowCardsNew extends Fragment {
             public void onRightCardExit(Object dataObject) {
                 makeToast(getActivity(), "Right!");
                 activityJoinDecline(String.valueOf(posts.get(0).getId()), AppConstants.ACTIVITY_REQUEST_JOIN);
-                posts.remove(i);
+                posts.remove(0);
                 myAppAdapter.notifyDataSetChanged();
                 /*al.remove(0);
                 myAppAdapter.notifyDataSetChanged();*/
@@ -1376,6 +1377,7 @@ public class ShowCardsNew extends Fragment {
 
                     posts.add(0, rollBackIds.get(0));
 
+                    rollBackIds.remove(0);
                     editor.putString("posts", new Gson().toJson(posts));
                     editor.commit();
 
