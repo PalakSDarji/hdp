@@ -91,6 +91,7 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
             requestParams.add("company_name",edtCompany.getText().toString().trim());
             requestParams.add("company_website", edtCompanyWeb.getText().toString().trim());
             requestParams.add("mobile", edtNumber.getText().toString().trim());
+            requestParams.add("activity_category",getIntent().getExtras().getString("category"));
 
             Log.d("myplan>> req", requestParams.toString());
         } catch (Exception e) {
@@ -135,18 +136,6 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
                     finish();
                 }else{
                     Toast.makeText(ListHadipaaDetailActivity.this,"Failed",Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
-
-
-
-
-
-
                 }
 
                 Log.d("<<async", "success" + response);

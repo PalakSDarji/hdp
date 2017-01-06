@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingBottom="@dimen/value_12"
-                android:paddingLeft="@dimen/value_20"
-                android:paddingRight="@dimen/value_20"
-                android:paddingTop="@dimen/value_12">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/value_20"
+    android:paddingRight="@dimen/value_20">
 
     <com.hadippa.CustomTextView
         android:id="@+id/tvPriceName"
@@ -20,7 +18,7 @@
         android:text="INR 0000"
         android:textColor="@color/c_454545"
         android:textSize="@dimen/values_txt_14"
-        app:customFont="@string/proxima_bold"/>
+        app:customFont="@string/proxima_bold" />
 
     <com.hadippa.CustomTextView
         android:id="@+id/tvSitting"
@@ -35,7 +33,7 @@
         android:text="Day 0 Gold Sitting"
         android:textColor="@color/c_fd636b"
         android:textSize="@dimen/values_txt_10"
-        app:customFont="@string/proxima_reg"/>
+        app:customFont="@string/proxima_reg" />
 
     <com.hadippa.CustomTextView
         android:id="@+id/tvSittingDetails"
@@ -49,7 +47,7 @@
         android:text="Day 0 Gold Sitting alsdkn lakjsdnk jasn dkjasnd kasdklaklsjdnkalsjdnaksjldn laksjdbnlaskjdn"
         android:textColor="@color/c_454545"
         android:textSize="@dimen/values_txt_10"
-        app:customFont="@string/proxima_reg"/>
+        app:customFont="@string/proxima_reg" />
 
     <RelativeLayout
         android:id="@+id/rlTicket"
@@ -64,7 +62,7 @@
             android:layout_height="@dimen/value_w50"
             android:layout_alignParentRight="true"
             android:padding="@dimen/value_5"
-            android:src="@drawable/ic_add_ticket"/>
+            android:src="@drawable/ic_add_ticket" />
 
         <com.hadippa.CustomTextView
             android:id="@+id/tvTicketNo"
@@ -77,7 +75,7 @@
             android:text="0"
             android:textColor="@color/c_454545"
             android:textSize="@dimen/values_txt_14"
-            app:customFont="@string/proxima_bold"/>
+            app:customFont="@string/proxima_bold" />
 
         <ImageView
             android:id="@+id/ivMinus"
@@ -85,7 +83,7 @@
             android:layout_height="@dimen/value_w50"
             android:layout_toLeftOf="@+id/tvTicketNo"
             android:padding="@dimen/value_5"
-            android:src="@drawable/ic_remove_ticket"/>
+            android:src="@drawable/ic_remove_ticket" />
 
     </RelativeLayout>
 

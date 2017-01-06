@@ -458,8 +458,6 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         @Override
         public void onProgress(long bytesWritten, long totalSize) {
             super.onProgress(bytesWritten, totalSize);
-            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
 
         }
 

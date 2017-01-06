@@ -172,6 +172,7 @@ public class CreateActivityActvity extends AppCompatActivity {
 
     String selectedDate,dateVisTime,dateAvaTill;
     private int selectedRadio = -1;
+    @BindView(R.id.inviteNumber) TextView inviteNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,7 +217,17 @@ public class CreateActivityActvity extends AppCompatActivity {
                         .placeholder(R.drawable.place_holder)
                         .into(profileImage);
             }
-
+            address.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent
+                            = new Intent(CreateActivityActvity.this,MapsActivity.class);
+                    intent.putExtra("latitide",restaurantsBean.getRestaurant().getLocation().getLatitude());
+                    intent.putExtra("longitude",restaurantsBean.getRestaurant().getLocation().getLongitude());
+                    intent.putExtra("location", restaurantsBean.getRestaurant().getLocation().getAddress());
+                    startActivity(intent);
+                }
+            });
             tvHeader.setText(getResources().getString(R.string.visiting_date_and_time));
             cvVisitingCard.setVisibility(View.VISIBLE);
             llNameAddress.setVisibility(View.GONE);
@@ -390,53 +401,74 @@ public class CreateActivityActvity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                hide_from = "public and following";
-                if(selectedRadio == 0){
-                    radio0.setSelected(true);
+                if(radio0.isSelected()){
+                    hide_from="";
+                    radio0.setSelected(false);
+
+                    return;
                 }
+
+                hide_from = "public and following";
+              //  if(selectedRadio == 0){
+                    radio0.setSelected(true);
+              /*  }
                 else{
                     radio0.setSelected(false);
-                }
+                }*/
                 radio1.setSelected(false);
                 radio2.setSelected(false);
                 radio3.setSelected(false);
-                selectedRadio = 0;
-                setRadios(0);
+             //   selectedRadio = 0;
+              //  setRadios(0);
             }
         });
 
         llFollowing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if(radio1.isSelected()){
+                    hide_from="";
+                    radio1.setSelected(false);
+
+                    return;
+                }
                 hide_from = "following";
                 radio0.setSelected(false);
-                if(selectedRadio == 1){
+              //  if(selectedRadio == 1){
                     radio1.setSelected(true);
-                }
+              /*  }
                 else{
                     radio1.setSelected(false);
-                }
+                }*/
                 radio2.setSelected(false);
                 radio3.setSelected(false);
-                selectedRadio = 1;
-                setRadios(1);
+              //  selectedRadio = 1;
+               // setRadios(1);
             }
         });
 
         llPublic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                if(radio2.isSelected()){
+                    hide_from="";
+                    radio2.setSelected(false);
+
+                    return;
+                }
+
                 hide_from = "public";
                 radio0.setSelected(false);
                 radio1.setSelected(false);
-                if(selectedRadio == 2){
+               // if(selectedRadio == 2){
                     radio2.setSelected(true);
-                }
+              /*  }
                 else{
                     radio2.setSelected(false);
                 }
-                radio3.setSelected(false);
-                selectedRadio = 2;
+               */ radio3.setSelected(false);
+              //  selectedRadio = 2;
 
-                setRadios(2);
+               // setRadios(2);
             }
         });
 
@@ -445,18 +477,19 @@ public class CreateActivityActvity extends AppCompatActivity {
 
                 //TODO For sahil, define hide_from for this.
                 //hide_from = "custom";
+                if(radio3.isSelected()){
+                    hide_from="";
+                    radio3.setSelected(false);
+
+                    return;
+                }
                 radio0.setSelected(false);
                 radio1.setSelected(false);
                 radio2.setSelected(false);
-                if(selectedRadio == 3){
                     radio3.setSelected(true);
-                }
-                else{
-                    radio3.setSelected(false);
-                }
-                selectedRadio = 3;
 
-                setRadios(3);
+
+                //setRadios(3);
                 Intent intent = new Intent(CreateActivityActvity.this, InviteToJoinActivity.class);
                 intent.putExtra("selectedId",selectedList);
                 startActivityForResult(intent,555);
@@ -554,7 +587,7 @@ public class CreateActivityActvity extends AppCompatActivity {
         if (requestCode == 551) {
 
             selectedList = data.getStringArrayListExtra("selectedId");
-
+            inviteNumber.setText(""+selectedList.size());
 
             Log.d("selectedId >> 0*", selectedList.toString());
 

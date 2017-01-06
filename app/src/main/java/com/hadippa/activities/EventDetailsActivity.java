@@ -107,11 +107,10 @@ public class EventDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tvDetails) TextView tvDetails;
     @BindView(R.id.rcvPrice) RecyclerView rcvPrice;
     @BindView(R.id.vSep5) View vSep5;
+    @BindView(R.id.tvTotalPrice) CustomTextView tvTotalPrice;
+    @BindView(R.id.inviteNumber) TextView inviteNumber;
+
     private PriceAdapter priceAdapter;
-
-    private static final int PRICE_ITEM = 0;
-    private static final int TOTAL_ITEM = 1;
-
 
     @BindView(R.id.tvAvailableTill)
     TextView tvAvailableTill;/*
@@ -126,6 +125,9 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     ArrayList<String> selectedList = new ArrayList<>();
     MeraEventPartyModel.DataBean dataBean;
+
+    @BindView(R.id.totalInclude)
+    RelativeLayout totalInclude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,6 +192,18 @@ public class EventDetailsActivity extends AppCompatActivity {
                 (dataBean.getLongitude())) + " kms");
         tvDescriptionVal.setText(Html.fromHtml(dataBean.getDescription()));
 
+        tvAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent
+                        = new Intent(EventDetailsActivity.this,MapsActivity.class);
+                intent.putExtra("latitide",dataBean.getLatitude());
+                intent.putExtra("longitude",dataBean.getLongitude());
+                intent.putExtra("location", dataBean.getAddress1()+" "+dataBean.getAddress2()
+                        +" "+dataBean.getCityName()+" "+dataBean.getStateName());
+                startActivity(intent);
+            }
+        });
         RequestManager requestManager = Glide.with(EventDetailsActivity.this);
 
         requestManager.load(dataBean.getBannerPath()).error(R.drawable.bg_item_above)
@@ -197,6 +211,20 @@ public class EventDetailsActivity extends AppCompatActivity {
                 .into(((ImageView)findViewById(R.id.profileImage)));
 
 
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rcvPrice.setLayoutManager(mLayoutManager);
+
+        if(dataBean.getTickets().getTicketList().size() > 0){
+            priceAdapter = new PriceAdapter(dataBean.getTickets().getTicketList());
+            rcvPrice.setAdapter(priceAdapter);
+            rcvPrice.setNestedScrollingEnabled(false);
+
+                }
+        else {
+            totalInclude.setVisibility(View.GONE);
+            rcvPrice.setVisibility(View.GONE);
+        }
         /*if(dataBean.getBannerPath().isEmpty() || dataBean.getBannerPath().equals("")){
 
             profileImage.setImageResource(R.drawable.place_holder);
@@ -256,6 +284,12 @@ public class EventDetailsActivity extends AppCompatActivity {
         llPublicAndFollowing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                if(radio0.isSelected()){
+                    hide_from="";
+                    radio0.setSelected(false);
+
+                    return;
+                }
                 hide_from = "public and following";
                 radio0.setSelected(true);
                 radio1.setSelected(false);
@@ -266,6 +300,13 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         llFollowing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                if(radio1.isSelected()){
+                    hide_from="";
+                    radio1.setSelected(false);
+
+                    return;
+                }
                 hide_from = "following";
                 radio0.setSelected(false);
                 radio1.setSelected(true);
@@ -276,6 +317,14 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         llPublic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                if(radio2.isSelected()){
+                    hide_from="";
+                    radio2.setSelected(false);
+
+                    return;
+                }
+
                 hide_from = "public";
                 radio0.setSelected(false);
                 radio1.setSelected(false);
@@ -289,6 +338,13 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                 //TODO For sahil, define hide_from for this.
                 //hide_from = "custom";
+
+                if(radio3.isSelected()){
+                    hide_from="";
+                    radio3.setSelected(false);
+
+                    return;
+                }
                 radio0.setSelected(false);
                 radio1.setSelected(false);
                 radio2.setSelected(false);
@@ -336,17 +392,6 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
         });
 
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rcvPrice.setLayoutManager(mLayoutManager);
-
-        ArrayList priceList = new ArrayList<String>();
-        priceList.add("price1");
-        priceList.add("price2");
-        priceList.add("total");
-        priceAdapter = new PriceAdapter(priceList);
-        rcvPrice.setAdapter(priceAdapter);
-        rcvPrice.setNestedScrollingEnabled(false);
 
         rlPrice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -354,10 +399,12 @@ public class EventDetailsActivity extends AppCompatActivity {
                 if(vSep5.getVisibility() == View.VISIBLE){
                     vSep5.setVisibility(View.GONE);
                     rcvPrice.setVisibility(View.GONE);
+                    totalInclude.setVisibility(View.GONE);
                     tvDetails.setText(getString(R.string.details));
                 }
                 else{
                     vSep5.setVisibility(View.VISIBLE);
+                    totalInclude.setVisibility(View.VISIBLE);
                     rcvPrice.setVisibility(View.VISIBLE);
                     tvDetails.setText(getString(R.string.less));
                 }
@@ -374,7 +421,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             selectedList = data.getStringArrayListExtra("selectedId");
 
-
+            inviteNumber.setText(""+selectedList.size());
             Log.d("selectedId >> 0*",selectedList.toString());
 
         }else{
@@ -615,47 +662,69 @@ public class EventDetailsActivity extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
-    class PriceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> {
 
-        private List<String> data = null;
+        private List<MeraEventPartyModel.DataBean.TicketsBean.TicketListBean> data = null;
         private LayoutInflater mInflater;
 
-        PriceAdapter(List<String> data) {
+        PriceAdapter(List<MeraEventPartyModel.DataBean.TicketsBean.TicketListBean> data) {
             this.data = data;
         }
 
-        @Override
-        public int getItemViewType(int position) {
-
-            if(position == data.size()-1){
-                return TOTAL_ITEM;
-            }
-            else {
-                return PRICE_ITEM;
-            }
-        }
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public PriceAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            switch (viewType) {
-                case 0:
                     View view1 = LayoutInflater.from(parent.getContext()).inflate( R.layout.item_event_price, parent, false);
                     return new ViewHolder(view1);
-                case 1: View view2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_total_price, parent, false);
-                    return new TotalViewHolder(view2);
             }
-            return null;
-        }
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
-        public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(final PriceAdapter.ViewHolder viewHolder1, final int position) {
 
-            final String str = data.get(position);
+
+
+                final MeraEventPartyModel.DataBean.TicketsBean.TicketListBean str = data.get(position);
+                viewHolder1.tvPriceName.setText(str.getName());
+                viewHolder1.tvSittingDetails.setText(str.getDescription());
+                viewHolder1.tvSitting.setText(""+str.getPrice());
+
+            viewHolder1.ivPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if(Integer.parseInt(viewHolder1.tvTicketNo.getText().toString()) == str.getMaxOrderQuantity()){
+                        Toast.makeText(EventDetailsActivity.this,"Cannot book more than "+str.getMaxOrderQuantity()+" tickets.",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    int currentTotal = Integer.parseInt(tvTotalPrice.getText().toString().trim().split(" ")[1]);
+                    currentTotal = currentTotal + str.getPrice();
+                    tvTotalPrice.setText("INR "+currentTotal);
+
+                    viewHolder1.tvTicketNo.setText(""+(Integer.parseInt(viewHolder1.tvTicketNo.getText().toString())+1));
+                }
+            });
+
+            viewHolder1.ivMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if(Integer.parseInt(viewHolder1.tvTicketNo.getText().toString()) == 0){
+                        //Toast.makeText(EventDetailsActivity.this,"Cannot book more than "+str.getMaxOrderQuantity()+" tickets.",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    int currentTotal = Integer.parseInt(tvTotalPrice.getText().toString().trim().split(" ")[1]);
+                    currentTotal = currentTotal - str.getPrice();
+                    tvTotalPrice.setText("INR "+currentTotal);
+                    viewHolder1.tvTicketNo.setText(""+(Integer.parseInt(viewHolder1.tvTicketNo.getText().toString())-1));
+                }
+            });
+
         }
 
-        public String getItem(int position) {
+        public MeraEventPartyModel.DataBean.TicketsBean.TicketListBean getItem(int position) {
             return data.get(position);
         }
 
@@ -664,37 +733,29 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             return data.size();
         }
-    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder {
 
-        CustomTextView tvPriceName;
-        CustomTextView tvSitting;
-        CustomTextView tvSittingDetails;
-        ImageView ivPlus;
-        ImageView ivMinus;
-        TextView tvTicketNo;
+            public CustomTextView tvPriceName;
+            public CustomTextView tvSitting;
+            public CustomTextView tvSittingDetails;
+            public ImageView ivPlus;
+            public ImageView ivMinus;
+            public TextView tvTicketNo;
 
-        public ViewHolder(final View v) {
-            super(v);
+            public ViewHolder(final View v) {
+                super(v);
 
-            tvPriceName = (CustomTextView) v.findViewById(R.id.tvPriceName);
-            tvSitting = (CustomTextView) v.findViewById(R.id.tvSitting);
-            tvSittingDetails = (CustomTextView) v.findViewById(R.id.tvSittingDetails);
-            ivPlus = (ImageView) v.findViewById(R.id.ivPlus);
-            ivMinus = (ImageView) v.findViewById(R.id.ivMinus);
-            tvTicketNo = (CustomTextView) v.findViewById(R.id.tvTicketNo);
+                tvPriceName = (CustomTextView) v.findViewById(R.id.tvPriceName);
+                tvSitting = (CustomTextView) v.findViewById(R.id.tvSitting);
+                tvSittingDetails = (CustomTextView) v.findViewById(R.id.tvSittingDetails);
+                ivPlus = (ImageView) v.findViewById(R.id.ivPlus);
+                ivMinus = (ImageView) v.findViewById(R.id.ivMinus);
+                tvTicketNo = (CustomTextView) v.findViewById(R.id.tvTicketNo);
+            }
         }
+
+
     }
 
-    public class TotalViewHolder extends RecyclerView.ViewHolder {
-
-        CustomTextView tvTotalPrice;
-
-        public TotalViewHolder(final View v) {
-            super(v);
-
-            tvTotalPrice = (CustomTextView) v.findViewById(R.id.tvTotalPrice);
-        }
-    }
-}
+  }
