@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -68,6 +69,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(getIntent().getExtras().getDouble("latitide"), getIntent().getExtras().getDouble("longitude"));
         mMap.addMarker(new MarkerOptions().position(sydney).title(getIntent().getExtras().getString("location")));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,12));
+
+        Toast.makeText(MapsActivity.this,"Latitude >"
+                + getIntent().getExtras().getDouble("latitide")
+                        + ", Longitude > "+getIntent().getExtras().getDouble("longitude"),Toast.LENGTH_LONG).show();
 
     }
 

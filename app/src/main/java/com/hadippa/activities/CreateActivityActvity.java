@@ -203,6 +203,9 @@ public class CreateActivityActvity extends AppCompatActivity {
             address.setText(restaurantsBean.getRestaurant().getLocation().getAddress());
             name.setText(restaurantsBean.getRestaurant().getName());
             rating.setText(restaurantsBean.getRestaurant().getUser_rating().getAggregate_rating());
+
+            //((CustomTextView) (findViewById(R.id.time))).setText();
+
             ((CustomTextView) (findViewById(R.id.distance))).setText(AppConstants.distanceMeasure(Double.parseDouble(getIntent().getExtras().getString("latitude")),
                     Double.parseDouble(getIntent().getExtras().getString("longitude")),
                     Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLatitude()),
