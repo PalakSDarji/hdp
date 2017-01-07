@@ -180,6 +180,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
         ButterKnife.bind(this);
+        sp = PreferenceManager.getDefaultSharedPreferences(EventListActivity.this);
 
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(EventListActivity.this);
         rvEventList.setLayoutManager(mLayoutManager);
@@ -507,7 +508,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+            AppConstants.dismissDialog();
             //  AppConstants.showSnackBar(mainRel,"Try again!");
         }
 

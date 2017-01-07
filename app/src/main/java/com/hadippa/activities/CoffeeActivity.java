@@ -179,6 +179,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
         });
+        sp = PreferenceManager.getDefaultSharedPreferences(CoffeeActivity.this);
 
         Log.d("getLOcation>>", latitude + " " + longitude);
         ivActivityIcon.setImageResource(R.drawable.zomato_spoon);
@@ -187,6 +188,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listShops.setLayoutManager(mLayoutManager);
+        ((TextView)findViewById(R.id.tvHeader2)).setText(sp.getString("cityName","Search"));
 
 
         listShops.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -221,6 +223,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
+
 
         findViewById(R.id.tvHeader2).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -420,6 +423,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
                                 ((TextView) findViewById(R.id.tvHeader2)).setText(cityViewHolder.getCity().getText().toString().trim());
 
+                                prepareThings(0);
                                 dialog.dismiss();
                             }
                         });
@@ -742,6 +746,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             requestParams.add("lon", lon);
             requestParams.add("radius", radius);
             requestParams.add("start", start);
+            requestParams.add("city_name",((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
 
             Log.d("prepareZomato>>", requestParams.toString());
         } catch (Exception e) {
@@ -820,6 +825,8 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
             Log.d("prepareZomato>>", "success exc  >>" + error.toString());
             //  AppConstants.showSnackBar(mainRel,"Try again!");
+
+            AppConstants.dismissDialog();
         }
 
     }
