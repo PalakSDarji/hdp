@@ -257,6 +257,18 @@ public class TravelActivityFitler extends AppCompatActivity implements LocationL
         etFrom.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
         etTo.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
 
+        ImageView shuffleplace = (ImageView)findViewById(R.id.shuffleplace);
+        shuffleplace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String from = etFrom.getText().toString().trim();
+                String to = etTo.getText().toString().trim();
+
+                etFrom.setText(to);
+                etTo.setText(from);
+            }
+        });
+
         /*((ImageView)findViewById(R.id.shuffleplace)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -464,7 +476,7 @@ public class TravelActivityFitler extends AppCompatActivity implements LocationL
             for (int i = 0; i < predsJsonArray.length(); i++) {
                 System.out.println(predsJsonArray.getJSONObject(i).getString("description"));
                 System.out.println("============================================================");
-                resultList.add(predsJsonArray.getJSONObject(i).getString("description"));
+                resultList.add(predsJsonArray.getJSONObject(i).getJSONObject("structured_formatting").getString("main_text"));
             }
         } catch (JSONException e) {
             Log.e("dddd", "C", e);

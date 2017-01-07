@@ -76,7 +76,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class ProfileActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener{
+public class ProfileActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener {
 
     @BindView(R.id.rvMutualFriend)
     RecyclerView rvMutualFriend;
@@ -90,8 +90,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     ImageView ivChat;
     @BindView(R.id.ivMore)
     ImageView ivMore;
-   /* @BindView(R.id.ivProfilePic)
-    SquareImageView ivProfilePic;*/
+    /* @BindView(R.id.ivProfilePic)
+     SquareImageView ivProfilePic;*/
     @BindView(R.id.tvActivityVal)
     CustomTextView tvActivityVal;
     @BindView(R.id.tvApproaching2Val)
@@ -135,6 +135,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     String currentPhotoPath;
     String base64String = "";
     private SliderLayout slider;
+    HashMap<String, String> url_maps = new HashMap<String, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +146,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         sp = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
         editor = sp.edit();
         albumStorageDirFactory = new BaseAlbumDirFactory();
-        slider = (SliderLayout)findViewById(R.id.slider);
+        slider = (SliderLayout) findViewById(R.id.slider);
 
 
         slider.setPresetTransformer(SliderLayout.Transformer.Default);
@@ -221,7 +222,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 if (tvActivityVal.getText().toString().equals("0")) {
 
                 } else {
-                    if(activityData.equals("")) {
+                    if (activityData.equals("")) {
                         Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
                         intent.putExtra("data", activityData);
 
@@ -295,9 +296,13 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     @Override
     public void onSliderClick(BaseSliderView slider) {
 
-        Intent intent = new Intent(ProfileActivity.this,EditProfilePicsActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+        if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+            Intent intent = new Intent(ProfileActivity.this, EditProfilePicsActivity.class);
+            intent.putExtra("data", userBean);
+            intent.putExtra(AppConstants.FETCH_USER_KEY, getIntent().getExtras().getString(AppConstants.FETCH_USER_KEY));
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
 
@@ -444,7 +449,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                     if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
                         tvActivityVal.setText("" + userProfile.getAll_activity());
 
-                    }else {
+                    } else {
                         activityBeanX = userProfile.getActivity();
                         tvActivityVal.setText("" + activityBeanX.size());
 
@@ -465,7 +470,6 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-            //  AppConstants.showSnackBar(mainRel,"Try again!");
         }
 
 
@@ -491,26 +495,25 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         setTextifNotEmpty(userBean.getLanuage_known(), tvLangSub);
         setTextifNotEmpty(userBean.getZodiac(), tvZodiac);
 
-        HashMap<String,String> url_maps = new HashMap<String, String>();
 
         url_maps.put("a", userBean.getProfile_photo());
-        if(!((String) userBean.getProfile_photo_1()).equals("")){
-            url_maps.put("a", (String) userBean.getProfile_photo_1());
+        if (userBean.getProfile_photo_1() != null && !(userBean.getProfile_photo_1()).equals("")) {
+            url_maps.put("a", userBean.getProfile_photo_1());
         }
-        if(!((String) userBean.getProfile_photo_2()).equals("")){
-            url_maps.put("a", (String) userBean.getProfile_photo_2());
+        if (userBean.getProfile_photo_2() != null && !(userBean.getProfile_photo_2()).equals("")) {
+            url_maps.put("a", userBean.getProfile_photo_2());
         }
-        if(!((String) userBean.getProfile_photo_3()).equals("")){
-            url_maps.put("a", (String) userBean.getProfile_photo_3());
+        if (userBean.getProfile_photo_3() != null && !(userBean.getProfile_photo_3()).equals("")) {
+            url_maps.put("a", userBean.getProfile_photo_3());
         }
-        if(!((String) userBean.getProfile_photo_4()).equals("")){
-            url_maps.put("a", (String) userBean.getProfile_photo_4());
+        if (userBean.getProfile_photo_4() != null && !(userBean.getProfile_photo_4()).equals("")) {
+            url_maps.put("a", userBean.getProfile_photo_4());
         }
-        if(!((String) userBean.getProfile_photo_5()).equals("")){
-            url_maps.put("a", (String) userBean.getProfile_photo_5());
+        if (userBean.getProfile_photo_5() != null && !(userBean.getProfile_photo_5()).equals("")) {
+            url_maps.put("a", userBean.getProfile_photo_5());
         }
 
-        for(String name : url_maps.keySet()){
+        for (String name : url_maps.keySet()) {
             TextSliderView textSliderView = new TextSliderView(this);
             // initialize a SliderLayout
             textSliderView
@@ -522,7 +525,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             //add your extra information
             textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
-                    .putString("extra",name);
+                    .putString("extra", name);
 
             slider.addSlider(textSliderView);
         }
@@ -824,10 +827,10 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 JSONObject jsonObject = new JSONObject(response);
                 if (jsonObject.getBoolean("success")) {
 
-                    editor.putString("userData",jsonObject.getJSONObject("user").toString());
+                    editor.putString("userData", jsonObject.getJSONObject("user").toString());
                     editor.commit();
 
-                }else{
+                } else {
 /*
 
                     RequestManager requestManager= Glide.with(ProfileActivity.this);
@@ -860,7 +863,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(), intent.getExtras().getString("messageData"));
         }
     };
 

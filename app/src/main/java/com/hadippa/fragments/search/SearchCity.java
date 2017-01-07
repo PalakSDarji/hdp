@@ -454,9 +454,12 @@ public class SearchCity extends Fragment {
                 locationSuggestionsBeen.add(bean);
             }
 
-            customAdapter = new CustomAdapter(locationSuggestionsBeen);
-            mRecyclerView.setAdapter(customAdapter);
-
+            if(customAdapter!=null){
+                customAdapter.notifyDataSetChanged();
+            }else {
+                customAdapter = new CustomAdapter(locationSuggestionsBeen);
+                mRecyclerView.setAdapter(customAdapter);
+            }
         } catch (Exception adapter) {
 
         }
@@ -511,9 +514,13 @@ public class SearchCity extends Fragment {
 
                 }
 
-                customAdapter = new CustomAdapter(locationSuggestionsBeen);
-                mRecyclerView.setAdapter(customAdapter);
 
+                if(customAdapter != null){
+                    customAdapter.notifyDataSetChanged();
+                }else {
+                    customAdapter = new CustomAdapter(locationSuggestionsBeen);
+                    mRecyclerView.setAdapter(customAdapter);
+                }
             } catch (Exception adapter) {
 
             }

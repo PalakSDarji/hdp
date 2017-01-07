@@ -138,11 +138,11 @@ public class UserProfile implements Serializable {
         private String email_verification_code;
         private String password_change_verification_code;
         private String profile_photo;
-        private Object profile_photo_1;
-        private Object profile_photo_2;
-        private Object profile_photo_3;
-        private Object profile_photo_4;
-        private Object profile_photo_5;
+        private String profile_photo_1;
+        private String profile_photo_2;
+        private String profile_photo_3;
+        private String profile_photo_4;
+        private String profile_photo_5;
         private int photo_uploaded;
         private int active;
         private int private_account;
@@ -351,43 +351,43 @@ public class UserProfile implements Serializable {
             this.profile_photo = profile_photo;
         }
 
-        public Object getProfile_photo_1() {
+        public String getProfile_photo_1() {
             return profile_photo_1;
         }
 
-        public void setProfile_photo_1(Object profile_photo_1) {
+        public void setProfile_photo_1(String profile_photo_1) {
             this.profile_photo_1 = profile_photo_1;
         }
 
-        public Object getProfile_photo_2() {
+        public String getProfile_photo_2() {
             return profile_photo_2;
         }
 
-        public void setProfile_photo_2(Object profile_photo_2) {
+        public void setProfile_photo_2(String profile_photo_2) {
             this.profile_photo_2 = profile_photo_2;
         }
 
-        public Object getProfile_photo_3() {
+        public String getProfile_photo_3() {
             return profile_photo_3;
         }
 
-        public void setProfile_photo_3(Object profile_photo_3) {
+        public void setProfile_photo_3(String profile_photo_3) {
             this.profile_photo_3 = profile_photo_3;
         }
 
-        public Object getProfile_photo_4() {
+        public String getProfile_photo_4() {
             return profile_photo_4;
         }
 
-        public void setProfile_photo_4(Object profile_photo_4) {
+        public void setProfile_photo_4(String profile_photo_4) {
             this.profile_photo_4 = profile_photo_4;
         }
 
-        public Object getProfile_photo_5() {
+        public String getProfile_photo_5() {
             return profile_photo_5;
         }
 
-        public void setProfile_photo_5(Object profile_photo_5) {
+        public void setProfile_photo_5(String profile_photo_5) {
             this.profile_photo_5 = profile_photo_5;
         }
 

@@ -174,6 +174,7 @@ public class CreateActivityActvity extends AppCompatActivity {
     private int selectedRadio = -1;
     @BindView(R.id.inviteNumber) TextView inviteNumber;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -625,7 +626,7 @@ public class CreateActivityActvity extends AppCompatActivity {
 
                 selectedDate = year + "-" + newmonth + "-" + newday;
                 Log.d("date>>", year + "-" + newmonth + "-" + newday);
-                tvVisitingDate.setText(newday + "-" + newmonth + "-" + year);
+                tvVisitingDate.setText(AppConstants.formatDate(newday + "-" + newmonth + "-" + year,"dd-mm-yyyy","dd MMM"));
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));

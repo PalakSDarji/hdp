@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -128,6 +130,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     @BindView(R.id.totalInclude)
     RelativeLayout totalInclude;
+    int count =0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -276,7 +280,35 @@ public class EventDetailsActivity extends AppCompatActivity {
                     Snackbar.make(getCurrentFocus().getRootView(),"Select available till",Snackbar.LENGTH_LONG).show();
                     return;
                 }
-               post();
+
+                if(count==0){
+                    post();
+                }else{
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+
+                                    post();
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    post();
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EventDetailsActivity.this);
+                    builder.setMessage("Do you want to book this event now ?").setPositiveButton("Now", dialogClickListener)
+                            .setNegativeButton("Later", dialogClickListener).show();
+
+                }
+
             }
         });
 
@@ -454,7 +486,8 @@ public class EventDetailsActivity extends AppCompatActivity {
                 }
 
                 Log.d("date>>",year+"-"+newmonth+"-"+newday);
-                tvVisitingDate.setText(year+"-"+newmonth+"-"+newday);
+                tvVisitingDate.setText(AppConstants.formatDate(newday + "-" + newmonth + "-" + year,"dd-mm-yyyy","dd MMM"));
+
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -698,6 +731,8 @@ public class EventDetailsActivity extends AppCompatActivity {
                         Toast.makeText(EventDetailsActivity.this,"Cannot book more than "+str.getMaxOrderQuantity()+" tickets.",Toast.LENGTH_LONG).show();
                         return;
                     }
+
+                    count = count + 1;
                     int currentTotal = Integer.parseInt(tvTotalPrice.getText().toString().trim().split(" ")[1]);
                     currentTotal = currentTotal + str.getPrice();
                     tvTotalPrice.setText("INR "+currentTotal);
@@ -715,6 +750,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                         return;
                     }
 
+                    count = count - 1;
                     int currentTotal = Integer.parseInt(tvTotalPrice.getText().toString().trim().split(" ")[1]);
                     currentTotal = currentTotal - str.getPrice();
                     tvTotalPrice.setText("INR "+currentTotal);

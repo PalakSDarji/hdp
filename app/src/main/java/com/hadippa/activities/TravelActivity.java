@@ -246,6 +246,17 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
             }
         });
 
+        ImageView shuffleplace = (ImageView)findViewById(R.id.shuffleplace);
+        shuffleplace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String from = etFrom.getText().toString().trim();
+                String to = etTo.getText().toString().trim();
+
+                etFrom.setText(to);
+                etTo.setText(from);
+            }
+        });
         horScrollView.setHorizontalScrollBarEnabled(false);
 
         if(activityKey == AppConstants.ACTIVITY_TRAVEL_FROM_POST_AIR){
@@ -372,12 +383,13 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
             JSONObject jsonObj = new JSONObject(jsonResults.toString());
             JSONArray predsJsonArray = jsonObj.getJSONArray("predictions");
 
+            Log.d("fff",predsJsonArray.toString());
             // Extract the Place descriptions from the results
             resultList = new ArrayList(predsJsonArray.length());
             for (int i = 0; i < predsJsonArray.length(); i++) {
                 System.out.println(predsJsonArray.getJSONObject(i).getString("description"));
                 System.out.println("============================================================");
-                resultList.add(predsJsonArray.getJSONObject(i).getString("description"));
+                resultList.add(predsJsonArray.getJSONObject(i).getJSONObject("structured_formatting").getString("main_text"));
             }
         } catch (JSONException e) {
             Log.e("dddd", "C", e);
