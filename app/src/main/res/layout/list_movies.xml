@@ -55,7 +55,7 @@
                     app:customFont="@string/proxima_bold"/>
 
                 <com.hadippa.CustomTextView
-                    android:id="@+id/tvFollowUnfollow"
+                    android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -74,6 +74,7 @@
 
 
             <com.hadippa.CustomTextView
+                android:id="@+id/movieType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
@@ -85,6 +86,7 @@
                 app:customFont="@string/proxima_reg"/>
 
             <com.hadippa.CustomTextView
+                android:id="@+id/cast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_3"
@@ -96,6 +98,7 @@
                 app:customFont="@string/proxima_reg"/>
 
             <com.hadippa.CustomTextView
+                android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_3"

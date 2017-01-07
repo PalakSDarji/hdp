@@ -192,6 +192,31 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
         tvHeader = (TextView) findViewById(R.id.tvHeader);
 
+
+        rvEventList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) //check for scroll down
+                {
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            loading = false;
+                            Log.v("...", "Last Item Wow !");
+
+                            prepareThings(pageNumber);
+                            //Do pagination.. i.e. fetch new data
+                        }
+                    }
+                }
+
+            }
+        });
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

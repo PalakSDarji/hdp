@@ -120,6 +120,10 @@ public class AppConstants {
     public static final String CHAT_ADD_USER_TO_GROUP= "/chat/add_user_ to _group";
     public static final String CHAT_SHOW= "/chat/show";
 
+    public static final String CINEMA = "/cinema/cinema/list";
+    public static final String MOVIE_LIST = "/cinema/movie/list";
+
+
     public static final String CLIENT_ID= "HADIPAA_USER";
     public static final String CLIENT_SECRET="HADIPAA@2016";
     public static final String LOGIN_STATUS_EMAIL="1";

@@ -135,6 +135,7 @@
         android:layout_below="@+id/rlSearch">
 
         <include
+            android:visibility="gone"
             layout="@layout/activities_horizontal_layout"/>
     </LinearLayout>
 
