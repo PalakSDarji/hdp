@@ -225,8 +225,10 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if(recentSearchData != null){
+                    Log.d("cityList>","Old Found");
                     searchCity.setAdapter(recentSearchData,edtSearch.getText().toString().trim());
                 }else{
+                    Log.d("cityList>","Old not Found");
                     recentSearchData = new ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean>();
                     searchCity.setAdapter(recentSearchData,edtSearch.getText().toString().trim());
                 }
@@ -330,7 +332,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         public void onStart() {
             super.onStart();
 
-            searchCity.progressBar.setVisibility(View.VISIBLE);
+          //  searchCity.progressBar.setVisibility(View.VISIBLE);
             searchPeople.progressBar.setVisibility(View.VISIBLE);
             // AppConstants.showProgressDialog(getActivity(), "Please Wait");
 
@@ -348,8 +350,6 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         @Override
         public void onProgress(long bytesWritten, long totalSize) {
             super.onProgress(bytesWritten, totalSize);
-            Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
-                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
 
 //            updateDonut((int) ((totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
         }
@@ -374,9 +374,16 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                 if (searchModel.isSuccess()) {
 
-                    Log.d("async", "success exc  >> Locaion" + searchModel.getCities().getLocation_suggestions().size());
                     Log.d("async", "success exc  >> Locaion" + searchModel.getUsers());
-                    searchCity.setAdapter(searchModel.getCities().getLocation_suggestions(),"");
+                    if(recentSearchData != null){
+                        Log.d("cityList>","Old Found");
+                        searchCity.setAdapter(recentSearchData,edtSearch.getText().toString().trim());
+                    }else{
+                        Log.d("cityList>","Old not Found");
+                        recentSearchData = new ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean>();
+                        searchCity.setAdapter(recentSearchData,edtSearch.getText().toString().trim());
+                    }
+
                     searchPeople.setAdapter(searchModel.getUsers());
 
                     editor.putString("previous_search", response);

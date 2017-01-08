@@ -189,6 +189,7 @@ public class SearchCity extends Fragment {
         @Override
         public int getItemViewType(int position) {
 
+
             if (locationSuggestionsBeen == null) {
                 return -1;
             }
@@ -218,11 +219,12 @@ public class SearchCity extends Fragment {
                             .inflate(R.layout.search_city_list_item, viewGroup, false);
                     return new CityViewHolder(v2);
 
-                default:
+              /*  default:
                     View v3 = LayoutInflater.from(viewGroup.getContext())
                             .inflate(R.layout.search_city_header, viewGroup, false);
-                    return new HeaderViewHolder(v3);
+                    return new HeaderViewHolder(v3);*/
             }
+            return null;
         }
 
         @Override
@@ -317,49 +319,10 @@ public class SearchCity extends Fragment {
         @Override
         public int getItemCount() {
 
-            return (null != filterList ? filterList.size() : 0);
+            return (null != locationSuggestionsBeen ? locationSuggestionsBeen.size() : 0);
 
         }
 
-        // Do Search...
-        public void filter(final String text) {
-
-            // Searching could be complex..so we will dispatch it to a different thread...
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-                    // Clear the filter list
-                    filterList.clear();
-
-                    // If there is no search value, then add all original list items to filter list
-                    if (TextUtils.isEmpty(text)) {
-
-                        filterList.addAll(listItems);
-
-                    } else {
-                        // Iterate in the original List and add it to filter list...
-                        for (SearchModel.CitiesBean.LocationSuggestionsBean item : listItems) {
-                            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
-                                // Adding Matched items
-                                filterList.add(item);
-                            }
-                        }
-                    }
-
-                    // Set on UI Thread
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // Notify the List that the DataSet has changed...
-                            notifyDataSetChanged();
-                        }
-                    });
-
-                }
-            }).start();
-
-        }
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -421,10 +384,11 @@ public class SearchCity extends Fragment {
                 locationSuggestionsBean.setHeader(true);
                 locationSuggestionsBeen.add(0, locationSuggestionsBean);
 
-                locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+               /* locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
                 locationSuggestionsBean.setName("Current Location");
                 locationSuggestionsBean.setHeader(false);
                 locationSuggestionsBean.setCurrentLocation(true);
+               */
                 locationSuggestionsBeen.addAll(locationSuggestionsBeen1);
 
             }
@@ -454,12 +418,14 @@ public class SearchCity extends Fragment {
                 locationSuggestionsBeen.add(bean);
             }
 
-            if(customAdapter!=null){
-                customAdapter.notifyDataSetChanged();
-            }else {
+           /* if(customAdapter!=null){
                 customAdapter = new CustomAdapter(locationSuggestionsBeen);
                 mRecyclerView.setAdapter(customAdapter);
-            }
+
+            }else {
+           */     customAdapter = new CustomAdapter(locationSuggestionsBeen);
+                mRecyclerView.setAdapter(customAdapter);
+           // }
         } catch (Exception adapter) {
 
         }
@@ -468,18 +434,13 @@ public class SearchCity extends Fragment {
             try {
 
                 if (locationSuggestionsBeen1.size() > 0) {
-                    SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-                    locationSuggestionsBean.setName("Quick Search");
-                    locationSuggestionsBean.setHeader(true);
-                    locationSuggestionsBeen.add(0, locationSuggestionsBean);
-
-                    locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-                    locationSuggestionsBean.setName("Current Location");
-                    locationSuggestionsBean.setHeader(false);
-                    locationSuggestionsBean.setCurrentLocation(true);
+                    SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean_ = new SearchModel.CitiesBean.LocationSuggestionsBean();
+                    locationSuggestionsBean_.setName("Quick Search");
+                    locationSuggestionsBean_.setHeader(true);
 
                     for(int i = 0 ; i < locationSuggestionsBeen1.size();i++){
                         if(locationSuggestionsBeen1.get(i).getName().toLowerCase().contains(query.toLowerCase())){
+                            locationSuggestionsBeen.add(0, locationSuggestionsBean_);
                             locationSuggestionsBeen.add(locationSuggestionsBeen1.get(i));
                         }
                     }
@@ -506,7 +467,7 @@ public class SearchCity extends Fragment {
 
                     bean.setName(jsonObject1.getString("name"));
                     bean.setId(jsonObject1.getInt("id"));
-                    bean.setState_id(jsonObject1.getInt("state_id"));
+                    bean.setState_name(jsonObject1.getString("state"));
                     bean.setHeader(false);
                     if(jsonObject1.getString("name").toLowerCase().contains(query.toLowerCase())){
                         locationSuggestionsBeen.add(bean);
@@ -515,13 +476,17 @@ public class SearchCity extends Fragment {
                 }
 
 
-                if(customAdapter != null){
-                    customAdapter.notifyDataSetChanged();
-                }else {
+               /* if(customAdapter != null){
                     customAdapter = new CustomAdapter(locationSuggestionsBeen);
                     mRecyclerView.setAdapter(customAdapter);
-                }
+
+                }else {
+               */     customAdapter = new CustomAdapter(locationSuggestionsBeen);
+                    mRecyclerView.setAdapter(customAdapter);
+              //  }
             } catch (Exception adapter) {
+
+                Log.d("cityList> Exce",""+adapter.getMessage());
 
             }
 

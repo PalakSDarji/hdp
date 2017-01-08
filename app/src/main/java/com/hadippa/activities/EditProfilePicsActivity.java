@@ -97,11 +97,11 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         editor = sp.edit();
         albumStorageDirFactory = new BaseAlbumDirFactory();
         userBean = (UserProfile.UserBean) getIntent().getSerializableExtra("data");
-        
+
         setData(userBean);
-       
-        
-        imageBack = (ImageView)findViewById(R.id.imageBack);
+
+
+        imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +110,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
             }
         });
 
-        ((TextView)findViewById(R.id.tvHeader)).setText(getString(R.string.edit_photo));
+        ((TextView) findViewById(R.id.tvHeader)).setText(getString(R.string.edit_photo));
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -136,37 +136,37 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         });
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        customAdapter = new CustomAdapter(this,picUrls);
+        customAdapter = new CustomAdapter(this, picUrls);
         mRecyclerView.setAdapter(customAdapter);
 
     }
 
-    
-    void setData(UserProfile.UserBean userBean){
+
+    void setData(UserProfile.UserBean userBean) {
 
         picUrls.clear();
 
         picUrls.add(userBean.getProfile_photo());
-        if(userBean.getProfile_photo_1()!=null && !( userBean.getProfile_photo_1()).equals("")){
-            picUrls.add( userBean.getProfile_photo_1());
+        if (userBean.getProfile_photo_1() != null && !(userBean.getProfile_photo_1()).equals("")) {
+            picUrls.add(userBean.getProfile_photo_1());
         }
 
-        if(userBean.getProfile_photo_2()!=null && !( userBean.getProfile_photo_2()).equals("")){
-            picUrls.add( userBean.getProfile_photo_2());
+        if (userBean.getProfile_photo_2() != null && !(userBean.getProfile_photo_2()).equals("")) {
+            picUrls.add(userBean.getProfile_photo_2());
         }
-        if(userBean.getProfile_photo_3()!=null  &&!( userBean.getProfile_photo_3()).equals("")){
-            picUrls.add( userBean.getProfile_photo_3());
+        if (userBean.getProfile_photo_3() != null && !(userBean.getProfile_photo_3()).equals("")) {
+            picUrls.add(userBean.getProfile_photo_3());
         }
-        if(userBean.getProfile_photo_4()!=null  && !( userBean.getProfile_photo_4()).equals("")){
-            picUrls.add( userBean.getProfile_photo_4());
+        if (userBean.getProfile_photo_4() != null && !(userBean.getProfile_photo_4()).equals("")) {
+            picUrls.add(userBean.getProfile_photo_4());
         }
-        if(userBean.getProfile_photo_5()!=null && !( userBean.getProfile_photo_5()).equals("")){
-            picUrls.add( userBean.getProfile_photo_5());
+        if (userBean.getProfile_photo_5() != null && !(userBean.getProfile_photo_5()).equals("")) {
+            picUrls.add(userBean.getProfile_photo_5());
         }
-
 
 
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -178,7 +178,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         LayoutInflater inflator;
         List<String> alPics;
 
-        CustomAdapter(Context context, List<String> alPics){
+        CustomAdapter(Context context, List<String> alPics) {
 
             inflator = LayoutInflater.from(context);
             this.alPics = alPics;
@@ -186,7 +186,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
         @Override
         public int getItemViewType(int position) {
-            if(position == alPics.size()-1){
+            if (position == alPics.size() - 1) {
                 return ADD_ITEM;
             }
             return PIC_ITEM;
@@ -197,11 +197,10 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
             View v;
 
-            if(viewType == ADD_ITEM){
+            if (viewType == ADD_ITEM) {
                 v = inflator.inflate(R.layout.item_add_pic, viewGroup, false);
                 return new AddViewHolder(v);
-            }
-            else{
+            } else {
                 v = inflator.inflate(R.layout.joined_people_item, viewGroup, false);
                 return new PicViewHolder(v);
             }
@@ -210,14 +209,29 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
 
-            if(viewHolder instanceof PicViewHolder){
+            if (viewHolder instanceof PicViewHolder) {
 
                 PicViewHolder picViewHolder = (PicViewHolder) viewHolder;
 
-                RequestManager  requestManager = Glide.with(EditProfilePicsActivity.this);
+                RequestManager requestManager = Glide.with(EditProfilePicsActivity.this);
                 requestManager.load(alPics.get(position)).into(picViewHolder.image_view);
                 picViewHolder.text_view.setVisibility(View.GONE);
 
+
+                picViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        replaceOldOne = true;
+
+                        oldPicNumber = position;
+                        if (checkPermission()) {
+
+                            selectImage();
+                        } else {
+                            requestPermission();
+                        }
+                    }
+                });
 
                 picViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -226,16 +240,17 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
                         longClickedImage = position;
 
-                        Toast.makeText(EditProfilePicsActivity.this,"Long Clicked  >> "+position,Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditProfilePicsActivity.this, "Long Clicked  >> " + position, Toast.LENGTH_LONG).show();
 
                         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(EditProfilePicsActivity.this);
-                        LinearLayout optionsEditPhoto = (LinearLayout) LayoutInflater.from(EditProfilePicsActivity.this).inflate(R.layout.options_edit_photo,null);
+                        LinearLayout optionsEditPhoto = (LinearLayout) LayoutInflater.from(EditProfilePicsActivity.this).inflate(R.layout.options_edit_photo, null);
 
                         optionsEditPhoto.findViewById(R.id.tvSetMainPhoto).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 //TODO do something to set this pic as main pic
-                                if(bottomSheetDialog!= null && bottomSheetDialog.isShowing()) bottomSheetDialog.dismiss();
+                                if (bottomSheetDialog != null && bottomSheetDialog.isShowing())
+                                    bottomSheetDialog.dismiss();
                             }
                         });
 
@@ -243,7 +258,8 @@ public class EditProfilePicsActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 //TODO do something to delete this pic
-                                if(bottomSheetDialog!= null && bottomSheetDialog.isShowing()) bottomSheetDialog.dismiss();
+                                if (bottomSheetDialog != null && bottomSheetDialog.isShowing())
+                                    bottomSheetDialog.dismiss();
                             }
                         });
                         bottomSheetDialog.setContentView(optionsEditPhoto);
@@ -252,19 +268,19 @@ public class EditProfilePicsActivity extends AppCompatActivity {
                         return false;
                     }
                 });
-            }
-            else  if(viewHolder instanceof AddViewHolder){
+            } else if (viewHolder instanceof AddViewHolder) {
 
                 AddViewHolder addViewHolder = (AddViewHolder) viewHolder;
                 //do something..
-                
+
                 addViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        if(picUrls.size()==6){
+                        replaceOldOne = false;
+                        if (picUrls.size() == 6) {
 
-                            Toast.makeText(EditProfilePicsActivity.this,"Cannot add more photos",Toast.LENGTH_LONG).show();
+                            Toast.makeText(EditProfilePicsActivity.this, "Cannot add more photos", Toast.LENGTH_LONG).show();
                             return;
                         }
                         if (checkPermission()) {
@@ -286,8 +302,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         }
     }
 
-    public class PicViewHolder extends RecyclerView.ViewHolder
-    {
+    public class PicViewHolder extends RecyclerView.ViewHolder {
         private ImageView image_view;
         private TextView text_view;
 
@@ -301,8 +316,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
     }
 
 
-    public class AddViewHolder extends RecyclerView.ViewHolder
-    {
+    public class AddViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout rlContainer;
 
         public AddViewHolder(final View v) {
@@ -310,12 +324,12 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
                     /*Intent intent1 = new Intent(ChatPlusActivity.this, ChatActivity.class);
                     intent1.putExtra("contact",contacts.get(getAdapterPosition()));
                     startActivity(intent1);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
-                    Toast.makeText(getApplicationContext(),"Add photo",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Add photo", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -328,7 +342,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(), intent.getExtras().getString("messageData"));
         }
     };
 
@@ -338,7 +352,6 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
         registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
     }
-
 
 
     @Override
@@ -356,7 +369,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         try {
             if (resultCode == RESULT_OK) {
                 if (requestCode == 239) {
-                    
+
                 } else if (resultCode == RESULT_OK && requestCode == 175) {
 
                     sourceUri = Uri.fromFile(new File(currentPhotoPath));
@@ -389,15 +402,17 @@ public class EditProfilePicsActivity extends AppCompatActivity {
                         addPhotoGallery();
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
 
-//                        ivProfilePic.setImageBitmap(bitmap);
-
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
                         byte[] b = baos.toByteArray();
 
                         base64String = Base64.encode(b);
 
-                        updateProfilePic(picUrls.size());
+                        if (replaceOldOne) {
+                            updateProfilePic(oldPicNumber);
+                        } else {
+                            updateProfilePic(picUrls.size());
+                        }
                         Log.d("base64String>>", base64String);
                         currentPhotoPath = null;
 
@@ -496,6 +511,10 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
+
+    boolean replaceOldOne = false;
+    int oldPicNumber = 0;
 
     public String getAlbumName() {
         return getString(R.string.app_name);
@@ -608,10 +627,10 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-          //  if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+            //  if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
-                AppConstants.showProgressDialog(EditProfilePicsActivity.this, "Please Wait");
-        //    }
+            AppConstants.showProgressDialog(EditProfilePicsActivity.this, "Please Wait");
+            //    }
         }
 
 
@@ -637,7 +656,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
                 JSONObject jsonObjectRes = new JSONObject(response);
                 if (jsonObjectRes.getBoolean("success")) {
 
-                    editor.putString("userData",jsonObjectRes.getJSONObject("user").toString());
+                    editor.putString("userData", jsonObjectRes.getJSONObject("user").toString());
                     editor.commit();
 
                     try {
@@ -673,7 +692,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
                     }
 
 
-                }else{
+                } else {
 /*
 
                     RequestManager requestManager= Glide.with(EditProfilePicsActivity.this);
