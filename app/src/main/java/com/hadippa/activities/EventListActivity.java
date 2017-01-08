@@ -569,6 +569,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                     Intent intent = new Intent(EventListActivity.this, EventDetailsActivity.class);
                     intent.putExtra("activity_id", getIntent().getExtras().getInt("activity_id"));
                     intent.putExtra("data", postBeanList.get(position));
+                    intent.putExtra(AppConstants.ACTIVITY_KEY,activityKey);
                     intent.putExtra("latitude", latitude);
                     intent.putExtra("longitude",longitude);
                     startActivity(intent);

@@ -442,7 +442,12 @@ public class EntertainmentActivity extends BaseActionsActivity implements Locati
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(EntertainmentActivity.this, PlayDetailActivity.class);
+                    Intent intent = new Intent(EntertainmentActivity.this, EventDetailsActivity.class);
+                    //intent.putExtra("activity_id", getIntent().getExtras().getInt("activity_id"));
+                    //intent.putExtra("data", postBeanList.get(position));
+                    intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_MOVIE);
+                    //intent.putExtra("latitude", latitude);
+                    //intent.putExtra("longitude",longitude);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -472,22 +477,31 @@ public class EntertainmentActivity extends BaseActionsActivity implements Locati
             duration = (CustomTextView)v.findViewById(R.id.duration);
 
             profileImage = (RoundedImageView)v.findViewById(R.id.profileImage);
-           /* rlData.setOnClickListener(new View.OnClickListener() {
+            rlData.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(EntertainmentActivity.this, PlayDetailActivity.class);
+                    Intent intent = new Intent(EntertainmentActivity.this, EventDetailsActivity.class);
+                    //intent.putExtra("activity_id", getIntent().getExtras().getInt("activity_id"));
+                    //intent.putExtra("data", postBeanList.get(position));
+                    intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_MOVIE);
+                    //intent.putExtra("latitude", latitude);
+                    //intent.putExtra("longitude",longitude);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-                    *//*ImageView relativeLayout = (ImageView) v.findViewById(R.id.frame);
+                    /*Intent intent = new Intent(EntertainmentActivity.this, PlayDetailActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                    *//**//*ImageView relativeLayout = (ImageView) v.findViewById(R.id.frame);
                     if(relativeLayout.getDrawable().getConstantState()==(getResources().getDrawable(R.drawable.rounded_movie_deselect).getConstantState())){
                         relativeLayout.setImageResource(R.drawable.rounded_movie_select);
                     }else {
                         relativeLayout.setImageResource(R.drawable.rounded_movie_deselect);
-                    }*//*
+                    }*//**//**/
                 }
-            });*/
+            });
         }
 
         public RelativeLayout getRlData() {
