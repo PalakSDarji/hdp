@@ -190,6 +190,7 @@ public class SearchCity extends Fragment {
         public int getItemViewType(int position) {
 
 
+
             if (locationSuggestionsBeen == null) {
                 return -1;
             }
