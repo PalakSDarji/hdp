@@ -49,7 +49,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:text="Sarabajit (2016)"
-                    android:layout_toLeftOf="@+id/tvFollowUnfollow"
+                    android:layout_toLeftOf="@+id/rating"
                     android:textColor="@color/c_f31755"
                     android:textSize="@dimen/values_txt_13"
                     app:customFont="@string/proxima_bold"/>

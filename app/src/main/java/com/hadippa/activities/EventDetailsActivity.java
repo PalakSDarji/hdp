@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -105,12 +106,19 @@ public class EventDetailsActivity extends AppCompatActivity {
     @BindView(R.id.vSep1) View vSep1;
     @BindView(R.id.tvDescriptionVal) TextView tvDescriptionVal;
     @BindView(R.id.tvDescription) TextView tvDescription;
+    @BindView(R.id.vSepCast) View vSepCast;
+    @BindView(R.id.tvCastVal) TextView tvCastVal;
+    @BindView(R.id.tvCast) TextView tvCast;
+
     @BindView(R.id.rlPrice) RelativeLayout rlPrice;
     @BindView(R.id.tvDetails) TextView tvDetails;
     @BindView(R.id.rcvPrice) RecyclerView rcvPrice;
     @BindView(R.id.vSep5) View vSep5;
     @BindView(R.id.tvTotalPrice) CustomTextView tvTotalPrice;
     @BindView(R.id.inviteNumber) TextView inviteNumber;
+    @BindView(R.id.rlSelectTheater) RelativeLayout rlSelectTheater;
+    @BindView(R.id.flMovie) FrameLayout flMovie;
+    @BindView(R.id.llEventDetails) LinearLayout llEventDetails;
 
     private PriceAdapter priceAdapter;
 
@@ -124,6 +132,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     private TimePickerDialog timePickerDialog, timePickerDialog1;
 
     private SimpleDateFormat dateFormatter;
+    private int activityKey;
 
     ArrayList<String> selectedList = new ArrayList<>();
     MeraEventPartyModel.DataBean dataBean;
@@ -137,6 +146,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
 
+        activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY,0);
         ButterKnife.bind(this);
 
         ivMoreDetail.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +157,9 @@ public class EventDetailsActivity extends AppCompatActivity {
                     tvDescriptionVal.setVisibility(View.GONE);
                     tvDescription.setVisibility(View.GONE);
                     tvKnowMore.setText(R.string.know_more);
+                    tvCast.setVisibility(View.GONE);
+                    tvCastVal.setVisibility(View.GONE);
+                    vSepCast.setVisibility(View.GONE);
                     ivMoreDetail.setImageResource(R.drawable.group_chat_more);
                 }
                 else{
@@ -155,79 +168,95 @@ public class EventDetailsActivity extends AppCompatActivity {
                     tvDescription.setVisibility(View.VISIBLE);
                     tvKnowMore.setText(R.string.know_less);
                     ivMoreDetail.setImageResource(R.drawable.group_chat_less);
+
+                    if(activityKey == AppConstants.ACTIVITY_MOVIE){
+                        tvCast.setVisibility(View.VISIBLE);
+                        tvCastVal.setVisibility(View.VISIBLE);
+                        vSepCast.setVisibility(View.VISIBLE);
+                        tvDescription.setText(getString(R.string.synopsis));
+                    }
                 }
             }
         });
 
         dateFormatter = new SimpleDateFormat("MMM", Locale.US);
 
-        dataBean =
-                (MeraEventPartyModel.DataBean) getIntent().getExtras().getSerializable("data");
 
-        tvPrice.setText(dataBean.getTicket_currencyCode().trim()+" "+dataBean.getTicket_price());
-        tvEventName.setText(dataBean.getTitle());
-        tvAddress.setText(dataBean.getAddress1()+" "+dataBean.getAddress2()
-                +" "+dataBean.getCityName()+" "+dataBean.getStateName());
-
-
-        if(AppConstants.calculateDays(dataBean.getStartDate(),dataBean.getEndDate()) == 0){
-
-            tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")
-                    +
-                    " - "
-                    +
-                    AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")+"\n"
-            +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy"));
-
-        }else{
-
-            tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")
-                    +
-                    " - "
-                    +
-                    AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")+"\n"
-                    +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy") +" to "
-                    +AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy"));
-
+        if(activityKey == AppConstants.ACTIVITY_MOVIE){
+            llEventDetails.setVisibility(View.GONE);
+            flMovie.setVisibility(View.VISIBLE);
+            rlSelectTheater.setVisibility(View.VISIBLE);
         }
-        tvKm.setText(AppConstants.distanceMeasure(Double.parseDouble(getIntent().getExtras().getString("latitude")),
-                Double.parseDouble(getIntent().getExtras().getString("longitude")),
-                (dataBean.getLatitude()),
-                (dataBean.getLongitude())) + " kms");
-        tvDescriptionVal.setText(Html.fromHtml(dataBean.getDescription()));
+        else{
 
-        tvAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent
-                        = new Intent(EventDetailsActivity.this,MapsActivity.class);
-                intent.putExtra("latitide",dataBean.getLatitude());
-                intent.putExtra("longitude",dataBean.getLongitude());
-                intent.putExtra("location", dataBean.getAddress1()+" "+dataBean.getAddress2()
-                        +" "+dataBean.getCityName()+" "+dataBean.getStateName());
-                startActivity(intent);
+            dataBean = (MeraEventPartyModel.DataBean) getIntent().getExtras().getSerializable("data");
+
+            tvPrice.setText(dataBean.getTicket_currencyCode().trim()+" "+dataBean.getTicket_price());
+            tvEventName.setText(dataBean.getTitle());
+            tvAddress.setText(dataBean.getAddress1()+" "+dataBean.getAddress2()
+                    +" "+dataBean.getCityName()+" "+dataBean.getStateName());
+
+
+            if(AppConstants.calculateDays(dataBean.getStartDate(),dataBean.getEndDate()) == 0){
+
+                tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")
+                        +
+                        " - "
+                        +
+                        AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")+"\n"
+                +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy"));
+
+            }else{
+
+                tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")
+                        +
+                        " - "
+                        +
+                        AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")+"\n"
+                        +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy") +" to "
+                        +AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy"));
+
             }
-        });
-        RequestManager requestManager = Glide.with(EventDetailsActivity.this);
+            tvKm.setText(AppConstants.distanceMeasure(Double.parseDouble(getIntent().getExtras().getString("latitude")),
+                    Double.parseDouble(getIntent().getExtras().getString("longitude")),
+                    (dataBean.getLatitude()),
+                    (dataBean.getLongitude())) + " kms");
+            tvDescriptionVal.setText(Html.fromHtml(dataBean.getDescription()));
 
-        requestManager.load(dataBean.getBannerPath()).error(R.drawable.bg_item_above)
-                .placeholder(R.drawable.bg_item_above)
-                .into(((ImageView)findViewById(R.id.profileImage)));
-
-
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rcvPrice.setLayoutManager(mLayoutManager);
-
-        if(dataBean.getTickets().getTicketList().size() > 0){
-            priceAdapter = new PriceAdapter(dataBean.getTickets().getTicketList());
-            rcvPrice.setAdapter(priceAdapter);
-            rcvPrice.setNestedScrollingEnabled(false);
-
+            tvAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent
+                            = new Intent(EventDetailsActivity.this,MapsActivity.class);
+                    intent.putExtra("latitide",dataBean.getLatitude());
+                    intent.putExtra("longitude",dataBean.getLongitude());
+                    intent.putExtra("location", dataBean.getAddress1()+" "+dataBean.getAddress2()
+                            +" "+dataBean.getCityName()+" "+dataBean.getStateName());
+                    startActivity(intent);
                 }
-        else {
-            totalInclude.setVisibility(View.GONE);
-            rcvPrice.setVisibility(View.GONE);
+            });
+            RequestManager requestManager = Glide.with(EventDetailsActivity.this);
+
+            requestManager.load(dataBean.getBannerPath()).error(R.drawable.bg_item_above)
+                    .placeholder(R.drawable.bg_item_above)
+                    .into(((ImageView)findViewById(R.id.profileImage)));
+
+
+            final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            rcvPrice.setLayoutManager(mLayoutManager);
+
+            if(dataBean.getTickets().getTicketList().size() > 0){
+                priceAdapter = new PriceAdapter(dataBean.getTickets().getTicketList());
+                rcvPrice.setAdapter(priceAdapter);
+                rcvPrice.setNestedScrollingEnabled(false);
+
+                    }
+            else {
+                totalInclude.setVisibility(View.GONE);
+                rcvPrice.setVisibility(View.GONE);
+            }
+
         }
         /*if(dataBean.getBannerPath().isEmpty() || dataBean.getBannerPath().equals("")){
 
@@ -442,6 +471,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
 
     }
 
