@@ -121,7 +121,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/ivActivityIcon"
                         android:ellipsize="end"
-                        android:maxLines="1"
+                        android:maxLines="2"
                         android:singleLine="true"
                         android:text="PVR Cinemas, Lower Parel, Mumbai"
                         android:textColor="@color/c_555555"

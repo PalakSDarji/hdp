@@ -187,7 +187,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         rvEventList.setItemAnimator(new DefaultItemAnimator());
         rvEventList.setAdapter(adapter);
         postBeanList = new ArrayList<>();
-
+        ((TextView)findViewById(R.id.tvHeader2)).setText(sp.getString("cityName","Search"));
         activityKey = getIntent().getIntExtra(AppConstants.ACTIVITY_KEY,0);
 
         tvHeader = (TextView) findViewById(R.id.tvHeader);
@@ -217,6 +217,14 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
             }
         });
+
+        findViewById(R.id.tvHeader2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCityDialog();
+            }
+        });
+
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -456,6 +464,8 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             requestParams.add("radius", radius);
             requestParams.add("start", start);
             requestParams.add("access_token", sp.getString("access_token",""));
+            requestParams.add("city_name",((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
+
             Log.d("prepareMeraEvents", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -471,6 +481,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         public void onStart() {
             super.onStart();
 
+            postBeanList.clear();
             AppConstants.showProgressDialog(EventListActivity.this, "Please Wait");
 
         }
@@ -842,6 +853,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
                                 ((TextView) findViewById(R.id.tvHeader2)).setText(cityViewHolder.getCity().getText().toString().trim());
 
+                                prepareThings(0);
                                 dialog.dismiss();
                             }
                         });

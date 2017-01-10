@@ -286,9 +286,9 @@ public class ShowCardsNew extends Fragment {
                 }
 
 
-                Log.v("TESTING", "" + dataModel.getUser().getProfile_photo_thumbnail());
+                Log.v("TESTING", "" + dataModel.getUser().getProfile_img());
                 Glide.with(context)
-                        .load(dataModel.getUser().getProfile_photo())
+                        .load(dataModel.getUser().getProfile_img())
                         .placeholder(R.drawable.bg_item_above)
                         .error(R.drawable.bg_item_above)
                         .into(viewHolder.coverImage);

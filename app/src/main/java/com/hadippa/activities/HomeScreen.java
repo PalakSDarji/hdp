@@ -99,7 +99,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         sp = PreferenceManager.getDefaultSharedPreferences(HomeScreen.this);
         editor = sp.edit();
 
-        initUI();
+
 
     }
 
@@ -130,19 +130,20 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         try {
             jsonObject = new JSONObject(sp.getString("userData",""));
             tvUserName.setText(jsonObject.getString("first_name")+" "+jsonObject.getString("last_name"));
+            Glide.with(HomeScreen.this)
+                    .load(jsonObject.getJSONArray("profile_photos").getString(0))
+                    .into(profileImage);
             tvFollowersCount.setText(jsonObject.getInt("followers_count")+"");
             tvFollowingCount.setText(jsonObject.getInt("following_count")+"");
-            if(jsonObject.getString("profile_photo").equals(null) || jsonObject.getString("profile_photo").equals("")){
+          /*  if(jsonObject.getString("profile_photo").equals(null) || jsonObject.getString("profile_photo").equals("")){
 
                 Log.v("Home","Profile pic "+ jsonObject.getString("profile_photo"));
                 profileImage.setImageResource(R.drawable.ic_user_avatar_default_white);
             }
-            else {
+            else {*/
                 Log.v("Home","Profile pic url "+ jsonObject.getString("profile_photo"));
-                Glide.with(HomeScreen.this)
-                        .load(jsonObject.getString("profile_photo"))
-                        .into(profileImage);
-            }
+
+           // }
         } catch (JSONException e) {
             e.printStackTrace();
         }

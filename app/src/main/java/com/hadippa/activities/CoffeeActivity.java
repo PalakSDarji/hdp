@@ -763,6 +763,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         public void onStart() {
             super.onStart();
 
+            restaurantsBeanList.clear();
             AppConstants.showProgressDialog(CoffeeActivity.this, "Please Wait");
             Log.d("prepareZomato>>", "success exc  >> start");
         }

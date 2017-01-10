@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -29,6 +31,13 @@ import android.widget.ToggleButton;
 
 import com.APIClass;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
@@ -62,6 +71,7 @@ public class CreateActivityActvity extends AppCompatActivity {
                     "th", "st"};
 
     public ArrayList<String> selectedList = new ArrayList<>();
+    public ArrayList<String> customList = new ArrayList<>();
 
     private int activityKey = 0;
 
@@ -147,7 +157,8 @@ public class CreateActivityActvity extends AppCompatActivity {
 
 
     private DatePickerDialog datePickerDialog;
-    private TimePickerDialog timePickerDialog, timePickerDialog1;
+    private TimePickerDialog timePickerDialog,
+            timePickerDialog1;
     private SimpleDateFormat dateFormatter;
 
     @BindView(R.id.tvFrom)
@@ -169,6 +180,7 @@ public class CreateActivityActvity extends AppCompatActivity {
     ImageView ivLocation;
 
     NightCLubModel.ResponseBean.RestaurantsBean restaurantsBean;
+    PlaceAutocompleteFragment autocompleteFragment;
 
     String selectedDate,dateVisTime,dateAvaTill;
     private int selectedRadio = -1;
@@ -226,8 +238,8 @@ public class CreateActivityActvity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent
                             = new Intent(CreateActivityActvity.this,MapsActivity.class);
-                    intent.putExtra("latitide",restaurantsBean.getRestaurant().getLocation().getLatitude());
-                    intent.putExtra("longitude",restaurantsBean.getRestaurant().getLocation().getLongitude());
+                    intent.putExtra("latitide",Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLatitude()));
+                    intent.putExtra("longitude",Double.parseDouble(restaurantsBean.getRestaurant().getLocation().getLongitude()));
                     intent.putExtra("location", restaurantsBean.getRestaurant().getLocation().getAddress());
                     startActivity(intent);
                 }
@@ -313,6 +325,37 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
+            //HERE
+
+            etAddress.setVisibility(View.GONE);
+            autocompleteFragment = (PlaceAutocompleteFragment)
+                    getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+
+            ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTextSize(15);
+            ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setPadding(15, 10, 0, 10);
+            ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTypeface(Typeface.createFromAsset(getAssets(), "proxima_regular.OTF"));
+            ((ImageButton) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_clear_button)).setImageDrawable(null);
+            (autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_button)).setVisibility(View.GONE);
+
+            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                @Override
+                public void onPlaceSelected(Place place) {
+                    // TODO: Get info about the selected place.
+
+
+                    autocompleteFragment.setText(place.getAttributions());
+
+                }
+
+                @Override
+                public void onError(Status status) {
+                    // TODO: Handle the error.
+                    Log.i("Place?>>", "An error occurred: " + status);
+                }
+            });
+
+
             ivArrow.setVisibility(View.GONE);
         } else if (activityKey == AppConstants.ACTIVITY_INDOOR_SPORTS) {
 
@@ -380,20 +423,20 @@ public class CreateActivityActvity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(tvVisitingDate.getText().toString().equals("Tap Here")){
+                if(tvVisitingDate.getHint().toString().equals("Date")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Select date",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
-                if(tvVisitingTime.getText().toString().equals("Tap Here")){
+                if(tvVisitingTime.getHint().toString().equals("Time")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Select time",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
-                if(tvAvailableTill.getText().toString().equals("Tap Here")){
+                if(tvAvailableTill.getHint().toString().equals("Tap here")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Select available till",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
@@ -403,7 +446,7 @@ public class CreateActivityActvity extends AppCompatActivity {
 
         llPublicAndFollowing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                customList.clear();
 
                 if(radio0.isSelected()){
                     hide_from="";
@@ -429,7 +472,7 @@ public class CreateActivityActvity extends AppCompatActivity {
 
         llFollowing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(radio1.isSelected()){
+                customList.clear();   if(radio1.isSelected()){
                     hide_from="";
                     radio1.setSelected(false);
 
@@ -452,7 +495,7 @@ public class CreateActivityActvity extends AppCompatActivity {
 
         llPublic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                customList.clear();
                 if(radio2.isSelected()){
                     hide_from="";
                     radio2.setSelected(false);
@@ -484,7 +527,7 @@ public class CreateActivityActvity extends AppCompatActivity {
                 if(radio3.isSelected()){
                     hide_from="";
                     radio3.setSelected(false);
-
+                    customList.clear();
                     return;
                 }
                 radio0.setSelected(false);
@@ -494,9 +537,9 @@ public class CreateActivityActvity extends AppCompatActivity {
 
 
                 //setRadios(3);
-                Intent intent = new Intent(CreateActivityActvity.this, InviteToJoinActivity.class);
+                Intent intent = new Intent(CreateActivityActvity.this, CustomSelectPeople.class);
                 intent.putExtra("selectedId",selectedList);
-                startActivityForResult(intent,555);
+                startActivityForResult(intent,666);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
@@ -595,7 +638,9 @@ public class CreateActivityActvity extends AppCompatActivity {
 
             Log.d("selectedId >> 0*", selectedList.toString());
 
-        } else {
+        } else  if (requestCode == 666){
+            customList = data.getStringArrayListExtra("selectedId");
+        }else {
             Log.d("selectedId >> 0*", "req != 555");
 
         }
@@ -630,6 +675,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
 
         timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -741,7 +787,11 @@ public class CreateActivityActvity extends AppCompatActivity {
                 requestParams.add("activity_id", "0");
             }
             requestParams.add("notification", notification);
-            requestParams.add("hide_from", hide_from);
+            if(customList.size()>0){
+                requestParams.add("hide_from",customList.toString().replace("[", "").replace("]", ""));
+            }else {
+                requestParams.add("hide_from", hide_from);
+            }
             requestParams.add("invite_list", selectedList.toString().replace("[", "").replace("]", ""));
             Log.d("date>>", requestParams.toString());
         } catch (Exception e) {

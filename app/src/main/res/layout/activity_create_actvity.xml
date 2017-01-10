@@ -414,6 +414,18 @@
                     android:layout_marginRight="@dimen/value_w17"
                     android:layout_marginTop="@dimen/value_h31">
 
+
+
+                    <fragment
+
+                        android:layout_toLeftOf="@+id/ivLocation"
+                        android:id="@+id/place_autocomplete_fragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                        />
+
                     <com.hadippa.CustomEditText
                         android:id="@+id/etAddress"
                         android:layout_width="match_parent"
@@ -424,7 +436,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:text="Juhu Beach, Mumbai"
+                        android:text=""
                         android:textColor="@color/c_464646"
                         android:textSize="@dimen/values_txt_14"
                         app:customFont="@string/proxima_reg"

@@ -154,56 +154,6 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         //slider.setCustomAnimation(new DescriptionAnimation());
         slider.setDuration(4000);
 
-        if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
-            llFollowUnfollow.setVisibility(View.GONE);
-            rvMutualFriend.setVisibility(View.GONE);
-            tvRecentInstagram.setVisibility(View.GONE);
-            tvMutual.setVisibility(View.GONE);
-            rvRecentInstagram.setVisibility(View.GONE);
-            vSep2.setVisibility(View.GONE);
-            vSep3.setVisibility(View.GONE);
-
-            try {
-                JSONObject jsonObject = new JSONObject(sp.getString("userData", ""));
-                userBean = new UserProfile.UserBean();
-                userBean.setId(jsonObject.getInt("id"));
-                userBean.setFirst_name(jsonObject.getString("first_name"));
-                userBean.setLast_name(jsonObject.getString("last_name"));
-                userBean.setOccupation(jsonObject.getString("occupation"));
-                userBean.setInterested_in(jsonObject.getString("interested_in"));
-                userBean.setLanuage_known(jsonObject.getString("lanuage_known"));
-                userBean.setCity(jsonObject.getString("city"));
-                userBean.setCompany(jsonObject.getString("company"));
-                userBean.setAge_range_from(jsonObject.getInt("age_range_from"));
-                userBean.setAge_range_to(jsonObject.getInt("age_range_to"));
-                userBean.setMobile(jsonObject.getLong("mobile"));
-                userBean.setZodiac(jsonObject.getString("zodiac"));
-                userBean.setProfile_photo(jsonObject.getString("profile_photo"));
-                userBean.setProfile_photo_1(jsonObject.getString("profile_photo_1"));
-                userBean.setProfile_photo_2(jsonObject.getString("profile_photo_2"));
-                userBean.setProfile_photo_3(jsonObject.getString("profile_photo_3"));
-                userBean.setProfile_photo_4(jsonObject.getString("profile_photo_4"));
-                userBean.setProfile_photo_5(jsonObject.getString("profile_photo_5"));
-                userBean.setPrivate_account(jsonObject.getInt("private_account"));
-                userBean.setDob(jsonObject.getString("dob"));
-                userBean.setAge(jsonObject.getInt("age"));
-
-                List<String> pp = new ArrayList<>();
-
-                if(jsonObject.has("profile_photos")){
-                for(int i =0;i<jsonObject.getJSONArray("profile_photos").length();i++){
-
-                    pp.add(jsonObject.getJSONArray("profile_photos").getString(i));
-
-                }}
-                userBean.setProfile_photos(pp);
-                setData(userBean);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            ivEdit.setVisibility(View.GONE);
-        }
         findViewById(R.id.ivEdit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,12 +181,11 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 if (tvActivityVal.getText().toString().equals("0")) {
 
                 } else {
-                    if (activityData.equals("")) {
                         Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
                         intent.putExtra("data", activityData);
 
                         startActivity(intent);
-                    }
+
                 }
             }
         });
@@ -299,9 +248,65 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         });*/
 
 
-        fetchProfile();
+
     }
 
+    void dddd(){
+
+
+        if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+            llFollowUnfollow.setVisibility(View.GONE);
+            rvMutualFriend.setVisibility(View.GONE);
+            tvRecentInstagram.setVisibility(View.GONE);
+            tvMutual.setVisibility(View.GONE);
+            rvRecentInstagram.setVisibility(View.GONE);
+            vSep2.setVisibility(View.GONE);
+            vSep3.setVisibility(View.GONE);
+
+            try {
+                JSONObject jsonObject = new JSONObject(sp.getString("userData", ""));
+                userBean = new UserProfile.UserBean();
+                userBean.setId(jsonObject.getInt("id"));
+                userBean.setFirst_name(jsonObject.getString("first_name"));
+                userBean.setLast_name(jsonObject.getString("last_name"));
+                userBean.setOccupation(jsonObject.getString("occupation"));
+                userBean.setInterested_in(jsonObject.getString("interested_in"));
+                userBean.setLanuage_known(jsonObject.getString("lanuage_known"));
+                userBean.setCity(jsonObject.getString("city"));
+                userBean.setCompany(jsonObject.getString("company"));
+                userBean.setAge_range_from(jsonObject.getInt("age_range_from"));
+                userBean.setAge_range_to(jsonObject.getInt("age_range_to"));
+                userBean.setMobile(jsonObject.getLong("mobile"));
+                userBean.setZodiac(jsonObject.getString("zodiac"));
+                userBean.setProfile_photo(jsonObject.getString("profile_photo"));
+                userBean.setProfile_photo_1(jsonObject.getString("profile_photo_1"));
+                userBean.setProfile_photo_2(jsonObject.getString("profile_photo_2"));
+                userBean.setProfile_photo_3(jsonObject.getString("profile_photo_3"));
+                userBean.setProfile_photo_4(jsonObject.getString("profile_photo_4"));
+                userBean.setProfile_photo_5(jsonObject.getString("profile_photo_5"));
+                userBean.setPrivate_account(jsonObject.getInt("private_account"));
+                userBean.setDob(jsonObject.getString("dob"));
+                userBean.setAge(jsonObject.getInt("age"));
+
+                List<String> pp = new ArrayList<>();
+
+                if(jsonObject.has("profile_photos")){
+                    for(int i =0;i<jsonObject.getJSONArray("profile_photos").length();i++){
+
+                        pp.add(jsonObject.getJSONArray("profile_photos").getString(i));
+
+                    }}
+                userBean.setProfile_photos(pp);
+                setData(userBean);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            ivEdit.setVisibility(View.GONE);
+        }
+
+        fetchProfile();
+    }
     @Override
     public void onSliderClick(BaseSliderView slider) {
 
@@ -505,6 +510,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         setTextifNotEmpty(userBean.getZodiac(), tvZodiac);
 
 
+        slider.removeAllSliders();
+        url_maps.clear();
         if(userBean.getProfile_photos() != null){
         for(int i = 0; i <userBean.getProfile_photos().size();i++){
             url_maps.put("a",userBean.getProfile_photos().get(i));
@@ -565,6 +572,12 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        dddd();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

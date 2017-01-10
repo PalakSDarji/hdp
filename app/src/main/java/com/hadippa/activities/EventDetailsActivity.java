@@ -135,6 +135,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     private int activityKey;
 
     ArrayList<String> selectedList = new ArrayList<>();
+    ArrayList<String> customList = new ArrayList<>();
     MeraEventPartyModel.DataBean dataBean;
 
     @BindView(R.id.totalInclude)
@@ -293,20 +294,20 @@ public class EventDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(tvVisitingDate.getText().toString().equals("Tap Here")){
+                if(tvVisitingDate.getHint().toString().equals("Date")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Select date",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
-                if(tvVisitingTime.getText().toString().equals("Tap Here")){
+                if(tvVisitingTime.getHint().toString().equals("Time")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Select time",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
-                if(tvAvailableTill.getText().toString().equals("Tap Here")){
+                if(tvAvailableTill.getHint().toString().equals("Tap here")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Select available till",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
@@ -411,7 +412,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 radio2.setSelected(false);
                 radio3.setSelected(true);
 
-                Intent intent = new Intent(EventDetailsActivity.this, InviteToJoinActivity.class);
+                Intent intent = new Intent(EventDetailsActivity.this, CustomSelectPeople.class);
                 intent.putExtra("selectedId",selectedList);
                 startActivityForResult(intent,555);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -486,6 +487,8 @@ public class EventDetailsActivity extends AppCompatActivity {
             inviteNumber.setText(""+selectedList.size());
             Log.d("selectedId >> 0*",selectedList.toString());
 
+        }else  if (requestCode == 666){
+            customList = data.getStringArrayListExtra("selectedId");
         }else{
             Log.d("selectedId >> 0*","req != 555");
 
@@ -617,8 +620,16 @@ public class EventDetailsActivity extends AppCompatActivity {
             requestParams.add("activity_id", String.valueOf(dataBean.getId()));
             requestParams.add("notification", notification);
 
-            requestParams.add("invite_list", selectedList.toString().replace("[","").replace("]",""));
-            requestParams.add("hide_from", hide_from);
+            if(selectedList.size()>0) {
+                requestParams.add("invite_list", selectedList.toString().replace("[", "").replace("]", ""));
+            }else{
+                requestParams.add("invite_list","");
+            }
+            if(customList.size()>0){
+                requestParams.add("hide_from",customList.toString().replace("[", "").replace("]", ""));
+            }else {
+                requestParams.add("hide_from", "");
+            }
             Log.d("date>>", requestParams.toString());
 
         } catch (Exception e) {
