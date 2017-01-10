@@ -1,7 +1,5 @@
 package com.hadippa.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,25 +12,17 @@ public class UserProfile implements Serializable {
 
     /**
      * success : true
-     * user : {"id":226,"first_name":"aliakbar","last_name":"p","username":"ap@gmail.com","email":"ap@gmail.com","gender":"male","dob":"1995-12-09","company":"","occupation":"","about_me":"","interested_in":"female","zodiac":"","lanuage_known":"","city":"","age_range_from":18,"age_range_to":99,"fb_id":0,"mobile":7878345761,"mobile_verified":1,"mobile_verification_code":0,"email_verified":0,"email_verification_code":"","password_change_verification_code":"","profile_photo":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","profile_photo_1":null,"profile_photo_2":null,"profile_photo_3":null,"profile_photo_4":null,"profile_photo_5":null,"photo_uploaded":1,"active":1,"private_account":0,"current_lat":0,"current_lon":0,"radius":3,"registration_complete":3,"device_token":"ci8SU05tP-M:APA91bGPJFF_2Wo2bJPvqzmO37U2RE1VKmPTpkizy_4UT0iPRA0uEBQvMS5UHpih1MF4VmDPyEY4ifYAeMGUcvLRyQ21fso7bjA5LoEMX44DYqF-6zyG8KE1h1TfPzL39aBeHnWPps2K","device_type":"android","device_id":"88baca3a5682275d","device_os_version":"23","created_at":"2016-12-09 20:59:49","updated_at":"2016-12-09 21:21:01","age":21,"profile_photo_thumbnail":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg"}
-     * activity : [{"id":204,"user_id":226,"activity_type":"12","activity_id":3200055,"activity_details":{"activity_name":"Cafe Bistro"},"activity_location":"Opposite Galaria Mall, Akota, Vadodara","activity_location_lat":22.2968,"activity_location_lon":73.1712,"activity_date":"2016-12-27","cut_off_time":"0000-00-00 00:00:00","available_till":"0000-00-00 00:00:00","active":1,"privacy":null,"hide_from":"public","notification":1,"created_at":"2016-12-09 21:45:18","updated_at":"2016-12-09 21:45:18","activity_time":"19:11","user":{"id":226,"first_name":"aliakbar","last_name":"p","gender":"male","dob":"1995-12-09","profile_photo":"default.jpg","age_range_from":18,"age_range_to":99,"private_account":0,"photo_uploaded":1,"profile_photo_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","profile_photo_thumbnail_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg","age":21},"activity":{"id":12,"activity_name":"coffee","activity_display_name":"Coffee","activity_category":{"id":4,"activity_category_name":"coffee","activity_category_display_name":"Coffee"}},"people_going":[{"id":396,"activity_id":197,"requester_id":99,"user":{"id":99,"first_name":"Vivek","last_name":"Singh","profile_photo":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p480x480/13330920_1202279549804951_7115238095847875146_n.jpg?oh=d89facf6e341563dd3e56942e1e6136a&oe=5823B0CA&__gda__=1482049138_1f42cfdf8dfe92c87c60bda6c3b56846","photo_uploaded":1}},{"id":397,"activity_id":197,"requester_id":187,"user":{"id":187,"first_name":"Anand","last_name":"Yadav","profile_photo":"1479983261_Anand.jpg","photo_uploaded":1}},{"id":398,"activity_id":197,"requester_id":219,"user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"default.jpg","photo_uploaded":1}},{"id":399,"activity_id":197,"requester_id":215,"user":{"id":215,"first_name":"postman","last_name":"test","profile_photo":"default.jpg","photo_uploaded":1}},{"id":400,"activity_id":197,"requester_id":5,"user":{"id":5,"first_name":"Shalu","last_name":"Soni","profile_photo":"https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/14390649_10205600821740105_8116670789966471774_n.jpg?oh=a958610695afa8fd56588548044efe47&oe=58F16866","photo_uploaded":0}},{"id":401,"activity_id":197,"requester_id":211,"user":{"id":211,"first_name":"Sahil","last_name":"Desai","profile_photo":"https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/1937043_978044888911311_1642937164755094085_n.jpg?oh=c222bd311efa77a7d6e9f3864b387f73&oe=58B15762","photo_uploaded":0}}],"people_approaching_count":[{"id":396,"activity_id":197,"requester_id":99,"total":6}],"people_going_count":[{"id":396,"activity_id":197,"requester_id":99,"total":6}]}]
+     * user : {"id":226,"first_name":"aliakbar","last_name":"p","username":"ap@gmail.com","email":"ap@gmail.com","gender":"male","dob":"1995-12-09","company":"","occupation":"","about_me":"","interested_in":"both","zodiac":"","lanuage_known":"","city":"","age_range_from":18,"age_range_to":99,"fb_id":0,"mobile":7878345761,"mobile_verified":1,"mobile_verification_code":0,"email_verified":0,"email_verification_code":"","password_change_verification_code":"","profile_photo":"default.jpg","profile_photo_1":"1483721844_aliakbar.jpg","profile_photo_2":"1483820474_aliakbar.jpg","profile_photo_3":"1483820642_aliakbar.jpg","profile_photo_4":null,"profile_photo_5":null,"photo_uploaded":1,"active":1,"private_account":0,"current_lat":0,"current_lon":0,"radius":100,"registration_complete":3,"device_token":"dpBT2mlKwfE:APA91bGSH5SrLtcj2FuwcgWTeje8NJWkKUGbVI8A1SyfFGnklNijcdlv0pnWb0kf6SW3G_39A5HyJJnVWfxPX2aquDqvQi_5zj9PJsg94WLuWWVhpltFRhLm0i9mjZooKvt3LxZbFzUx","device_type":"android","device_id":"88baca3a5682275d","device_os_version":"23","created_at":"2016-12-09 20:59:49","updated_at":"2017-01-09 21:43:36","age":21,"profile_photos":["http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1483721844_aliakbar.jpg","http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1483820474_aliakbar.jpg","http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1483820642_aliakbar.jpg"]}
+     * activity_count : 5
+     * activity : [{"id":259,"user_id":226,"activity_type":"12","activity_id":18260810,"activity_details":{"activity_name":"Tea Post"},"activity_location":"G13 Anannya Complex, Akshar Chowk, Mandvi, Vadodara","activity_location_lat":22.3062,"activity_location_lon":73.1991,"activity_date":"2017-01-16","cut_off_time":"0000-00-00 00:00:00","available_till":"0000-00-00 00:00:00","active":1,"privacy":null,"hide_from":"public","notification":1,"created_at":"2017-01-01 00:56:04","updated_at":"2017-01-01 00:56:04","activity_time":"03:00","user":{"id":226,"first_name":"aliakbar","last_name":"p","gender":"male","dob":"1995-12-09","profile_photo":"default.jpg","age_range_from":18,"age_range_to":99,"private_account":0,"photo_uploaded":1,"profile_photo_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","profile_photo_thumbnail_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg","age":21},"activity":{"id":12,"activity_name":"coffee","activity_display_name":"Coffee","activity_category":{"id":4,"activity_category_name":"coffee","activity_category_display_name":"Coffee"}},"people_going":[{"id":19,"activity_id":259,"requester_id":219,"user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"1481390529_sahil.jpg","photo_uploaded":1}}],"people_approaching_count":[{"id":19,"activity_id":259,"requester_id":219,"total":1}],"people_going_count":[{"id":19,"activity_id":259,"requester_id":219,"total":1}]},{"id":260,"user_id":226,"activity_type":"12","activity_id":18260810,"activity_details":{"activity_name":"Tea Post"},"activity_location":"G13 Anannya Complex, Akshar Chowk, Mandvi, Vadodara","activity_location_lat":22.3061,"activity_location_lon":73.1994,"activity_date":"2017-01-16","cut_off_time":"0000-00-00 00:00:00","available_till":"0000-00-00 00:00:00","active":1,"privacy":null,"hide_from":"public","notification":1,"created_at":"2017-01-01 01:06:22","updated_at":"2017-01-01 01:06:22","activity_time":"05:00","user":{"id":226,"first_name":"aliakbar","last_name":"p","gender":"male","dob":"1995-12-09","profile_photo":"default.jpg","age_range_from":18,"age_range_to":99,"private_account":0,"photo_uploaded":1,"profile_photo_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","profile_photo_thumbnail_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg","age":21},"activity":{"id":12,"activity_name":"coffee","activity_display_name":"Coffee","activity_category":{"id":4,"activity_category_name":"coffee","activity_category_display_name":"Coffee"}},"people_going":[{"id":20,"activity_id":260,"requester_id":219,"user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"1481390529_sahil.jpg","photo_uploaded":1}}],"people_approaching_count":[{"id":20,"activity_id":260,"requester_id":219,"total":1}],"people_going_count":[{"id":20,"activity_id":260,"requester_id":219,"total":1}]},{"id":261,"user_id":226,"activity_type":"12","activity_id":18260810,"activity_details":{"activity_name":"Tea Post"},"activity_location":"G13 Anannya Complex, Akshar Chowk, Mandvi, Vadodara","activity_location_lat":22.3061,"activity_location_lon":73.1994,"activity_date":"2017-01-16","cut_off_time":"0000-00-00 00:00:00","available_till":"0000-00-00 00:00:00","active":1,"privacy":null,"hide_from":"public","notification":1,"created_at":"2017-01-01 01:09:35","updated_at":"2017-01-01 01:09:35","activity_time":"05:00","user":{"id":226,"first_name":"aliakbar","last_name":"p","gender":"male","dob":"1995-12-09","profile_photo":"default.jpg","age_range_from":18,"age_range_to":99,"private_account":0,"photo_uploaded":1,"profile_photo_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","profile_photo_thumbnail_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg","age":21},"activity":{"id":12,"activity_name":"coffee","activity_display_name":"Coffee","activity_category":{"id":4,"activity_category_name":"coffee","activity_category_display_name":"Coffee"}},"people_going":[],"people_approaching_count":[],"people_going_count":[]},{"id":262,"user_id":226,"activity_type":"12","activity_id":18260810,"activity_details":{"activity_name":"Tea Post"},"activity_location":"G13 Anannya Complex, Akshar Chowk, Mandvi, Vadodara","activity_location_lat":22.3061,"activity_location_lon":73.1994,"activity_date":"2017-01-16","cut_off_time":"0000-00-00 00:00:00","available_till":"0000-00-00 00:00:00","active":1,"privacy":null,"hide_from":"public","notification":1,"created_at":"2017-01-01 01:14:01","updated_at":"2017-01-01 01:14:01","activity_time":"07:00","user":{"id":226,"first_name":"aliakbar","last_name":"p","gender":"male","dob":"1995-12-09","profile_photo":"default.jpg","age_range_from":18,"age_range_to":99,"private_account":0,"photo_uploaded":1,"profile_photo_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","profile_photo_thumbnail_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg","age":21},"activity":{"id":12,"activity_name":"coffee","activity_display_name":"Coffee","activity_category":{"id":4,"activity_category_name":"coffee","activity_category_display_name":"Coffee"}},"people_going":[],"people_approaching_count":[],"people_going_count":[]},{"id":263,"user_id":226,"activity_type":"12","activity_id":18260810,"activity_details":{"activity_name":"Tea Post"},"activity_location":"G13 Anannya Complex, Akshar Chowk, Mandvi, Vadodara","activity_location_lat":22.3062,"activity_location_lon":73.1991,"activity_date":"2017-01-16","cut_off_time":"0000-00-00 00:00:00","available_till":"0000-00-00 00:00:00","active":1,"privacy":null,"hide_from":"public","notification":1,"created_at":"2017-01-01 01:18:19","updated_at":"2017-01-01 01:18:19","activity_time":"09:00","user":{"id":226,"first_name":"aliakbar","last_name":"p","gender":"male","dob":"1995-12-09","profile_photo":"default.jpg","age_range_from":18,"age_range_to":99,"private_account":0,"photo_uploaded":1,"profile_photo_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","profile_photo_thumbnail_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg","age":21},"activity":{"id":12,"activity_name":"coffee","activity_display_name":"Coffee","activity_category":{"id":4,"activity_category_name":"coffee","activity_category_display_name":"Coffee"}},"people_going":[],"people_approaching_count":[],"people_going_count":[]}]
      * next : null
      */
 
     private boolean success;
     private UserBean user;
-    @SerializedName("all activity")
-    int all_activity;
+    private int activity_count;
     private Object next;
     private List<ActivityBeanX> activity;
-
-    public int getAll_activity() {
-        return all_activity;
-    }
-
-    public void setAll_activity(int all_activity) {
-        this.all_activity = all_activity;
-    }
 
     public boolean isSuccess() {
         return success;
@@ -48,6 +38,14 @@ public class UserProfile implements Serializable {
 
     public void setUser(UserBean user) {
         this.user = user;
+    }
+
+    public int getActivity_count() {
+        return activity_count;
+    }
+
+    public void setActivity_count(int activity_count) {
+        this.activity_count = activity_count;
     }
 
     public Object getNext() {
@@ -66,7 +64,7 @@ public class UserProfile implements Serializable {
         this.activity = activity;
     }
 
-    public static class UserBean implements Serializable {
+    public static class UserBean implements Serializable{
         /**
          * id : 226
          * first_name : aliakbar
@@ -78,7 +76,7 @@ public class UserProfile implements Serializable {
          * company :
          * occupation :
          * about_me :
-         * interested_in : female
+         * interested_in : both
          * zodiac :
          * lanuage_known :
          * city :
@@ -91,10 +89,10 @@ public class UserProfile implements Serializable {
          * email_verified : 0
          * email_verification_code :
          * password_change_verification_code :
-         * profile_photo : http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg
-         * profile_photo_1 : null
-         * profile_photo_2 : null
-         * profile_photo_3 : null
+         * profile_photo : default.jpg
+         * profile_photo_1 : 1483721844_aliakbar.jpg
+         * profile_photo_2 : 1483820474_aliakbar.jpg
+         * profile_photo_3 : 1483820642_aliakbar.jpg
          * profile_photo_4 : null
          * profile_photo_5 : null
          * photo_uploaded : 1
@@ -102,16 +100,16 @@ public class UserProfile implements Serializable {
          * private_account : 0
          * current_lat : 0
          * current_lon : 0
-         * radius : 3
+         * radius : 100
          * registration_complete : 3
-         * device_token : ci8SU05tP-M:APA91bGPJFF_2Wo2bJPvqzmO37U2RE1VKmPTpkizy_4UT0iPRA0uEBQvMS5UHpih1MF4VmDPyEY4ifYAeMGUcvLRyQ21fso7bjA5LoEMX44DYqF-6zyG8KE1h1TfPzL39aBeHnWPps2K
+         * device_token : dpBT2mlKwfE:APA91bGSH5SrLtcj2FuwcgWTeje8NJWkKUGbVI8A1SyfFGnklNijcdlv0pnWb0kf6SW3G_39A5HyJJnVWfxPX2aquDqvQi_5zj9PJsg94WLuWWVhpltFRhLm0i9mjZooKvt3LxZbFzUx
          * device_type : android
          * device_id : 88baca3a5682275d
          * device_os_version : 23
          * created_at : 2016-12-09 20:59:49
-         * updated_at : 2016-12-09 21:21:01
+         * updated_at : 2017-01-09 21:43:36
          * age : 21
-         * profile_photo_thumbnail : http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg
+         * profile_photos : ["http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1483721844_aliakbar.jpg","http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1483820474_aliakbar.jpg","http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1483820642_aliakbar.jpg"]
          */
 
         private int id;
@@ -130,7 +128,7 @@ public class UserProfile implements Serializable {
         private String city;
         private int age_range_from;
         private int age_range_to;
-        private long fb_id;
+        private int fb_id;
         private long mobile;
         private int mobile_verified;
         private int mobile_verification_code;
@@ -141,13 +139,13 @@ public class UserProfile implements Serializable {
         private String profile_photo_1;
         private String profile_photo_2;
         private String profile_photo_3;
-        private String profile_photo_4;
-        private String profile_photo_5;
+        private Object profile_photo_4;
+        private Object profile_photo_5;
         private int photo_uploaded;
         private int active;
         private int private_account;
-        private double current_lat;
-        private double current_lon;
+        private int current_lat;
+        private int current_lon;
         private int radius;
         private int registration_complete;
         private String device_token;
@@ -157,7 +155,7 @@ public class UserProfile implements Serializable {
         private String created_at;
         private String updated_at;
         private int age;
-        private String profile_photo_thumbnail;
+        private List<String> profile_photos;
 
         public int getId() {
             return id;
@@ -287,11 +285,11 @@ public class UserProfile implements Serializable {
             this.age_range_to = age_range_to;
         }
 
-        public long getFb_id() {
+        public int getFb_id() {
             return fb_id;
         }
 
-        public void setFb_id(long fb_id) {
+        public void setFb_id(int fb_id) {
             this.fb_id = fb_id;
         }
 
@@ -375,19 +373,19 @@ public class UserProfile implements Serializable {
             this.profile_photo_3 = profile_photo_3;
         }
 
-        public String getProfile_photo_4() {
+        public Object getProfile_photo_4() {
             return profile_photo_4;
         }
 
-        public void setProfile_photo_4(String profile_photo_4) {
+        public void setProfile_photo_4(Object profile_photo_4) {
             this.profile_photo_4 = profile_photo_4;
         }
 
-        public String getProfile_photo_5() {
+        public Object getProfile_photo_5() {
             return profile_photo_5;
         }
 
-        public void setProfile_photo_5(String profile_photo_5) {
+        public void setProfile_photo_5(Object profile_photo_5) {
             this.profile_photo_5 = profile_photo_5;
         }
 
@@ -415,19 +413,19 @@ public class UserProfile implements Serializable {
             this.private_account = private_account;
         }
 
-        public double getCurrent_lat() {
+        public int getCurrent_lat() {
             return current_lat;
         }
 
-        public void setCurrent_lat(double current_lat) {
+        public void setCurrent_lat(int current_lat) {
             this.current_lat = current_lat;
         }
 
-        public double getCurrent_lon() {
+        public int getCurrent_lon() {
             return current_lon;
         }
 
-        public void setCurrent_lon(double current_lon) {
+        public void setCurrent_lon(int current_lon) {
             this.current_lon = current_lon;
         }
 
@@ -503,40 +501,40 @@ public class UserProfile implements Serializable {
             this.age = age;
         }
 
-        public String getProfile_photo_thumbnail() {
-            return profile_photo_thumbnail;
+        public List<String> getProfile_photos() {
+            return profile_photos;
         }
 
-        public void setProfile_photo_thumbnail(String profile_photo_thumbnail) {
-            this.profile_photo_thumbnail = profile_photo_thumbnail;
+        public void setProfile_photos(List<String> profile_photos) {
+            this.profile_photos = profile_photos;
         }
     }
 
-    public static class ActivityBeanX implements Serializable {
+    public static class ActivityBeanX  implements Serializable{
         /**
-         * id : 204
+         * id : 259
          * user_id : 226
          * activity_type : 12
-         * activity_id : 3200055
-         * activity_details : {"activity_name":"Cafe Bistro"}
-         * activity_location : Opposite Galaria Mall, Akota, Vadodara
-         * activity_location_lat : 22.2968
-         * activity_location_lon : 73.1712
-         * activity_date : 2016-12-27
+         * activity_id : 18260810
+         * activity_details : {"activity_name":"Tea Post"}
+         * activity_location : G13 Anannya Complex, Akshar Chowk, Mandvi, Vadodara
+         * activity_location_lat : 22.3062
+         * activity_location_lon : 73.1991
+         * activity_date : 2017-01-16
          * cut_off_time : 0000-00-00 00:00:00
          * available_till : 0000-00-00 00:00:00
          * active : 1
          * privacy : null
          * hide_from : public
          * notification : 1
-         * created_at : 2016-12-09 21:45:18
-         * updated_at : 2016-12-09 21:45:18
-         * activity_time : 19:11
+         * created_at : 2017-01-01 00:56:04
+         * updated_at : 2017-01-01 00:56:04
+         * activity_time : 03:00
          * user : {"id":226,"first_name":"aliakbar","last_name":"p","gender":"male","dob":"1995-12-09","profile_photo":"default.jpg","age_range_from":18,"age_range_to":99,"private_account":0,"photo_uploaded":1,"profile_photo_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/default.jpg","profile_photo_thumbnail_url":"http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/thumbnails/default.jpg","age":21}
          * activity : {"id":12,"activity_name":"coffee","activity_display_name":"Coffee","activity_category":{"id":4,"activity_category_name":"coffee","activity_category_display_name":"Coffee"}}
-         * people_going : [{"id":396,"activity_id":197,"requester_id":99,"user":{"id":99,"first_name":"Vivek","last_name":"Singh","profile_photo":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p480x480/13330920_1202279549804951_7115238095847875146_n.jpg?oh=d89facf6e341563dd3e56942e1e6136a&oe=5823B0CA&__gda__=1482049138_1f42cfdf8dfe92c87c60bda6c3b56846","photo_uploaded":1}},{"id":397,"activity_id":197,"requester_id":187,"user":{"id":187,"first_name":"Anand","last_name":"Yadav","profile_photo":"1479983261_Anand.jpg","photo_uploaded":1}},{"id":398,"activity_id":197,"requester_id":219,"user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"default.jpg","photo_uploaded":1}},{"id":399,"activity_id":197,"requester_id":215,"user":{"id":215,"first_name":"postman","last_name":"test","profile_photo":"default.jpg","photo_uploaded":1}},{"id":400,"activity_id":197,"requester_id":5,"user":{"id":5,"first_name":"Shalu","last_name":"Soni","profile_photo":"https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/14390649_10205600821740105_8116670789966471774_n.jpg?oh=a958610695afa8fd56588548044efe47&oe=58F16866","photo_uploaded":0}},{"id":401,"activity_id":197,"requester_id":211,"user":{"id":211,"first_name":"Sahil","last_name":"Desai","profile_photo":"https://scontent.xx.fbcdn.net/v/t1.0-1/p480x480/1937043_978044888911311_1642937164755094085_n.jpg?oh=c222bd311efa77a7d6e9f3864b387f73&oe=58B15762","photo_uploaded":0}}]
-         * people_approaching_count : [{"id":396,"activity_id":197,"requester_id":99,"total":6}]
-         * people_going_count : [{"id":396,"activity_id":197,"requester_id":99,"total":6}]
+         * people_going : [{"id":19,"activity_id":259,"requester_id":219,"user":{"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"1481390529_sahil.jpg","photo_uploaded":1}}]
+         * people_approaching_count : [{"id":19,"activity_id":259,"requester_id":219,"total":1}]
+         * people_going_count : [{"id":19,"activity_id":259,"requester_id":219,"total":1}]
          */
 
         private int id;
@@ -562,6 +560,7 @@ public class UserProfile implements Serializable {
         private List<PeopleGoingBean> people_going;
         private List<PeopleApproachingCountBean> people_approaching_count;
         private List<PeopleGoingCountBean> people_going_count;
+
         private boolean isOpened;
 
         public boolean isOpened() {
@@ -756,9 +755,9 @@ public class UserProfile implements Serializable {
             this.people_going_count = people_going_count;
         }
 
-        public static class ActivityDetailsBean {
+        public static class ActivityDetailsBean  implements Serializable{
             /**
-             * activity_name : Cafe Bistro
+             * activity_name : Tea Post
              */
 
             private String activity_name;
@@ -772,7 +771,7 @@ public class UserProfile implements Serializable {
             }
         }
 
-        public static class UserBeanX {
+        public static class UserBeanX  implements Serializable{
             /**
              * id : 226
              * first_name : aliakbar
@@ -908,7 +907,7 @@ public class UserProfile implements Serializable {
             }
         }
 
-        public static class ActivityBean {
+        public static class ActivityBean  implements Serializable{
             /**
              * id : 12
              * activity_name : coffee
@@ -953,7 +952,7 @@ public class UserProfile implements Serializable {
                 this.activity_category = activity_category;
             }
 
-            public static class ActivityCategoryBean {
+            public static class ActivityCategoryBean  implements Serializable{
                 /**
                  * id : 4
                  * activity_category_name : coffee
@@ -990,12 +989,12 @@ public class UserProfile implements Serializable {
             }
         }
 
-        public static class PeopleGoingBean {
+        public static class PeopleGoingBean  implements Serializable{
             /**
-             * id : 396
-             * activity_id : 197
-             * requester_id : 99
-             * user : {"id":99,"first_name":"Vivek","last_name":"Singh","profile_photo":"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p480x480/13330920_1202279549804951_7115238095847875146_n.jpg?oh=d89facf6e341563dd3e56942e1e6136a&oe=5823B0CA&__gda__=1482049138_1f42cfdf8dfe92c87c60bda6c3b56846","photo_uploaded":1}
+             * id : 19
+             * activity_id : 259
+             * requester_id : 219
+             * user : {"id":219,"first_name":"sahil","last_name":"desaiiiii","profile_photo":"1481390529_sahil.jpg","photo_uploaded":1}
              */
 
             private int id;
@@ -1035,12 +1034,12 @@ public class UserProfile implements Serializable {
                 this.user = user;
             }
 
-            public static class UserBeanXX {
+            public static class UserBeanXX  implements Serializable{
                 /**
-                 * id : 99
-                 * first_name : Vivek
-                 * last_name : Singh
-                 * profile_photo : https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p480x480/13330920_1202279549804951_7115238095847875146_n.jpg?oh=d89facf6e341563dd3e56942e1e6136a&oe=5823B0CA&__gda__=1482049138_1f42cfdf8dfe92c87c60bda6c3b56846
+                 * id : 219
+                 * first_name : sahil
+                 * last_name : desaiiiii
+                 * profile_photo : 1481390529_sahil.jpg
                  * photo_uploaded : 1
                  */
 
@@ -1092,12 +1091,12 @@ public class UserProfile implements Serializable {
             }
         }
 
-        public static class PeopleApproachingCountBean {
+        public static class PeopleApproachingCountBean  implements Serializable{
             /**
-             * id : 396
-             * activity_id : 197
-             * requester_id : 99
-             * total : 6
+             * id : 19
+             * activity_id : 259
+             * requester_id : 219
+             * total : 1
              */
 
             private int id;
@@ -1138,12 +1137,12 @@ public class UserProfile implements Serializable {
             }
         }
 
-        public static class PeopleGoingCountBean {
+        public static class PeopleGoingCountBean  implements Serializable{
             /**
-             * id : 396
-             * activity_id : 197
-             * requester_id : 99
-             * total : 6
+             * id : 19
+             * activity_id : 259
+             * requester_id : 219
+             * total : 1
              */
 
             private int id;

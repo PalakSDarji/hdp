@@ -1,6 +1,7 @@
 package com.hadippa.activities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -105,8 +106,9 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+
+                onBackPressed();
+
             }
         });
 
@@ -146,30 +148,25 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
         picUrls.clear();
 
-        picUrls.add(userBean.getProfile_photo());
-        if (userBean.getProfile_photo_1() != null && !(userBean.getProfile_photo_1()).equals("")) {
-            picUrls.add(userBean.getProfile_photo_1());
+        for(int i = 0 ;i<userBean.getProfile_photos().size();i++){
+
+            picUrls.add(userBean.getProfile_photos().get(i));
+
         }
 
-        if (userBean.getProfile_photo_2() != null && !(userBean.getProfile_photo_2()).equals("")) {
-            picUrls.add(userBean.getProfile_photo_2());
-        }
-        if (userBean.getProfile_photo_3() != null && !(userBean.getProfile_photo_3()).equals("")) {
-            picUrls.add(userBean.getProfile_photo_3());
-        }
-        if (userBean.getProfile_photo_4() != null && !(userBean.getProfile_photo_4()).equals("")) {
-            picUrls.add(userBean.getProfile_photo_4());
-        }
-        if (userBean.getProfile_photo_5() != null && !(userBean.getProfile_photo_5()).equals("")) {
-            picUrls.add(userBean.getProfile_photo_5());
-        }
-
+        picUrls.add("ADD NEW");
 
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("data", userBean);
+
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
+
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
     }
 
@@ -684,6 +681,15 @@ public class EditProfilePicsActivity extends AppCompatActivity {
                         userBean.setDob(jsonObject.getString("dob"));
                         userBean.setAge(jsonObject.getInt("age"));
 
+                        List<String> pp = new ArrayList<>();
+
+                        if(jsonObject.has("profile_photos")){
+                            for(int i =0;i<jsonObject.getJSONArray("profile_photos").length();i++){
+
+                                pp.add(jsonObject.getJSONArray("profile_photos").getString(i));
+
+                            }}
+                        userBean.setProfile_photos(pp);
                         setData(userBean);
 
                         customAdapter.notifyDataSetChanged();
@@ -719,5 +725,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
 
     }
+
+
 
 }

@@ -188,6 +188,15 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 userBean.setDob(jsonObject.getString("dob"));
                 userBean.setAge(jsonObject.getInt("age"));
 
+                List<String> pp = new ArrayList<>();
+
+                if(jsonObject.has("profile_photos")){
+                for(int i =0;i<jsonObject.getJSONArray("profile_photos").length();i++){
+
+                    pp.add(jsonObject.getJSONArray("profile_photos").getString(i));
+
+                }}
+                userBean.setProfile_photos(pp);
                 setData(userBean);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -300,7 +309,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             Intent intent = new Intent(ProfileActivity.this, EditProfilePicsActivity.class);
             intent.putExtra("data", userBean);
             intent.putExtra(AppConstants.FETCH_USER_KEY, getIntent().getExtras().getString(AppConstants.FETCH_USER_KEY));
-            startActivity(intent);
+            startActivityForResult(intent,166);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
@@ -447,7 +456,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                     setData(userBean);
                     userProfile1 = userProfile;
                     if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
-                        tvActivityVal.setText("" + userProfile.getAll_activity());
+                        tvActivityVal.setText("" + userProfile.getActivity_count());
 
                     } else {
                         activityBeanX = userProfile.getActivity();
@@ -496,7 +505,26 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         setTextifNotEmpty(userBean.getZodiac(), tvZodiac);
 
 
-        url_maps.put("a", userBean.getProfile_photo());
+        if(userBean.getProfile_photos() != null){
+        for(int i = 0; i <userBean.getProfile_photos().size();i++){
+            url_maps.put("a",userBean.getProfile_photos().get(i));
+            TextSliderView textSliderView = new TextSliderView(this);
+            // initialize a SliderLayout
+            textSliderView
+                    .description("")
+                    .image(userBean.getProfile_photos().get(i))
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                    .setOnSliderClickListener(ProfileActivity.this);
+
+            //add your extra information
+           /* textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
+                    .putString("extra", name);
+*/
+            slider.addSlider(textSliderView);
+        }
+        }
+     /*   url_maps.put("a", userBean.getProfile_photo());
         if (userBean.getProfile_photo_1() != null && !(userBean.getProfile_photo_1()).equals("")) {
             url_maps.put("a", userBean.getProfile_photo_1());
         }
@@ -529,7 +557,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
             slider.addSlider(textSliderView);
         }
-
+*/
         if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
 
@@ -544,7 +572,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
         try {
             if (resultCode == RESULT_OK) {
-                if (requestCode == 239) {
+                if (requestCode == 239 || requestCode == 166) {
                     userBean = (UserProfile.UserBean) data.getExtras().getSerializable("data");
                     setData(userBean);
                 } else if (resultCode == RESULT_OK && requestCode == 175) {

@@ -270,9 +270,9 @@ public class ShowCardsNew extends Fragment {
 
                 if (dataModel.getActivity().getActivity_category().getId() == 1 || dataModel.getActivity().getActivity_category().getId() == 2) {
                     if (dataModel.getCut_off_time().equals("0000-00-00 00:00:00")) {
-                        viewHolder.tvAvailableTill.setText("Cut off time : NA");
+                        viewHolder.tvAvailableTill.setText("Cut off time to join : NA");
                     } else {
-                        viewHolder.tvAvailableTill.setText("Cut off time  " +
+                        viewHolder.tvAvailableTill.setText("Cut off time to join " +
                                 AppConstants.formatDate(dataModel.getCut_off_time(), "yyyy-mm-dd HH:mm:ss", "hh:mm a"));
                     }
                 } else {

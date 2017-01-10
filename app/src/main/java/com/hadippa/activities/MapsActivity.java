@@ -68,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(getIntent().getExtras().getDouble("latitide"), getIntent().getExtras().getDouble("longitude"));
         mMap.addMarker(new MarkerOptions().position(sydney).title(getIntent().getExtras().getString("location")));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,12));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,18));
 
         Toast.makeText(MapsActivity.this,"Latitude >"
                 + getIntent().getExtras().getDouble("latitide")
