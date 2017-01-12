@@ -326,6 +326,7 @@ public class EditProfileActivity extends AppCompatActivity {
             requestParams.add("company", etCompany.getText().toString());
             requestParams.add("city", etLiveIn.getText().toString());
             requestParams.add("zodiac", tvZodiac.getText().toString());
+
             requestParams.add("lanuage_known", etLang.getText().toString());
             requestParams.add("mobile", etPhone.getText().toString());
             requestParams.add("gender", gender);
