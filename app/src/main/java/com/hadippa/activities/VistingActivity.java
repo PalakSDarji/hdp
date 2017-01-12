@@ -49,6 +49,8 @@ public class VistingActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
