@@ -58,7 +58,7 @@
                     android:layout_marginRight="@dimen/value_5"
                     android:text="Mumbai"
                     android:textColor="@color/c_2f2f2f"
-                    android:textSize="@dimen/values_txt_10"
+                    android:textSize="13dp"
                     app:customFont="@string/proxima_reg"/>
 
                 <ImageView

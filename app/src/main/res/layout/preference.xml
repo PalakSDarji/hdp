@@ -243,6 +243,7 @@
                         android:splitTrack="false"
                         android:minHeight="@dimen/value_8"
                         android:progress="10"
+                        android:max="500"
                         android:layout_marginBottom="@dimen/value_h64"
                         android:maxHeight="@dimen/value_8"
                         android:progressDrawable="@drawable/seekbar_pink"

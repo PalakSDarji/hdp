@@ -514,22 +514,24 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         url_maps.clear();
         if(userBean.getProfile_photos() != null){
         for(int i = 0; i <userBean.getProfile_photos().size();i++){
-            url_maps.put("a",userBean.getProfile_photos().get(i));
-            TextSliderView textSliderView = new TextSliderView(this);
-            // initialize a SliderLayout
-            textSliderView
-                    .description("")
-                    .image(userBean.getProfile_photos().get(i))
-                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
-                    .setOnSliderClickListener(ProfileActivity.this);
 
-            //add your extra information
+            if(!userBean.getProfile_photos().get(i).equals("")) {
+                url_maps.put("a", userBean.getProfile_photos().get(i));
+                TextSliderView textSliderView = new TextSliderView(this);
+                // initialize a SliderLayout
+                textSliderView
+                        .description("")
+                        .image(userBean.getProfile_photos().get(i))
+                        .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                        .setOnSliderClickListener(ProfileActivity.this);
+
+                //add your extra information
            /* textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
                     .putString("extra", name);
 */
-            slider.addSlider(textSliderView);
-        }
+                slider.addSlider(textSliderView);
+            }}
         }
      /*   url_maps.put("a", userBean.getProfile_photo());
         if (userBean.getProfile_photo_1() != null && !(userBean.getProfile_photo_1()).equals("")) {

@@ -405,11 +405,12 @@
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:maxLines="1"
+
                 android:paddingBottom="@dimen/value_h13"
                 android:paddingLeft="@dimen/value_w26"
                 android:paddingRight="@dimen/value_w26"
                 android:paddingTop="@dimen/value_h42"
-                android:inputType="phone"
+                android:inputType="number"
                 android:singleLine="true"
                 android:hint="Add Phone Number"
                 android:textColor="@color/c_303030"

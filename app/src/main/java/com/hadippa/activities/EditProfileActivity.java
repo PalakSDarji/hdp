@@ -329,7 +329,7 @@ public class EditProfileActivity extends AppCompatActivity {
             requestParams.add("lanuage_known", etLang.getText().toString());
             requestParams.add("mobile", etPhone.getText().toString());
             requestParams.add("gender", gender);
-            requestParams.add("dob", etDateOfBirth.getText().toString());
+            requestParams.add("dob", AppConstants.formatDate(etDateOfBirth.getText().toString(),"dd-MM-yyyy","yyyy-MM-dd"));
 
             if(switchPrivateProfile.isChecked()){
                 requestParams.add("profile_type", "1");
@@ -436,11 +436,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
 
                 Log.d("date>>", year + "-" + newmonth + "-" + newday);
-                etDateOfBirth.setText(year + "-" + newmonth + "-" + newday);
+                etDateOfBirth.setText(newday + "-" + newmonth + "-" + year);
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
+
 
     private void findZodiac() throws ParseException {
 

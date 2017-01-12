@@ -605,8 +605,8 @@ public class EventDetailsActivity extends AppCompatActivity {
             requestParams.add("activity_name", tvEventName.getText().toString());
             requestParams.add("activity_date", tvVisitingDate.getText().toString() + " " + convertTime12TO24(tvVisitingTime.getText().toString()));
             requestParams.add("activity_location", tvAddress.getText().toString());
-            requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
-            requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
+            requestParams.add("activity_location_lat",String.valueOf(dataBean.getLatitude()));
+            requestParams.add("activity_location_lon", String.valueOf(dataBean.getLongitude()));
             if (getIntent().getExtras().getInt("activity_id")==1 || getIntent().getExtras().getInt("activity_id") == 2) {
                 requestParams.add("cut_off_time", tvEventName.getText().toString());
             } else if (getIntent().getExtras().getInt("activity_id") == 3 ||

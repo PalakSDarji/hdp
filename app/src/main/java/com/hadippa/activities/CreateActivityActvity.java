@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -423,20 +424,20 @@ public class CreateActivityActvity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(tvVisitingDate.getHint().toString().equals("Date")){
+                if(tvVisitingDate.getText().toString().equals("")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_create_actvity)),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
-                if(tvVisitingTime.getHint().toString().equals("Time")){
+                if(tvVisitingTime.getText().toString().equals("")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_create_actvity)),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
-                if(tvAvailableTill.getHint().toString().equals("Tap here")){
+                if(tvAvailableTill.getText().toString().equals("")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_create_actvity)) ,"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
@@ -766,8 +767,8 @@ public class CreateActivityActvity extends AppCompatActivity {
 
 
 
-            requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
-            requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
+            requestParams.add("activity_location_lat", restaurantsBean.getRestaurant().getLocation().getLatitude());
+            requestParams.add("activity_location_lon", restaurantsBean.getRestaurant().getLocation().getLongitude());
             if (getIntent().getExtras().getInt("activity_id") == 1 || getIntent().getExtras().getInt("activity_id") == 2) {
                 requestParams.add("cut_off_time", selectedDate + " " + convertTime12TO24(tvAvailableTill.getText().toString().trim()));
             } else if (getIntent().getExtras().getInt("activity_id") == 3 ||
@@ -893,7 +894,7 @@ public class CreateActivityActvity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_create_actvity)),intent.getExtras().getString("messageData"));
         }
     };
 
