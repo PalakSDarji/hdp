@@ -497,7 +497,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(drawerLayout,intent.getExtras().getString("messageData"));
         }
     };
 

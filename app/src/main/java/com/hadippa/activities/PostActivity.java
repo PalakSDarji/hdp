@@ -651,7 +651,7 @@ public class PostActivity extends AppCompatActivity implements LocationListener 
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.rel)),intent.getExtras().getString("messageData"));
         }
     };
 

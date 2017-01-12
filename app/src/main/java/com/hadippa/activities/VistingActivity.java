@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.hadippa.AppConstants;
 import com.hadippa.R;
@@ -55,7 +56,7 @@ public class VistingActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_visting)),intent.getExtras().getString("messageData"));
         }
     };
 

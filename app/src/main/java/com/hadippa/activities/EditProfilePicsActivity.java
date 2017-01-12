@@ -339,7 +339,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(), intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_group_people)), intent.getExtras().getString("messageData"));
         }
     };
 

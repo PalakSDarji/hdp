@@ -604,7 +604,7 @@ public class PeopleJoinActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_people_join)),intent.getExtras().getString("messageData"));
         }
     };
 

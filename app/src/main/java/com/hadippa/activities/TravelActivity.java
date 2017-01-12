@@ -450,7 +450,7 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_visting)),intent.getExtras().getString("messageData"));
         }
     };
 

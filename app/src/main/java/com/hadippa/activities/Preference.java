@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -265,7 +266,7 @@ public class Preference extends Activity implements View.OnClickListener {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.rel)),intent.getExtras().getString("messageData"));
         }
     };
 

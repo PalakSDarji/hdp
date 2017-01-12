@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.SlidingTab.SlidingTabLayout;
 import com.SlidingTab.SlidingTabStrip;
@@ -138,7 +139,7 @@ public class FollowingMain extends FragmentActivity implements View.OnClickListe
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.linearMain)),intent.getExtras().getString("messageData"));
         }
     };
 

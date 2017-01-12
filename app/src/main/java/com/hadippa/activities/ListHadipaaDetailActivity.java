@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -62,6 +64,24 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
         findViewById(R.id.tvSend).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(edtName.getText().toString().trim().equals("")){
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_list_hadipaa_detail)),"Name is mandatory",Snackbar.LENGTH_LONG).show();
+                    return;
+
+                }
+
+                if(edtEmail.getText().toString().trim().equals("")){
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_list_hadipaa_detail)),"Email is mandatory",Snackbar.LENGTH_LONG).show();
+                    return;
+
+                }
+
+                if(edtNumber.getText().toString().trim().equals("")){
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_list_hadipaa_detail)),"Mobile number is mandatory",Snackbar.LENGTH_LONG).show();
+                    return;
+
+                }
 
                listWithHadipaa();
             }

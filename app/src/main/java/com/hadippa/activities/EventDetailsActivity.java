@@ -294,20 +294,20 @@ public class EventDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(tvVisitingDate.getHint().toString().equals("Date")){
-
-                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
+                if(tvVisitingDate.getText().toString().equals("")){
+                    
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_event_details)),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
-                if(tvVisitingTime.getHint().toString().equals("Time")){
+                if(tvVisitingTime.getText().toString().equals("")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_event_details)),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
-                if(tvAvailableTill.getHint().toString().equals("Tap here")){
+                if(tvAvailableTill.getText().toString().equals("")){
 
-                    Snackbar.make(getCurrentFocus().getRootView(),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_event_details)),"Date and Times are mandatory.",Snackbar.LENGTH_LONG).show();
                     return;
                 }
 
@@ -717,7 +717,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_event_details)),intent.getExtras().getString("messageData"));
         }
     };
 

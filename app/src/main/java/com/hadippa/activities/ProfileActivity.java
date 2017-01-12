@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,6 +121,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     View vSep2;
     @BindView(R.id.vSep3)
     View vSep3;
+
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -190,6 +192,34 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             }
         });
 
+        
+        llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(user_relationship_status.equals("Connected")
+                        || user_relationship_status.equals("Following")){
+
+                   llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                   tvFollowUnfollow.setText("Follow");
+                   tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+                    // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                   ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
+                    follow_Unfollow(AppConstants.CONNECTION_UNFOLLOW);
+
+
+                }else{
+
+                    llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
+                    tvFollowUnfollow.setText("Following");
+                    tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+                    ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
+
+                    follow_Unfollow(AppConstants.CONNECTION_FOLLOW);
+
+                }
+
+            }
+        });
        /* findViewById(R.id.ivProfilePic).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,6 +281,108 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
     }
 
+    String user_relationship_status = "";
+
+    void setFollowUnfollow(String user_relationship_status)
+    {
+        if(user_relationship_status.equals("Connected")
+                || user_relationship_status.equals("Following")){
+
+            llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
+            tvFollowUnfollow.setText("Following");
+            tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
+            ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
+
+        }else{
+
+            llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+            tvFollowUnfollow.setText("Follow");
+            tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+            // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+            ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
+
+
+        }
+    }
+    private void follow_Unfollow(String type) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("followed_id", String.valueOf(userBean.getId()));
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + type, requestParams,
+                new Follow_Unfollow(type));
+    }
+
+    class Follow_Unfollow extends AsyncHttpResponseHandler {
+
+        String type;
+
+        public Follow_Unfollow(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            //AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                if (!jsonObject.getBoolean("success")) {
+
+                    user_relationship_status = jsonObject.getString("status");
+                    setFollowUnfollow(user_relationship_status);
+
+
+
+                } else {
+                    setFollowUnfollow(user_relationship_status);
+
+                }
+                Log.d("async", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            setFollowUnfollow(user_relationship_status);
+        }
+
+    }
     void dddd(){
 
 
@@ -302,6 +434,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 e.printStackTrace();
             }
         } else {
+            llFollowUnfollow.setVisibility(View.VISIBLE);
             ivEdit.setVisibility(View.GONE);
         }
 
@@ -906,7 +1039,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(), intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_profile)), intent.getExtras().getString("messageData"));
         }
     };
 

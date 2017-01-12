@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.model.Zodiac;
 
+import org.json.JSONArray;
 import org.w3c.dom.Text;
 
 import java.text.ParseException;
@@ -210,10 +212,30 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 List<String> dummyLangs = new ArrayList<String>();
-                dummyLangs.add("English");
                 dummyLangs.add("Hindi");
                 dummyLangs.add("Gujarati");
+                dummyLangs.add("English");
+                dummyLangs.add("Bengali");
+                dummyLangs.add("Assamese");
+
+                dummyLangs.add("Kannada");
+                dummyLangs.add("Kashmiri");
+                dummyLangs.add("Konkani");
+                dummyLangs.add("Malayalam");
+                dummyLangs.add("Manipuri");
                 dummyLangs.add("Marathi");
+                dummyLangs.add("Nepali");
+                dummyLangs.add("Oriya");
+                dummyLangs.add("Punjabi");
+                dummyLangs.add("Sanskrit");
+                dummyLangs.add("Sindhi");
+                dummyLangs.add("Tamil");
+                dummyLangs.add("Telugu");
+                dummyLangs.add("Urdu");
+                dummyLangs.add("Bodo");
+                dummyLangs.add("Santhali");
+                dummyLangs.add("Maithili");
+                dummyLangs.add("Dogri");
                 showPopupList(EditProfileActivity.this, dummyLangs, getString(R.string.language), new OnOkClickListener() {
                     @Override
                     public void onOkClick(String dataSelected) {
@@ -227,17 +249,36 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                List<String> dummyData = new ArrayList<String>();
-                dummyData.add("Vadodara");
-                dummyData.add("Surat");
-                dummyData.add("Ahmedabad");
-                dummyData.add("Newyork");
-                showPopupList(EditProfileActivity.this, dummyData, getString(R.string.country), new OnOkClickListener() {
-                    @Override
-                    public void onOkClick(String dataSelected) {
-                        etLiveIn.setText(""+ dataSelected);
+                try {
+                    List<String> dummyData = new ArrayList<String>();
+
+                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(EditProfileActivity.this);
+
+                    String s = sp.getString("cities", "");
+
+                    JSONObject jsonObject = new JSONObject(s);
+
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("city_list");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+
+                        dummyData.add(jsonObject1.getString("name"));
+
                     }
-                });
+
+                    showPopupList(EditProfileActivity.this, dummyData, getString(R.string.country), new OnOkClickListener() {
+                        @Override
+                        public void onOkClick(String dataSelected) {
+                            etLiveIn.setText("" + dataSelected);
+                        }
+                    });
+                }catch (Exception e){
+
+                }
             }
         });
 
@@ -511,7 +552,7 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         builder.setTitle(title);
-        builder.setCancelable(false);
+        builder.setCancelable(true);
         builder.setView(view);
 
         alertDialog = builder.show();
@@ -523,7 +564,7 @@ public class EditProfileActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_edit_profile)),intent.getExtras().getString("messageData"));
         }
     };
 

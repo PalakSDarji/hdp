@@ -657,7 +657,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_invite_to_join)),intent.getExtras().getString("messageData"));
         }
     };
 

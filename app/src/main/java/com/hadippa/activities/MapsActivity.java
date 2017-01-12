@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,7 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_create_actvity)),intent.getExtras().getString("messageData"));
         }
     };
 

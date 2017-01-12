@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -72,7 +73,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-             AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+             AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_things)),intent.getExtras().getString("messageData"));
         }
     };
 

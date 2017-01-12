@@ -837,7 +837,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(), intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_coffee)), intent.getExtras().getString("messageData"));
         }
     };
 

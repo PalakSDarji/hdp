@@ -119,7 +119,7 @@ public class CategoryTab extends AppCompatActivity implements View.OnClickListen
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.category_tab)),intent.getExtras().getString("messageData"));
         }
     };
 

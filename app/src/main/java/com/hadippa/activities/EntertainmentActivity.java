@@ -516,7 +516,7 @@ public class EntertainmentActivity extends BaseActionsActivity implements Locati
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_entertainment)),intent.getExtras().getString("messageData"));
         }
     };
 

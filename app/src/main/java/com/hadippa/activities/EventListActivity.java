@@ -651,7 +651,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_event_list)),intent.getExtras().getString("messageData"));
         }
     };
 
