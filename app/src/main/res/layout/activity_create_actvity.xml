@@ -42,36 +42,27 @@
             android:textSize="@dimen/values_txt_16"
             app:customFont="@string/proxima_bold"/>
 
-        <RelativeLayout
-            android:layout_marginRight="@dimen/value_w17"
+        <!--<RelativeLayout
             android:id="@+id/rell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/value_w17">
+-->
+        <RelativeLayout
+            android:id="@+id/rell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true">
 
-            <TextView
-                android:id="@+id/inviteNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/rounded_chat"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="0"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/pink_text"
-                android:textSize="@dimen/values_txt_10"/>
-
             <LinearLayout
-                android:layout_marginRight="10dp"
                 android:id="@+id/llInvite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingRight="3dp"
+                android:paddingTop="5dp">
 
                 <ImageView
                     android:layout_width="@dimen/value_w26"
@@ -82,7 +73,6 @@
                     android:id="@+id/imageFilter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="@string/invite"
                     android:textColor="@color/c_464646"
@@ -90,15 +80,28 @@
                     app:customFont="@string/proxima_reg"/>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/inviteNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/llInvite"
+                android:background="@drawable/rounded_chat"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/pink_text"
+                android:textSize="@dimen/values_txt_10"/>
         </RelativeLayout>
+        <!--</RelativeLayout>-->
     </RelativeLayout>
 
     <View
+        android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_below="@+id/top"
-        android:background="@drawable/header_gredient"
-        android:id="@+id/view2" />
+        android:background="@drawable/header_gredient"/>
 
     <com.hadippa.CustomTextView
         android:id="@+id/tvPost"
@@ -114,13 +117,12 @@
         app:customFont="@string/proxima_bold"/>
 
     <ScrollView
-        android:layout_above="@+id/tvPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/view2"
+        android:layout_above="@+id/tvPost"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp">
+        android:layout_below="@+id/view2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -178,10 +180,13 @@
                             android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Amigos Cafe"
-                            android:maxWidth="@dimen/value_w470"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginBottom="7dp"
+                            android:layout_toLeftOf="@+id/rating"
                             android:ellipsize="end"
                             android:maxLines="2"
+                            android:maxWidth="@dimen/value_w470"
+                            android:text="Amigos Cafe"
                             android:textColor="@color/white"
                             android:textSize="@dimen/values_txt_13"
                             app:customFont="@string/proxima_bold"/>
@@ -191,9 +196,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/name"
-                            android:layout_marginLeft="@dimen/value_w17"
-                            android:layout_toRightOf="@+id/name"
+                            android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/value_w17"
                             android:background="@drawable/rounded_following_parrot"
                             android:gravity="center"
                             android:paddingBottom="@dimen/value_h10"
@@ -229,6 +234,7 @@
                                 android:id="@+id/address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/value_20"
                                 android:layout_marginTop="3dp"
                                 android:text="Bandra, Mumbai"
                                 android:textColor="@color/white"
@@ -244,7 +250,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_below="@+id/name"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
                             android:gravity="end"
                             android:orientation="vertical">
 
@@ -415,15 +420,14 @@
                     android:layout_marginTop="@dimen/value_h31">
 
 
-
                     <fragment
 
-                        android:layout_toLeftOf="@+id/ivLocation"
                         android:id="@+id/place_autocomplete_fragment"
+                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                        android:layout_toLeftOf="@+id/ivLocation"
                         />
 
                     <com.hadippa.CustomEditText
@@ -597,6 +601,21 @@
                         android:textSize="@dimen/values_txt_14"
                         app:customFont="@string/proxima_reg"/>
 
+                    <Spinner
+                        android:id="@+id/spnAvail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/value_w32"
+                        android:layout_marginRight="@dimen/value_w32"
+                        android:background="@android:color/transparent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/c_464646"
+                        android:textSize="@dimen/values_txt_14"
+                        android:visibility="gone">
+
+                    </Spinner>
+
                     <ImageView
                         android:id="@+id/ivArrow"
                         android:layout_width="10dp"
@@ -623,8 +642,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/rlAvaTill"
+                    android:layout_centerHorizontal="true"
                     android:background="@android:color/transparent"
                     android:ellipsize="end"
                     android:hint="Tap here"
@@ -781,6 +800,18 @@
                     app:customFont="@string/proxima_reg"
                     />
 
+                <TextView
+                    android:id="@+id/tvCustomInviteNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:background="@drawable/rounded_chat"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/pink_text"
+                    android:textSize="@dimen/values_txt_10"/>
+
             </LinearLayout>
 
             <RelativeLayout
@@ -793,10 +824,10 @@
                     android:id="@+id/tvNotify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/on_button_new_text"
-                    android:textColor="@color/c_464646"
                     android:layout_alignParentLeft="true"
                     android:layout_toLeftOf="@+id/switchCompat"
+                    android:text="@string/on_button_new_text"
+                    android:textColor="@color/c_464646"
                     android:textSize="@dimen/values_txt_14"
                     app:customFont="@string/proxima_reg"/>
 

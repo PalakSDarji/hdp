@@ -62,6 +62,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
@@ -83,6 +84,9 @@ public class EditProfilePicsActivity extends AppCompatActivity {
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     UserProfile.UserBean userBean;
+
+    @BindView(R.id.ivPlus)
+    ImageView ivPlus;
 
     ArrayList<String> picUrls = new ArrayList<>();
 
@@ -141,6 +145,23 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         customAdapter = new CustomAdapter(this, picUrls);
         mRecyclerView.setAdapter(customAdapter);
 
+        ivPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceOldOne = false;
+                if (picUrls.size() == 6) {
+
+                    Toast.makeText(EditProfilePicsActivity.this, "Cannot add more photos", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (checkPermission()) {
+
+                    selectImage();
+                } else {
+                    requestPermission();
+                }
+            }
+        });
     }
 
 
@@ -154,7 +175,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
         }
 
-        picUrls.add("ADD NEW");
+        //picUrls.add("ADD NEW");
 
     }
 
@@ -183,9 +204,9 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
         @Override
         public int getItemViewType(int position) {
-            if (position == alPics.size() - 1) {
+            /*if (position == alPics.size() - 1) {
                 return ADD_ITEM;
-            }
+            }*/
             return PIC_ITEM;
         }
 

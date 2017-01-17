@@ -17,6 +17,8 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -53,6 +56,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -149,6 +153,8 @@ public class CreateActivityActvity extends AppCompatActivity {
     @BindView(R.id.radio3)
     ImageView radio3;
 
+    @BindView(R.id.spnAvail)
+    Spinner spnAvail;
     @BindView(R.id.tvVisitingDate)
     TextView tvVisitingDate;
     @BindView(R.id.tvVisitingTime)
@@ -165,10 +171,8 @@ public class CreateActivityActvity extends AppCompatActivity {
     @BindView(R.id.tvFrom)
     CustomTextView tvFrom;
 
-
     @BindView(R.id.tvTo)
     CustomTextView tvTo;
-
 
     @BindView(R.id.tvBy)
     CustomTextView tvBy;
@@ -266,7 +270,9 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
+            tvAvaTill.setVisibility(View.GONE);
             ivArrow.setVisibility(View.VISIBLE);
+            loadSpinner();
 
         } else if (activityKey == AppConstants.ACTIVITY_HOBBY) {
 
@@ -283,6 +289,8 @@ public class CreateActivityActvity extends AppCompatActivity {
             //tvNotify.setText(getResources().getString(R.string.on_button_to_get_notify));
             tvNotify.setText(getResources().getString(R.string.on_button_new_text));
             ivArrow.setVisibility(View.GONE);
+            tvAvaTill.setVisibility(View.GONE);
+            loadSpinner();
         } else if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
 
             tvHeader.setText(getResources().getString(R.string.travelling_date_and_time));
@@ -325,7 +333,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvAddress.setText(getResources().getString(R.string.address));
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
-            tvAvaTill.setText(getResources().getString(R.string.available_till));
+            tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
             //HERE
 
             etAddress.setVisibility(View.GONE);
@@ -580,6 +588,31 @@ public class CreateActivityActvity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loadSpinner() {
+
+        spnAvail.setVisibility(View.VISIBLE);
+        final List<String> avalSpnList = new ArrayList<>();
+        avalSpnList.add(getResources().getString(R.string.available_till));
+        avalSpnList.add(getResources().getString(R.string.cut_off_time_to_join_you));
+
+        final ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, avalSpnList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnAvail.setAdapter(adapter);
+        spnAvail.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
+                //Log.v(TAG,"Position :" + position);
+                //tvAvaTill.setText(avalSpnList.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void setRadios(int pos){

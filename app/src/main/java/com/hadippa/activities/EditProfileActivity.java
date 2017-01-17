@@ -146,6 +146,38 @@ public class EditProfileActivity extends AppCompatActivity {
         etCompany.setText(userBean.getCompany());
         etLiveIn.setText(userBean.getCity());
         tvZodiac.setText(userBean.getZodiac());
+        tvZodiac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<String> zodiacListStr = new ArrayList<String>();
+                zodiacListStr.add(getString(R.string.str_dont_believe));
+                zodiacListStr.add(getString(R.string.str_dont_know));
+                for(Zodiac zodiac : zodiacList){
+                    zodiacListStr.add(zodiac.getZodiacName());
+                }
+                showPopupList(EditProfileActivity.this, zodiacListStr, "Zodiac", new OnOkClickListener() {
+                    @Override
+                    public void onOkClick(String dataSelected) {
+
+                        if(dataSelected.equalsIgnoreCase(getString(R.string.str_dont_believe))){
+                            tvZodiac.setText(getString(R.string.str_dont_believe));
+                        }
+                        else if(dataSelected.equalsIgnoreCase(getString(R.string.str_dont_know))){
+                            try {
+                                findZodiac();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else{
+                            tvZodiac.setText(dataSelected);
+                        }
+
+                    }
+                });
+            }
+        });
         etLang.setText(userBean.getLanuage_known());
         etEmail.setText(userBean.getEmail());
         etPhone.setText(String.valueOf(userBean.getMobile()));
@@ -180,6 +212,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 editProfile();
             }
         });
+/*
 
         llRadio0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +239,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         });
+*/
 
         etLang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -557,6 +591,30 @@ public class EditProfileActivity extends AppCompatActivity {
 
         alertDialog = builder.show();
     }
+/*
+    private void showPopupList(Context context, final List<Zodiac> list, String title, final OnOkClickListener onOkClickListener) {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        View view = LayoutInflater.from(context).inflate(R.layout.popup_listview, null);
+        ListView listView = (ListView) view.findViewById(R.id.lvItems);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context,R.layout.item_city, R.id.txtName, list);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(alertDialog != null) alertDialog.cancel();
+                onOkClickListener.onOkClick(list.get(position));
+            }
+        });
+
+        builder.setTitle(title);
+        builder.setCancelable(true);
+        builder.setView(view);
+
+        alertDialog = builder.show();
+    }*/
 
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {

@@ -163,6 +163,7 @@
                 android:layout_marginTop="@dimen/value_8"
                 android:paddingLeft="@dimen/value_w26"
                 android:paddingTop="@dimen/value_h42"
+                android:visibility="gone"
                 android:text="@string/zodiac"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
@@ -174,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/value_h31"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:paddingLeft="@dimen/value_w26">
 
                 <LinearLayout
@@ -239,10 +241,10 @@
                 android:paddingBottom="@dimen/value_h13"
                 android:paddingLeft="@dimen/value_w26"
                 android:paddingRight="@dimen/value_w26"
-                android:paddingTop="@dimen/value_h31"
+                android:paddingTop="@dimen/value_h42"
                 android:singleLine="true"
-                android:text="@string/zodiac"
-                android:visibility="gone"
+                android:hint="@string/zodiac"
+                android:visibility="visible"
                 android:textColor="@color/c_303030"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
@@ -251,7 +253,6 @@
                 android:id="@+id/vSepZodiac"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:visibility="gone"
                 android:background="@color/edittextborder"/>
 
             <com.hadippa.CustomTextView
@@ -266,7 +267,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Language"
+                android:hint="Language"
                 android:textColor="@color/c_303030"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
