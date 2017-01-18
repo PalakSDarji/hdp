@@ -214,7 +214,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="Mumbai"
+                    android:text=""
                     android:textColor="@color/c_454545"
                     android:textSize="@dimen/values_txt_16"
                     />
@@ -260,7 +260,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="Delhi"
+                    android:text=""
                     android:textColor="@color/c_454545"
                     android:textSize="@dimen/values_txt_16"
                    />

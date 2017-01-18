@@ -485,10 +485,12 @@ public class EventDetailsActivity extends AppCompatActivity {
             selectedList = data.getStringArrayListExtra("selectedId");
 
             inviteNumber.setText(""+selectedList.size());
+
             Log.d("selectedId >> 0*",selectedList.toString());
 
         }else  if (requestCode == 666){
             customList = data.getStringArrayListExtra("selectedId");
+            ((TextView)findViewById(R.id.tvCustomInviteNumber)).setText(""+selectedList.size());
         }else{
             Log.d("selectedId >> 0*","req != 555");
 

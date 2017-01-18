@@ -153,6 +153,7 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
                 Log.d("<<async>>", response);
                 JSONObject jsonObject = new JSONObject(response);
                 if(jsonObject.getBoolean("success")){
+                    AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),"Thank you for listing with Hadipaa :)");
                     finish();
                 }else{
                     Toast.makeText(ListHadipaaDetailActivity.this,"Failed",Toast.LENGTH_SHORT).show();

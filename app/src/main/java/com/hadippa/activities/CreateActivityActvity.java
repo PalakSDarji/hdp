@@ -641,6 +641,7 @@ public class CreateActivityActvity extends AppCompatActivity {
 
         } else  if (requestCode == 666){
             customList = data.getStringArrayListExtra("selectedId");
+            ((TextView)findViewById(R.id.tvCustomInviteNumber)).setText(""+selectedList.size());
         }else {
             Log.d("selectedId >> 0*", "req != 555");
 

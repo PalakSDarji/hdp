@@ -271,6 +271,16 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
             tvNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+
+                    if(etFrom.getText().toString().trim().equals("")){
+                        AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_visting)),"Enter source city.");
+                        return;
+                    }
+                    if(etTo.getText().toString().trim().equals("")){
+                        AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_visting)),"Enter destination city.");
+                        return;
+                    }
                     Intent intent = new Intent(TravelActivity.this, CreateActivityActvity.class);
                     intent.putExtra(AppConstants.TRAVEL_FROM_KEY,etFrom.getText().toString().trim());
                     intent.putExtra(AppConstants.TRAVEL_TO_KEY,etTo.getText().toString().trim());
@@ -296,6 +306,14 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
             tvNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(etFrom.getText().toString().trim().equals("")){
+                        AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_visting)),"Enter source city.");
+                        return;
+                    }
+                    if(etTo.getText().toString().trim().equals("")){
+                        AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_visting)),"Enter destination city.");
+                        return;
+                    }
                     Intent intent = new Intent(TravelActivity.this, CreateActivityActvity.class);
                     intent.putExtra(AppConstants.TRAVEL_FROM_KEY,etFrom.getText().toString().trim());
                     intent.putExtra(AppConstants.TRAVEL_TO_KEY,etTo.getText().toString().trim());
@@ -321,6 +339,15 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
             tvNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    if(etFrom.getText().toString().trim().equals("")){
+                        AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_visting)),"Enter source city.");
+                        return;
+                    }
+                    if(etTo.getText().toString().trim().equals("")){
+                        AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_visting)),"Enter destination city.");
+                        return;
+                    }
                     Intent intent = new Intent(TravelActivity.this, CreateActivityActvity.class);
                     intent.putExtra(AppConstants.TRAVEL_FROM_KEY,etFrom.getText().toString().trim());
                     intent.putExtra(AppConstants.TRAVEL_TO_KEY,etTo.getText().toString().trim());

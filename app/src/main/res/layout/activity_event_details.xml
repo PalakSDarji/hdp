@@ -51,26 +51,14 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/value_w17">
 
-            <TextView
-                android:id="@+id/inviteNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/rounded_chat"
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="0"
-                android:textColor="@color/pink_text"
-                android:textSize="@dimen/values_txt_10"/>
 
             <LinearLayout
                 android:id="@+id/llInvite"
+                android:paddingRight="3dp"
+                android:paddingTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
 
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -92,6 +80,17 @@
                     app:customFont="@string/proxima_reg"/>
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/inviteNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/llInvite"
+                android:background="@drawable/rounded_chat"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/pink_text"
+                android:textSize="@dimen/values_txt_10"/>
         </RelativeLayout>
 
     </RelativeLayout>
@@ -967,7 +966,6 @@
                 android:id="@+id/llCustom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/value_20"
                 android:layout_marginRight="@dimen/value_5"
                 android:clickable="true"
                 android:orientation="horizontal"
@@ -993,6 +991,18 @@
                     android:textSize="@dimen/values_txt_11"
                     app:customFont="@string/proxima_reg"
                     />
+
+                <TextView
+                    android:id="@+id/tvCustomInviteNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/value_5"
+                    android:background="@drawable/rounded_chat"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/pink_text"
+                    android:textSize="@dimen/values_txt_10"/>
 
             </LinearLayout>
 
