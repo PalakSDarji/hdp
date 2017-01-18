@@ -14,17 +14,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:padding="15dp">
+       >
 
         <ImageView
+            android:padding="15dp"
             android:id="@+id/imageBack"
-            android:layout_width="@dimen/value_w32"
-            android:layout_height="@dimen/value_w32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:clickable="true"
             android:src="@drawable/landing_pages_reject"/>
 
         <com.hadippa.CustomTextView
+            android:padding="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -37,9 +39,10 @@
             app:customFont="@string/proxima_bold"/>
 
         <ImageView
+            android:padding="15dp"
             android:id="@+id/ivSave"
-            android:layout_width="@dimen/value_w40"
-            android:layout_height="@dimen/value_h31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/landing_pages_accept"/>
