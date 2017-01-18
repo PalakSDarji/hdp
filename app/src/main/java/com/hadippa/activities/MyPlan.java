@@ -60,13 +60,13 @@ public class MyPlan extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(MyPlan.this);
         editor = sp.edit();
 
-        ((ImageView) findViewById(R.id.history)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.linearHistory).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MyPlan.this, HistoryPlan.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
+                setResult(RESULT_OK);
+                finish();
+                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
         });
         imageBack = (ImageView) findViewById(R.id.imageBack);
@@ -74,7 +74,7 @@ public class MyPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                setResult(RESULT_CANCELED);
                 finish();
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
@@ -515,6 +515,7 @@ public class MyPlan extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
+        setResult(RESULT_CANCELED);
         finish();
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
 

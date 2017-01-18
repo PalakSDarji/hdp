@@ -191,9 +191,64 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rlAppr3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/llAppr3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/value_w32"
+                            android:layout_height="@dimen/value_w32"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_aproached_by"
+                            />
+
+                        <com.hadippa.CustomTextView
+                            android:id="@+id/tvApproaching3Val"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="100"
+                            android:textColor="@color/c_312f30"
+                            android:textSize="@dimen/values_txt_18"
+                            app:customFont="@string/proxima_bold"/>
+
+                    </LinearLayout>
+
+                    <com.hadippa.CustomTextView
+                        android:id="@+id/tvApproaching3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/llAppr3"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/value_h15"
+                        android:text="Approaching"
+                        android:textColor="@color/c_2f2f2f"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/values_txt_11"
+                        app:customFont="@string/proxima_reg"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlFollowUnfollow"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:visibility="visible"
                     android:layout_gravity="center"
                     android:layout_weight="1">
 
@@ -248,7 +303,6 @@
 
             <com.hadippa.CustomTextView
                 android:id="@+id/tvOccupation"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/vSep1"

@@ -52,6 +52,8 @@ import cz.msebera.android.httpclient.Header;
 public class HomeScreen extends AppCompatActivity implements View.OnClickListener
         ,ShowCardsNew.OnFragmentInteractionListener {
 
+    public static final int REQUEST_CODE_MY_PLAN = 50;
+    public static final int REQUEST_CODE_RECENT_PLAN = 51;
 
     public static ArrayList<DataModel> rollBackIds = new ArrayList<>();
 
@@ -276,7 +278,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             public void onClick(View v) {
 
                 Intent intent = new Intent(HomeScreen.this, MyPlan.class);
-                startActivity(intent);
+                startActivityForResult(intent,REQUEST_CODE_MY_PLAN);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
@@ -354,6 +356,23 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            if(requestCode == REQUEST_CODE_MY_PLAN){
+                Intent intent = new Intent(HomeScreen.this, HistoryPlan.class);
+                startActivityForResult(intent,REQUEST_CODE_RECENT_PLAN);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+            else if(requestCode == REQUEST_CODE_RECENT_PLAN){
+                Intent intent = new Intent(HomeScreen.this, MyPlan.class);
+                startActivityForResult(intent,REQUEST_CODE_MY_PLAN);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        }
+    }
 
     @Override
     public void onClick(View v) {

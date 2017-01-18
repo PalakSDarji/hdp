@@ -56,13 +56,23 @@ public class HistoryPlan extends AppCompatActivity {
         editor = sp.edit();
 
         ((CustomTextView)findViewById(R.id.up_His)).setText("History");
-        ((LinearLayout)findViewById(R.id.linearHistory)).setVisibility(View.GONE);
+        ((CustomTextView)findViewById(R.id.imageFilter)).setText("Recent");
+
+        ((LinearLayout) findViewById(R.id.linearHistory)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                finish();
+                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+            }
+        });
+
         imageBack = (ImageView)findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
+                setResult(RESULT_CANCELED);
                 finish();
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
@@ -445,9 +455,9 @@ public class HistoryPlan extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
+        setResult(RESULT_CANCELED);
         finish();
         overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
-
     }
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {

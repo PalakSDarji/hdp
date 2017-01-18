@@ -259,4 +259,6 @@
     <string name="know_less">Know less</string>
     <string name="details">Details</string>
     <string name="less">Less</string>
+    <string name="str_dont_believe">I don\'t believe</string>
+    <string name="str_dont_know">I don\'t know</string>
 </resources>

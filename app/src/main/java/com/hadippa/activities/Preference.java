@@ -76,8 +76,6 @@ public class Preference extends Activity implements View.OnClickListener {
             }
         });
 
-        rangeSeekBar.isNotifyWhileDragging();
-
         discreteBarkms.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

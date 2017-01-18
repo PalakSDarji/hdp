@@ -125,7 +125,7 @@
             android:layout_marginRight="@dimen/value_w32"
             android:clickable="true"
             android:gravity="center"
-            android:src="@drawable/smily"/>
+            android:src="@drawable/map_marker"/>
 
         <com.hadippa.CustomEditText
             android:id="@+id/etChat"
