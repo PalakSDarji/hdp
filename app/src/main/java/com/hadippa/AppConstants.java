@@ -88,6 +88,7 @@ public class AppConstants {
     public static final String OTHERS_PROFILE = "/profile/other_profile";
     public static final String EDIT_PROFILE = "/profile/edit";
     public static final String UPDATE_PIC = "/profile/photo_upload";
+    public static final String DELETE_PIC = "/profile/photo/delete";
 
     //MY PLANS
     public static final String MY_PLANS = "/my_plans";
@@ -104,7 +105,7 @@ public class AppConstants {
 
     //MERAEVENTS
     public static final String MERAEVENTS = "meraevents/";
-    public static final String MERAEVENTS_PARTY  = "event/party";
+    public static final String MERAEVENTS_PARTY = "event/party";
     public static final String MERAEVENTS_SPORTS_INDOOR = "sports/indoor";
     public static final String MERAEVENTS_SPORTS_OUTDOOR = "sports/outdoor";
     public static final String MERAEVENTS_SPORTS_ADV = "sports/adventure";
@@ -113,29 +114,29 @@ public class AppConstants {
     public static final String MERAEVENTS_FESTIVAL = "event/fastival";
 
     //CHAT
-    public static final String MY_CHAT= "/chat/my_chat";
-    public static final String CHAT_CREATE= "/chat/create";
-    public static final String CHAT_NEW_MESSAGE= "/chat/new_message";
-    public static final String CHAT_UPDATE_MESSAGE= "/chat/update_message";
-    public static final String CHAT_ADD_USER_TO_GROUP= "/chat/add_user_ to _group";
-    public static final String CHAT_SHOW= "/chat/show";
+    public static final String MY_CHAT = "/chat/my_chat";
+    public static final String CHAT_CREATE = "/chat/create";
+    public static final String CHAT_NEW_MESSAGE = "/chat/new_message";
+    public static final String CHAT_UPDATE_MESSAGE = "/chat/update_message";
+    public static final String CHAT_ADD_USER_TO_GROUP = "/chat/add_user_ to _group";
+    public static final String CHAT_SHOW = "/chat/show";
 
     public static final String CINEMA = "/cinema/cinema/list";
     public static final String MOVIE_LIST = "/cinema/movie/list";
 
 
-    public static final String CLIENT_ID= "HADIPAA_USER";
-    public static final String CLIENT_SECRET="HADIPAA@2016";
-    public static final String LOGIN_STATUS_EMAIL="1";
-    public static final String LOGIN_STATUS_FB="2";
-    public static final String LOGIN_STATUS_NA="0";
+    public static final String CLIENT_ID = "HADIPAA_USER";
+    public static final String CLIENT_SECRET = "HADIPAA@2016";
+    public static final String LOGIN_STATUS_EMAIL = "1";
+    public static final String LOGIN_STATUS_FB = "2";
+    public static final String LOGIN_STATUS_NA = "0";
 
     public static final String API_KEY = "AIzaSyC3u3fzAnZ4qkHgSt7BNPifoXFHzUPKV1U";
     public static final String SENDER_ID = "1091219618361";
 
     public final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
-    public static final String DEVICE_TYPE="2"; //For Android
+    public static final String DEVICE_TYPE = "2"; //For Android
     public static final String SEND_PASSWORD = "";//TODO add value
     public static final String LOGIN_BY_THIRD_PARTY = "";//TODO add value
 
@@ -152,16 +153,16 @@ public class AppConstants {
     public static final int ACTIVITY_FROM_COFFEE = 2;
     public static final int ACTIVITY_HOBBY = 5;
     public static final int ACTIVITY_TRAVEL_SCHEDULE = 6;
-    public static final int ACTIVITY_PARTY =10;
-    public static final int ACTIVITY_STANDUP_COMEDY =11;
-    public static final int ACTIVITY_INDOOR_SPORTS =12;
-    public static final int ACTIVITY_ENTERTAINMENT =13;
-    public static final int ACTIVITY_OUTDOOR_SPORTS =14;
-    public static final int ACTIVITY_ADV_SPORTS =88;
+    public static final int ACTIVITY_PARTY = 10;
+    public static final int ACTIVITY_STANDUP_COMEDY = 11;
+    public static final int ACTIVITY_INDOOR_SPORTS = 12;
+    public static final int ACTIVITY_ENTERTAINMENT = 13;
+    public static final int ACTIVITY_OUTDOOR_SPORTS = 14;
+    public static final int ACTIVITY_ADV_SPORTS = 88;
 
     public static final int ACTIVITY_TRAVEL_FROM_FILTER = 4;
     public static final int ACTIVITY_TRAVEL_FROM_POST_AIR = 15;
-    public static final int ACTIVITY_TRAVEL_FROM_POST_TRAIN =16;
+    public static final int ACTIVITY_TRAVEL_FROM_POST_TRAIN = 16;
     public static final int ACTIVITY_TRAVEL_FROM_POST_BUS = 17;
 
     public static final int ACTIVITY_COFFEE = 7;
@@ -195,18 +196,20 @@ public class AppConstants {
 
     public static final String MESSAGE_TYPE_TEXT = "1";
 
-
     //GOOGLE PLACES
     public static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
     public static final String TYPE_AUTOCOMPLETE = "/autocomplete";
     public static final String OUT_JSON = "/json";
     public static final String GOOGLE_API_KEY = "AIzaSyD5DyFre7np6MJ6MlZ-rEegKPxycXKBB8c";
 
-
+    //INSTAGRAM
+    public static final String INSTA_CLIENT_ID = "a9e04362593d46aa8ec4d1656f5154f1";
+    public static final String INSTA_CLIENT_SECRET = "ccf3f75f1ba44da3ba68b05993f674f9 ";
+    public static final String INSTA_CALLBACK_URL = "";
 
     public static String USER = "user";
-    public static Bitmap takeScreenShot(Activity activity)
-    {
+
+    public static Bitmap takeScreenShot(Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
@@ -217,12 +220,12 @@ public class AppConstants {
         int width = activity.getWindowManager().getDefaultDisplay().getWidth();
         int height = activity.getWindowManager().getDefaultDisplay().getHeight();
 
-        Bitmap b = Bitmap.createBitmap(b1, 0, statusBarHeight, width, height  - statusBarHeight);
+        Bitmap b = Bitmap.createBitmap(b1, 0, statusBarHeight, width, height - statusBarHeight);
         view.destroyDrawingCache();
         return b;
     }
 
-    public static void showSnackBarforMessage(View activity, String message){
+    public static void showSnackBarforMessage(View activity, String message) {
 
 /*
         Snackbar.make(activity,message , Snackbar.LENGTH_LONG)
@@ -232,9 +235,9 @@ public class AppConstants {
     }
 
 
-    public static void showSnackBar(RelativeLayout relativeLayout, String message){
+    public static void showSnackBar(RelativeLayout relativeLayout, String message) {
 
-        Snackbar.make(relativeLayout,message , Snackbar.LENGTH_LONG)
+        Snackbar.make(relativeLayout, message, Snackbar.LENGTH_LONG)
 
                 .show();
 
@@ -242,26 +245,26 @@ public class AppConstants {
 
     public static KProgressHUD hud;
 
-    public static void showProgressDialog(Context context,String message){
+    public static void showProgressDialog(Context context, String message) {
         // PROGRESS_DIALOG.show();
 
         hud = KProgressHUD.create(context)
                 .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
                 .setWindowColor(context.getResources().getColor(R.color.back_progress))
-               // .setLabel(message)
+                // .setLabel(message)
                 .setDimAmount(0.5f)
                 .setCancellable(true)
                 .setAnimationSpeed(2)
                 .show();
     }
 
-    public static void dismissDialog(){
+    public static void dismissDialog() {
 
-        if(hud != null) hud.dismiss();
-
+        if (hud != null) hud.dismiss();
 
 
     }
+
     public final static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
@@ -299,16 +302,16 @@ public class AppConstants {
     }
 
 
-    public static String formatDate (String date, String initDateFormat, String endDateFormat) {
+    public static String formatDate(String date, String initDateFormat, String endDateFormat) {
 
         try {
             Date initDate = new SimpleDateFormat(initDateFormat).parse(date);
             SimpleDateFormat formatter = new SimpleDateFormat(endDateFormat);
             String parsedDate = formatter.format(initDate);
             return parsedDate;
-        }catch (Exception e){
+        } catch (Exception e) {
 
-            Log.d("exception>>",e.getMessage());
+            Log.d("exception>>", e.getMessage());
             return "";
         }
 
@@ -318,7 +321,7 @@ public class AppConstants {
         int locationMode = 0;
         String locationProviders;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             try {
                 locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
 
@@ -329,7 +332,7 @@ public class AppConstants {
 
             return locationMode != Settings.Secure.LOCATION_MODE_OFF;
 
-        }else{
+        } else {
             locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
             return !TextUtils.isEmpty(locationProviders);
         }
@@ -339,14 +342,14 @@ public class AppConstants {
 
     public static long calculateDays(String dateEarlyq, String dateLaterq) {
 
-        try{
-        SimpleDateFormat simpleDateFormat =
-                new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            SimpleDateFormat simpleDateFormat =
+                    new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-        Date dateEarly = simpleDateFormat.parse(dateEarlyq);
-        Date dateLater = simpleDateFormat.parse(dateLaterq);
-        return (dateLater.getTime() - dateEarly.getTime()) / (24 * 60 * 60 * 1000);
-    }catch (Exception e){
+            Date dateEarly = simpleDateFormat.parse(dateEarlyq);
+            Date dateLater = simpleDateFormat.parse(dateLaterq);
+            return (dateLater.getTime() - dateEarly.getTime()) / (24 * 60 * 60 * 1000);
+        } catch (Exception e) {
         }
         return -1;
     }

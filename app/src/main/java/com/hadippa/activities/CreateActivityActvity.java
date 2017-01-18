@@ -275,11 +275,14 @@ public class CreateActivityActvity extends AppCompatActivity {
             llNameAddress.setVisibility(View.VISIBLE);
             llActivityBrief.setVisibility(View.GONE);
 
+
             tvActivityName.setText(getResources().getString(R.string.name_of_hobby));
             tvAddress.setText(getResources().getString(R.string.where));
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
+            etAddress.setVisibility(View.GONE);
+            enableAutoComplete();
             //tvNotify.setText(getResources().getString(R.string.on_button_to_get_notify));
             tvNotify.setText(getResources().getString(R.string.on_button_new_text));
             ivArrow.setVisibility(View.GONE);
@@ -329,32 +332,8 @@ public class CreateActivityActvity extends AppCompatActivity {
             //HERE
 
             etAddress.setVisibility(View.GONE);
-            autocompleteFragment = (PlaceAutocompleteFragment)
-                    getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-
-            ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTextSize(15);
-            ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setPadding(15, 10, 0, 10);
-            ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTypeface(Typeface.createFromAsset(getAssets(), "proxima_regular.OTF"));
-            ((ImageButton) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_clear_button)).setImageDrawable(null);
-            (autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_button)).setVisibility(View.GONE);
-
-            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    // TODO: Get info about the selected place.
-
-
-                    autocompleteFragment.setText(place.getAttributions());
-
-                }
-
-                @Override
-                public void onError(Status status) {
-                    // TODO: Handle the error.
-                    Log.i("Place?>>", "An error occurred: " + status);
-                }
-            });
+            enableAutoComplete();
 
 
             ivArrow.setVisibility(View.GONE);
@@ -582,6 +561,34 @@ public class CreateActivityActvity extends AppCompatActivity {
 
     }
 
+    void enableAutoComplete(){
+        autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTextSize(15);
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setPadding(15, 10, 0, 10);
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTypeface(Typeface.createFromAsset(getAssets(), "proxima_regular.OTF"));
+        ((ImageButton) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_clear_button)).setImageDrawable(null);
+        (autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_button)).setVisibility(View.GONE);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+
+
+                autocompleteFragment.setText(place.getAttributions());
+
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("Place?>>", "An error occurred: " + status);
+            }
+        });
+    }
     private void setRadios(int pos){
 
         radio0.setSelected(false);
@@ -758,7 +765,13 @@ public class CreateActivityActvity extends AppCompatActivity {
             requestParams.add("activity_name", name.getText().toString());
             requestParams.add("activity_date",selectedDate + " " + convertTime12TO24(tvVisitingTime.getText().toString().trim()));
             //requestParams.add("activity_date", );
-            requestParams.add("activity_location", address.getText().toString());
+            if(activityKey == AppConstants.ACTIVITY_HOBBY || activityKey == AppConstants.ACTIVITY_STANDUP_COMEDY){
+                requestParams.add("activity_location",
+                        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+                                .getText().toString().trim());
+            }else {
+                requestParams.add("activity_location", address.getText().toString());
+            }
             if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
 
                 requestParams.add("from", tvFrom.getText().toString());

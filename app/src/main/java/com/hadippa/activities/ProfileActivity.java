@@ -28,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -54,6 +55,8 @@ import com.hadippa.SquareImageView;
 import com.hadippa.fragments.main_screen.DoublePeople;
 import com.hadippa.fragments.main_screen.People;
 import com.hadippa.fragments.main_screen.ShowCardsNew;
+import com.hadippa.instagram.InstagramApp;
+import com.hadippa.instagram.InstagramSession;
 import com.hadippa.model.Contact;
 import com.hadippa.model.UserProfile;
 import com.loopj.android.http.AsyncHttpClient;
@@ -139,6 +142,10 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     private SliderLayout slider;
     HashMap<String, String> url_maps = new HashMap<String, String>();
 
+    Button connectInstagram;
+    InstagramApp instagramApp;
+    InstagramSession instagramSession;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +158,36 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         slider = (SliderLayout) findViewById(R.id.slider);
 
 
+        connectInstagram = (Button) findViewById(R.id.connectInstagram);
+
+        instagramSession = new InstagramSession(ProfileActivity.this);
+
+        instagramApp = new InstagramApp(ProfileActivity.this, AppConstants.INSTA_CLIENT_ID,
+                AppConstants.INSTA_CLIENT_SECRET, AppConstants.INSTA_CALLBACK_URL);
+        instagramApp.setListener(new InstagramApp.OAuthAuthenticationListener() {
+
+            @Override
+            public void onSuccess() {
+// tvSummary.setText("Connected as " + mApp.getUserName());
+// userInfoHashmap = mApp.
+
+                Toast.makeText(ProfileActivity.this, instagramApp.getUserName() + " >> " + instagramSession.getAccessToken(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFail(String error) {
+                Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        connectInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                instagramApp.authorize();
+
+            }
+        });
         slider.setPresetTransformer(SliderLayout.Transformer.Default);
         slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         //slider.setCustomAnimation(new DescriptionAnimation());
@@ -183,31 +220,31 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 if (tvActivityVal.getText().toString().equals("0")) {
 
                 } else {
-                        Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
-                        intent.putExtra("data", activityData);
+                    Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
+                    intent.putExtra("data", activityData);
 
-                        startActivity(intent);
+                    startActivity(intent);
 
                 }
             }
         });
 
-        
+
         llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user_relationship_status.equals("Connected")
-                        || user_relationship_status.equals("Following")){
+                if (user_relationship_status.equals("Connected")
+                        || user_relationship_status.equals("Following")) {
 
-                   llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
-                   tvFollowUnfollow.setText("Follow");
-                   tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
+                    llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
+                    tvFollowUnfollow.setText("Follow");
+                    tvFollowUnfollow.setTextColor(getResources().getColor(R.color.pink_text));
                     // viewHolder.tvFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
-                   ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
+                    ivFollowUnfollow.setImageResource(R.drawable.ic_user_follow);
                     follow_Unfollow(AppConstants.CONNECTION_UNFOLLOW);
 
 
-                }else{
+                } else {
 
                     llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
                     tvFollowUnfollow.setText("Following");
@@ -278,22 +315,50 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         });*/
 
 
+    }
 
+    private void connectOrDisconnectUser() {
+        if (instagramApp.hasAccessToken()) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(
+                    ProfileActivity.this);
+            builder.setMessage("Disconnect from Instagram?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    instagramApp.resetAccessToken();
+// btnConnect.setVisibility(View.VISIBLE);
+
+// tvSummary.setText("Not connected");
+                                }
+                            })
+                    .setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            final AlertDialog alert = builder.create();
+            alert.show();
+        } else {
+            instagramApp.authorize();
+        }
     }
 
     String user_relationship_status = "";
 
-    void setFollowUnfollow(String user_relationship_status)
-    {
-        if(user_relationship_status.equals("Connected")
-                || user_relationship_status.equals("Following")){
+    void setFollowUnfollow(String user_relationship_status) {
+        if (user_relationship_status.equals("Connected")
+                || user_relationship_status.equals("Following")) {
 
             llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
             tvFollowUnfollow.setText("Following");
             tvFollowUnfollow.setTextColor(getResources().getColor(R.color.white));
             ivFollowUnfollow.setImageResource(R.drawable.ic_user_following);
 
-        }else{
+        } else {
 
             llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
             tvFollowUnfollow.setText("Follow");
@@ -304,6 +369,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
         }
     }
+
     private void follow_Unfollow(String type) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
@@ -365,7 +431,6 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                     setFollowUnfollow(user_relationship_status);
 
 
-
                 } else {
                     setFollowUnfollow(user_relationship_status);
 
@@ -383,10 +448,12 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         }
 
     }
-    void dddd(){
+
+    void dddd() {
 
 
         if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+            connectInstagram.setVisibility(View.VISIBLE);
             llFollowUnfollow.setVisibility(View.GONE);
             rvMutualFriend.setVisibility(View.GONE);
             tvRecentInstagram.setVisibility(View.GONE);
@@ -422,12 +489,14 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
                 List<String> pp = new ArrayList<>();
 
-                if(jsonObject.has("profile_photos")){
-                    for(int i =0;i<jsonObject.getJSONArray("profile_photos").length();i++){
+                if (jsonObject.has("profile_photos")) {
+                    for (int i = 0; i < jsonObject.getJSONArray("profile_photos").length(); i++) {
 
-                        pp.add(jsonObject.getJSONArray("profile_photos").getString(i));
-
-                    }}
+                        if (!jsonObject.getJSONArray("profile_photos").getString(i).equals("")) {
+                            pp.add(jsonObject.getJSONArray("profile_photos").getString(i));
+                        }
+                    }
+                }
                 userBean.setProfile_photos(pp);
                 setData(userBean);
             } catch (JSONException e) {
@@ -436,10 +505,12 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         } else {
             llFollowUnfollow.setVisibility(View.VISIBLE);
             ivEdit.setVisibility(View.GONE);
+            connectInstagram.setVisibility(View.GONE);
         }
 
         fetchProfile();
     }
+
     @Override
     public void onSliderClick(BaseSliderView slider) {
 
@@ -447,7 +518,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             Intent intent = new Intent(ProfileActivity.this, EditProfilePicsActivity.class);
             intent.putExtra("data", userBean);
             intent.putExtra(AppConstants.FETCH_USER_KEY, getIntent().getExtras().getString(AppConstants.FETCH_USER_KEY));
-            startActivityForResult(intent,166);
+            startActivityForResult(intent, 166);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
@@ -645,26 +716,27 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
         slider.removeAllSliders();
         url_maps.clear();
-        if(userBean.getProfile_photos() != null){
-        for(int i = 0; i <userBean.getProfile_photos().size();i++){
+        if (userBean.getProfile_photos() != null) {
+            for (int i = 0; i < userBean.getProfile_photos().size(); i++) {
 
-            if(!userBean.getProfile_photos().get(i).equals("")) {
-                url_maps.put("a", userBean.getProfile_photos().get(i));
-                TextSliderView textSliderView = new TextSliderView(this);
-                // initialize a SliderLayout
-                textSliderView
-                        .description("")
-                        .image(userBean.getProfile_photos().get(i))
-                        .setScaleType(BaseSliderView.ScaleType.CenterCrop)
-                        .setOnSliderClickListener(ProfileActivity.this);
+                if (!userBean.getProfile_photos().get(i).equals(null) ||!userBean.getProfile_photos().get(i).equals("")) {
+                    url_maps.put("a", userBean.getProfile_photos().get(i));
+                    TextSliderView textSliderView = new TextSliderView(this);
+                    // initialize a SliderLayout
+                    textSliderView
+                            .description("")
+                            .image(userBean.getProfile_photos().get(i))
+                            .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                            .setOnSliderClickListener(ProfileActivity.this);
 
-                //add your extra information
+                    //add your extra information
            /* textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
                     .putString("extra", name);
 */
-                slider.addSlider(textSliderView);
-            }}
+                    slider.addSlider(textSliderView);
+                }
+            }
         }
      /*   url_maps.put("a", userBean.getProfile_photo());
         if (userBean.getProfile_photo_1() != null && !(userBean.getProfile_photo_1()).equals("")) {
@@ -737,33 +809,13 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
                 } else if (resultCode == RESULT_OK && requestCode == 176) {
 
-                    sourceUri = data.getData();
-                    Log.d("ImageUri>>", sourceUri.toString());
-                    UCrop.Options options = new UCrop.Options();
-                    options.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-                    options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-                    options.setToolbarTitle(getString(R.string.app_name));
 
-                    options.setActiveWidgetColor(getResources().getColor(R.color.colorPrimary));
-                    UCrop.of(sourceUri, Uri.fromFile(setUpPhotoFile().getAbsoluteFile())).
-                            withOptions(options).withAspectRatio(1, 1).start(ProfileActivity.this, UCrop.REQUEST_CROP);
 
                 } else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
 
                     Uri resultUri = UCrop.getOutput(data);
                     if (resultUri != null && currentPhotoPath != null) {
-                        addPhotoGallery();
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
 
-//                        ivProfilePic.setImageBitmap(bitmap);
-
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                        byte[] b = baos.toByteArray();
-
-                        base64String = Base64.encode(b);
-
-                        updateProfilePic();
                         Log.d("base64String>>", base64String);
                         currentPhotoPath = null;
 
@@ -777,269 +829,14 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         }
     }
 
-    private boolean checkPermission() {
 
-        int CAMERA = ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.CAMERA);
-        int read_external = ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        int write_external = ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (CAMERA == PackageManager.PERMISSION_GRANTED && read_external == PackageManager.PERMISSION_GRANTED
-                && write_external == PackageManager.PERMISSION_GRANTED) {
-
-            return true;
-
-        } else {
-            //   requestPermission();
-            return false;
-
-        }
-    }
-
-    private void requestPermission() {
-
-
-        ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{Manifest.permission.CAMERA
-                , Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
-        }, 10001);
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 10001:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    //  Snackbar.make(rel, "Permission Granted.", Snackbar.LENGTH_LONG).show();
-
-                    selectImage();
-                } else {
-
-                    //  Snackbar.make(rel, "Permission Denied.", Snackbar.LENGTH_LONG).show();
-
-                }
-                break;
-        }
-    }
-
-    private void selectImage() {
-
-        final CharSequence[] items = {"Take Photo", "Choose from Library",
-                "Cancel"};
-
-        TextView title = new TextView(ProfileActivity.this);
-        title.setText("Add Photo!");
-        title.setBackgroundColor(Color.BLACK);
-        title.setPadding(10, 15, 15, 10);
-        title.setGravity(Gravity.CENTER);
-        title.setTextColor(Color.WHITE);
-        title.setTextSize(22);
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(
-                ProfileActivity.this);
-
-
-        builder.setCustomTitle(title);
-
-        // builder.setTitle("Add Photo!");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (items[item].equals("Take Photo")) {
-                    // Intent intent = new
-                    // Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    takePhoto();
-
-                } else if (items[item].equals("Choose from Library")) {
-
-                    sharePhoto();
-                } else if (items[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
-            }
-        });
-        builder.show();
-    }
-
-    public String getAlbumName() {
-        return getString(R.string.app_name);
-    }
-
-    public File getAlbumDir() {
-        File storageDir = null;
-
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            storageDir = albumStorageDirFactory.getAlbumStorageDir(getAlbumName());
-
-            if (storageDir != null) {
-                if (!storageDir.mkdirs()) {
-                    if (!storageDir.exists()) {
-                        Log.d(getString(R.string.app_name), "Failed to Create Directory");
-                    }
-                }
-            } else {
-                storageDir.mkdirs();
-                if (storageDir.exists()) {
-                    Log.d(getString(R.string.app_name), "Success to Create Directory");
-                    return storageDir;
-                }
-            }
-
-        } else {
-            Log.v(getString(R.string.app_name), "External Storage is not Mounted READ/WRITE.");
-        }
-
-        return storageDir;
-    }
-
-
-    public void takePhoto() {
-
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File file = null;
-        try {
-            file = setUpPhotoFile();
-            currentPhotoPath = file.getAbsolutePath();
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        } catch (IOException e) {
-            if (e != null) {
-                e.printStackTrace();
-            }
-            file = null;
-            currentPhotoPath = null;
-            return;
-        }
-        startActivityForResult(takePictureIntent, 175);
-    }
-
-    public void sharePhoto() {
-
-        Intent shareIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(shareIntent, 176);
-
-
-    }
-
-    public File setUpPhotoFile() throws IOException {
-        File file = createImageFile();
-        currentPhotoPath = file.getAbsolutePath();
-        return file;
-    }
-
-    public File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
-        File albumF = getAlbumDir();
-        File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
-        return imageF;
-    }
-
-    public void addPhotoGallery() {
-
-        Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
-        File file = new File(currentPhotoPath);
-        Uri contentUri = Uri.fromFile(file);
-        mediaScanIntent.setData(contentUri);
-        ProfileActivity.this.sendBroadcast(mediaScanIntent);
-    }
-
-    private void updateProfilePic() {
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-
-        RequestParams requestParams = new RequestParams();
-
-
-        try {
-
-            requestParams.add("access_token", sp.getString("access_token", ""));
-            requestParams.add("user_id", getIntent().getExtras().getString(AppConstants.FETCH_USER_KEY));
-            requestParams.add("profile_photo", base64String);
-            requestParams.add("flag", "0");
-
-            Log.d("fetchProfile>>", requestParams.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.UPDATE_PIC, requestParams,
-                new UpdateProfilePic());
-    }
-
-    class UpdateProfilePic extends AsyncHttpResponseHandler {
-
-        @Override
-        public void onStart() {
-            super.onStart();
-
-            if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
-
-                AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
-            }
-        }
-
-
-        @Override
-        public void onFinish() {
-            AppConstants.dismissDialog();
-        }
-
-        @Override
-        public void onProgress(long bytesWritten, long totalSize) {
-            super.onProgress(bytesWritten, totalSize);
-
-        }
-
-
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-            try {
-                String response = new String(responseBody, "UTF-8");
-                Log.d("fetchProfile>>", "success" + response);
-
-                JSONObject jsonObject = new JSONObject(response);
-                if (jsonObject.getBoolean("success")) {
-
-                    editor.putString("userData", jsonObject.getJSONObject("user").toString());
-                    editor.commit();
-
-                } else {
-/*
-
-                    RequestManager requestManager= Glide.with(ProfileActivity.this);
-                    requestManager.load(userBean.getProfile_photo()).error(R.drawable.place_holder)
-                            .placeholder(R.drawable.place_holder).into(ivProfilePic);
-*/
-
-                }
-
-                Log.d("fetchProfile>>", "success" + response);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("async", "success exc  >>" + e.toString());
-            }
-
-
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            //  AppConstants.showSnackBar(mainRel,"Try again!");
-        }
-
-
-    }
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_profile)), intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout) findViewById(R.id.activity_profile)), intent.getExtras().getString("messageData"));
         }
     };
 

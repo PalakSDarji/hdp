@@ -384,19 +384,33 @@
 
             </android.support.v7.widget.RecyclerView>
 
-            <View
-                android:id="@+id/vSep3"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/rvMutualFriend"
-                android:layout_marginTop="10dp"
-                android:background="#efefef"/>
+                android:id="@+id/lll"
+                android:orientation="vertical">
 
+
+                <View
+                    android:id="@+id/vSep3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#efefef"/>
+
+                <Button
+                    android:id="@+id/connectInstagram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Connect Instagram"
+                    android:layout_below="@+id/vSep3"/>
+            </LinearLayout>
             <com.hadippa.CustomTextView
                 android:id="@+id/tvRecentInstagram"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/vSep3"
+                android:layout_below="@+id/lll"
                 android:layout_marginLeft="@dimen/value_w24"
                 android:layout_marginRight="@dimen/value_w24"
                 android:layout_marginTop="@dimen/value_h42"
