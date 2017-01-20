@@ -71,7 +71,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
     private int activityKey;
     @BindView(R.id.ivActivityIcon)
     ImageView ivActivityIcon;
-    CustomAdapter customAdapter = new CustomAdapter();
+    CustomAdapter customAdapter;
     @BindView(R.id.edtSearch)
     EditText edtSearch;
     private LocationManager mLocationManager;
@@ -213,6 +213,24 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             }
         });
 
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+                customAdapter.filter(edtSearch.getText().toString().trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         findViewById(R.id.tvNext).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -632,7 +650,16 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
+        private List<NightCLubModel.ResponseBean.RestaurantsBean> listItems, filterList;
+        Dialog dialog;
 
+        public CustomAdapter( List<NightCLubModel.ResponseBean.RestaurantsBean> listItems) {
+            this.listItems = listItems;
+
+            this.filterList = new ArrayList<>();
+            // we copy the original list to the filter list and use it for setting row values
+            this.filterList.addAll(this.listItems);
+        }
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
@@ -646,7 +673,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         public void onBindViewHolder(ViewHolder viewHolder, final int position) {
             Log.d(TAG, "Element " + position + " set.");
 
-            final NightCLubModel.ResponseBean.RestaurantsBean restaurantsBean = restaurantsBeanList.get(position);
+            final NightCLubModel.ResponseBean.RestaurantsBean restaurantsBean = filterList.get(position);
 
             viewHolder.address.setText(restaurantsBean.getRestaurant().getLocation().getAddress());
             viewHolder.name.setText(restaurantsBean.getRestaurant().getName());
@@ -689,11 +716,49 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
         }
 
+        public void filter(final String text){
+            // Searching could be complex..so we will dispatch it to a different thread...
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    // Clear the filter list
+                    filterList.clear();
+
+                    // If there is no search value, then add all original list items to filter list
+                    if (TextUtils.isEmpty(text)) {
+
+                        filterList.addAll(listItems);
+
+                    } else {
+                        // Iterate in the original List and add it to filter list...
+                        for (NightCLubModel.ResponseBean.RestaurantsBean item : listItems) {
+                            if (item.getRestaurant().getLocation().getAddress().toLowerCase().contains(text.toLowerCase()) ||
+                                    item.getRestaurant().getName().toLowerCase().contains(text.toLowerCase())) {
+                                // Adding Matched items
+                                filterList.add(item);
+                            }
+                        }
+                    }
+
+                    // Set on UI Thread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Notify the List that the DataSet has changed...
+                            notifyDataSetChanged();
+                        }
+                    });
+
+                }
+            }).start();
+
+        }
 
         @Override
         public int getItemCount() {
 
-            return restaurantsBeanList.size();
+            return (null != filterList ? filterList.size() : 0);
         }
     }
 
@@ -797,7 +862,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
                     if (pageNumber == 0) {
                         restaurantsBeanList = nightCLubModel.getResponse().getRestaurants();
-                        customAdapter = new CustomAdapter();
+                        customAdapter = new CustomAdapter(restaurantsBeanList);
                         listShops.setAdapter(customAdapter);
                     } else {
                         loading = true;

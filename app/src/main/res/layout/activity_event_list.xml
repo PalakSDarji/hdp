@@ -158,7 +158,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="@dimen/value_10"
-                android:background="#efefef"></android.support.v7.widget.RecyclerView>
+                android:background="#efefef">
+
+            </android.support.v7.widget.RecyclerView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

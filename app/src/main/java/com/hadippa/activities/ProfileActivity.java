@@ -1,60 +1,39 @@
 package com.hadippa.activities;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Environment;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.APIClass;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
-import com.commonclasses.imagetobase64.Base64;
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.demo.AlbumStorageDirFactory;
 import com.demo.BaseAlbumDirFactory;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
-import com.hadippa.SquareImageView;
-import com.hadippa.fragments.main_screen.DoublePeople;
-import com.hadippa.fragments.main_screen.People;
-import com.hadippa.fragments.main_screen.ShowCardsNew;
 import com.hadippa.instagram.InstagramApp;
 import com.hadippa.instagram.InstagramSession;
 import com.hadippa.model.Contact;
@@ -67,12 +46,8 @@ import com.yalantis.ucrop.UCrop;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -714,13 +689,14 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         setTextifNotEmpty(userBean.getZodiac(), tvZodiac);
 
 
+
         slider.removeAllSliders();
         url_maps.clear();
         if (userBean.getProfile_photos() != null) {
             for (int i = 0; i < userBean.getProfile_photos().size(); i++) {
 
-                if (!userBean.getProfile_photos().get(i).equals(null) ||!userBean.getProfile_photos().get(i).equals("")) {
-                    url_maps.put("a", userBean.getProfile_photos().get(i));
+                if (!userBean.getProfile_photos().get(i).equals("")) {
+
                     TextSliderView textSliderView = new TextSliderView(this);
                     // initialize a SliderLayout
                     textSliderView
@@ -736,6 +712,10 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 */
                     slider.addSlider(textSliderView);
                 }
+            }
+
+            if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+                slider.stopAutoCycle();
             }
         }
      /*   url_maps.put("a", userBean.getProfile_photo());

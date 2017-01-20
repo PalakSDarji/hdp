@@ -235,7 +235,24 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
         //load fragment do display in the tab
 
+       /* edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+                customAdapter.filter(edtSearch.getText().toString().trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });*/
         //set view pager adapter and view pager data.
 
         if (checkPermission()) {
@@ -553,15 +570,19 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
     public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>{
 
-        private List<MeraEventPartyModel.DataBean> list;
+        private List<MeraEventPartyModel.DataBean> listItems, filterList;
+
 
         private Context mContext;
 
         RequestManager requestManager = Glide.with(EventListActivity.this);
 
         public EventAdapter(Context context, List<MeraEventPartyModel.DataBean> events) {
-            this.list = events;
-            mContext = context;
+            this.listItems = events;
+
+            this.filterList = new ArrayList<>();
+            // we copy the original list to the filter list and use it for setting row values
+            this.filterList.addAll(this.listItems);
         }
 
         @Override
@@ -579,7 +600,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 public void onClick(View v) {
                     Intent intent = new Intent(EventListActivity.this, EventDetailsActivity.class);
                     intent.putExtra("activity_id", getIntent().getExtras().getInt("activity_id"));
-                    intent.putExtra("data", postBeanList.get(position));
+                    intent.putExtra("data", filterList.get(position));
                     intent.putExtra(AppConstants.ACTIVITY_KEY,activityKey);
                     intent.putExtra("latitude", latitude);
                     intent.putExtra("longitude",longitude);
@@ -587,24 +608,24 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             });
-            holder.tvPrice.setText(postBeanList.get(position).getTicket_currencyCode()+" "+postBeanList.get(position).getTicket_price());
-            holder.tvEventName.setText(postBeanList.get(position).getTitle());
-            holder.tvAddress.setText(postBeanList.get(position).getAddress1()+" "+postBeanList.get(position).getCityName()+" "+postBeanList.get(position).getStateName());
-            holder.timings.setText(AppConstants.formatDate(postBeanList.get(position).getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a")
+            holder.tvPrice.setText(filterList.get(position).getTicket_currencyCode()+" "+filterList.get(position).getTicket_price());
+            holder.tvEventName.setText(filterList.get(position).getTitle());
+            holder.tvAddress.setText(filterList.get(position).getAddress1()+" "+filterList.get(position).getCityName()+" "+filterList.get(position).getStateName());
+            holder.timings.setText(AppConstants.formatDate(filterList.get(position).getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a")
                     +
                     " - "
                     +
-                    AppConstants.formatDate(postBeanList.get(position).getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a"));
+                    AppConstants.formatDate(filterList.get(position).getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a"));
             holder.tvDistance.setText(AppConstants.distanceMeasure(Double.parseDouble(latitude),
                     Double.parseDouble(longitude),
-                    (postBeanList.get(position).getLatitude()),
-                    (postBeanList.get(position).getLongitude())) + " kms");
+                    (filterList.get(position).getLatitude()),
+                    (filterList.get(position).getLongitude())) + " kms");
 
-            if(postBeanList.get(position).getBannerPath().isEmpty() || postBeanList.get(position).getBannerPath().equals("")){
+            if(filterList.get(position).getBannerPath().isEmpty() || filterList.get(position).getBannerPath().equals("")){
                 holder.profileImage.setImageResource(R.drawable.bg_item_above);
             }else {
                 requestManager
-                        .load(postBeanList.get(position).getBannerPath())
+                        .load(filterList.get(position).getBannerPath())
                         .error(R.drawable.bg_item_above)
                         .placeholder(R.drawable.bg_item_above)
                         .into(holder.profileImage);
@@ -612,16 +633,54 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         }
 
         public MeraEventPartyModel.DataBean getItem(int position){
-            return list.get(position);
+            return filterList.get(position);
+        }
+
+        public void filter(final String text){
+            // Searching could be complex..so we will dispatch it to a different thread...
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    // Clear the filter list
+                    filterList.clear();
+
+                    // If there is no search value, then add all original list items to filter list
+                    if (TextUtils.isEmpty(text)) {
+
+                        filterList.addAll(listItems);
+
+                    } else {
+                        // Iterate in the original List and add it to filter list...
+                        for (MeraEventPartyModel.DataBean item : listItems) {
+                            if (new Gson().toJson(item).toLowerCase().contains(text.toLowerCase())) {
+                                // Adding Matched items
+                                filterList.add(item);
+                            }
+                        }
+                    }
+
+                    // Set on UI Thread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Notify the List that the DataSet has changed...
+                            notifyDataSetChanged();
+                        }
+                    });
+
+                }
+            }).start();
+
         }
 
         @Override
         public int getItemCount() {
-            return list.size();
+            return (null != filterList ? filterList.size() : 0);
         }
 
         public void setData(List<MeraEventPartyModel.DataBean> data) {
-            list = data;
+            filterList = data;
             notifyDataSetChanged();
         }
 

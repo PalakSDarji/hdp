@@ -151,7 +151,7 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 List<String> zodiacListStr = new ArrayList<String>();
-                zodiacListStr.add(getString(R.string.str_dont_believe));
+              //  zodiacListStr.add(getString(R.string.str_dont_believe));
                 zodiacListStr.add(getString(R.string.str_dont_know));
                 for(Zodiac zodiac : zodiacList){
                     zodiacListStr.add(zodiac.getZodiacName());
@@ -522,8 +522,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private void findZodiac() throws ParseException {
 
         //TODO : this birthdate is for xml demo purpose only as of now. Fill it with user's birthdate later while integrating APIs in the same format or change the format of date formater below.
-        String birthDate = "12/05/1992";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String birthDate = userBean.getDob();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd");
 
         Date date = null;
