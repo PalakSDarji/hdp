@@ -195,37 +195,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-              /*  GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(
-                                    JSONObject object,
-                                    GraphResponse response) {
 
-                                Log.v("LoginActivity", response.toString());
-                                try {
-
-                                    JSONObject fbResponse = new JSONObject(String.valueOf(response.getJSONObject()));
-                                    Log.v("LoginActivity", fbResponse.toString());
-
-                                    login("facebook","","",fbResponse.getString("id"));
-
-
-
-                                } catch (JSONException e) {
-
-                                    Log.v("LoginActivity", e.toString());
-                                    e.printStackTrace();
-
-                                }
-
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,link");
-                request.setParameters(parameters);
-                request.executeAsync();*/
 
                 login("facebook","","",loginResult.getAccessToken().getToken());
 
@@ -247,44 +217,14 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-      /*  if(AppConstants.isLocationEnabled(LoginActivity.this)){
-
-            checkLoginStatus();
-
-        }else{
-
-            Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");
-            intent.putExtra("enabled", true);
-            sendBroadcast(intent);
-
-            checkLoginStatus();
-        }
-
-
-*/
-
-      /*  CompositeSubscription compositeSubscription = new CompositeSubscription();
-        compositeSubscription.add(locationProvider.getCurrentPlace(null).subscribe(new Action1<PlaceLikelihoodBuffer>() {
-            @Override
-            public void call(PlaceLikelihoodBuffer buffer) {
-                PlaceLikelihood likelihood = buffer.get(0);
-                if (likelihood != null) {
-                    //currentPlaceView.setText(likelihood.getPlace().getName());
-                    Log.d("LocationProvider>>??",likelihood.getPlace().getName()+"" +
-                            "  "+likelihood.getPlace().getName());
-
-                }
-                buffer.release();
-            }
-        }))
-        ;*/
-
         checkLocation(LoginActivity.this);
 
     }
 
 
     void getCurrentCity(double lat,double lng){
+
+        AppConstants.showProgressDialog(LoginActivity.this,"");
         try{
         Geocoder gcd = new Geocoder(LoginActivity.this, Locale.getDefault());
         List<Address> addresses = gcd.getFromLocation(lat, lng, 1);
@@ -302,6 +242,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }catch (Exception e){
         }finally {
+            AppConstants.dismissDialog();
             checkLoginStatus();
         }
     }

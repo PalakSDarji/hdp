@@ -249,7 +249,7 @@ public class AppConstants {
         // PROGRESS_DIALOG.show();
 
         hud = KProgressHUD.create(context)
-                .setStyle(KProgressHUD.Style.ANNULAR_DETERMINATE)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setWindowColor(context.getResources().getColor(R.color.back_progress))
                 // .setLabel(message)
                 .setDimAmount(0.5f)

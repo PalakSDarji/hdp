@@ -83,6 +83,12 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
 
                 }
 
+                if(edtNumber.getText().toString().trim().length() != 10){
+                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_list_hadipaa_detail)),"Mobile number must be 10 digits.",Snackbar.LENGTH_LONG).show();
+                    return;
+
+                }
+
                listWithHadipaa();
             }
         });
