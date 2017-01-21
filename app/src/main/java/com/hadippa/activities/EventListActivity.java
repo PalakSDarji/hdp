@@ -353,6 +353,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
    public void prepareThings(int pageNumber) {
 
+       this.pageNumber = pageNumber;
         JSONObject user_preference = null;
         int dist = 0;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(EventListActivity.this);
@@ -533,14 +534,16 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                     Log.d("prepareMeraEvents", "Size >> " + response);
 
                     if(meraEventPartyModel.getData().size() > 0){
-                    postBeanList.addAll(meraEventPartyModel.getData());
-                    if (pageNumber == 0) {
 
+                    if (pageNumber == 0) {
+                        postBeanList.clear();
+                        postBeanList.addAll(meraEventPartyModel.getData());
                         adapter = new EventAdapter(EventListActivity.this,postBeanList);
                         rvEventList.setAdapter(adapter);
 
 
                     } else {
+                        postBeanList.addAll(meraEventPartyModel.getData());
                         adapter.notifyDataSetChanged();
                         loading = true;
 

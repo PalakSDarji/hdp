@@ -97,7 +97,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 latitude = String.valueOf(location.getLatitude());
                 longitude = String.valueOf(location.getLongitude());
 
-                prepareThings(pageNumber);
+               // prepareThings(pageNumber);
                 Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
 
@@ -548,6 +548,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
     void prepareThings(int pageNumber) {
 
+        this.pageNumber = pageNumber;
         JSONObject user_preference = null;
         int dist = 0;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(CoffeeActivity.this);
@@ -559,17 +560,17 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 tvHeader1.setText(getString(R.string.coffee_cafe));
                 edtSearch.setHint(getString(R.string.select_cafe));
                 prepareZomato(AppConstants.CAFES, latitude, longitude, String.valueOf(dist)
-                        , String.valueOf(pageNumber));
+                        , String.valueOf(this.pageNumber));
             } else if (activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
 
                 tvHeader1.setText(getString(R.string.night_club));
                 edtSearch.setHint(getString(R.string.select_club));
-                prepareZomato(AppConstants.NIGHTCLUB, latitude, longitude, String.valueOf(dist), String.valueOf(pageNumber));
+                prepareZomato(AppConstants.NIGHTCLUB, latitude, longitude, String.valueOf(dist), String.valueOf(this.pageNumber));
             } else if (activityKey == AppConstants.ACTIVITY_LOUNGE) {
 
                 tvHeader1.setText(getString(R.string.lounge));
                 edtSearch.setHint(getString(R.string.select_lounge));
-                prepareZomato(AppConstants.LOUNGE, latitude, longitude, String.valueOf(dist), String.valueOf(pageNumber));
+                prepareZomato(AppConstants.LOUNGE, latitude, longitude, String.valueOf(dist), String.valueOf(this.pageNumber));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -784,11 +785,6 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
         }
 
-        //,,
-        /*public LinearLayout getLinearDate() {
-            return linearDate;
-        }*/
-
 
     }
 
@@ -828,16 +824,16 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         public void onStart() {
             super.onStart();
 
-            restaurantsBeanList.clear();
+
             AppConstants.showProgressDialog(CoffeeActivity.this, "Please Wait");
-            Log.d("prepareZomato>>", "success exc  >> start");
+            Log.d("<<prepareZomato>>", "success exc  >> start");
         }
 
 
         @Override
         public void onFinish() {
             AppConstants.dismissDialog();
-            Log.d("prepareZomato>>", "success exc  >> finish");
+            Log.d("<<prepareZomato>>", "success exc  >> finish");
         }
 
         @Override
@@ -861,24 +857,23 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 if (nightCLubModel.isSuccess()) {
 
                     if (pageNumber == 0) {
-                        restaurantsBeanList = nightCLubModel.getResponse().getRestaurants();
+                        restaurantsBeanList.clear();
+                        restaurantsBeanList = new ArrayList<>();
+                        restaurantsBeanList.addAll(nightCLubModel.getResponse().getRestaurants());
                         customAdapter = new CustomAdapter(restaurantsBeanList);
                         listShops.setAdapter(customAdapter);
+
                     } else {
                         loading = true;
                         restaurantsBeanList.addAll(nightCLubModel.getResponse().getRestaurants());
                         customAdapter.notifyDataSetChanged();
                     }
 
-                    if (nightCLubModel.getResponse().getRestaurants().size() == 0) {
-
-                    }
-
                     pageNumber = pageNumber + 20;
                 } else {
                     Toast.makeText(CoffeeActivity.this, nightCLubModel.getErrors(), Toast.LENGTH_SHORT).show();
                 }
-                Log.d("prepareZomato>>", "Size >> " + response);
+                Log.d("<<prepareZomato>>", "Size >> " + response);
                 Log.d("prepareZomato>>", "Size >> " + restaurantsBeanList.size());
             } catch (Exception e) {
                 e.printStackTrace();
