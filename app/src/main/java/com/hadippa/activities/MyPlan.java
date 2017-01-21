@@ -64,9 +64,9 @@ public class MyPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                setResult(RESULT_OK);
-                finish();
-                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+                Intent  intent = new Intent(MyPlan.this,HistoryPlan.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
         imageBack = (ImageView) findViewById(R.id.imageBack);

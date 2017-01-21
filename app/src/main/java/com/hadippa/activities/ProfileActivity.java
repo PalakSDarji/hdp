@@ -100,10 +100,13 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     @BindView(R.id.vSep3)
     View vSep3;
 
+    @BindView(R.id.rlAppr3) RelativeLayout llAppr3;
+    @BindView(R.id.tvApproaching3Val) CustomTextView tvApproaching3Val;
+
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
-    UserProfile userProfile1;
+
     UserProfile.UserBean userBean;
     List<UserProfile.ActivityBeanX> activityBeanX;
     String activityData = "";
@@ -138,7 +141,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         instagramSession = new InstagramSession(ProfileActivity.this);
 
         instagramApp = new InstagramApp(ProfileActivity.this, AppConstants.INSTA_CLIENT_ID,
-                AppConstants.INSTA_CLIENT_SECRET, AppConstants.INSTA_CALLBACK_URL);
+                AppConstants.INSTA_CLIENT_SECRET, AppConstants.INSTA_CALLBACK_URL,sp.getString("access_token", ""));
         instagramApp.setListener(new InstagramApp.OAuthAuthenticationListener() {
 
             @Override
@@ -159,7 +162,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             @Override
             public void onClick(View view) {
 
-                instagramApp.authorize();
+                connectOrDisconnectUser();
 
             }
         });
@@ -436,6 +439,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             rvRecentInstagram.setVisibility(View.GONE);
             vSep2.setVisibility(View.GONE);
             vSep3.setVisibility(View.GONE);
+            llAppr3.setVisibility(View.VISIBLE);
 
             try {
                 JSONObject jsonObject = new JSONObject(sp.getString("userData", ""));
@@ -638,14 +642,17 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
                     userBean = userProfile.getUser();
                     setData(userBean);
-                    userProfile1 = userProfile;
+
+
                     if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
                         tvActivityVal.setText("" + userProfile.getActivity_count());
 
                     } else {
                         activityBeanX = userProfile.getActivity();
                         tvActivityVal.setText("" + activityBeanX.size());
-
+                        tvApproaching2Val.setText(""+userProfile.getApproached_by_count());
+                        tvApproaching3Val.setText(""+userProfile.getApproaching_count());
+                        tvActivityVal.setText("" + userProfile.getActivity_count());
                         activityData = response;
                     }
 
@@ -718,44 +725,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 slider.stopAutoCycle();
             }
         }
-     /*   url_maps.put("a", userBean.getProfile_photo());
-        if (userBean.getProfile_photo_1() != null && !(userBean.getProfile_photo_1()).equals("")) {
-            url_maps.put("a", userBean.getProfile_photo_1());
-        }
-        if (userBean.getProfile_photo_2() != null && !(userBean.getProfile_photo_2()).equals("")) {
-            url_maps.put("a", userBean.getProfile_photo_2());
-        }
-        if (userBean.getProfile_photo_3() != null && !(userBean.getProfile_photo_3()).equals("")) {
-            url_maps.put("a", userBean.getProfile_photo_3());
-        }
-        if (userBean.getProfile_photo_4() != null && !(userBean.getProfile_photo_4()).equals("")) {
-            url_maps.put("a", userBean.getProfile_photo_4());
-        }
-        if (userBean.getProfile_photo_5() != null && !(userBean.getProfile_photo_5()).equals("")) {
-            url_maps.put("a", userBean.getProfile_photo_5());
-        }
 
-        for (String name : url_maps.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(this);
-            // initialize a SliderLayout
-            textSliderView
-                    .description("")
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
-                    .setOnSliderClickListener(ProfileActivity.this);
-
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra", name);
-
-            slider.addSlider(textSliderView);
-        }
-*/
-        if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
-
-
-        }
 
     }
 

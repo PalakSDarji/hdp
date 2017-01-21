@@ -6,6 +6,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.hadippa.AppConstants;
+import com.hadippa.activities.ProfileActivity;
+import com.hadippa.model.UserProfile;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -16,6 +24,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by hp on 1/13/2017.
@@ -42,7 +52,7 @@ public class InstagramApp {
      * (https://developer.github.com/)
      */
 
-    public static String mCallbackUrl = "";
+    public static String mCallbackUrl = "http://hadipaa.dev.tnxlabs.com/instagram";
     private static final String AUTH_URL = "https://api.instagram.com/oauth/authorize/";
     private static final String TOKEN_URL = "https://api.instagram.com/oauth/access_token";
     private static final String API_URL = "https://api.instagram.com/v1";
@@ -50,12 +60,13 @@ public class InstagramApp {
     private static final String TAG = "InstagramAPI";
 
     public InstagramApp(Context context, String clientId, String clientSecret,
-                        String callbackUrl) {
+                        String callbackUrl, final String access_token) {
         mClientId = clientId;
         mClientSecret = clientSecret;
         mCtx = context;
         mSession = new InstagramSession(context);
-        mAccessToken = mSession.getAccessToken();
+        mSession.resetAccessToken();
+      //  mAccessToken = mSession.getAccessToken();
         mCallbackUrl = callbackUrl;
         mTokenUrl = TOKEN_URL + "?client_id=" + clientId + "&client_secret="
                 + clientSecret + "&redirect_uri=" + mCallbackUrl + "&grant_type=authorization_code";
@@ -64,11 +75,15 @@ public class InstagramApp {
         InstagramDialog.OAuthDialogListener listener = new InstagramDialog.OAuthDialogListener() {
             @Override
             public void onComplete(String code) {
-                getAccessToken(code);
+                Log.d("Insta code code>>",code);
+
+                fetchProfile(code,access_token);
+
             }
 
             @Override
             public void onError(String error) {
+                Log.d("Insta code code>>",error);
                 mListener.onFail("Authorization failed");
             }
         };
@@ -78,7 +93,71 @@ public class InstagramApp {
         mProgress.setCancelable(false);
     }
 
-    private void getAccessToken(final String code) {
+    private void fetchProfile(String code,String access_token) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try {
+
+            requestParams.add("access_token", access_token);
+            requestParams.add("code", code);
+
+            Log.d("fetchProfile>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + "/instagram", requestParams,
+                new FetchProfile());
+    }
+
+    class FetchProfile extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                Log.d("fetchProfile>>", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+
+
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+        }
+
+
+    }
+    private void getAccessToken(final String code,final String access_token) {
         mProgress.setMessage("Getting access token ...");
         mProgress.show();
 
@@ -101,7 +180,9 @@ public class InstagramApp {
                             "&client_secret="+mClientSecret+
                             "&grant_type=authorization_code" +
                             "&redirect_uri="+mCallbackUrl+
-                            "&code=" + code);
+                            "&code=" + code+
+                            "&access_token="+access_token
+                    );
                     writer.flush();
                     String response = streamToString(urlConnection.getInputStream());
                     Log.i(TAG, "response " + response);

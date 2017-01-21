@@ -204,8 +204,8 @@ public class AppConstants {
 
     //INSTAGRAM
     public static final String INSTA_CLIENT_ID = "a9e04362593d46aa8ec4d1656f5154f1";
-    public static final String INSTA_CLIENT_SECRET = "ccf3f75f1ba44da3ba68b05993f674f9 ";
-    public static final String INSTA_CALLBACK_URL = "";
+    public static final String INSTA_CLIENT_SECRET = "ccf3f75f1ba44da3ba68b05993f674f9";
+    public static final String INSTA_CALLBACK_URL = "http://hadipaa.dev.tnxlabs.com/api/android/v1/instagram";
 
     public static String USER = "user";
 

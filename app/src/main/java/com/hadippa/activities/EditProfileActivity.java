@@ -125,12 +125,16 @@ public class EditProfileActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
 
     String gender = "male";
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         ButterKnife.bind(this);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(EditProfileActivity.this);
+        editor = sharedPreferences.edit();
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         userBean = (UserProfile.UserBean) getIntent().getSerializableExtra("data");
@@ -182,7 +186,7 @@ public class EditProfileActivity extends AppCompatActivity {
         etEmail.setText(userBean.getEmail());
         etPhone.setText(String.valueOf(userBean.getMobile()));
         etGender.setText(userBean.getGender());
-        etDateOfBirth.setText(userBean.getDob()+"");
+        etDateOfBirth.setText(AppConstants.formatDate(userBean.getDob(),"yyyy-MM-dd","dd-MM-yyyy"));
         etOccupation.setText(userBean.getOccupation());
 
         if(userBean.getPrivate_account() == 0){
@@ -251,7 +255,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 dummyLangs.add("English");
                 dummyLangs.add("Bengali");
                 dummyLangs.add("Assamese");
-
                 dummyLangs.add("Kannada");
                 dummyLangs.add("Kashmiri");
                 dummyLangs.add("Konkani");
@@ -270,6 +273,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 dummyLangs.add("Santhali");
                 dummyLangs.add("Maithili");
                 dummyLangs.add("Dogri");
+
                 showPopupList(EditProfileActivity.this, dummyLangs, getString(R.string.language), new OnOkClickListener() {
                     @Override
                     public void onOkClick(String dataSelected) {
@@ -392,7 +396,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 lastname = "";
             }
 
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(EditProfileActivity.this);
+
             requestParams.add("access_token", sharedPreferences.getString("access_token", ""));
             requestParams.add("id", String.valueOf(userBean.getId()));
             requestParams.add("first_name",firstnaem);
@@ -457,6 +461,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(response);
 
                 if(jsonObject.getBoolean("success")){
+
+                    editor.putString("user",jsonObject.getJSONObject("user").toString());
+                    editor.commit();
 
                     Gson gson = new Gson();
                     UserProfile userProfile = gson.fromJson(response,UserProfile.class);

@@ -32,8 +32,12 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -61,7 +65,7 @@ public class HistoryPlan extends AppCompatActivity {
         ((LinearLayout) findViewById(R.id.linearHistory)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_OK);
+
                 finish();
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
@@ -72,7 +76,6 @@ public class HistoryPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                setResult(RESULT_CANCELED);
                 finish();
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
             }
@@ -87,6 +90,25 @@ public class HistoryPlan extends AppCompatActivity {
 
         myPlans();
     }
+
+    String convertDate(String dateInputString) {
+
+        String stringDate = null;
+        try {
+            // obtain date and time from initial string
+            Date date = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(dateInputString);
+            // set date string
+            stringDate = new SimpleDateFormat("dd MMM", Locale.US).format(date).toUpperCase(Locale.ROOT);
+            // set time string
+
+        } catch (ParseException e) {
+            // wrong input
+        }
+
+        return stringDate;
+
+    }
+
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         private static final String TAG = "CustomAdapter";
@@ -151,8 +173,8 @@ public class HistoryPlan extends AppCompatActivity {
 
             viewHolder.activityname.setText(myPlansBean.getActivity_details().getActivity_name());
             viewHolder.tvAddress.setText(myPlansBean.getActivity_location());
-            viewHolder.tvActivityDate.setText(myPlansBean.getActivity_date());
-            viewHolder.tvActivityTime.setText(myPlansBean.getActivity_time());
+            viewHolder.tvActivityDate.setText(convertDate(myPlansBean.getActivity_date()));
+            viewHolder.tvActivityTime.setText(AppConstants.formatDate(myPlansBean.getActivity_time(), "HH:mm", "hh:mm a"));
             viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size()+"");
             if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0){
                 viewHolder.tvCount.setText(myPlansBean.getPeople_going_count().size()+"");

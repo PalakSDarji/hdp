@@ -293,7 +293,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolderApproved viewHolder, final int position) {
             Log.d(TAG, "Element " + position + " set.");
 
-            UserProfile.ActivityBeanX.PeopleGoingBean peopleGoingBean = activityDetailsBeen.get(position);
+            UserProfile.ActivityBeanX.PeopleGoingBean  peopleGoingBean = activityDetailsBeen.get(position);
 
             RequestManager requestManager = Glide.with(ActivityThingsActivity.this);
             requestManager.load(peopleGoingBean.getUser().getProfile_photo()).error(R.drawable.place_holder).placeholder(R.drawable.place_holder)

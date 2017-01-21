@@ -22,8 +22,11 @@ public class UserProfile implements Serializable {
     private boolean success;
     private UserBean user;
     private int activity_count;
+    private int approaching_count;
+    private int approached_by_count;
     private Object next;
     private List<ActivityBeanX> activity;
+
 
     public boolean isSuccess() {
         return success;
@@ -51,6 +54,22 @@ public class UserProfile implements Serializable {
 
     public Object getNext() {
         return next;
+    }
+
+    public int getApproaching_count() {
+        return approaching_count;
+    }
+
+    public void setApproaching_count(int approaching_count) {
+        this.approaching_count = approaching_count;
+    }
+
+    public int getApproached_by_count() {
+        return approached_by_count;
+    }
+
+    public void setApproached_by_count(int approached_by_count) {
+        this.approached_by_count = approached_by_count;
     }
 
     public void setNext(Object next) {
