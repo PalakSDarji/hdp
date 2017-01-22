@@ -106,6 +106,43 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rlSearch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/value_h55"
+        android:layout_below="@+id/top"
+        android:layout_marginLeft="@dimen/value_w26"
+        android:layout_marginRight="@dimen/value_w26"
+        android:background="@drawable/rounded_edittext_search">
+
+        <ImageView
+            android:id="@+id/ivActivityIcon"
+            android:layout_width="@dimen/value_w32"
+            android:layout_height="@dimen/value_w32"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/value_w17"
+            android:src="@drawable/mysearch"/>
+
+        <com.hadippa.CustomEditText
+            android:id="@+id/edtSearch"
+            style="@style/App_EditTextStyle_Search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/ivActivityIcon"
+            android:background="@android:color/transparent"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:hint="@string/search"
+            android:paddingRight="10dp"
+            android:textColor="@color/c_b2aead"
+            android:textColorHint="@color/c_b2aead"
+            android:textSize="@dimen/values_txt_11"
+            app:customFont="@string/proxima_reg"
+            />
+
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/llActivitiesContainer"
         android:layout_width="match_parent"
@@ -143,9 +180,10 @@
         android:background="@android:color/white" />
 
     <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/llActivitiesContainer"
+        android:layout_below="@+id/rlSearch"
         android:orientation="vertical">
 
         <android.support.v4.widget.SwipeRefreshLayout

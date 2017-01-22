@@ -1,5 +1,6 @@
 package com.hadippa.activities;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
@@ -34,8 +36,11 @@ import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
-import com.hadippa.instagram.InstagramApp;
+import com.hadippa.instagram.Cons;
+import com.hadippa.instagram.Insta;
+import com.hadippa.instagram.InstagramRequest;
 import com.hadippa.instagram.InstagramSession;
+import com.hadippa.instagram.InstagramUser;
 import com.hadippa.model.Contact;
 import com.hadippa.model.UserProfile;
 import com.loopj.android.http.AsyncHttpClient;
@@ -43,10 +48,14 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.yalantis.ucrop.UCrop;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +65,8 @@ import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class ProfileActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener {
+
+    Insta insta;
 
     @BindView(R.id.rvMutualFriend)
     RecyclerView rvMutualFriend;
@@ -121,8 +132,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     HashMap<String, String> url_maps = new HashMap<String, String>();
 
     Button connectInstagram;
-    InstagramApp instagramApp;
-    InstagramSession instagramSession;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,35 +145,14 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         albumStorageDirFactory = new BaseAlbumDirFactory();
         slider = (SliderLayout) findViewById(R.id.slider);
 
-
         connectInstagram = (Button) findViewById(R.id.connectInstagram);
-
-        instagramSession = new InstagramSession(ProfileActivity.this);
-
-        instagramApp = new InstagramApp(ProfileActivity.this, AppConstants.INSTA_CLIENT_ID,
-                AppConstants.INSTA_CLIENT_SECRET, AppConstants.INSTA_CALLBACK_URL,sp.getString("access_token", ""));
-        instagramApp.setListener(new InstagramApp.OAuthAuthenticationListener() {
-
-            @Override
-            public void onSuccess() {
-// tvSummary.setText("Connected as " + mApp.getUserName());
-// userInfoHashmap = mApp.
-
-                Toast.makeText(ProfileActivity.this, instagramApp.getUserName() + " >> " + instagramSession.getAccessToken(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFail(String error) {
-                Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         connectInstagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                connectOrDisconnectUser();
-
+              insta = new Insta(ProfileActivity.this);
+                insta.login();
             }
         });
         slider.setPresetTransformer(SliderLayout.Transformer.Default);
@@ -235,20 +224,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
             }
         });
-       /* findViewById(R.id.ivProfilePic).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
-
-                    if (checkPermission()) {
-                    selectImage();
-                } else {
-                    requestPermission();
-                }
-            }}
-        });
-*/
 
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(ProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
         rvMutualFriend.setLayoutManager(horizontalLayoutManagaer);
@@ -279,50 +255,9 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
 
         InstagramAdapter instaAdapter = new InstagramAdapter(instaContacts);
-        //rvRecentInstagram.setAdapter(instaAdapter);
-
-        /*slider.addOnPageChangeListener(this);
-        ListView l = (ListView)findViewById(R.id.transformers);
-        l.setAdapter(new TransformerAdapter(this));
-        l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mDemoSlider.setPresetTransformer(((TextView) view).getText().toString());
-                Toast.makeText(MainActivity.this, ((TextView) view).getText().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
 
-    }
 
-    private void connectOrDisconnectUser() {
-        if (instagramApp.hasAccessToken()) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(
-                    ProfileActivity.this);
-            builder.setMessage("Disconnect from Instagram?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    instagramApp.resetAccessToken();
-// btnConnect.setVisibility(View.VISIBLE);
-
-// tvSummary.setText("Not connected");
-                                }
-                            })
-                    .setNegativeButton("No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                                    int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            final AlertDialog alert = builder.create();
-            alert.show();
-        } else {
-            instagramApp.authorize();
-        }
     }
 
     String user_relationship_status = "";
@@ -790,11 +725,21 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         }
     };
 
+    BroadcastReceiver instagramReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            Log.d("instagramReceiver>>",intent.getExtras().getString("code"));
+            retreiveAccessToken(intent.getExtras().getString("code"));
+
+        }
+    };
     @Override
     protected void onStart() {
         super.onStart();
 
         registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+        registerReceiver(instagramReceiver,new IntentFilter("INSTA_GRAM"));
     }
 
 
@@ -803,6 +748,154 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         super.onStop();
 
         unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(instagramReceiver);
     }
 
+    //MY Profile
+    private void instagramUpdate(String insta_access_token) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("code", insta_access_token);
+
+            Log.d("fetchProfile>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + "/instagram", requestParams,
+                new UpdateInsta());
+    }
+
+    class UpdateInsta extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+          //  if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+
+                AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+          //  }
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                Log.d("fetchProfile>>", "success" + response);
+
+
+                if(new JSONObject(response).getBoolean("success")){
+                    ;
+                }
+
+                Log.d("fetchProfile>>", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+
+
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+        }
+
+
+    }
+
+    private void retreiveAccessToken(String code) {
+        new AccessTokenTask(code).execute();
+    }
+
+    public class AccessTokenTask extends AsyncTask<URL, Integer, Long> {
+
+        ProgressDialog progressDlg;
+        String code;
+        JSONObject jsonUser = new JSONObject() ;
+        JSONObject jsonObj =new JSONObject();
+        public AccessTokenTask(String code) {
+            this.code = code;
+
+            progressDlg = new ProgressDialog(ProfileActivity.this);
+
+            progressDlg.setMessage("Connecting to Instagram...");
+        }
+
+        protected void onCancelled() {
+            progressDlg.cancel();
+        }
+
+        protected void onPreExecute() {
+            progressDlg.show();
+        }
+
+        protected Long doInBackground(URL... urls) {
+            long result = 0;
+
+            try {
+                List<NameValuePair> params = new ArrayList<NameValuePair>(5);
+
+                params.add(new BasicNameValuePair("client_id", getResources().getString(R.string.instagram_client_key)));
+                params.add(new BasicNameValuePair("client_secret", getResources().getString(R.string.instagram_client_secret)));
+                params.add(new BasicNameValuePair("grant_type", "authorization_code"));
+                params.add(new BasicNameValuePair("redirect_uri", getResources().getString(R.string.instagram_redirect_url)));
+                params.add(new BasicNameValuePair("code", code));
+
+                Log.d("insta>>",code);
+                InstagramRequest request = new InstagramRequest();
+                String response = request.post(Cons.ACCESS_TOKEN_URL, params);
+
+                if (!response.equals("")) {
+                    jsonObj = (JSONObject) new JSONTokener(response).nextValue();
+                    jsonUser = jsonObj.getJSONObject("user");
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
+        protected void onPostExecute(Long result) {
+            progressDlg.dismiss();
+
+            try {
+                if (jsonObj.getString("access_token") != null) {
+
+                    //Toast.makeText(ProfileActivity.this,"Access Token > "+jsonObj.getString("access_token"),Toast.LENGTH_LONG).show();
+                    instagramUpdate(jsonObj.getString("access_token"));
+
+                } else {
+
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

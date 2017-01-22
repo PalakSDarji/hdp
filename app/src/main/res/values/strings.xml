@@ -16,6 +16,12 @@
     <string name="facebook_app_id">1730705413848545</string>
 
 
+    <string name="instagram_client_key">a9e04362593d46aa8ec4d1656f5154f1</string>
+    <string name="instagram_client_secret">ccf3f75f1ba44da3ba68b05993f674f9</string>
+    <string name="instagram_redirect_url">http://hadipaa.dev.tnxlabs.com/instagram</string>
+
+
+
     <string name="full_name">Full Name</string>
     <string name="password">Password</string>
     <string name="re_enter_password">Re-enter Password</string>

@@ -38,6 +38,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -89,6 +90,8 @@ public class EventListActivity extends AppCompatActivity implements LocationList
     @Nullable
     @BindView(R.id.rv_event_list)
     public RecyclerView rvEventList;
+    @BindView(R.id.edtSearch)
+    EditText edtSearch;
 
     @Nullable @BindView(R.id.srl_event_list)
     public SwipeRefreshLayout srlEventList;
@@ -214,6 +217,25 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                         }
                     }
                 }
+
+            }
+        });
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+                adapter.filter(edtSearch.getText().toString().trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
 
             }
         });
@@ -656,7 +678,8 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                     } else {
                         // Iterate in the original List and add it to filter list...
                         for (MeraEventPartyModel.DataBean item : listItems) {
-                            if (new Gson().toJson(item).toLowerCase().contains(text.toLowerCase())) {
+                            if (item.getTitle().contains(text.toLowerCase()) || item.getAddress1().contains(text.toLowerCase())
+                                    || item.getAddress2().contains(text.toLowerCase())) {
                                 // Adding Matched items
                                 filterList.add(item);
                             }

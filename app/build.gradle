@@ -57,6 +57,8 @@ dependencies {
     //you can override RxJava version if you need
 
     //
+
+    compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.google.android.gms:play-services:9.6.1'
     compile 'com.google.firebase:firebase-messaging:9.6.1'
     compile 'com.android.support:appcompat-v7:23.4.0'

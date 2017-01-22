@@ -1,78 +1,85 @@
 package com.hadippa.instagram;
 
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.Context;
 
-/**
- * Created by hp on 1/13/2017.
- */
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+
 
 public class InstagramSession {
-
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
+    private Context mContext;
+    private SharedPreferences mSharedPref;
 
     private static final String SHARED = "Instagram_Preferences";
-    private static final String API_USERNAME = "username";
-    private static final String API_ID = "id";
-    private static final String API_NAME = "name";
-    private static final String API_ACCESS_TOKEN = "access_token";
+    private static final String USERID = "insta_userid";
+    private static final String USERNAME = "insta_username";
+    private static final String FULLNAME = "insta_fullname";
+    private static final String PROFILPIC = "insta_profilpic";
+    private static final String ACCESS_TOKEN = "insta_access_token";
 
     public InstagramSession(Context context) {
-        sharedPref = context.getSharedPreferences(SHARED, Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
+        mContext = context;
+        mSharedPref = context.getSharedPreferences(SHARED, Context.MODE_PRIVATE);
     }
 
     /**
+     * Save user data
      *
-     * @param accessToken
-     * @param username
+     * @param user User data
      */
-    public void storeAccessToken(String accessToken, String id, String username, String name) {
-        editor.putString(API_ID, id);
-        editor.putString(API_NAME, name);
-        editor.putString(API_ACCESS_TOKEN, accessToken);
-        editor.putString(API_USERNAME, username);
-        editor.commit();
-    }
+    public void store(InstagramUser user) {
+        Editor editor = mSharedPref.edit();
 
-    public void storeAccessToken(String accessToken) {
-        editor.putString(API_ACCESS_TOKEN, accessToken);
-        editor.commit();
-    }
+        editor.putString(ACCESS_TOKEN, user.accessToken);
+        editor.putString(USERID, user.id);
+        editor.putString(USERNAME, user.username);
+        editor.putString(FULLNAME, user.fullName);
+        editor.putString(PROFILPIC, user.profilPicture);
 
-    /**
-     * Reset access token and user name
-     */
-    public void resetAccessToken() {
-        editor.putString(API_ID, null);
-        editor.putString(API_NAME, null);
-        editor.putString(API_ACCESS_TOKEN, null);
-        editor.putString(API_USERNAME, null);
         editor.commit();
     }
 
     /**
-     * Get user name
-     *
-     * @return User name
+     * Reset user data
      */
-    public String getUsername() {
-        return sharedPref.getString(API_USERNAME, null);
+    public void reset() {
+        Editor editor = mSharedPref.edit();
+
+        editor.putString(ACCESS_TOKEN, "");
+        editor.putString(USERID, "");
+        editor.putString(USERNAME, "");
+        editor.putString(FULLNAME, "");
+        editor.putString(PROFILPIC, "");
+
+        editor.commit();
+
+        CookieSyncManager.createInstance(mContext);
+
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeAllCookie();
     }
+
     /**
+     * Get user data
      *
-     * @return
+     * @return User data
      */
-    public String getId() {
-        return sharedPref.getString(API_ID, null);
-    }
-    /**
-     *
-     * @return
-     */
-    public String getName() {
-        return sharedPref.getString(API_NAME, null);
+    public InstagramUser getUser() {
+        if (mSharedPref.getString(ACCESS_TOKEN, "").equals("")) {
+            return null;
+        }
+
+        InstagramUser user = new InstagramUser();
+
+        user.id = mSharedPref.getString(USERID, "");
+        user.username = mSharedPref.getString(USERNAME, "");
+        user.fullName = mSharedPref.getString(FULLNAME, "");
+        user.profilPicture = mSharedPref.getString(PROFILPIC, "");
+        user.accessToken = mSharedPref.getString(ACCESS_TOKEN, "");
+
+        return user;
     }
 
     /**
@@ -81,6 +88,15 @@ public class InstagramSession {
      * @return Access token
      */
     public String getAccessToken() {
-        return sharedPref.getString(API_ACCESS_TOKEN, null);
+        return mSharedPref.getString(ACCESS_TOKEN, "");
+    }
+
+    /**
+     * Check if ther is an active session.
+     *
+     * @return true if active and vice versa
+     */
+    public boolean isActive() {
+        return (mSharedPref.getString(ACCESS_TOKEN, "").equals("")) ? false : true;
     }
 }
