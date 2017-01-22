@@ -18,6 +18,9 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
+import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.loopj.android.http.AsyncHttpClient;
@@ -44,11 +47,10 @@ public class Preference extends Activity implements View.OnClickListener {
     SwitchCompat switchMale, switchFemale;
     ImageView imageBack;
 
-    RangeSeekBar rangeSeekBar;
-
     String interested_in = "both",age_from = "18",age_to = "99",radius = "3";
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    private CrystalRangeSeekbar rangeSeekbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +67,21 @@ public class Preference extends Activity implements View.OnClickListener {
         tvDone = (TextView) findViewById(R.id.tvDone);
         tvAge = (TextView) findViewById(R.id.tvAge);
         tvDistance = (TextView) findViewById(R.id.tvDistance);
-        rangeSeekBar = (RangeSeekBar) findViewById(R.id.ageRange) ;
 
-        rangeSeekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+        rangeSeekbar = (CrystalRangeSeekbar) findViewById(R.id.rangeSeekbar5);
+        rangeSeekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
             @Override
-            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                tvAge.setText(rangeSeekBar.getSelectedMinValue() + " - " + rangeSeekBar.getSelectedMaxValue());
-                age_from = String.valueOf(rangeSeekBar.getSelectedMinValue());
-                age_to = String.valueOf(rangeSeekBar.getSelectedMaxValue());
+            public void valueChanged(Number minValue, Number maxValue) {
+                tvAge.setText(String.valueOf(minValue) + " - " + String.valueOf(maxValue));
+                age_from = String.valueOf(minValue);
+                age_to = String.valueOf(maxValue);
+            }
+        });
+
+        rangeSeekbar.setOnRangeSeekbarFinalValueListener(new OnRangeSeekbarFinalValueListener() {
+            @Override
+            public void finalValue(Number minValue, Number maxValue) {
+                Log.d("CRS=>", String.valueOf(minValue) + " : " + String.valueOf(maxValue));
             }
         });
 
@@ -127,11 +136,11 @@ public class Preference extends Activity implements View.OnClickListener {
                 tvDistance.setText(user_preference.getString("radius") + " km");
                 radius = user_preference.getString("radius");
 
-                rangeSeekBar.setSelectedMaxValue(Integer.parseInt(user_preference.getString("age_range_to")));
-                rangeSeekBar.setSelectedMinValue(Integer.parseInt(user_preference.getString("age_range_from")));
-                tvAge.setText(rangeSeekBar.getSelectedMinValue() + " - " + rangeSeekBar.getSelectedMaxValue());
+                rangeSeekbar.setMaxValue(Integer.parseInt(user_preference.getString("age_range_to")));
+                rangeSeekbar.setMinValue(Integer.parseInt(user_preference.getString("age_range_from")));
+                /*tvAge.setText(rangeSeekBar.getSelectedMinValue() + " - " + rangeSeekBar.getSelectedMaxValue());
                 age_from = String.valueOf(rangeSeekBar.getSelectedMinValue());
-                age_to = String.valueOf(rangeSeekBar.getSelectedMaxValue());
+                age_to = String.valueOf(rangeSeekBar.getSelectedMaxValue());*/
             }
         } catch (JSONException e) {
             e.printStackTrace();

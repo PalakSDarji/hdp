@@ -103,25 +103,22 @@
 
                     </RelativeLayout>
 
-
-                    <org.florescu.android.rangeseekbar.RangeSeekBar
-                        android:id="@+id/ageRange"
-                        xmlns:rsb="http://schemas.android.com/apk/res-auto"
+                    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                        android:id="@+id/rangeSeekbar5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        rsb:absoluteMaxValue="99"
+                        app:corner_radius="25"
+                        app:min_value="18"
                         android:layout_marginTop="@dimen/value_h42"
-                        rsb:absoluteMinValue="18"
-                        rsb:activeColor="@color/follow_color"
-                        rsb:alwaysActive="true"
-                        rsb:barHeight="@dimen/value_8"
-                        rsb:defaultColor="@color/blue_off"
-                        rsb:showLabels="false"
-                        rsb:thumbDisabled="@drawable/fab"
-                        rsb:thumbNormal="@drawable/fab"
-                        rsb:thumbPressed="@drawable/fab"
-                        rsb:valuesAboveThumbs="false"/>
+                        app:max_value="99"
+                        app:steps="1"
+                        app:bar_color="@color/blue_off"
+                        app:bar_highlight_color="@color/follow_color"
+                        app:left_thumb_image="@drawable/fab"
+                        app:right_thumb_image="@drawable/fab"
+                        app:left_thumb_image_pressed="@drawable/fab"
+                        app:right_thumb_image_pressed="@drawable/fab"
+                        app:data_type="_integer"/>
 
                 </LinearLayout>
 
