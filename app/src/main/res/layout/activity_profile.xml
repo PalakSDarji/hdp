@@ -312,7 +312,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Interior Designer"
+                android:text="NA"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_14"
                 app:customFont="@string/proxima_bold"/>
@@ -339,7 +339,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Sky Height Company "
+                android:text="NA"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
@@ -355,7 +355,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Mumbai"
+                android:text="NA"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
@@ -371,7 +371,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Libra"
+                android:text="NA"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
@@ -404,7 +404,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="English, Punjabi, Hindi"
+                android:text="NA"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>

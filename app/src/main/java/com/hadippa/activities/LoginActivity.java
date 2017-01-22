@@ -105,11 +105,6 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(LoginActivity.this);
         setContentView(R.layout.activity_login);
 
-
-        Log.d("FirebaseInstanceId","FirebaseInstanceId >> "+ FirebaseInstanceId.getInstance().getToken());
-        Log.d("FirebaseInstanceId","FirebaseInstanceId >> "+ FirebaseInstanceId.getInstance().getToken());
-
-
         LoginActivityPermissionsDispatcher.showAllPermissionWithCheck(this);
         sp = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
         editor = sp.edit();
@@ -221,10 +216,50 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // NOTE: delegate the permission handling to generated method
+        LoginActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+
+        checkLocation(LoginActivity.this);
+    }
+
+    class GetCity extends AsyncTask{
+
+        double lat,lng;
+
+        public GetCity(double lat, double lng) {
+            this.lat = lat;
+            this.lng = lng;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            AppConstants.showProgressDialog(LoginActivity.this,"Loading...");
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+
+            AppConstants.dismissDialog();
+            checkLoginStatus();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            getCurrentCity(lat,lng);
+
+            return null;
+        }
+    }
 
     void getCurrentCity(double lat,double lng){
 
-        AppConstants.showProgressDialog(LoginActivity.this,"");
+
         try{
         Geocoder gcd = new Geocoder(LoginActivity.this, Locale.getDefault());
         List<Address> addresses = gcd.getFromLocation(lat, lng, 1);
@@ -241,11 +276,9 @@ public class LoginActivity extends AppCompatActivity {
             // do your staff
         }
     }catch (Exception e){
-        }finally {
-            AppConstants.dismissDialog();
-            checkLoginStatus();
         }
     }
+
     void checkLoginStatus(){
         if(sp.getBoolean("loginStatus",false)){
 
@@ -258,13 +291,15 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showAllPermission() {
         Log.d(TAG, " showAll permission ");
         Hadippa.getApplicationCreds(this);
     }
 
-    @OnShowRationale({Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnShowRationale({Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.READ_PHONE_STATE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showRationaleForAllPermission(final PermissionRequest request) {
         new AlertDialog.Builder(this)
                 .setMessage(R.string.permission_rationale)
@@ -692,7 +727,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("LocationProvider>>??",location.getLatitude()+"  "+location.getLongitude());
                             //doSthImportantWithObtainedLocation(location);
 
-                            getCurrentCity(location.getLatitude(),location.getLongitude());
+                            new GetCity(location.getLatitude(),location.getLongitude()).execute();
                         }
                     });
 

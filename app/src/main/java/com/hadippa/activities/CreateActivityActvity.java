@@ -272,6 +272,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvAvaTill.setText(getResources().getString(R.string.available_till));
             tvAvaTill.setVisibility(View.GONE);
             ivArrow.setVisibility(View.VISIBLE);
+            autoCompletehandle();
             loadSpinner();
 
         } else if (activityKey == AppConstants.ACTIVITY_HOBBY) {
@@ -290,6 +291,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvNotify.setText(getResources().getString(R.string.on_button_new_text));
             ivArrow.setVisibility(View.GONE);
             tvAvaTill.setVisibility(View.GONE);
+            autoCompletehandle();
             loadSpinner();
         } else if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
 
@@ -336,34 +338,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
             //HERE
 
-            etAddress.setVisibility(View.GONE);
-            autocompleteFragment = (PlaceAutocompleteFragment)
-                    getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-
-            ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTextSize(15);
-            ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setPadding(15, 10, 0, 10);
-            ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTypeface(Typeface.createFromAsset(getAssets(), "proxima_regular.OTF"));
-            ((ImageButton) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_clear_button)).setImageDrawable(null);
-            (autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_button)).setVisibility(View.GONE);
-
-            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    // TODO: Get info about the selected place.
-
-
-                    autocompleteFragment.setText(place.getAttributions());
-
-                }
-
-                @Override
-                public void onError(Status status) {
-                    // TODO: Handle the error.
-                    Log.i("Place?>>", "An error occurred: " + status);
-                }
-            });
-
+           autoCompletehandle();
 
             ivArrow.setVisibility(View.GONE);
         } else if (activityKey == AppConstants.ACTIVITY_INDOOR_SPORTS) {
@@ -590,6 +565,38 @@ public class CreateActivityActvity extends AppCompatActivity {
 
     }
 
+    void autoCompletehandle(){
+
+        etAddress.setVisibility(View.GONE);
+        autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTextSize(15);
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setPadding(15, 10, 0, 10);
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input)).setTypeface(Typeface.createFromAsset(getAssets(), "proxima_regular.OTF"));
+        ((ImageButton) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_clear_button)).setImageDrawable(null);
+        (autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_button)).setVisibility(View.GONE);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+
+
+                autocompleteFragment.setText(place.getAttributions());
+
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i("Place?>>", "An error occurred: " + status);
+            }
+        });
+
+
+    }
     private void loadSpinner() {
 
         spnAvail.setVisibility(View.VISIBLE);
