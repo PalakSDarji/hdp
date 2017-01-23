@@ -270,7 +270,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvVisDate.setText(getResources().getString(R.string.visiting_date));
             tvVisTime.setText(getResources().getString(R.string.visiting_time));
             tvAvaTill.setText(getResources().getString(R.string.available_till));
-            tvAvaTill.setVisibility(View.GONE);
+            tvAvaTill.setVisibility(View.INVISIBLE);
             ivArrow.setVisibility(View.VISIBLE);
             autoCompletehandle();
             loadSpinner();
@@ -289,8 +289,8 @@ public class CreateActivityActvity extends AppCompatActivity {
             tvAvaTill.setText(getResources().getString(R.string.cut_off_time_to_join_you));
             //tvNotify.setText(getResources().getString(R.string.on_button_to_get_notify));
             tvNotify.setText(getResources().getString(R.string.on_button_new_text));
-            ivArrow.setVisibility(View.GONE);
-            tvAvaTill.setVisibility(View.GONE);
+            ivArrow.setVisibility(View.VISIBLE);
+            tvAvaTill.setVisibility(View.INVISIBLE);
             autoCompletehandle();
             loadSpinner();
         } else if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {

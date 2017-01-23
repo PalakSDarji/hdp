@@ -328,20 +328,48 @@
                 android:src="@drawable/ic_edit"/>
 
             <com.hadippa.CustomTextView
+                android:id="@+id/tvCompanyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvOccupation"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:layout_marginTop="@dimen/value_h21"
+                android:text="@string/company"
+                android:textColor="@color/c_908e8f"
+                android:textSize="@dimen/values_txt_14"
+                app:customFont="@string/proxima_reg"/>
+
+            <com.hadippa.CustomTextView
                 android:id="@+id/tvCompany"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvOccupation"
+                android:layout_toRightOf="@+id/tvCompanyTitle"
+                android:layout_alignBaseline="@+id/tvCompanyTitle"
                 android:layout_marginLeft="@dimen/value_w24"
                 android:layout_marginRight="@dimen/value_w24"
                 android:layout_marginTop="@dimen/value_h21"
                 android:layout_toLeftOf="@+id/ivEdit"
+                android:layout_centerVertical="true"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="NA"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
+                app:customFont="@string/proxima_reg"/>
+
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvCityTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCompany"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:layout_marginTop="@dimen/value_h21"
+                android:text="@string/lives_in"
+                android:textColor="@color/c_908e8f"
+                android:textSize="@dimen/values_txt_14"
                 app:customFont="@string/proxima_reg"/>
 
             <com.hadippa.CustomTextView
@@ -352,6 +380,8 @@
                 android:layout_marginLeft="@dimen/value_w24"
                 android:layout_marginRight="@dimen/value_w24"
                 android:layout_marginTop="@dimen/value_h21"
+                android:layout_toRightOf="@+id/tvCityTitle"
+                android:layout_alignBaseline="@+id/tvCityTitle"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -359,6 +389,20 @@
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
+
+
+            <com.hadippa.CustomTextView
+                android:id="@+id/tvZodiacTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCity"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:layout_marginTop="@dimen/value_h21"
+                android:text="@string/str_zodiac"
+                android:textColor="@color/c_908e8f"
+                android:textSize="@dimen/values_txt_14"
+                app:customFont="@string/proxima_reg"/>
+
 
             <com.hadippa.CustomTextView
                 android:id="@+id/tvZodiac"
@@ -368,6 +412,8 @@
                 android:layout_marginLeft="@dimen/value_w24"
                 android:layout_marginRight="@dimen/value_w24"
                 android:layout_marginTop="@dimen/value_h21"
+                android:layout_toRightOf="@+id/tvZodiacTitle"
+                android:layout_alignBaseline="@+id/tvZodiacTitle"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -378,21 +424,34 @@
 
 
             <com.hadippa.CustomTextView
+                android:id="@+id/tvLangTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvZodiac"
+                android:layout_marginLeft="@dimen/value_w24"
+                android:layout_marginTop="@dimen/value_h21"
+                android:text="@string/str_language"
+                android:textColor="@color/c_908e8f"
+                android:textSize="@dimen/values_txt_14"
+                app:customFont="@string/proxima_reg"/>
+
+            <com.hadippa.CustomTextView
                 android:id="@+id/tvLang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvZodiac"
                 android:layout_marginLeft="@dimen/value_w24"
+                android:layout_toRightOf="@+id/tvLangTitle"
+                android:layout_alignBaseline="@+id/tvLangTitle"
                 android:layout_marginRight="@dimen/value_w24"
                 android:layout_marginTop="@dimen/value_h21"
                 android:ellipsize="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="Language"
+                android:maxLines="2"
+                android:text="NA"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
                 app:customFont="@string/proxima_reg"/>
-
+<!--
             <com.hadippa.CustomTextView
                 android:id="@+id/tvLangSub"
                 android:layout_width="wrap_content"
@@ -407,13 +466,13 @@
                 android:text="NA"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_13"
-                app:customFont="@string/proxima_reg"/>
+                app:customFont="@string/proxima_reg"/>-->
 
             <View
                 android:id="@+id/vSep2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/tvLangSub"
+                android:layout_below="@+id/tvLang"
                 android:layout_marginTop="10dp"
                 android:background="#efefef"/>
 

@@ -267,4 +267,9 @@
     <string name="less">Less</string>
     <string name="str_dont_believe">I don\'t believe</string>
     <string name="str_dont_know">I don\'t know</string>
+    <string name="company">Company : </string>
+    <string name="str_city">City :</string>
+    <string name="str_zodiac">Zodiac :</string>
+    <string name="lives_in">Lives in :</string>
+    <string name="str_language">Language :</string>
 </resources>

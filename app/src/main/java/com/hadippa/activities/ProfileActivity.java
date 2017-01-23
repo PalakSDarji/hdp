@@ -100,8 +100,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     CustomTextView tvCity;
     @BindView(R.id.tvZodiac)
     CustomTextView tvZodiac;
-    @BindView(R.id.tvLangSub)
-    CustomTextView tvLangSub;
+    @BindView(R.id.tvLang)
+    CustomTextView tvLang;
     @BindView(R.id.tvRecentInstagram)
     CustomTextView tvRecentInstagram;
     @BindView(R.id.tvMutual)
@@ -627,7 +627,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         setTextifNotEmpty(userBean.getOccupation(), tvOccupation);
         setTextifNotEmpty(userBean.getCity(), tvCity);
         setTextifNotEmpty(userBean.getCompany(), tvCompany);
-        setTextifNotEmpty(userBean.getLanuage_known(), tvLangSub);
+        setTextifNotEmpty(userBean.getLanuage_known(), tvLang);
         setTextifNotEmpty(userBean.getZodiac(), tvZodiac);
 
 
