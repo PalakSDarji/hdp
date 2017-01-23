@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
@@ -242,19 +243,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         GridLayoutManager instagramLayoutManagaer = new GridLayoutManager(ProfileActivity.this, 4);
         rvRecentInstagram.setLayoutManager(instagramLayoutManagaer);
 
-        //Sample arraylist..
-        List<Contact> instaContacts = new ArrayList<>();
-        instaContacts.add(new Contact());
-        instaContacts.add(new Contact());
-        instaContacts.add(new Contact());
-        instaContacts.add(new Contact());
-        instaContacts.add(new Contact());
-        instaContacts.add(new Contact());
-        instaContacts.add(new Contact());
-        instaContacts.add(new Contact());
 
 
-        InstagramAdapter instaAdapter = new InstagramAdapter(instaContacts);
 
 
 
@@ -481,7 +471,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
     public class InstagramAdapter extends RecyclerView.Adapter<InstagramAdapter.MyViewHolder> {
 
-        private List<Contact> horizontalList;
+        private List<UserProfile.InstagramImagesBean.DataBean> horizontalList;
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             private ImageView iv_photo;
@@ -494,7 +484,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
         ;
 
-        public InstagramAdapter(List<Contact> contacts) {
+        public InstagramAdapter(List<UserProfile.InstagramImagesBean.DataBean> contacts) {
             this.horizontalList = contacts;
         }
 
@@ -509,6 +499,10 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         @Override
         public void onBindViewHolder(final InstagramAdapter.MyViewHolder holder, final int position) {
 
+
+            Glide.with(ProfileActivity.this)
+                    .load(horizontalList.get(position).getImages().getStandard_resolution().getUrl())
+                     .placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(holder.iv_photo);
 
         }
 
@@ -581,7 +575,23 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
                     if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
                         tvActivityVal.setText("" + userProfile.getActivity_count());
+                        tvApproaching2Val.setText(""+userProfile.getApproached_by_count());
+                        tvApproaching3Val.setText(""+userProfile.getApproaching_count());
+                        if(userProfile.getInstagram_images()!=null){
+                            if(userProfile.getInstagram_images().getData().size()>0){
 
+                                connectInstagram.setVisibility(View.GONE);
+                                rvRecentInstagram.setVisibility(View.VISIBLE);
+                                InstagramAdapter instaAdapter = new InstagramAdapter(userProfile.getInstagram_images().getData());
+                                rvRecentInstagram.setAdapter(instaAdapter);
+                                if(userBean.getGender().equals("male")){
+                                    tvRecentInstagram.setText("His instagram photos");
+                                }else{
+                                    tvRecentInstagram.setText("Her instagram photos");
+                                }
+                                tvRecentInstagram.setVisibility(View.VISIBLE);
+                            }
+                        }
                     } else {
                         activityBeanX = userProfile.getActivity();
                         tvActivityVal.setText("" + activityBeanX.size());
@@ -589,7 +599,26 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                         tvApproaching3Val.setText(""+userProfile.getApproaching_count());
                         tvActivityVal.setText("" + userProfile.getActivity_count());
                         activityData = response;
+
+                        if(userProfile.getInstagram_images()!=null){
+                            if(userProfile.getInstagram_images().getData().size()>0){
+
+                                connectInstagram.setVisibility(View.GONE);
+                                rvRecentInstagram.setVisibility(View.VISIBLE);
+                                InstagramAdapter instaAdapter = new InstagramAdapter(userProfile.getInstagram_images().getData());
+                                rvRecentInstagram.setAdapter(instaAdapter);
+                              //  if(userBean.getGender().equals("male")){
+                                    tvRecentInstagram.setText("Instagram photos");
+                              /*  }else{
+                                    tvRecentInstagram.setText("Her instagram photos");
+                                }*/
+                                tvRecentInstagram.setVisibility(View.VISIBLE);
+                            }
+                        }
                     }
+
+
+
 
                 }
 

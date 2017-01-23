@@ -103,7 +103,6 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         albumStorageDirFactory = new BaseAlbumDirFactory();
         userBean = (UserProfile.UserBean) getIntent().getSerializableExtra("data");
 
-        setData(userBean);
 
 
         imageBack = (ImageView) findViewById(R.id.imageBack);
@@ -142,8 +141,6 @@ public class EditProfilePicsActivity extends AppCompatActivity {
         });
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        customAdapter = new CustomAdapter(this, picUrls);
-        mRecyclerView.setAdapter(customAdapter);
 
         ivPlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +159,9 @@ public class EditProfilePicsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        setData(userBean);
+
     }
 
 
@@ -177,7 +177,12 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
 
         }
-
+        if(customAdapter==null) {
+            customAdapter = new CustomAdapter(this, picUrls);
+            mRecyclerView.setAdapter(customAdapter);
+        }else{
+            customAdapter.notifyDataSetChanged();
+        }
         //picUrls.add("ADD NEW");
 
     }
