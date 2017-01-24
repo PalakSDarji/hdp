@@ -334,7 +334,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     };
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(EventDetailsActivity.this);
-                    builder.setMessage("Do you want to book this event now ?").setPositiveButton("Now", dialogClickListener)
+                        builder.setMessage("Do you want to book this event now ?").setPositiveButton("Now", dialogClickListener)
                             .setNegativeButton("Later", dialogClickListener).show();
 
                 }
@@ -413,7 +413,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 radio3.setSelected(true);
 
                 Intent intent = new Intent(EventDetailsActivity.this, CustomSelectPeople.class);
-                intent.putExtra("selectedId",selectedList);
+                intent.putExtra("selectedId",customList);
                 startActivityForResult(intent,555);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

@@ -497,14 +497,16 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
 
 
 
+
     BroadcastReceiver updateActivity = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            fm = getSupportFragmentManager();
-            fragment = new ShowCardsNew();
-            fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.frame, fragment, "home_fragment");
-            fragmentTransaction.commit();
+
+                fm = getSupportFragmentManager();
+                fragment = new ShowCardsNew();
+                fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.frame, fragment, "home_fragment");
+                fragmentTransaction.commit();
 
 
 

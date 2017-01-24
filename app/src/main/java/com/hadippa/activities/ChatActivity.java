@@ -49,6 +49,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -148,7 +149,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 if (etChat.getText().toString().trim().length() > 0) {
                     //  sendNewMessage();
-                    int tempID = (int) new Date().getTime() / 1000;
+                    int tempID = (int) (System.currentTimeMillis() / 10000);
 
                     if (getIntent().getExtras().getBoolean("newChat")) {
 

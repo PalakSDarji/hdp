@@ -91,6 +91,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -632,9 +633,7 @@ public class ShowCardsNew extends Fragment {
             public void onClick(View v) {
                 dialog1.dismiss();
 
-               /* Intent intent = new Intent(getActivity(), MyPlan.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
+              fetchPosts_following("following");
             }
         });
 
@@ -644,6 +643,7 @@ public class ShowCardsNew extends Fragment {
             public void onClick(View v) {
                 dialog1.dismiss();
 
+                fetchPosts_Today();
                 /*Intent intent = new Intent(getActivity(), MyPlan.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
@@ -655,6 +655,8 @@ public class ShowCardsNew extends Fragment {
             @Override
             public void onClick(View v) {
                 dialog1.dismiss();
+
+                fetchPosts_nearby();
 /*
                 Intent intent = new Intent(getActivity(), MyPlan.class);
                 startActivity(intent);
@@ -1405,5 +1407,275 @@ public class ShowCardsNew extends Fragment {
 
     }
 
+    private void fetchPosts_following(String from) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+
+          //  requestParams.add("city", sp.getString("cityName",""));
+            requestParams.add("access_token", sp.getString("access_token",""));
+            requestParams.add("post_from",from);
+            Log.d("prepareMeraEvents", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.FETCH_POST, requestParams,
+                new FetchPostsFollowing());
+    }
+
+    class FetchPostsFollowing extends AsyncHttpResponseHandler {
+
+        ProgressDialog progressDialog;
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+            //    AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            //  AppConstants.dismissDialog();
+
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+
+            try {
+
+
+                String response = new String(responseBody, "UTF-8");
+                Log.d("restaurantsBeanList", "Size >> " + response);
+                JSONObject obj = new JSONObject(response);
+
+                if(obj.getBoolean("success")) {
+                    editor.putString("posts", obj.getJSONArray("posts").toString());
+                    editor.commit();
+
+                    Intent intent = new Intent("update_activity");
+                    getActivity().sendBroadcast(intent);
+                }
+
+
+
+                progressDialog.dismiss();
+                Log.d("restaurantsBeanList", "Size >> " + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
+
+    private void fetchPosts_nearby() {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+
+            //  requestParams.add("city", sp.getString("cityName",""));
+            requestParams.add("access_token", sp.getString("access_token",""));
+            requestParams.add("latitude",sp.getString("app_lat",""));
+            requestParams.add("latitude",sp.getString("app_long",""));
+            requestParams.add("finding","activity");
+            Log.d("prepareMeraEvents", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.FETCH_POST, requestParams,
+                new FetchPostsNearby());
+    }
+
+    class FetchPostsNearby extends AsyncHttpResponseHandler {
+
+        ProgressDialog progressDialog;
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+            //    AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            //  AppConstants.dismissDialog();
+
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+
+            try {
+
+
+                String response = new String(responseBody, "UTF-8");
+                Log.d("restaurantsBeanList", "Size >> " + response);
+                JSONObject obj = new JSONObject(response);
+
+                if(obj.getBoolean("success")) {
+                    editor.putString("posts", obj.getJSONArray("posts").toString());
+                    editor.commit();
+
+                    Intent intent = new Intent("update_activity");
+                    getActivity().sendBroadcast(intent);
+                }
+
+
+
+                progressDialog.dismiss();
+                Log.d("restaurantsBeanList", "Size >> " + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
+    private void fetchPosts_Today() {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+            Calendar c = Calendar.getInstance();
+            System.out.println("Current time => "+c.getTime());
+
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = df.format(c.getTime());
+            //  requestParams.add("city", sp.getString("cityName",""));
+            requestParams.add("access_token", sp.getString("access_token",""));
+            requestParams.add("date",formattedDate);
+            Log.d("prepareMeraEvents", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.FETCH_POST, requestParams,
+                new FetchPostsToday());
+    }
+
+    class FetchPostsToday extends AsyncHttpResponseHandler {
+
+        ProgressDialog progressDialog;
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+            //    AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            //  AppConstants.dismissDialog();
+
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+
+            try {
+
+
+                String response = new String(responseBody, "UTF-8");
+                Log.d("restaurantsBeanList", "Size >> " + response);
+                JSONObject obj = new JSONObject(response);
+
+                if(obj.getBoolean("success")) {
+                    editor.putString("posts", obj.getJSONArray("posts").toString());
+                    editor.commit();
+
+                    Intent intent = new Intent("update_activity");
+                    getActivity().sendBroadcast(intent);
+                }
+
+
+
+                progressDialog.dismiss();
+                Log.d("restaurantsBeanList", "Size >> " + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("async", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
 
 }

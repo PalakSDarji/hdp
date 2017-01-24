@@ -81,7 +81,7 @@ public class CreateActivityActvity extends AppCompatActivity {
     private int activityKey = 0;
 
 
-    String hide_from = "public", notification = "1";
+    String hide_from = "", notification = "1";
 /*
     @BindView(R.id.toggle2)
     ToggleButton toggle2;*/
@@ -522,7 +522,7 @@ public class CreateActivityActvity extends AppCompatActivity {
 
                 //setRadios(3);
                 Intent intent = new Intent(CreateActivityActvity.this, CustomSelectPeople.class);
-                intent.putExtra("selectedId",selectedList);
+                intent.putExtra("selectedId",customList);
                 startActivityForResult(intent,666);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -801,21 +801,18 @@ public class CreateActivityActvity extends AppCompatActivity {
             //requestParams.add("activity_date", );
             requestParams.add("activity_location", address.getText().toString());
             if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
-
+                requestParams.add("activity_name", tvFrom.getText().toString()+" to "+tvTo.getText().toString());
                 requestParams.add("from", tvFrom.getText().toString());
                 requestParams.add("to", tvTo.getText().toString());
             }
 
-
-
-            requestParams.add("activity_location_lat", restaurantsBean.getRestaurant().getLocation().getLatitude());
-            requestParams.add("activity_location_lon", restaurantsBean.getRestaurant().getLocation().getLongitude());
             if (getIntent().getExtras().getInt("activity_id") == 1 || getIntent().getExtras().getInt("activity_id") == 2) {
                 requestParams.add("cut_off_time", selectedDate + " " + convertTime12TO24(tvAvailableTill.getText().toString().trim()));
             } else if (getIntent().getExtras().getInt("activity_id") == 3 ||
                     getIntent().getExtras().getInt("activity_id") == 4 ||
                     getIntent().getExtras().getInt("activity_id") == 5 ||
                     getIntent().getExtras().getInt("activity_id") == 6 ||
+                    getIntent().getExtras().getInt("activity_id") == 20 ||
                     getIntent().getExtras().getInt("activity_id") == 7) {
                 requestParams.add("available_till", selectedDate + " " + convertTime12TO24(tvAvailableTill.getText().toString().trim()));
             }
@@ -825,8 +822,13 @@ public class CreateActivityActvity extends AppCompatActivity {
                     activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
                 requestParams.add("activity_id", String.valueOf(restaurantsBean.getRestaurant().getId()));
 
+                requestParams.add("activity_location_lat", restaurantsBean.getRestaurant().getLocation().getLatitude());
+                requestParams.add("activity_location_lon", restaurantsBean.getRestaurant().getLocation().getLongitude());
+
             } else {
                 requestParams.add("activity_id", "0");
+                requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
+                requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
             }
             requestParams.add("notification", notification);
             if(customList.size()>0){

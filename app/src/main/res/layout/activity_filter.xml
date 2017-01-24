@@ -96,9 +96,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/tab_search_padding_vertical"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:weightSum="100">
 
                     <com.hadippa.CustomTextView
+                        android:visibility="gone"
                         android:id="@+id/tvMovie"
                         style="@style/activity_name"
                         android:layout_width="0dp"

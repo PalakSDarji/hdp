@@ -113,7 +113,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 latitude = String.valueOf(location.getLatitude());
                 longitude = String.valueOf(location.getLongitude());
 
-                prepareThings(pageNumber);
+                prepareThings(pageNumber,true);
                 Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
 
@@ -141,7 +141,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 if (lastKnownLocation != null) {
                     latitude = String.valueOf(lastKnownLocation.getLatitude());
                     longitude = String.valueOf(lastKnownLocation.getLongitude());
-                    prepareThings(pageNumber);
+                    prepareThings(pageNumber,true);
 
                     Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
@@ -167,7 +167,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             latitude = String.valueOf(gps.getLatitude());
             longitude = String.valueOf(gps.getLongitude());
 
-            prepareThings(pageNumber);
+            prepareThings(pageNumber,true);
 
         } else {
 
@@ -212,7 +212,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                             loading = false;
                             Log.v("...", "Last Item Wow !");
 
-                            prepareThings(pageNumber);
+                            prepareThings(pageNumber,isCurrent);
                             //Do pagination.. i.e. fetch new data
                         }
                     }
@@ -240,7 +240,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             }
         });
 
-        findViewById(R.id.tvHeader2).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.relH2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCityDialog();
@@ -252,6 +252,15 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             public void onClick(View v) {
                 finish();
                 overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+            }
+        });
+
+        findViewById(R.id.tvNext).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                prepareThings(0,true);
+
             }
         });
 
@@ -372,8 +381,10 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             return registeredFragments.get(position);
         }
     }
+    boolean isCurrent = true;
 
-   public void prepareThings(int pageNumber) {
+   public void prepareThings(int pageNumber,boolean isCurrent) {
+       this.isCurrent = isCurrent;
 
        this.pageNumber = pageNumber;
         JSONObject user_preference = null;
@@ -504,8 +515,9 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             requestParams.add("radius", radius);
             requestParams.add("start", start);
             requestParams.add("access_token", sp.getString("access_token",""));
-            requestParams.add("city_name",((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
-
+            if(!isCurrent) {
+                requestParams.add("city_name", ((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
+            }
             Log.d("prepareMeraEvents", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -936,9 +948,9 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                             @Override
                             public void onClick(View v) {
 
-                                ((TextView) findViewById(R.id.tvHeader2)).setText(cityViewHolder.getCity().getText().toString().trim());
+                                ((CustomTextView) findViewById(R.id.tvHeader2)).setText(cityViewHolder.getCity().getText().toString().trim());
 
-                                prepareThings(0);
+                                prepareThings(0,false);
                                 dialog.dismiss();
                             }
                         });

@@ -125,7 +125,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 if (lastKnownLocation != null) {
                     latitude = String.valueOf(lastKnownLocation.getLatitude());
                     longitude = String.valueOf(lastKnownLocation.getLongitude());
-                    prepareThings(pageNumber);
+                    prepareThings(pageNumber,true);
 
                     Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
@@ -151,7 +151,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             latitude = String.valueOf(gps.getLatitude());
             longitude = String.valueOf(gps.getLongitude());
 
-            prepareThings(pageNumber);
+            prepareThings(pageNumber,true);
 
         } else {
 
@@ -205,7 +205,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                             loading = false;
                             Log.v("...", "Last Item Wow !");
 
-                            prepareThings(pageNumber);
+                            prepareThings(pageNumber,isCurrent);
                             //Do pagination.. i.e. fetch new data
                         }
                     }
@@ -235,15 +235,13 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(CoffeeActivity.this, CreateActivityActvity.class);
-                intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_FROM_COFFEE);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                prepareThings(0,true);
+
             }
         });
 
 
-        findViewById(R.id.tvHeader2).setOnClickListener(new View.OnClickListener() {
+        ((RelativeLayout)findViewById(R.id.relH2)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCityDialog();
@@ -441,7 +439,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
                                 ((TextView) findViewById(R.id.tvHeader2)).setText(cityViewHolder.getCity().getText().toString().trim());
 
-                                prepareThings(0);
+                                prepareThings(0,false);
                                 dialog.dismiss();
                             }
                         });
@@ -545,9 +543,10 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         }
     }
 
+boolean isCurrent = true;
+    void prepareThings(int pageNumber,boolean isCurrent) {
 
-    void prepareThings(int pageNumber) {
-
+        this.isCurrent = isCurrent;
         this.pageNumber = pageNumber;
         JSONObject user_preference = null;
         int dist = 0;
@@ -807,8 +806,9 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             requestParams.add("lon", lon);
             requestParams.add("radius", radius);
             requestParams.add("start", start);
-            requestParams.add("city_name",((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
-
+            if(!isCurrent) {
+                requestParams.add("city_name", ((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
+            }
             Log.d("prepareZomato>>", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();

@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -67,7 +69,7 @@ public class HistoryPlan extends AppCompatActivity {
             public void onClick(View v) {
 
                 finish();
-                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+                overridePendingTransition(R.anim.from_middle, R.anim.to_middle);
             }
         });
 
@@ -77,7 +79,8 @@ public class HistoryPlan extends AppCompatActivity {
             public void onClick(View v) {
 
                 finish();
-                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+                overridePendingTransition(R.anim.from_middle, R.anim.to_middle);
+
             }
         });
 
@@ -155,6 +158,11 @@ public class HistoryPlan extends AppCompatActivity {
                 viewHolder.llGoing.setOnClickListener(null);
             }
 
+            if(myPlansBean.getNotification()==1){
+                viewHolder.switchCompat.setChecked(true);
+            }else{
+                viewHolder.switchCompat.setChecked(false);
+            }
 
 
 
@@ -237,6 +245,8 @@ public class HistoryPlan extends AppCompatActivity {
         private final LinearLayout llGoing;
         CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount,tvApprovedPeople,goingWith;
         RoundedImageView profileImage;
+        SwitchCompat switchCompat;
+
 
         public ViewHolder(final View v) {
             super(v);
@@ -257,6 +267,7 @@ public class HistoryPlan extends AppCompatActivity {
             });
 
             llGoing = (LinearLayout) v.findViewById(R.id.llGoing);
+            switchCompat = (SwitchCompat)v.findViewById(R.id.switchCompat);
 
             vSep = (View) v.findViewById(R.id.vSep);
             recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
@@ -479,7 +490,8 @@ public class HistoryPlan extends AppCompatActivity {
 
         setResult(RESULT_CANCELED);
         finish();
-        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+        overridePendingTransition(R.anim.from_middle, R.anim.to_middle);
+
     }
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {

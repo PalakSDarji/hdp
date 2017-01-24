@@ -81,8 +81,7 @@ public class PeopleJoinActivity extends AppCompatActivity {
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+               onBackPressed();
             }
         });
         Type listType = new TypeToken<ArrayList<DataModel>>() {
@@ -207,6 +206,15 @@ public class PeopleJoinActivity extends AppCompatActivity {
                 flingContainer.getTopCardListener().selectRight();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(PeopleJoinActivity.this, HomeScreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
     private void showBottomPeopleGoing(DataModel dataModel){

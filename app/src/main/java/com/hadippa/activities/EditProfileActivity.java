@@ -156,6 +156,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 List<String> zodiacListStr = new ArrayList<String>();
               //  zodiacListStr.add(getString(R.string.str_dont_believe));
+                zodiacListStr.add(getString(R.string.str_dont_believe));
                 zodiacListStr.add(getString(R.string.str_dont_know));
                 for(Zodiac zodiac : zodiacList){
                     zodiacListStr.add(zodiac.getZodiacName());

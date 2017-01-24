@@ -727,6 +727,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("LocationProvider>>??",location.getLatitude()+"  "+location.getLongitude());
                             //doSthImportantWithObtainedLocation(location);
 
+                            editor.putString("app_lat", String.valueOf(location.getLatitude()));
+                            editor.putString("app_long", String.valueOf(location.getLongitude()));
                             new GetCity(location.getLatitude(),location.getLongitude()).execute();
                         }
                     });

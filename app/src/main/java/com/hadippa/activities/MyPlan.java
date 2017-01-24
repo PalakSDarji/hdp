@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -66,7 +68,8 @@ public class MyPlan extends AppCompatActivity {
 
                 Intent  intent = new Intent(MyPlan.this,HistoryPlan.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.from_middle, R.anim.to_middle);
+
             }
         });
         imageBack = (ImageView) findViewById(R.id.imageBack);
@@ -162,6 +165,11 @@ public class MyPlan extends AppCompatActivity {
                 viewHolder.llGoing.setOnClickListener(null);
             }
 
+            if(myPlansBean.getNotification()==1){
+                viewHolder.switchCompat.setChecked(true);
+            }else{
+                viewHolder.switchCompat.setChecked(false);
+            }
 
             if (myPlansBean.isOpened()) {
                 Log.v(TAG, "myPlansBean.isOpened(): 1" + myPlansBean.isOpened());
@@ -271,7 +279,7 @@ public class MyPlan extends AppCompatActivity {
         CustomTextView tvPersonName, activityname, tvAddress, tvActivityDate, tvActivityTime, tvGoing, tvCount, tvApprovedPeople, goingWith;
         RoundedImageView profileImage;
         ImageView ivMore, ivChat;
-
+        SwitchCompat switchCompat;
         public ViewHolder(final View v) {
             super(v);
 
@@ -307,7 +315,7 @@ public class MyPlan extends AppCompatActivity {
             tvCount = (CustomTextView) v.findViewById(R.id.tvCount);
             goingWith = (CustomTextView) v.findViewById(R.id.goingWith);
             profileImage = (RoundedImageView) v.findViewById(R.id.profileImage);
-
+            switchCompat = (SwitchCompat)v.findViewById(R.id.switchCompat);
             final LinearLayoutManager mLayoutManager = new LinearLayoutManager(MyPlan.this);
             mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             recyclerView.setLayoutManager(mLayoutManager);

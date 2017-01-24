@@ -32,7 +32,7 @@ import cz.msebera.android.httpclient.Header;
 public class ListHadipaaDetailActivity extends AppCompatActivity {
 
     private ImageView imageBack;
-    CustomEditText edtCompanyWeb,edtCompany,edtNumber,edtEmail,edtName;
+    CustomEditText edtCompanyWeb, edtCompany, edtNumber, edtEmail, edtName;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -44,14 +44,14 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(ListHadipaaDetailActivity.this);
         editor = sp.edit();
 
-        edtName = (CustomEditText)findViewById(R.id.edtName);
-        edtEmail = (CustomEditText)findViewById(R.id.edtEmail);
-        edtNumber = (CustomEditText)findViewById(R.id.edtNumber);
-        edtCompany = (CustomEditText)findViewById(R.id.edtCompany);
-        edtCompanyWeb = (CustomEditText)findViewById(R.id.edtCompanyWeb);
+        edtName = (CustomEditText) findViewById(R.id.edtName);
+        edtEmail = (CustomEditText) findViewById(R.id.edtEmail);
+        edtNumber = (CustomEditText) findViewById(R.id.edtNumber);
+        edtCompany = (CustomEditText) findViewById(R.id.edtCompany);
+        edtCompanyWeb = (CustomEditText) findViewById(R.id.edtCompanyWeb);
 
-        ((CustomTextView)findViewById(R.id.title)).setText(getIntent().getExtras().getString("category"));
-        imageBack = (ImageView)findViewById(R.id.imageBack);
+        ((CustomTextView) findViewById(R.id.title)).setText(getIntent().getExtras().getString("category"));
+        imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,31 +65,31 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(edtName.getText().toString().trim().equals("")){
-                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_list_hadipaa_detail)),"Name is mandatory",Snackbar.LENGTH_LONG).show();
+                if (edtName.getText().toString().trim().equals("")) {
+                    Snackbar.make(((RelativeLayout) findViewById(R.id.activity_list_hadipaa_detail)), "Name is mandatory", Snackbar.LENGTH_LONG).show();
                     return;
 
                 }
 
-                if(edtEmail.getText().toString().trim().equals("")){
-                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_list_hadipaa_detail)),"Email is mandatory",Snackbar.LENGTH_LONG).show();
+                if (edtEmail.getText().toString().trim().equals("")) {
+                    Snackbar.make(((RelativeLayout) findViewById(R.id.activity_list_hadipaa_detail)), "Email is mandatory", Snackbar.LENGTH_LONG).show();
                     return;
 
                 }
 
-                if(edtNumber.getText().toString().trim().equals("")){
-                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_list_hadipaa_detail)),"Mobile number is mandatory",Snackbar.LENGTH_LONG).show();
+                if (edtNumber.getText().toString().trim().equals("")) {
+                    Snackbar.make(((RelativeLayout) findViewById(R.id.activity_list_hadipaa_detail)), "Mobile number is mandatory", Snackbar.LENGTH_LONG).show();
                     return;
 
                 }
 
-                if(edtNumber.getText().toString().trim().length() != 10){
-                    Snackbar.make(((RelativeLayout)findViewById(R.id.activity_list_hadipaa_detail)),"Mobile number must be 10 digits.",Snackbar.LENGTH_LONG).show();
+                if (edtNumber.getText().toString().trim().length() != 10) {
+                    Snackbar.make(((RelativeLayout) findViewById(R.id.activity_list_hadipaa_detail)), "Mobile number must be 10 digits.", Snackbar.LENGTH_LONG).show();
                     return;
 
                 }
 
-               listWithHadipaa();
+                listWithHadipaa();
             }
         });
     }
@@ -114,10 +114,10 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
             requestParams.add("access_token", sp.getString("access_token", ""));
             requestParams.add("name", edtName.getText().toString().trim());
             requestParams.add("email", edtEmail.getText().toString().trim());
-            requestParams.add("company_name",edtCompany.getText().toString().trim());
+            requestParams.add("company_name", edtCompany.getText().toString().trim());
             requestParams.add("company_website", edtCompanyWeb.getText().toString().trim());
             requestParams.add("mobile", edtNumber.getText().toString().trim());
-            requestParams.add("activity_category",getIntent().getExtras().getString("category"));
+            requestParams.add("activity_category", getIntent().getExtras().getString("category"));
 
             Log.d("myplan>> req", requestParams.toString());
         } catch (Exception e) {
@@ -158,11 +158,14 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
                 String response = new String(responseBody, "UTF-8");
                 Log.d("<<async>>", response);
                 JSONObject jsonObject = new JSONObject(response);
-                if(jsonObject.getBoolean("success")){
-                    Toast.makeText(ListHadipaaDetailActivity.this,"Thank you for listing with Hadipaa :)",Toast.LENGTH_LONG).show();
+                if (jsonObject.getBoolean("success")) {
+                    Toast.makeText(ListHadipaaDetailActivity.this, "Thank you for listing with Hadipaa :)", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(ListHadipaaDetailActivity.this, HomeScreen.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     finish();
-                }else{
-                    Toast.makeText(ListHadipaaDetailActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ListHadipaaDetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
 
                 Log.d("<<async", "success" + response);
@@ -185,7 +188,7 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(),intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(getCurrentFocus().getRootView(), intent.getExtras().getString("messageData"));
         }
     };
 

@@ -227,7 +227,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         });
 
 
-        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(ProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(ProfileActivity.this,
+                LinearLayoutManager.HORIZONTAL, false);
         rvMutualFriend.setLayoutManager(horizontalLayoutManagaer);
 
         //Sample arraylist..
@@ -239,14 +240,10 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         MutualFriendAdapter adapter = new MutualFriendAdapter(contacts);
         //  rvMutualFriend.setAdapter(adapter);
 
-
         GridLayoutManager instagramLayoutManagaer = new GridLayoutManager(ProfileActivity.this, 4);
         rvRecentInstagram.setLayoutManager(instagramLayoutManagaer);
 
-
-
-
-
+        dddd();
 
     }
 
@@ -685,9 +682,9 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 }
             }
 
-            if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+          //  if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
                 slider.stopAutoCycle();
-            }
+          //  }
         }
 
 
@@ -697,7 +694,6 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     protected void onResume() {
         super.onResume();
 
-        dddd();
     }
 
     @Override
