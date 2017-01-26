@@ -277,7 +277,7 @@
                         android:minWidth="70dp"
                         android:paddingLeft="@dimen/value_10"
                         android:paddingRight="@dimen/value_10"
-                        android:visibility="gone">
+                       >
 
                         <com.hadippa.CustomTextView
                             android:id="@+id/tvPrice"
@@ -347,13 +347,15 @@
                         android:id="@+id/tvTotalPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="INR 0"
                         android:textColor="@color/c_fd636b"
                         android:textSize="@dimen/values_txt_14"
-                        app:customFont="@string/proxima_bold"/>
+                        app:customFont="@string/proxima_bold"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
 
                 </RelativeLayout>
 

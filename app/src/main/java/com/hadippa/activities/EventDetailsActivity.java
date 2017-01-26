@@ -55,8 +55,10 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -322,7 +324,18 @@ public class EventDetailsActivity extends AppCompatActivity {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
 
-                                    post();
+                                    dataBean.getId();
+                                    dataBean.getTickets().getTicketList().get(0).getId();
+
+                                    Map<Integer,Integer> map = new HashMap<Integer, Integer>();;
+                                    map.put(dataBean.getTickets().getTicketList().get(0).getId(),2);
+                                    String s = "https://stage.meraevents.com/web/api/v1/booking?eventId="+dataBean.getId()+"&ticketArray="+map.toString();
+
+                                    Log.d("s>>",s);
+                                    Intent intent = new Intent(EventDetailsActivity.this,WebViewActivity.class);
+                                    intent.putExtra("url",s);
+                                    startActivity(intent);
+
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:

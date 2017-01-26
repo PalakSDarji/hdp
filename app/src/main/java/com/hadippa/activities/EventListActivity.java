@@ -515,9 +515,10 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             requestParams.add("radius", radius);
             requestParams.add("start", start);
             requestParams.add("access_token", sp.getString("access_token",""));
-            if(!isCurrent) {
-                requestParams.add("city_name", ((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
-            }
+           // if(!isCurrent) {
+              // requestParams.add("city_name", ((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
+            requestParams.add("city_name", "Mumbai");
+          //  }
             Log.d("prepareMeraEvents", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
