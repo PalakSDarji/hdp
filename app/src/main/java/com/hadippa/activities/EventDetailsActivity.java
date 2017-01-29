@@ -9,9 +9,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.provider.Browser;
 import android.support.annotation.RequiresApi;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
@@ -324,17 +327,8 @@ public class EventDetailsActivity extends AppCompatActivity {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
 
-                                    dataBean.getId();
-                                    dataBean.getTickets().getTicketList().get(0).getId();
 
-                                    Map<Integer,Integer> map = new HashMap<Integer, Integer>();;
-                                    map.put(dataBean.getTickets().getTicketList().get(0).getId(),2);
-                                    String s = "https://stage.meraevents.com/web/api/v1/booking?eventId="+dataBean.getId()+"&ticketArray="+map.toString();
-
-                                    Log.d("s>>",s);
-                                    Intent intent = new Intent(EventDetailsActivity.this,WebViewActivity.class);
-                                    intent.putExtra("url",s);
-                                    startActivity(intent);
+                                    getAuthCodeMeraEvents();
 
                                     break;
 
@@ -850,4 +844,166 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     }
 
-  }
+
+
+    private void getAuthCodeMeraEvents() {
+
+
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        asyncHttpClient.get("https://www.meraevents.com/web/api/v1/authorize/authorizationCode?clientId=701828916",
+                new GetAuthCodeMeraEvents());
+    }
+
+    class GetAuthCodeMeraEvents extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            AppConstants.showProgressDialog(EventDetailsActivity.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+
+                jsonObject.getJSONObject("response").getString("authorizationCode");
+
+                getAccessToken(jsonObject.getJSONObject("response").getString("authorizationCode"));
+                AppConstants.dismissDialog();
+
+                Log.d("date>>", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("date>>", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+            Log.d("date>>", "success exc  >>" + error.toString());
+        }
+
+    }
+
+    private void getAccessToken(String authorizationCode) {
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(EventDetailsActivity.this);
+
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+            requestParams.add("clientId", "701828916");
+            requestParams.add("clientSecret", "SxEbDmrGux8KdjrEY86f");
+            requestParams.add("authorizationCode", authorizationCode);
+
+
+            Log.d("date>>", requestParams.toString());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post("https://www.meraevents.com/web/api/v1/authorize/getAccessToken",requestParams,
+                new GetAccessToken());
+    }
+
+    class GetAccessToken extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            AppConstants.showProgressDialog(EventDetailsActivity.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+           /* Log.d("updateDonut", String.format("Progress %d from %d (%2.0f%%)",
+                    bytesWritten, totalSize, (totalSize > 0) ? (bytesWritten * 1.0 / totalSize) * 100 : -1));
+*/
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                Intent intent = new Intent(EventDetailsActivity.this,WebViewActivity.class);
+
+               // dataBean.getId();
+               // dataBean.getTickets().getTicketList().get(0).getId();
+
+                Map<Integer,Integer> map = new HashMap<Integer, Integer>();;
+                map.put(dataBean.getTickets().getTicketList().get(0).getId(),2);
+               String s = "https://www.meraevents.com/web/api/v1/booking";
+
+                Log.d("s>>",s);
+                intent.putExtra("code",jsonObject.getJSONObject("response").getString("accessToken"));
+                intent.putExtra("url",s);
+                intent.putExtra("data","eventId="+dataBean.getId()+"&ticketArray="+map.toString());
+                startActivity(intent);
+
+                /*String url = "https://www.meraevents.com/web/api/v1/booking?eventId=\"+dataBean.getId()+\"&ticketArray=\"+map.toString()";
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+// set toolbar color and/or setting custom actions before invoking build()
+// Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
+                CustomTabsIntent customTabsIntent = builder.build();
+// and launch the desired Url with CustomTabsIntent.launchUrl()
+                Bundle header = new Bundle();
+                header.putString("Authorization", "Bearer "+jsonObject.getJSONObject("response").getString("accessToken"));
+                customTabsIntent.intent.putExtra(Browser.EXTRA_HEADERS, header);
+
+                customTabsIntent.launchUrl(EventDetailsActivity.this, Uri.parse(url));*/
+                AppConstants.dismissDialog();
+
+                Log.d("date>>", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("date>>", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
+
+}

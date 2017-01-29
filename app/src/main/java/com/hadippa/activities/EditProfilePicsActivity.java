@@ -171,9 +171,8 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
         for (int i = 0; i < userBean.getProfile_photos().size(); i++) {
 
-            if(!userBean.getProfile_photos().get(i).equals("")){
-                picUrls.add(userBean.getProfile_photos().get(i));
-            }
+                picUrls.add(userBean.getProfile_photos().get(i).getImage());
+
 
 
         }
@@ -704,25 +703,21 @@ public class EditProfilePicsActivity extends AppCompatActivity {
                         userBean.setMobile(jsonObject.getLong("mobile"));
                         userBean.setZodiac(jsonObject.getString("zodiac"));
                         userBean.setProfile_photo(jsonObject.getString("profile_photo"));
-                        userBean.setProfile_photo_1(jsonObject.getString("profile_photo_1"));
-                        userBean.setProfile_photo_2(jsonObject.getString("profile_photo_2"));
-                        userBean.setProfile_photo_3(jsonObject.getString("profile_photo_3"));
-                        userBean.setProfile_photo_4(jsonObject.getString("profile_photo_4"));
-                        userBean.setProfile_photo_5(jsonObject.getString("profile_photo_5"));
                         userBean.setPrivate_account(jsonObject.getInt("private_account"));
                         userBean.setDob(jsonObject.getString("dob"));
-                        userBean.setAge(jsonObject.getInt("age"));
-
-                        List<String> pp = new ArrayList<>();
-
-                        if (jsonObject.has("profile_photos")) {
-                            for (int i = 0; i < jsonObject.getJSONArray("profile_photos").length(); i++) {
-
-                                pp.add(jsonObject.getJSONArray("profile_photos").getString(i));
-
-                            }
+                        if(jsonObject.has("age")) {
+                            userBean.setAge(jsonObject.getInt("age"));
                         }
-                        userBean.setProfile_photos(pp);
+                        List<UserProfile.UserBean.ProfilePhotosBean> profilePhotosBeen = new ArrayList<>();
+                        for(int i =0 ;i < jsonObject.getJSONArray("profile_photos").length();i++){
+                            JSONObject jsonObject1 = jsonObject.getJSONArray("profile_photos").getJSONObject(i);
+                            UserProfile.UserBean.ProfilePhotosBean photosBean = new UserProfile.UserBean.ProfilePhotosBean();
+                            photosBean.setIdX(jsonObject1.getInt("id"));
+                            photosBean.setImage(jsonObject1.getString("image"));
+                            photosBean.setUser_id(jsonObject1.getInt("user_id"));
+                            profilePhotosBeen.add(photosBean);
+                        }
+                        userBean.setProfile_photos(profilePhotosBeen);
                         setData(userBean);
 
                         customAdapter.notifyDataSetChanged();
@@ -846,16 +841,16 @@ public class EditProfilePicsActivity extends AppCompatActivity {
                             userBean.setDob(jsonObject.getString("dob"));
                             userBean.setAge(jsonObject.getInt("age"));
 
-                            List<String> pp = new ArrayList<>();
-
-                            if (jsonObject.has("profile_photos")) {
-                                for (int i = 0; i < jsonObject.getJSONArray("profile_photos").length(); i++) {
-
-                                    pp.add(jsonObject.getJSONArray("profile_photos").getString(i));
-
-                                }
+                            List<UserProfile.UserBean.ProfilePhotosBean> profilePhotosBeen = new ArrayList<>();
+                            for(int i =0 ;i < jsonObject.getJSONArray("profile_photos").length();i++){
+                                JSONObject jsonObject1 = jsonObject.getJSONArray("profile_photos").getJSONObject(i);
+                                UserProfile.UserBean.ProfilePhotosBean photosBean = new UserProfile.UserBean.ProfilePhotosBean();
+                                photosBean.setIdX(jsonObject1.getInt("id"));
+                                photosBean.setImage(jsonObject1.getString("image"));
+                                photosBean.setUser_id(jsonObject1.getInt("user_id"));
+                                profilePhotosBeen.add(photosBean);
                             }
-                            userBean.setProfile_photos(pp);
+                            userBean.setProfile_photos(profilePhotosBeen);
                             setData(userBean);
 
                             customAdapter.notifyDataSetChanged();

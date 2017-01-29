@@ -112,8 +112,10 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     @BindView(R.id.vSep3)
     View vSep3;
 
-    @BindView(R.id.rlAppr3) RelativeLayout llAppr3;
-    @BindView(R.id.tvApproaching3Val) CustomTextView tvApproaching3Val;
+    @BindView(R.id.rlAppr3)
+    RelativeLayout llAppr3;
+    @BindView(R.id.tvApproaching3Val)
+    CustomTextView tvApproaching3Val;
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -152,7 +154,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             @Override
             public void onClick(View view) {
 
-              insta = new Insta(ProfileActivity.this);
+                insta = new Insta(ProfileActivity.this);
                 insta.login();
             }
         });
@@ -328,6 +330,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 if (!jsonObject.getBoolean("success")) {
 
                     user_relationship_status = jsonObject.getString("status");
+                    userBean.setUser_relationship_status(user_relationship_status);
                     setFollowUnfollow(user_relationship_status);
 
 
@@ -379,26 +382,22 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 userBean.setMobile(jsonObject.getLong("mobile"));
                 userBean.setZodiac(jsonObject.getString("zodiac"));
                 userBean.setProfile_photo(jsonObject.getString("profile_photo"));
-                userBean.setProfile_photo_1(jsonObject.getString("profile_photo_1"));
-                userBean.setProfile_photo_2(jsonObject.getString("profile_photo_2"));
-                userBean.setProfile_photo_3(jsonObject.getString("profile_photo_3"));
-                userBean.setProfile_photo_4(jsonObject.getString("profile_photo_4"));
-                userBean.setProfile_photo_5(jsonObject.getString("profile_photo_5"));
                 userBean.setPrivate_account(jsonObject.getInt("private_account"));
                 userBean.setDob(jsonObject.getString("dob"));
-                userBean.setAge(jsonObject.getInt("age"));
-
-                List<String> pp = new ArrayList<>();
-
-                if (jsonObject.has("profile_photos")) {
-                    for (int i = 0; i < jsonObject.getJSONArray("profile_photos").length(); i++) {
-
-                        if (!jsonObject.getJSONArray("profile_photos").getString(i).equals("")) {
-                            pp.add(jsonObject.getJSONArray("profile_photos").getString(i));
-                        }
-                    }
+                if(jsonObject.has("age")) {
+                    userBean.setAge(jsonObject.getInt("age"));
                 }
-                userBean.setProfile_photos(pp);
+                List<UserProfile.UserBean.ProfilePhotosBean> profilePhotosBeen = new ArrayList<>();
+                for(int i =0 ;i < jsonObject.getJSONArray("profile_photos").length();i++){
+                    JSONObject jsonObject1 = jsonObject.getJSONArray("profile_photos").getJSONObject(i);
+                    UserProfile.UserBean.ProfilePhotosBean photosBean = new UserProfile.UserBean.ProfilePhotosBean();
+                    photosBean.setIdX(jsonObject1.getInt("id"));
+                    photosBean.setImage(jsonObject1.getString("image"));
+                    photosBean.setUser_id(jsonObject1.getInt("user_id"));
+                    profilePhotosBeen.add(photosBean);
+                }
+              userBean.setProfile_photos(profilePhotosBeen);
+
                 setData(userBean);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -499,7 +498,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
             Glide.with(ProfileActivity.this)
                     .load(horizontalList.get(position).getImages().getStandard_resolution().getUrl())
-                     .placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(holder.iv_photo);
+                    .placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(holder.iv_photo);
 
         }
 
@@ -572,49 +571,53 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
                     if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
                         tvActivityVal.setText("" + userProfile.getActivity_count());
-                        tvApproaching2Val.setText(""+userProfile.getApproached_by_count());
-                        tvApproaching3Val.setText(""+userProfile.getApproaching_count());
-                        if(userProfile.getInstagram_images()!=null){
-                            if(userProfile.getInstagram_images().getData().size()>0){
+                        tvApproaching2Val.setText("" + userProfile.getApproached_by_count());
+                        tvApproaching3Val.setText("" + userProfile.getApproaching_count());
+                        if (userProfile.getInstagram_images() != null) {
+                            if(new Gson().toJson(userProfile.getInstagram_images()).equals("")){
+                            if (userProfile.getInstagram_images().getData().size() > 0) {
 
                                 connectInstagram.setVisibility(View.GONE);
                                 rvRecentInstagram.setVisibility(View.VISIBLE);
                                 InstagramAdapter instaAdapter = new InstagramAdapter(userProfile.getInstagram_images().getData());
                                 rvRecentInstagram.setAdapter(instaAdapter);
-                                if(userBean.getGender().equals("male")){
+                                if (userBean.getGender().equals("male")) {
                                     tvRecentInstagram.setText("His instagram photos");
-                                }else{
+                                } else {
                                     tvRecentInstagram.setText("Her instagram photos");
                                 }
                                 tvRecentInstagram.setVisibility(View.VISIBLE);
                             }
-                        }
+                        }}
                     } else {
                         activityBeanX = userProfile.getActivity();
                         tvActivityVal.setText("" + activityBeanX.size());
-                        tvApproaching2Val.setText(""+userProfile.getApproached_by_count());
-                        tvApproaching3Val.setText(""+userProfile.getApproaching_count());
+                        tvApproaching2Val.setText("" + userProfile.getApproached_by_count());
+                        tvApproaching3Val.setText("" + userProfile.getApproaching_count());
                         tvActivityVal.setText("" + userProfile.getActivity_count());
                         activityData = response;
 
-                        if(userProfile.getInstagram_images()!=null){
-                            if(userProfile.getInstagram_images().getData().size()>0){
+
+                        if (userProfile.getInstagram_images() != null) {
+                            if (userProfile.getInstagram_images().getData().size() > 0) {
 
                                 connectInstagram.setVisibility(View.GONE);
                                 rvRecentInstagram.setVisibility(View.VISIBLE);
                                 InstagramAdapter instaAdapter = new InstagramAdapter(userProfile.getInstagram_images().getData());
                                 rvRecentInstagram.setAdapter(instaAdapter);
-                              //  if(userBean.getGender().equals("male")){
-                                    tvRecentInstagram.setText("Instagram photos");
+                                //  if(userBean.getGender().equals("male")){
+                                tvRecentInstagram.setText("Instagram photos");
                               /*  }else{
                                     tvRecentInstagram.setText("Her instagram photos");
                                 }*/
                                 tvRecentInstagram.setVisibility(View.VISIBLE);
+                            }else {
+                                tvRecentInstagram.setVisibility(View.GONE);
                             }
+                        }else {
+                            tvRecentInstagram.setVisibility(View.GONE);
                         }
                     }
-
-
 
 
                 }
@@ -657,10 +660,26 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         setTextifNotEmpty(userBean.getZodiac(), tvZodiac);
 
 
-
         slider.removeAllSliders();
         url_maps.clear();
         if (userBean.getProfile_photos() != null) {
+
+            if(userBean.getProfile_photos().size()==0){
+                TextSliderView textSliderView = new TextSliderView(this);
+                // initialize a SliderLayout
+                textSliderView
+                        .description("")
+                        .image(R.drawable.ic_user_avatar_default)
+                        .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                        .setOnSliderClickListener(ProfileActivity.this);
+
+                //add your extra information
+           /* textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
+                    .putString("extra", name);
+*/
+                slider.addSlider(textSliderView);
+            }else{
             for (int i = 0; i < userBean.getProfile_photos().size(); i++) {
 
                 if (!userBean.getProfile_photos().get(i).equals("")) {
@@ -669,7 +688,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                     // initialize a SliderLayout
                     textSliderView
                             .description("")
-                            .image(userBean.getProfile_photos().get(i))
+                            .image(userBean.getProfile_photos().get(i).getImage())
                             .setScaleType(BaseSliderView.ScaleType.CenterCrop)
                             .setOnSliderClickListener(ProfileActivity.this);
 
@@ -680,12 +699,17 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 */
                     slider.addSlider(textSliderView);
                 }
-            }
+            }}
 
-          //  if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+            if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
                 slider.stopAutoCycle();
-          //  }
+            } else {
+                user_relationship_status = userBean.getUser_relationship_status();
+
+                setFollowUnfollow(userBean.getUser_relationship_status());
+            }
         }
+
 
 
     }

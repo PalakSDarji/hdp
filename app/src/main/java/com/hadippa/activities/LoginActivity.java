@@ -581,7 +581,9 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putBoolean("loginStatus",true);
                         editor.putString("grant_type",grant);
                         editor.putString("userData",jsonObject.getJSONObject("user").toString());
-
+                        editor.putInt("myFollowersCount",jsonObject.getJSONObject("user").getInt("followers_count"));
+                        editor.putInt("myFollowingCount",jsonObject.getJSONObject("user").getInt("following_count"));
+                        editor.commit();
                         editor.putString("access_token", jsonObject.getString("access_token"));
                         editor.putString("posts", jsonObject.getString("posts"));
                         editor.putString("cities",jsonObject.getString("city"));

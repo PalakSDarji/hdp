@@ -191,7 +191,17 @@ public class UserProfile implements Serializable {
         private String created_at;
         private String updated_at;
         private int age;
-        private List<String> profile_photos;
+        private String user_relationship_status;
+        private List<ProfilePhotosBean> profile_photos;
+
+
+        public String getUser_relationship_status() {
+            return user_relationship_status;
+        }
+
+        public void setUser_relationship_status(String user_relationship_status) {
+            this.user_relationship_status = user_relationship_status;
+        }
 
         public int getId() {
             return id;
@@ -537,12 +547,50 @@ public class UserProfile implements Serializable {
             this.age = age;
         }
 
-        public List<String> getProfile_photos() {
+
+        public List<ProfilePhotosBean> getProfile_photos() {
             return profile_photos;
         }
 
-        public void setProfile_photos(List<String> profile_photos) {
+        public void setProfile_photos(List<ProfilePhotosBean> profile_photos) {
             this.profile_photos = profile_photos;
+        }
+
+        public static class ProfilePhotosBean implements Serializable {
+            /**
+             * id : 17
+             * user_id : 226
+             * image : http://dev.tnxlabs.com/hadipaa/public/assets/images/profiles/user/1485630213_aliakbar.jpg
+             */
+
+            @SerializedName("id")
+            private int idX;
+            private int user_id;
+            private String image;
+
+            public int getIdX() {
+                return idX;
+            }
+
+            public void setIdX(int idX) {
+                this.idX = idX;
+            }
+
+            public int getUser_id() {
+                return user_id;
+            }
+
+            public void setUser_id(int user_id) {
+                this.user_id = user_id;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
         }
     }
 
