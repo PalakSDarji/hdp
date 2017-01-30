@@ -328,7 +328,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                                     //Yes button clicked
 
 
-                                    getAuthCodeMeraEvents();
+                                    getAccessToken();
 
                                     break;
 
@@ -844,69 +844,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     }
 
-
-
-    private void getAuthCodeMeraEvents() {
-
-
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-
-        asyncHttpClient.get("https://www.meraevents.com/web/api/v1/authorize/authorizationCode?clientId=701828916",
-                new GetAuthCodeMeraEvents());
-    }
-
-    class GetAuthCodeMeraEvents extends AsyncHttpResponseHandler {
-
-        @Override
-        public void onStart() {
-            super.onStart();
-
-            AppConstants.showProgressDialog(EventDetailsActivity.this, "Please Wait");
-
-        }
-
-
-        @Override
-        public void onFinish() {
-            AppConstants.dismissDialog();
-        }
-
-        @Override
-        public void onProgress(long bytesWritten, long totalSize) {
-            super.onProgress(bytesWritten, totalSize);
-
-        }
-
-
-        @Override
-        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-            try {
-                String response = new String(responseBody, "UTF-8");
-                JSONObject jsonObject = new JSONObject(response);
-
-                jsonObject.getJSONObject("response").getString("authorizationCode");
-
-                getAccessToken(jsonObject.getJSONObject("response").getString("authorizationCode"));
-                AppConstants.dismissDialog();
-
-                Log.d("date>>", "success" + response);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("date>>", "success exc  >>" + e.toString());
-            }
-        }
-
-        @Override
-        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            //  AppConstants.showSnackBar(mainRel,"Try again!");
-            Log.d("date>>", "success exc  >>" + error.toString());
-        }
-
-    }
-
-    private void getAccessToken(String authorizationCode) {
+    private void getAccessToken() {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(EventDetailsActivity.this);
 
@@ -917,8 +855,12 @@ public class EventDetailsActivity extends AppCompatActivity {
         try {
 
             requestParams.add("clientId", "701828916");
-            requestParams.add("clientSecret", "SxEbDmrGux8KdjrEY86f");
-            requestParams.add("authorizationCode", authorizationCode);
+            requestParams.add("eventId", String.valueOf(dataBean.getId()));
+
+            for(int i =0 ; i < dataBean.getTickets().getTicketList().size();i++ ){
+                requestParams.add("ticketArray["+dataBean.getTickets().getTicketList().get(i).getId()+"]", "1");
+            }
+
 
 
             Log.d("date>>", requestParams.toString());
@@ -927,7 +869,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        asyncHttpClient.post("https://www.meraevents.com/web/api/v1/authorize/getAccessToken",requestParams,
+        asyncHttpClient.post(AppConstants.BASE_URL+"meraevents/event/booking",requestParams,
                 new GetAccessToken());
     }
 
@@ -962,20 +904,22 @@ public class EventDetailsActivity extends AppCompatActivity {
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
-                Intent intent = new Intent(EventDetailsActivity.this,WebViewActivity.class);
+
+                Toast.makeText(EventDetailsActivity.this,response,Toast.LENGTH_LONG).show();
+
+              //  Intent intent = new Intent(EventDetailsActivity.this,WebViewActivity.class);
 
                // dataBean.getId();
                // dataBean.getTickets().getTicketList().get(0).getId();
 
-                Map<Integer,Integer> map = new HashMap<Integer, Integer>();;
-                map.put(dataBean.getTickets().getTicketList().get(0).getId(),2);
-               String s = "https://www.meraevents.com/web/api/v1/booking";
+
+            /*   String s = "https://www.meraevents.com/web/api/v1/booking";
 
                 Log.d("s>>",s);
                 intent.putExtra("code",jsonObject.getJSONObject("response").getString("accessToken"));
                 intent.putExtra("url",s);
                 intent.putExtra("data","eventId="+dataBean.getId()+"&ticketArray="+map.toString());
-                startActivity(intent);
+                startActivity(intent);*/
 
                 /*String url = "https://www.meraevents.com/web/api/v1/booking?eventId=\"+dataBean.getId()+\"&ticketArray=\"+map.toString()";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();

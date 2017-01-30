@@ -35,60 +35,37 @@ public class WebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
 
+        Map<String, String> extraHeaders = new HashMap<String, String>();
+        extraHeaders.put("Authorization", "Bearer " + getIntent().getExtras().getString("code"));
         try {
             webView = (WebView) findViewById(R.id.webview);
-            Map<String, String> extraHeaders = new HashMap<String, String>();
-            extraHeaders.put("Authorization", "Bearer " + getIntent().getExtras().getString("code"));
+
+
             final String postData = getIntent().getExtras().getString("data");
 
-
-            webView.setWebViewClient( new WebViewClient()
-            {
-                public WebResourceResponse shouldInterceptRequest(WebView _view, String _url)
+            webView.setWebViewClient(new WebViewClient() {
+                /* On Android 1.1 shouldOverrideUrlLoading() will be called every time the user clicks a link,
+                 * but on Android 1.5 it will be called for every page load, even if it was caused by calling loadUrl()! */
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url)
                 {
-                    URL url;
-                    try {
-                        url = new URL(_url);
-
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                        return null;
+        /* intercept all page load attempts and load yahoo.com instead */
+                    String myAlternativeURL = "http://yahoo.com";
+                    if (!url.equals(myAlternativeURL)) {
+                        view.loadUrl(myAlternativeURL);
+                        return true;
                     }
 
-                    HttpURLConnection urlConnection;
-                    try {
-                        urlConnection = (HttpURLConnection) url.openConnection();
-                        urlConnection.setRequestProperty("Authorization", "Bearer " + getIntent().getExtras().getString("code"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-
-                    WebResourceResponse response = null;
-                    try {
-
-                        response = new WebResourceResponse( urlConnection.getContentType(),
-                                urlConnection.getContentEncoding(),
-                                urlConnection.getInputStream() );
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        webView.postUrl(getIntent().getExtras().getString("url"), EncodingUtils.getBytes(postData, "utf-8"));
-                        urlConnection.disconnect();
-                    }
-
-                    return response;
+                    return false;
                 }
             });
+
 
         }catch (Exception  e){
 
         }
-      /*  Request request = new Request.Builder().url("https://www.meraevents.com/web/api/v1/booking").header("Authorization", "Bearer 3e23e72f9fd842e0ee87fd842c968aeadd3422ad").build();
-       // webView.loadUrl(getIntent().getExtras().getString("url"));
+        webView.loadUrl(getIntent().getExtras().getString("url"),extraHeaders);
 
-        WebViewClient webViewClient = new WebViewClient();
-        webView.setWebViewClient(webViewClient);*/
         }
     }
 
