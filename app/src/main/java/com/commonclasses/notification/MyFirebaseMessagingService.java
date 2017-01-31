@@ -171,6 +171,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         sendBroadCast.putExtra("messageData",message);
         sendBroadcast(sendBroadCast);
 
+
     }
 
 }

@@ -203,8 +203,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         llFollowUnfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user_relationship_status.equals("Connected")
-                        || user_relationship_status.equals("Following")) {
+                if (user_relationship_status.equalsIgnoreCase("Connected")
+                        || user_relationship_status.equalsIgnoreCase("Following")) {
 
                     llFollowUnfollow.setBackgroundResource(R.drawable.rounded_followers);
                     tvFollowUnfollow.setText("Follow");
@@ -252,8 +252,9 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     String user_relationship_status = "";
 
     void setFollowUnfollow(String user_relationship_status) {
-        if (user_relationship_status.equals("Connected")
-                || user_relationship_status.equals("Following")) {
+        if (user_relationship_status.equalsIgnoreCase("Connected")
+                || user_relationship_status.equalsIgnoreCase("Following")) {
+
 
             llFollowUnfollow.setBackgroundResource(R.drawable.rounded_following);
             tvFollowUnfollow.setText("Following");
@@ -329,12 +330,19 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 JSONObject jsonObject = new JSONObject(response);
                 if (!jsonObject.getBoolean("success")) {
 
-                    user_relationship_status = jsonObject.getString("status");
+
+                   // user_relationship_status = jsonObject.getString("status");
                     userBean.setUser_relationship_status(user_relationship_status);
                     setFollowUnfollow(user_relationship_status);
 
 
                 } else {
+
+                    if(user_relationship_status.equalsIgnoreCase("Connected") || user_relationship_status.equalsIgnoreCase("Following")){
+                        user_relationship_status = "Follower";
+                    }else{
+                        user_relationship_status = "Following";
+                    }
                     setFollowUnfollow(user_relationship_status);
 
                 }
@@ -706,7 +714,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             } else {
                 user_relationship_status = userBean.getUser_relationship_status();
 
-                setFollowUnfollow(userBean.getUser_relationship_status());
+                setFollowUnfollow(user_relationship_status);
             }
         }
 

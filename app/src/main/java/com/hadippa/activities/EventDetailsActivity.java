@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
+import android.provider.CalendarContract;
 import android.support.annotation.RequiresApi;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
@@ -55,9 +56,11 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -147,6 +150,8 @@ public class EventDetailsActivity extends AppCompatActivity {
     RelativeLayout totalInclude;
     int count =0;
 
+    @BindView(R.id.rlCal) RelativeLayout rlCal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,7 +192,42 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         dateFormatter = new SimpleDateFormat("MMM", Locale.US);
 
+        rlCal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_INSERT);
+                    intent.setType("vnd.android.cursor.item/event");
+                    intent.putExtra(CalendarContract.Events.TITLE, dataBean.getTitle());
+                    intent.putExtra(CalendarContract.Events.EVENT_LOCATION, dataBean.getVenueName()+", "+dataBean.getCityName()+"-"+dataBean.getPincode());
+                    intent.putExtra(CalendarContract.Events.DESCRIPTION, Html.fromHtml(dataBean.getDescription()));
 
+// Setting dates
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+                    Calendar calDate = Calendar.getInstance();
+                    calDate.setTime(df.parse(dataBean.getStartDate()));
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                            calDate.getTimeInMillis());
+                    calDate.setTime(df.parse(dataBean.getEndDate()));
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                            calDate.getTimeInMillis());
+
+// make it a full day event
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+
+// make it a recurring Event
+                    intent.putExtra(CalendarContract.Events.RRULE, "FREQ=WEEKLY;COUNT=11;WKST=SU;BYDAY=TU,TH");
+
+// Making it private and shown as busy
+                    intent.putExtra(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_PRIVATE);
+                    intent.putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+                    startActivity(intent);
+                }catch (Exception e){
+
+                }
+            }
+        });
         if(activityKey == AppConstants.ACTIVITY_MOVIE){
             llEventDetails.setVisibility(View.GONE);
             flMovie.setVisibility(View.VISIBLE);
