@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -52,6 +53,7 @@ public class HistoryPlan extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     List<MyPlansModel.MyPlansBean> myPlansBeen = new ArrayList<>();
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,32 @@ public class HistoryPlan extends AppCompatActivity {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         myPlanRecycler.setLayoutManager(mLayoutManager);
 
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                myPlans();
+            }
+        });
+
+        myPlanRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        swipeRefreshLayout.setDistanceToTriggerSync(50);
 
 
         myPlans();
@@ -429,13 +457,20 @@ public class HistoryPlan extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-              AppConstants.showProgressDialog(HistoryPlan.this, "Please Wait");
+            if(swipeRefreshLayout.isRefreshing()){
 
+            }else {
+                AppConstants.showProgressDialog(HistoryPlan.this, "Please Wait");
+            }
         }
 
 
         @Override
         public void onFinish() {
+
+            if(swipeRefreshLayout.isRefreshing()){
+                swipeRefreshLayout.setRefreshing(false);
+            }
             AppConstants.dismissDialog();
         }
 

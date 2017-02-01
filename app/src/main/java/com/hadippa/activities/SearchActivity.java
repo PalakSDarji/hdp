@@ -97,32 +97,6 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         editor = sp.edit();
         edtSearch = (AutoCompleteTextView) findViewById(R.id.edtSearch);
 
-       /* Set<String> tasksSet = PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-                .getStringSet("searchOptions", new HashSet<String>());
-        previousSearchList = new ArrayList<>(tasksSet);
-
-        Log.d("previousSearchList", previousSearchList.toString());
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (SearchActivity.this, R.layout.list_item, previousSearchList);
-
-        edtSearch.setThreshold(0);//will start working from first character
-        edtSearch.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-
-        edtSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                String selectedItem = (String) parent.getItemAtPosition(position);
-
-                previousSearchList.remove(position);
-                previousSearchList.add(0,selectedItem);
-                adapter.notifyDataSetChanged();
-                performSearch(selectedItem);
-
-                edtSearch.dismissDropDown();
-
-            }
-        });*/
         imageBack = (ImageView) findViewById(R.id.imageBack);
         imageBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,22 +109,8 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         pager.setAdapter(pagerAdapter);
         pager.setOffscreenPageLimit(2);
 
-     //   setPreviousData();
-
-        //This prevents fragments from being destroyed, default limit is 1, so next and pre frag will be alive if pos -1,
-        // if pos = 0 then 1 will be alive, if 2 then 1 will be alive
-        //by setting it 2, we make sure that view pager should atleast keep 2 fragments in a history, other than current
-        //  pager.setOffscreenPageLimit(2);
-
-
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true);
-
-
-        // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
-        // Setting Custom Color for the Scroll bar indicator of the Tab View
-      /*  int col[] = {getResources().getColor(R.color.follow_color),getResources().getColor(R.color.following_color)};
-        tabs.setSelectedIndicatorColors(col);*/
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
@@ -171,21 +131,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
                         Log.v("searchCity", "searchCity" + searchCity);
 
-                    /*    previousSearchList.add(0,edtSearch.getText().toString().trim());
-                      //  adapter.notifyDataSetChanged();
-                        Set<String> tasksSet = new HashSet<String>(previousSearchList);
-                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-                                .edit()
-                                .putStringSet("searchOptions", tasksSet)
-                                .commit();
-*/
-                       /* if (pager.getCurrentItem() == 2) {
-                            searchTag.fetchByTags(String.valueOf(s));
-                            searchPeople.fetchPeople(String.valueOf(s));
-                        }else{*/
                         performSearch(String.valueOf(s));
-                        // searchPeople.fetchPeople(String.valueOf(s));
-                        //  }
                     }
                     return true;
                 }
@@ -193,21 +139,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             }
         });
 
-      /*  edtSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edtSearch.showDropDown();
-            }
-        });
 
-        edtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                 //   edtSearch.showDropDown();
-                }
-            }
-        });*/
 
         Gson gson = new Gson();
 
@@ -334,8 +266,12 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
             super.onStart();
 
           //  searchCity.progressBar.setVisibility(View.VISIBLE);
-            searchPeople.progressBar.setVisibility(View.VISIBLE);
-            // AppConstants.showProgressDialog(getActivity(), "Please Wait");
+
+            if(searchPeople.swipeRefreshLayout.isRefreshing()){
+
+            }else {
+                searchPeople.progressBar.setVisibility(View.VISIBLE);
+            }// AppConstants.showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -343,6 +279,12 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         @Override
         public void onFinish() {
             //   AppConstants.dismissDialog();
+            if(searchPeople.swipeRefreshLayout.isRefreshing()){
+                searchPeople.swipeRefreshLayout.setRefreshing(false);
+            }
+            if(searchCity.swipeRefreshLayout.isRefreshing()){
+                searchCity.swipeRefreshLayout.setRefreshing(false);
+            }
             searchCity.progressBar.setVisibility(View.GONE);
             searchPeople.progressBar.setVisibility(View.GONE);
         }
@@ -418,11 +360,25 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         }
     };
 
+    BroadcastReceiver swipeData = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+            performSearch(edtSearch.getText().toString().trim());
+
+         //   AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.linearMain)),intent.getExtras().getString("messageData"));
+        }
+    };
+
+
     @Override
     protected void onStart() {
         super.onStart();
 
         registerReceiver(broadcastReceiver, new IntentFilter("SNACKBAR_MESSAGE"));
+
+        registerReceiver(swipeData,new IntentFilter("SWIPE_REFRESH"));
     }
 
 
@@ -431,5 +387,6 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
         super.onStop();
 
         unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(swipeData);
     }
 }

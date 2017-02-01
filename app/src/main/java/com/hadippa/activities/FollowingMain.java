@@ -143,6 +143,7 @@ public class FollowingMain extends FragmentActivity implements View.OnClickListe
         }
     };
 
+
     @Override
     protected void onStart() {
         super.onStart();

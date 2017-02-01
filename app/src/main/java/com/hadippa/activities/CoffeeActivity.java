@@ -19,6 +19,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -97,7 +98,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 latitude = String.valueOf(location.getLatitude());
                 longitude = String.valueOf(location.getLongitude());
 
-               // prepareThings(pageNumber);
+                // prepareThings(pageNumber);
                 Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
 
@@ -125,7 +126,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                 if (lastKnownLocation != null) {
                     latitude = String.valueOf(lastKnownLocation.getLatitude());
                     longitude = String.valueOf(lastKnownLocation.getLongitude());
-                    prepareThings(pageNumber,true);
+                    prepareThings(pageNumber, true);
 
                     Log.d("locaGPS>>", latitude + ">>>" + longitude);
 
@@ -151,7 +152,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             latitude = String.valueOf(gps.getLatitude());
             longitude = String.valueOf(gps.getLongitude());
 
-            prepareThings(pageNumber,true);
+            prepareThings(pageNumber, true);
 
         } else {
 
@@ -161,6 +162,8 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
 
     }
+
+    public SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,12 +191,28 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listShops.setLayoutManager(mLayoutManager);
-        ((TextView)findViewById(R.id.tvHeader2)).setText(sp.getString("cityName","Search"));
+        ((TextView) findViewById(R.id.tvHeader2)).setText(sp.getString("cityName", "Search"));
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                prepareThings(0, false);
+            }
+        });
+
+
+        swipeRefreshLayout.setDistanceToTriggerSync(50);
 
         listShops.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
+
                 if (dy > 0) //check for scroll down
                 {
                     visibleItemCount = mLayoutManager.getChildCount();
@@ -205,7 +224,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                             loading = false;
                             Log.v("...", "Last Item Wow !");
 
-                            prepareThings(pageNumber,isCurrent);
+                            prepareThings(pageNumber, isCurrent);
                             //Do pagination.. i.e. fetch new data
                         }
                     }
@@ -235,13 +254,13 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             @Override
             public void onClick(View v) {
 
-                prepareThings(0,true);
+                prepareThings(0, true);
 
             }
         });
 
 
-        ((RelativeLayout)findViewById(R.id.relH2)).setOnClickListener(new View.OnClickListener() {
+        ((RelativeLayout) findViewById(R.id.relH2)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCityDialog();
@@ -275,7 +294,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             progressBar = (ProgressBar) dialog.findViewById(R.id.progressBar);
 
             customEditText =
-                    (CustomEditText)dialog.findViewById(R.id.edtSearch);
+                    (CustomEditText) dialog.findViewById(R.id.edtSearch);
             mRecyclerView = (RecyclerView) dialog.findViewById(R.id.recyclerView);
             relMain = (RelativeLayout) dialog.findViewById(R.id.relMain);
 
@@ -439,7 +458,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
                                 ((TextView) findViewById(R.id.tvHeader2)).setText(cityViewHolder.getCity().getText().toString().trim());
 
-                                prepareThings(0,false);
+                                prepareThings(0, false);
                                 dialog.dismiss();
                             }
                         });
@@ -543,8 +562,9 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
         }
     }
 
-boolean isCurrent = true;
-    void prepareThings(int pageNumber,boolean isCurrent) {
+    boolean isCurrent = true;
+
+    void prepareThings(int pageNumber, boolean isCurrent) {
 
         this.isCurrent = isCurrent;
         this.pageNumber = pageNumber;
@@ -653,13 +673,14 @@ boolean isCurrent = true;
         private List<NightCLubModel.ResponseBean.RestaurantsBean> listItems, filterList;
         Dialog dialog;
 
-        public CustomAdapter( List<NightCLubModel.ResponseBean.RestaurantsBean> listItems) {
+        public CustomAdapter(List<NightCLubModel.ResponseBean.RestaurantsBean> listItems) {
             this.listItems = listItems;
 
             this.filterList = new ArrayList<>();
             // we copy the original list to the filter list and use it for setting row values
             this.filterList.addAll(this.listItems);
         }
+
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
@@ -716,7 +737,7 @@ boolean isCurrent = true;
 
         }
 
-        public void filter(final String text){
+        public void filter(final String text) {
             // Searching could be complex..so we will dispatch it to a different thread...
             new Thread(new Runnable() {
                 @Override
@@ -806,7 +827,7 @@ boolean isCurrent = true;
             requestParams.add("lon", lon);
             requestParams.add("radius", radius);
             requestParams.add("start", start);
-            if(!isCurrent) {
+            if (!isCurrent) {
                 requestParams.add("city_name", ((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
             }
             Log.d("prepareZomato>>", requestParams.toString());
@@ -825,13 +846,20 @@ boolean isCurrent = true;
             super.onStart();
 
 
+            if(swipeRefreshLayout.isRefreshing()){
+
+            }else{
             AppConstants.showProgressDialog(CoffeeActivity.this, "Please Wait");
             Log.d("<<prepareZomato>>", "success exc  >> start");
-        }
+        }}
 
 
         @Override
         public void onFinish() {
+
+            if(swipeRefreshLayout.isRefreshing()){
+                swipeRefreshLayout.setRefreshing(false);
+            }
             AppConstants.dismissDialog();
             Log.d("<<prepareZomato>>", "success exc  >> finish");
         }
@@ -897,7 +925,7 @@ boolean isCurrent = true;
         public void onReceive(Context context, Intent intent) {
 
 
-            AppConstants.showSnackBarforMessage(((RelativeLayout)findViewById(R.id.activity_coffee)), intent.getExtras().getString("messageData"));
+            AppConstants.showSnackBarforMessage(((RelativeLayout) findViewById(R.id.activity_coffee)), intent.getExtras().getString("messageData"));
         }
     };
 

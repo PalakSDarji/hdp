@@ -82,21 +82,7 @@ public class CustomSelectPeople extends AppCompatActivity {
         }
 
         selectedModels = new ArrayList<>();
-        // peopleModels = new ArrayList<>();
-     /*   peopleModels.add(new PeopleModel("1","Palak Darji"));
-        peopleModels.add(new PeopleModel("2","Kat Middleton"));
-        peopleModels.add(new PeopleModel("3","Kareena Kapoor"));
-        peopleModels.add(new PeopleModel("4","Kartick Mistry"));
-        peopleModels.add(new PeopleModel("5","Angelina Joly"));
-        peopleModels.add(new PeopleModel("6","Sania Mirza"));
-        peopleModels.add(new PeopleModel("7","David Backham"));
-        peopleModels.add(new PeopleModel("8","Shreya Ghosal"));
-        peopleModels.add(new PeopleModel("9","Shilpa Shetty"));
-        peopleModels.add(new PeopleModel("10","Tina Gupta"));
-        peopleModels.add(new PeopleModel("11","Katrina Kaif"));
-        peopleModels.add(new PeopleModel("12","Lonewolf Sniper"));
-        peopleModels.add(new PeopleModel("13","CarryMinati"));
-*/
+
         etSearch = (EditText) findViewById(R.id.etSearch);
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override

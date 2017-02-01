@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -63,6 +64,7 @@ public class SearchCity extends Fragment {
     public SharedPreferences.Editor editor;
 
     public RecyclerView mRecyclerView;
+    public SwipeRefreshLayout swipeRefreshLayout;
 
     ArrayList<SearchModel.CitiesBean.LocationSuggestionsBean> recentSearchData = new ArrayList<>();
 //no staic :D
@@ -119,6 +121,32 @@ public class SearchCity extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         relMain = (RelativeLayout) view.findViewById(R.id.relMain);
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                Intent sendBroadCast = new Intent("SWIPE_REFRESH");
+                getActivity().sendBroadcast(sendBroadCast);
+
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
+
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        swipeRefreshLayout.setDistanceToTriggerSync(50);
 
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

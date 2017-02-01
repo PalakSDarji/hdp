@@ -12,6 +12,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -64,6 +65,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +101,40 @@ public class NotificationActivity extends AppCompatActivity {
         mLayoutManagerHorizontal.setOrientation(LinearLayoutManager.VERTICAL);
         rcItems.setLayoutManager(mLayoutManagerHorizontal);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                fetchNotification();
+            }
+        });
+
+        rcItems.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        swipeRefreshLayout.setDistanceToTriggerSync(50);
+
         fetchNotification();
     }
 
     List<NotificationModel.NotificationsBean> notificationModelList = new ArrayList<>();
 
     private void fetchNotification() {
+
+        notificationModelList.clear();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
         RequestParams requestParams = new RequestParams();
@@ -129,13 +159,20 @@ public class NotificationActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(NotificationActivity.this, "Please Wait");
+            if(swipeRefreshLayout.isRefreshing()){
 
+            }else {
+                AppConstants.showProgressDialog(NotificationActivity.this, "Please Wait");
+            }
         }
 
 
         @Override
         public void onFinish() {
+
+            if(swipeRefreshLayout.isRefreshing()){
+                swipeRefreshLayout.setRefreshing(false);
+            }
             AppConstants.dismissDialog();
         }
 

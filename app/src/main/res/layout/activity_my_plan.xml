@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.hadippa.activities.MyPlan"
-    android:id="@+id/my_plan">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_plan"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hadippa.activities.MyPlan">
 
     <RelativeLayout
         android:id="@+id/top"
@@ -23,7 +23,7 @@
             android:layout_height="@dimen/value_28"
             android:layout_centerVertical="true"
             android:padding="4dp"
-            android:src="@drawable/ic_back"/>
+            android:src="@drawable/ic_back" />
 
         <com.hadippa.CustomTextView
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:text="@string/my_plan_small"
             android:textColor="@color/c_2f2f2f"
             android:textSize="@dimen/values_txt_18"
-            app:customFont="@string/proxima_bold"/>
+            app:customFont="@string/proxima_bold" />
 
         <LinearLayout
             android:id="@+id/linearHistory"
@@ -47,7 +47,7 @@
                 android:id="@+id/history"
                 android:layout_width="@dimen/value_w40"
                 android:layout_height="@dimen/value_w40"
-                android:src="@drawable/my_plan_history"/>
+                android:src="@drawable/my_plan_history" />
 
             <com.hadippa.CustomTextView
                 android:id="@+id/imageFilter"
@@ -57,7 +57,7 @@
                 android:layout_centerVertical="true"
                 android:text="History"
                 android:textColor="@color/c_b7b3b4"
-                android:textSize="@dimen/values_txt_8"/>
+                android:textSize="@dimen/values_txt_8" />
 
         </LinearLayout>
 
@@ -71,11 +71,11 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-       <!-- <View
-            android:id="@+id/sep"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/c_e3e3e3"></View>-->
+        <!-- <View
+             android:id="@+id/sep"
+             android:layout_width="match_parent"
+             android:layout_height="1dp"
+             android:background="@color/c_e3e3e3"></View>-->
 
         <com.hadippa.CustomTextView
             android:id="@+id/up_His"
@@ -84,16 +84,24 @@
             android:paddingBottom="@dimen/value_12"
             android:paddingLeft="@dimen/connect_with_facebook_padding_top"
             android:paddingTop="@dimen/value_12"
-            app:customFont="@string/proxima_reg"
             android:text="@string/upcoming_plan"
             android:textColor="@color/c_a79e9f"
-            android:textSize="@dimen/values_txt_16"/>
+            android:textSize="@dimen/values_txt_16"
+            app:customFont="@string/proxima_reg" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/myPlanRecycler"
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/c_f5f5f3"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/myPlanRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/c_f5f5f3">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
     <View

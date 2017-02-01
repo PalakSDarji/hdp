@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -74,6 +75,7 @@ public class SearchPeople extends Fragment {
     private LinearLayout llFollowUnfollow;
     private TextView tvFollowUnfollow;
     private ImageView ivFollowUnfollow;
+    public SwipeRefreshLayout swipeRefreshLayout;
 
     public SearchPeople newInstance(int page, String title) {
         SearchPeople fragmentFirst = new SearchPeople();
@@ -103,6 +105,32 @@ public class SearchPeople extends Fragment {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                Intent sendBroadCast = new Intent("SWIPE_REFRESH");
+                getActivity().sendBroadcast(sendBroadCast);
+
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
+
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        swipeRefreshLayout.setDistanceToTriggerSync(50);
 
         setPreviousData();
       /*  if(SearchActivity.edtSearch.getText().toString().length()>=2) {

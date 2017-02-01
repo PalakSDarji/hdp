@@ -94,7 +94,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
     EditText edtSearch;
 
     @Nullable @BindView(R.id.srl_event_list)
-    public SwipeRefreshLayout srlEventList;
+    public SwipeRefreshLayout swipeRefreshLayout;
 
     public static EventAdapter adapter;
 
@@ -195,11 +195,27 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
         tvHeader = (TextView) findViewById(R.id.tvHeader);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                prepareThings(0, false);
+            }
+        });
+
+
+        swipeRefreshLayout.setDistanceToTriggerSync(50);
+
 
         rvEventList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
 
                 if (dy > 0) //check for scroll down
                 {
@@ -535,13 +551,20 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             super.onStart();
 
             postBeanList.clear();
-            AppConstants.showProgressDialog(EventListActivity.this, "Please Wait");
+            if(swipeRefreshLayout.isRefreshing()){
 
+            }else {
+                AppConstants.showProgressDialog(EventListActivity.this, "Please Wait");
+            }
         }
 
 
         @Override
         public void onFinish() {
+
+            if(swipeRefreshLayout.isRefreshing()){
+                swipeRefreshLayout.setRefreshing(false);
+            }
             AppConstants.dismissDialog();
         }
 

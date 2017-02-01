@@ -9,13 +9,13 @@
     tools:context="com.hadippa.activities.ChatListActivity">
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
+   <!-- <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/rlInput"
-        android:layout_below="@+id/ivMoreDetail">
+        android:layout_below="@+id/ivMoreDetail">-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -25,7 +25,9 @@
 
         </android.support.v7.widget.RecyclerView>
 
+<!--
     </android.support.v4.widget.SwipeRefreshLayout>
+-->
 
     <ProgressBar
         android:id="@+id/progressBar"

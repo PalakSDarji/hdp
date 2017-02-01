@@ -144,16 +144,22 @@ android:drawableLeft="@drawable/loc"            android:visibility="visible"
         <include
             layout="@layout/activities_horizontal_layout"/>
     </LinearLayout>
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_below="@+id/llActivitiesContainer"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listShops"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/c_efefef"
         android:layout_marginTop="@dimen/value_h15"
-        android:layout_below="@+id/llActivitiesContainer"
         android:paddingLeft="@dimen/sign_up_padding"
         android:paddingRight="@dimen/sign_up_padding"
         android:paddingTop="@dimen/sign_up_padding" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

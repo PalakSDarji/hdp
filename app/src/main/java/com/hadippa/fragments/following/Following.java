@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -54,6 +55,7 @@ public class Following extends Fragment {
     public static  RelativeLayout linearMain;
     ProgressBar progressBar;
     CustomAdapter customAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public static Following newInstance(int page, String title) {
         Following fragmentFirst = new Following();
@@ -77,7 +79,31 @@ public class Following extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         linearMain = (RelativeLayout) view.findViewById(R.id.relMain);
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
 
+                fetchFollowing();
+
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
+
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        swipeRefreshLayout.setDistanceToTriggerSync(50);
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -299,15 +325,21 @@ public class Following extends Fragment {
         public void onStart() {
             super.onStart();
 
-              progressBar.setVisibility(View.VISIBLE);
-           // AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            if(swipeRefreshLayout.isRefreshing()){
 
+            }else {
+                progressBar.setVisibility(View.VISIBLE);
+                // AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            }
         }
 
 
         @Override
         public void onFinish() {
          //   AppConstants.dismissDialog();
+            if(swipeRefreshLayout.isRefreshing()){
+                swipeRefreshLayout.setRefreshing(false);
+            }
             progressBar.setVisibility(View.GONE);
         }
 
