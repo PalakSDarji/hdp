@@ -15,9 +15,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.APIClass;
 import com.bumptech.glide.Glide;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -173,6 +178,62 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             }
         });
 
+        findViewById(R.id.ivMore).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(ProfileActivity.this,findViewById(R.id.ivMore));
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.menu, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.block:
+
+
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(ProfileActivity.this);
+                                builder1.setMessage("Do you want to block this user ?");
+                                builder1.setCancelable(true);
+
+                                builder1.setPositiveButton(
+                                        "Yes",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                block_Unblock("/block", String.valueOf(userBean.getId()));
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                                builder1.setNegativeButton(
+                                        "No",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
+
+
+                                return true;
+                            case R.id.report:
+
+                                return true;
+
+                        }
+
+                        return true;
+                    }
+                });
+
+                popup.show();//showing popup menu
+            }
+
+
+        });
         findViewById(R.id.imageBack).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,6 +309,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         dddd();
 
     }
+
+
 
     String user_relationship_status = "";
 
@@ -954,5 +1017,77 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 e.printStackTrace();
             }
         }
+    }
+
+    //Block/Unblock
+    private void block_Unblock(String type, String id) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("blocked_id", id);
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + type, requestParams,
+                new Block_UnBlock());
+    }
+
+    class Block_UnBlock extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+              AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                Log.d("blockList??", "success" + response);
+                if(jsonObject.getBoolean("success")){
+
+                    finish();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("blockList??", "ssaa  success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+            Log.d("blockList??", "xzxxssuccess exc  >>" + error.toString());
+        }
+
     }
 }

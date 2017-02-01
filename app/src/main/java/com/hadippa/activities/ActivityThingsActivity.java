@@ -309,7 +309,6 @@ public class ActivityThingsActivity extends AppCompatActivity {
         }
     }
 
-
     public class ViewHolderApproved extends RecyclerView.ViewHolder {
 
 

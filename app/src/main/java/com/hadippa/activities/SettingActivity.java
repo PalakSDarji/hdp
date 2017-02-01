@@ -4,16 +4,21 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,19 +27,32 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.APIClass;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
+
+import com.hadippa.model.Blocked_Data;
 import com.hadippa.model.NotificationModel;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -75,7 +93,7 @@ public class SettingActivity extends AppCompatActivity {
     TextView tvPrivacy;
 
     private CustomAdapter customAdapter;
-    private List<String> blockList;
+    private List<Blocked_Data.BlockedListBean> blockList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +102,6 @@ public class SettingActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        blockList =  new ArrayList<>();
-        blockList.add("");
-        blockList.add("");
-        blockList.add("");
 
         tvBlockList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,20 +143,16 @@ public class SettingActivity extends AppCompatActivity {
 
         final LinearLayoutManager mLayoutManagerHorizontal = new LinearLayoutManager(this);
         mLayoutManagerHorizontal.setOrientation(LinearLayoutManager.VERTICAL);
-        customAdapter = new CustomAdapter(blockList);
+        customAdapter = new CustomAdapter();
         rcvBlockList.setLayoutManager(mLayoutManagerHorizontal);
-        rcvBlockList.setAdapter(customAdapter);
 
+
+        blockList();
     }
 
     class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-        private List<String> data = null;
         private LayoutInflater mInflater;
-
-        CustomAdapter(List<String> data) {
-            this.data = data;
-        }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -156,17 +166,54 @@ public class SettingActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
-            final String str = data.get(position);
+            final Blocked_Data.BlockedListBean blockedList = blockList.get(position);
+
+            viewHolder.tvName.setText(blockedList.getBlocked().getFirst_name()+" "+blockedList.getBlocked().getLast_name());
+            Glide.with(SettingActivity.this)
+                    .load(blockedList.getBlocked().getProfile_photo())
+                    .error(R.drawable.ic_user_avatar_default_small)
+                    .placeholder(R.drawable.ic_user_avatar_default_small)
+                    .into(viewHolder.imageView);
+            
+            viewHolder.tvBlock.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(SettingActivity.this);
+                    builder1.setMessage("Do you want to unblock this user ?");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    block_Unblock("/unblock", String.valueOf(blockedList.getBlocked().getId()));
+                                    dialog.cancel();
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
+                }
+            });
         }
 
-        public String getItem(int position) {
-            return data.get(position);
+        public Blocked_Data.BlockedListBean getItem(int position) {
+            return blockList.get(position);
         }
 
         @Override
         public int getItemCount() {
 
-            return data.size();
+            return blockList.size();
         }
     }
 
@@ -211,4 +258,157 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
+    //Blocked List
+    private void blockList() {
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(SettingActivity.this);
+
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + "/blocked_list", requestParams,
+                new BlockedList());
+    }
+
+    class BlockedList extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+              AppConstants.showProgressDialog(SettingActivity.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+
+                if(jsonObject.getBoolean("success")){
+
+                    Blocked_Data
+                    blocked_data = (new Gson().fromJson(response,Blocked_Data.class));
+
+                    blockList.clear();
+                    blockList.addAll(blocked_data.getBlocked_list());
+                    customAdapter = new CustomAdapter();
+                    rcvBlockList.setAdapter(customAdapter);
+                }
+
+                Log.d("blockList??", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("blockList??", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+
+            Log.d("blockList??", " fff success exc  >>" + error.toString());
+        }
+
+    }
+
+    //Block/Unblock
+    private void block_Unblock(String type, String id) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(SettingActivity.this);
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("blocked_id", id);
+
+            Log.d("request>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + type, requestParams,
+                new Block_UnBlock());
+    }
+
+    class Block_UnBlock extends AsyncHttpResponseHandler {
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            AppConstants.showProgressDialog(SettingActivity.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                Log.d("blockList??", "success" + response);
+                if(jsonObject.getBoolean("success")){
+
+                    blockList();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("blockList??", "ssaa  success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+            Log.d("blockList??", "xzxxssuccess exc  >>" + error.toString());
+        }
+
+    }
 }
