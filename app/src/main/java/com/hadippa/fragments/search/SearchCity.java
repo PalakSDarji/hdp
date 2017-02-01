@@ -121,7 +121,7 @@ public class SearchCity extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         relMain = (RelativeLayout) view.findViewById(R.id.relMain);
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -132,7 +132,7 @@ public class SearchCity extends Fragment {
             }
         });
 
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int topRowVerticalPosition =
@@ -159,10 +159,10 @@ public class SearchCity extends Fragment {
         if (recentSearchData != null) {
 
             removeExtra();
-            setAdapter(recentSearchData,"");
+            setAdapter(recentSearchData, "");
         } else {
             recentSearchData = new ArrayList<>();
-            setAdapter(recentSearchData,"");
+            setAdapter(recentSearchData, "");
         }
         return view;
     }
@@ -216,7 +216,6 @@ public class SearchCity extends Fragment {
 
         @Override
         public int getItemViewType(int position) {
-
 
 
             if (locationSuggestionsBeen == null) {
@@ -325,7 +324,7 @@ public class SearchCity extends Fragment {
                                     editor.commit();
                                 }
 
-                                editor.putString("cityName",locationSuggestionsBeen.get(position).getName());
+                                editor.putString("cityName", locationSuggestionsBeen.get(position).getName());
                                 editor.commit();
                                 updatePost = true;
 
@@ -400,65 +399,66 @@ public class SearchCity extends Fragment {
 
     public List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen = new ArrayList<>();
 
-    public void setAdapter(List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen1,String query) {
+    public void setAdapter(List<SearchModel.CitiesBean.LocationSuggestionsBean> locationSuggestionsBeen1, String query) {
 
         locationSuggestionsBeen.clear();
 
-        if(query.equals("")){
-        try {
+        if (query.equals("")) {
+            try {
 
-            if (locationSuggestionsBeen1.size() > 0) {
-                SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-                locationSuggestionsBean.setName("Quick Search");
-                locationSuggestionsBean.setHeader(true);
-                locationSuggestionsBeen.add(0, locationSuggestionsBean);
+                if (locationSuggestionsBeen1.size() > 0) {
+                    SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+                    locationSuggestionsBean.setName("Quick Search");
+                    locationSuggestionsBean.setHeader(true);
+                    locationSuggestionsBeen.add(0, locationSuggestionsBean);
 
                /* locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
                 locationSuggestionsBean.setName("Current Location");
                 locationSuggestionsBean.setHeader(false);
                 locationSuggestionsBean.setCurrentLocation(true);
                */
-                locationSuggestionsBeen.addAll(locationSuggestionsBeen1);
+                    locationSuggestionsBeen.addAll(locationSuggestionsBeen1);
 
-            }
+                }
 
-            String s = sp.getString("cities", "");
+                String s = sp.getString("cities", "");
 
-            JSONObject jsonObject = new JSONObject(s);
+                JSONObject jsonObject = new JSONObject(s);
 
 
-            JSONArray jsonArray = jsonObject.getJSONArray("city_list");
+                JSONArray jsonArray = jsonObject.getJSONArray("city_list");
 
-            SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
-            locationSuggestionsBean.setName("Select City");
-            locationSuggestionsBean.setHeader(true);
-            locationSuggestionsBeen.add(locationSuggestionsBean);
-            Log.d("cityList>", s);
+                SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+                locationSuggestionsBean.setName("Select City");
+                locationSuggestionsBean.setHeader(true);
+                locationSuggestionsBeen.add(locationSuggestionsBean);
+                Log.d("cityList>", s);
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+                for (int i = 0; i < jsonArray.length(); i++) {
 
-                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                SearchModel.CitiesBean.LocationSuggestionsBean bean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                    SearchModel.CitiesBean.LocationSuggestionsBean bean = new SearchModel.CitiesBean.LocationSuggestionsBean();
 
-                bean.setName(jsonObject1.getString("name"));
-                bean.setId(jsonObject1.getInt("id"));
-                bean.setState_name(jsonObject1.getString("state"));
-                bean.setHeader(false);
-                locationSuggestionsBeen.add(bean);
-            }
+                    bean.setName(jsonObject1.getString("name"));
+                    bean.setId(jsonObject1.getInt("id"));
+                    //   bean.setState_name(jsonObject1.getString("state"));
+                    bean.setHeader(false);
+                    locationSuggestionsBeen.add(bean);
+                }
 
            /* if(customAdapter!=null){
                 customAdapter = new CustomAdapter(locationSuggestionsBeen);
                 mRecyclerView.setAdapter(customAdapter);
 
             }else {
-           */     customAdapter = new CustomAdapter(locationSuggestionsBeen);
+           */
+                customAdapter = new CustomAdapter(locationSuggestionsBeen);
                 mRecyclerView.setAdapter(customAdapter);
-           // }
-        } catch (Exception adapter) {
+                // }
+            } catch (Exception adapter) {
 
-        }
-    }else{
+            }
+        } else {
 
             try {
 
@@ -467,8 +467,8 @@ public class SearchCity extends Fragment {
                     locationSuggestionsBean_.setName("Quick Search");
                     locationSuggestionsBean_.setHeader(true);
 
-                    for(int i = 0 ; i < locationSuggestionsBeen1.size();i++){
-                        if(locationSuggestionsBeen1.get(i).getName().toLowerCase().contains(query.toLowerCase())){
+                    for (int i = 0; i < locationSuggestionsBeen1.size(); i++) {
+                        if (locationSuggestionsBeen1.get(i).getName().toLowerCase().contains(query.toLowerCase())) {
                             locationSuggestionsBeen.add(0, locationSuggestionsBean_);
                             locationSuggestionsBeen.add(locationSuggestionsBeen1.get(i));
                         }
@@ -496,9 +496,9 @@ public class SearchCity extends Fragment {
 
                     bean.setName(jsonObject1.getString("name"));
                     bean.setId(jsonObject1.getInt("id"));
-                    bean.setState_name(jsonObject1.getString("state"));
+                    // bean.setState_name(jsonObject1.getString("state"));
                     bean.setHeader(false);
-                    if(jsonObject1.getString("name").toLowerCase().contains(query.toLowerCase())){
+                    if (jsonObject1.getString("name").toLowerCase().contains(query.toLowerCase())) {
                         locationSuggestionsBeen.add(bean);
                     }
 
@@ -510,12 +510,13 @@ public class SearchCity extends Fragment {
                     mRecyclerView.setAdapter(customAdapter);
 
                 }else {
-               */     customAdapter = new CustomAdapter(locationSuggestionsBeen);
-                    mRecyclerView.setAdapter(customAdapter);
-              //  }
+               */
+                customAdapter = new CustomAdapter(locationSuggestionsBeen);
+                mRecyclerView.setAdapter(customAdapter);
+                //  }
             } catch (Exception adapter) {
 
-                Log.d("cityList> Exce",""+adapter.getMessage());
+                Log.d("cityList> Exce", "" + adapter.getMessage());
 
             }
 

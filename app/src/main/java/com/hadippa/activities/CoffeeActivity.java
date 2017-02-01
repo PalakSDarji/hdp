@@ -324,12 +324,19 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
             JSONObject jsonObject = new JSONObject(s);
 
-
             JSONArray jsonArray = jsonObject.getJSONArray("city_list");
+
 
             SearchModel.CitiesBean.LocationSuggestionsBean locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
             locationSuggestionsBean.setName("Select City");
             locationSuggestionsBean.setHeader(true);
+            locationSuggestionsBeen.add(locationSuggestionsBean);
+
+            locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+            locationSuggestionsBean.setName("Current Location");
+            locationSuggestionsBean.setHeader(false);
+            locationSuggestionsBean.setFromCityList(false);
+            locationSuggestionsBean.setCurrentLocation(true);
             locationSuggestionsBeen.add(locationSuggestionsBean);
             Log.d("cityList>", s);
 
@@ -340,7 +347,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
                 bean.setName(jsonObject1.getString("name"));
                 bean.setId(jsonObject1.getInt("id"));
-                bean.setState_name(jsonObject1.getString("state"));
+             //   bean.setState_name(jsonObject1.getString("state"));
                 bean.setHeader(false);
                 locationSuggestionsBeen.add(bean);
             }
@@ -351,7 +358,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
             dialog.show();
         } catch (Exception e) {
-
+            Log.d("dialogException",e.getMessage());
         }
     }
 
@@ -448,9 +455,14 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                             public void onClick(View v) {
 
                                 //TODO define click listener to get location. (Sahil)
+
+                                ((TextView) findViewById(R.id.tvHeader2)).setText(sp.getString("cityName", "Search"));
+                                prepareThings(0, true);
+                                dialog.dismiss();
                             }
                         });
                         cityViewHolder.getIvRightLogo().setVisibility(View.GONE);
+                        cityViewHolder.getIvLocation().setVisibility(View.VISIBLE);
                     } else {
                         cityViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -463,6 +475,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
                             }
                         });
                         cityViewHolder.getIvRightLogo().setVisibility(View.VISIBLE);
+                        cityViewHolder.getIvLocation().setVisibility(View.GONE);
                     }
 
                     break;

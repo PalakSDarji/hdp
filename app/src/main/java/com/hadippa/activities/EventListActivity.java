@@ -531,10 +531,9 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             requestParams.add("radius", radius);
             requestParams.add("start", start);
             requestParams.add("access_token", sp.getString("access_token",""));
-           // if(!isCurrent) {
-              // requestParams.add("city_name", ((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
-            requestParams.add("city_name", "Mumbai");
-          //  }
+            if(!isCurrent) {
+              requestParams.add("city_name", ((TextView) findViewById(R.id.tvHeader2)).getText().toString().trim());
+            }
             Log.d("prepareMeraEvents", requestParams.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -847,6 +846,14 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             locationSuggestionsBean.setName("Select City");
             locationSuggestionsBean.setHeader(true);
             locationSuggestionsBeen.add(locationSuggestionsBean);
+
+            locationSuggestionsBean = new SearchModel.CitiesBean.LocationSuggestionsBean();
+            locationSuggestionsBean.setName("Current Location");
+            locationSuggestionsBean.setHeader(false);
+            locationSuggestionsBean.setFromCityList(false);
+            locationSuggestionsBean.setCurrentLocation(true);
+            locationSuggestionsBeen.add(locationSuggestionsBean);
+
             Log.d("cityList>", s);
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -856,7 +863,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
                 bean.setName(jsonObject1.getString("name"));
                 bean.setId(jsonObject1.getInt("id"));
-                bean.setState_name(jsonObject1.getString("state"));
+              //  bean.setState_name(jsonObject1.getString("state"));
                 bean.setHeader(false);
                 locationSuggestionsBeen.add(bean);
             }
@@ -868,6 +875,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             dialog.show();
         } catch (Exception e) {
 
+            Log.d("dialogException",e.getMessage());
         }
     }
 
@@ -964,9 +972,13 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                             public void onClick(View v) {
 
                                 //TODO define click listener to get location. (Sahil)
+                                ((TextView) findViewById(R.id.tvHeader2)).setText(sp.getString("cityName", "Search"));
+                                prepareThings(0, true);
+                                dialog.dismiss();
                             }
                         });
                         cityViewHolder.getIvRightLogo().setVisibility(View.GONE);
+                        cityViewHolder.getIvLocation().setVisibility(View.VISIBLE);
                     } else {
                         cityViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -978,6 +990,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                                 dialog.dismiss();
                             }
                         });
+                        cityViewHolder.getIvLocation().setVisibility(View.GONE);
                         cityViewHolder.getIvRightLogo().setVisibility(View.VISIBLE);
                     }
 

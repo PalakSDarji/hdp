@@ -101,8 +101,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/value_w17"
                 android:clickable="true"
+
                 android:drawableLeft="@drawable/loc"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:textColor="@color/c_f25e5e"
                 android:textSize="@dimen/values_txt_16"
                 app:customFont="@string/proxima_bold"/>
@@ -192,7 +193,7 @@
         android:orientation="vertical">
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/srl_event_list"
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

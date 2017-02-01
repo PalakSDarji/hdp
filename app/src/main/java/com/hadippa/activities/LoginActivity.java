@@ -602,7 +602,7 @@ public class LoginActivity extends AppCompatActivity {
                     AppConstants.showSnackBar(mainRel,"Invalid username or password");
 
                 }
-                    Log.d("async>>","success"+response);
+                    Log.d("async>>city","success"+jsonObject.getString("city"));
             }catch (Exception e){
                 e.printStackTrace();
                 Log.d("async>>","success exc  >>"+ e.toString());
