@@ -322,7 +322,6 @@ public class SettingActivity extends AppCompatActivity {
                     rcvBlockList.setAdapter(customAdapter);
                 }
 
-                Log.d("blockList??", "success" + response);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d("blockList??", "success exc  >>" + e.toString());
