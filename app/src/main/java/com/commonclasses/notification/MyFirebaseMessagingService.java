@@ -137,6 +137,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         sendBroadCast.putExtra("messageData",messagesBean.getUser().getFirst_name()
                                 +" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody());
                         sendBroadcast(sendBroadCast);
+
+                       // mNotificationManager.notify(12, mBuilder.build());
   /*                      Toast.makeText(this,messagesBean.getUser().getFirst_name()
                                 +" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody(),Toast.LENGTH_SHORT).show();
   */                  } else {

@@ -222,10 +222,8 @@ public class AppConstants {
 
     public static void showSnackBarforMessage(View activity, String message) {
 
-/*
         Snackbar.make(activity,message , Snackbar.LENGTH_LONG)
                 .show();
-*/
 
     }
 

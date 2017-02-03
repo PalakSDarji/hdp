@@ -532,7 +532,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         sp = PreferenceManager.getDefaultSharedPreferences(HomeScreen.this);
         editor = sp.edit();
 
-        registerReceiver(broadcastReceiver,new IntentFilter("SNACKBAR_MESSAGE"));
+
         initUI();
 
 

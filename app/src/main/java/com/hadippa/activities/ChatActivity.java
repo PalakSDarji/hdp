@@ -326,7 +326,7 @@ public class ChatActivity extends AppCompatActivity {
         asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.CHAT_NEW_MESSAGE, requestParams,
                 new UpdateMessage());
     }
-
+//temp_msg_id=148615333
     class UpdateMessage extends AsyncHttpResponseHandler {
 
         @Override
@@ -366,8 +366,16 @@ public class ChatActivity extends AppCompatActivity {
 
                     chatAdapter.thread_id = messagesBean.getThread_id();
 
-                    chatDBHelper.updateTempMessage(jsonObject.getInt("temp_msg_id"), messagesBean, 1);
-                    chatAdapter.updateData(jsonObject.getInt("temp_msg_id"), messagesBean);
+                    try {
+                        chatDBHelper.updateTempMessage(jsonObject.getInt("temp_msg_id"), messagesBean, 1);
+                    }catch (Exception e){
+
+                    }
+                    try {
+                        chatAdapter.updateData(jsonObject.getInt("temp_msg_id"), messagesBean);
+                    }catch (Exception e){
+
+                    }
 
                     //  showChat(String.valueOf(getIntent().getExtras().getInt("threadId")));
                     Log.d("response>>", response);

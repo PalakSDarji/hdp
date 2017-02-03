@@ -272,11 +272,6 @@ public class MessageModel {
                 private String email_verification_code;
                 private String password_change_verification_code;
                 private String profile_photo;
-                private String profile_photo_1;
-                private String profile_photo_2;
-                private String profile_photo_3;
-                private String profile_photo_4;
-                private String profile_photo_5;
                 private int photo_uploaded;
                 private int active;
                 private int private_account;
@@ -481,46 +476,6 @@ public class MessageModel {
 
                 public void setProfile_photo(String profile_photo) {
                     this.profile_photo = profile_photo;
-                }
-
-                public String getProfile_photo_1() {
-                    return profile_photo_1;
-                }
-
-                public void setProfile_photo_1(String profile_photo_1) {
-                    this.profile_photo_1 = profile_photo_1;
-                }
-
-                public String getProfile_photo_2() {
-                    return profile_photo_2;
-                }
-
-                public void setProfile_photo_2(String profile_photo_2) {
-                    this.profile_photo_2 = profile_photo_2;
-                }
-
-                public String getProfile_photo_3() {
-                    return profile_photo_3;
-                }
-
-                public void setProfile_photo_3(String profile_photo_3) {
-                    this.profile_photo_3 = profile_photo_3;
-                }
-
-                public String getProfile_photo_4() {
-                    return profile_photo_4;
-                }
-
-                public void setProfile_photo_4(String profile_photo_4) {
-                    this.profile_photo_4 = profile_photo_4;
-                }
-
-                public String getProfile_photo_5() {
-                    return profile_photo_5;
-                }
-
-                public void setProfile_photo_5(String profile_photo_5) {
-                    this.profile_photo_5 = profile_photo_5;
                 }
 
                 public int getPhoto_uploaded() {
