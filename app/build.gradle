@@ -57,7 +57,6 @@ dependencies {
     //you can override RxJava version if you need
 
     //
-
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.google.android.gms:play-services:9.6.1'
     compile 'com.google.firebase:firebase-messaging:9.6.1'
@@ -92,5 +91,13 @@ dependencies {
     compile 'com.android.support:customtabs:23.2.0'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile project(':kprogresshud')
+    compile project(':core-nightly-release.0.01')
+    compile project(':microapps-nightly-release.0.01')
+
+    //Meraevents
+    compile 'com.squareup.duktape:duktape-android:0.9.6'
+    compile 'com.google.android.gms:play-services-maps:9.6.1'
+    compile 'net.steamcrafted:materialiconlib:1.0.9'
+    compile 'com.google.android:flexbox:0.2.5'
 }
 apply plugin: 'com.google.gms.google-services'

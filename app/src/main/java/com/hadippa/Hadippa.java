@@ -20,7 +20,11 @@ import com.hadippa.utils.DeviceUniqueId;
 import com.hadippa.utils.PreferencesHelper;
 import com.hadippa.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import io.appsfly.sdk.models.AppsFlyClientConfig;
+import io.appsfly.sdk.providers.AppsFlyProvider;
 
 public class Hadippa extends Application {
 
@@ -36,6 +40,14 @@ public class Hadippa extends Application {
     public void onCreate() {
         super.onCreate();
 
+        String repoUrl = "http://s3-ap-southeast-1.amazonaws.com/repo.appsfly.io"; // Current repo url is 'http://s3-ap-southeast-1.amazonaws.com/repo.appsfly.io'
+        String projectId = "589afc9285cbc2000fa1c782"; // Project under which MicroApp is created
+        String microAppId = "589afcb985cbc2000fa1c784"; // MicroApp Id
+        String associationKey = "4174f005-0b08-465a-ab76-ae118f086854"; // Association key created on the dashboard
+        ArrayList<AppsFlyClientConfig> appsFlyClientConfigs = new ArrayList<AppsFlyClientConfig>();
+        AppsFlyClientConfig appsflyConfig = new AppsFlyClientConfig(projectId, microAppId,  associationKey, repoUrl);
+        appsFlyClientConfigs.add(appsflyConfig);
+        AppsFlyProvider.getInstance().initialize(appsFlyClientConfigs, this);
         sInstance = this;
         FontsOverride.setDefaultFont(this, "DEFAULT", getResources().getString(R.string.proxima_reg));
 

@@ -585,7 +585,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("data", response);
                 clipboard.setPrimaryClip(clip);
-
+                Log.d("prepareMeraEvents", "Size >> " + response);
                 MeraEventPartyModel meraEventPartyModel = gson.fromJson(obj.toString(), MeraEventPartyModel.class);
                 if (meraEventPartyModel.isSuccess()) {
                     Log.d("prepareMeraEvents", "Size >> " + response);

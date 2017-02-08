@@ -241,7 +241,6 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-
                 customAdapter.filter(edtSearch.getText().toString().trim());
             }
 
@@ -250,6 +249,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
             }
         });
+
         findViewById(R.id.tvNext).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -259,13 +259,13 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             }
         });
 
-
         ((RelativeLayout) findViewById(R.id.relH2)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCityDialog();
             }
         });
+
         if (checkPermission()) {
             getLocation();
         } else {

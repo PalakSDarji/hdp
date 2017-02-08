@@ -54,6 +54,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
@@ -69,6 +70,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import io.appsfly.sdk.providers.AppsFlyProvider;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
@@ -368,7 +370,22 @@ public class EventDetailsActivity extends AppCompatActivity {
                                     //Yes button clicked
 
 
-                                    getAccessToken();
+                                    try {
+                                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(EventDetailsActivity.this);
+                                        JSONObject jsonObject1 = new JSONObject(sp.getString("userData",""));
+                                        String.valueOf(jsonObject1.getInt("id"));
+                                        JSONObject jsonObject = new JSONObject();
+                                        jsonObject.put("eventId",String.valueOf(dataBean.getId()));
+                                        jsonObject.put("emailId",jsonObject1.getString("email"));
+                                       // jsonObject.put("ticketArray["+dataBean.getTickets().getTicketList().get(0).getId()+"]", "1");
+                                        AppsFlyProvider.getInstance().pushApp("589afcb985cbc2000fa1c784", "4174f005-0b08-465a-ab76-ae118f086854", "INTENT",
+                                                jsonObject,
+                                                EventDetailsActivity.this);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                 //   getAccessToken();
 
                                     break;
 

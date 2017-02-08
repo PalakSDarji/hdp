@@ -38,7 +38,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFMService";
 
-   // {"send_id":211,"thread_id":4,
+    // {"send_id":211,"thread_id":4,
     // "send_name":"Sahil",
     //
     // "profile_photo_thumbnail":
@@ -68,8 +68,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Log.d(TAG, "FCM  Data : " + remoteMessage.getData().get("message").toString());
 
-        if(remoteMessage.getNotification() != null){
-            Log.d(TAG, "FCM Notification Message: " +remoteMessage.getNotification().getBody());
+        if (remoteMessage.getNotification() != null) {
+            Log.d(TAG, "FCM Notification Message: " + remoteMessage.getNotification().getBody());
         }
 
         sendNotificationPost(remoteMessage.getData());
@@ -77,11 +77,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
 
-    private void sendNotificationPost(Map<String,String> stringStringMap) {
+    private void sendNotificationPost(Map<String, String> stringStringMap) {
 
         try {
-
-
 
 
             NotificationManager mNotificationManager = (NotificationManager)
@@ -107,14 +105,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         /*.setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(jobj))*/
                             .setSound(soundUri)
-                            .setAutoCancel(true)
-                           ;
+                            .setAutoCancel(true);
 
 
             mBuilder.setContentIntent(contentIntent);
 
             JSONObject jsonObject = new JSONObject(stringStringMap.get("message").toString());
-            if (jsonObject.has("thread_id")){
+            if (jsonObject.has("thread_id")) {
                 MessageModel.ThreadBean.MessagesBean messagesBean = new Gson().fromJson(stringStringMap.get("message")
                         , MessageModel.ThreadBean.MessagesBean.class);
 
@@ -134,16 +131,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                     if (isActivityFound) {
                         Intent sendBroadCast = new Intent("SNACKBAR_MESSAGE");
-                        sendBroadCast.putExtra("messageData",messagesBean.getUser().getFirst_name()
-                                +" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody());
+                        sendBroadCast.putExtra("messageData", messagesBean.getUser().getFirst_name()
+                                + " " + messagesBean.getUser().getLast_name() + " : " + messagesBean.getBody());
                         sendBroadcast(sendBroadCast);
 
-                       // mNotificationManager.notify(12, mBuilder.build());
-  /*                      Toast.makeText(this,messagesBean.getUser().getFirst_name()
-                                +" "+messagesBean.getUser().getLast_name()+" : "+messagesBean.getBody(),Toast.LENGTH_SHORT).show();
-  */                  } else {
-                        // write your code to build a notification.
-                        // return the notification you built here
+                    } else {
+
                         mNotificationManager.notify(12, mBuilder.build());
                     }
                 }
@@ -151,7 +144,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 chatDBHelper.insertMessage(messagesBean, 0);
                 newMessageBroadCast(stringStringMap.get("message"));
-            }else{
+            } else {
 
                 mBuilder.setContentTitle("Hadipaa");
                 mBuilder.setContentText(stringStringMap.get("message"));
@@ -161,16 +154,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
     }
 
-    void newMessageBroadCast(String message){
+    void newMessageBroadCast(String message) {
 
         Intent sendBroadCast = new Intent("NEW_MESSAGE_BROADCAST");
-        sendBroadCast.putExtra("messageData",message);
+        sendBroadCast.putExtra("messageData", message);
         sendBroadcast(sendBroadCast);
 
 
