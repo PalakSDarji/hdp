@@ -54,6 +54,7 @@ public class AppConstants {
     public static final String ACTIVITY_OTHER_REQUEST_DECLINE = "/activity/request/decline";
     public static final String ACTIVITY_OTHER_REQUEST_ACCEPT = "/activity/request/accept";
     public static final String ACTIVITY_ROLLBACK = "/activity/rollback";
+    public static final String ACTIVITY_DELETE = "/post/delete";
     public static final String NOTIFICATION = "/notifications";
     public static final String LIST_WITH_HADIPAA = "/list_with_hadipaa";
 

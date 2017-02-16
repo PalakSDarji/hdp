@@ -246,6 +246,11 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             public void onClick(View v) {
 
                 if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+
+                    Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
+                    intent.putExtra("data", activityData);
+                    intent.putExtra("profile","other");
+                    startActivity(intent);
                     return;
                 }
                 if (tvActivityVal.getText().toString().equals("0")) {
@@ -253,7 +258,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                 } else {
                     Intent intent = new Intent(ProfileActivity.this, ActivityThingsActivity.class);
                     intent.putExtra("data", activityData);
-
+                    intent.putExtra("profile","my");
                     startActivity(intent);
 
                 }
@@ -436,6 +441,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             vSep2.setVisibility(View.GONE);
             vSep3.setVisibility(View.GONE);
             llAppr3.setVisibility(View.VISIBLE);
+
+            findViewById(R.id.ivMore).setVisibility(View.GONE);
 
             try {
                 JSONObject jsonObject = new JSONObject(sp.getString("userData", ""));
@@ -641,9 +648,12 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
 
                     if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
+                        activityBeanX = userProfile.getActivity();
                         tvActivityVal.setText("" + userProfile.getActivity_count());
                         tvApproaching2Val.setText("" + userProfile.getApproached_by_count());
                         tvApproaching3Val.setText("" + userProfile.getApproaching_count());
+                        activityData = response;
+
                         if (userProfile.getInstagram_images() != null) {
                             if(new Gson().toJson(userProfile.getInstagram_images()).equals("")){
                             if (userProfile.getInstagram_images().getData().size() > 0) {

@@ -56,6 +56,8 @@ public class MyPlan extends AppCompatActivity {
     List<MyPlansModel.MyPlansBean> myPlansBeen = new ArrayList<>();
 
     SwipeRefreshLayout swipeRefreshLayout;
+
+    CustomAdapter customAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -263,9 +265,18 @@ public class MyPlan extends AppCompatActivity {
             viewHolder.ivMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(context);
+                    final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(context);
                     View sheetView = LayoutInflater.from(context).inflate(R.layout.item_remove_activity, null);
                     mBottomSheetDialog.setContentView(sheetView);
+
+                    sheetView.findViewById(R.id.tvDeleteActivity).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mBottomSheetDialog.dismiss();
+                            deleteActivity(String.valueOf(myPlansBean.getId()));
+                        }
+                    });
+
                     mBottomSheetDialog.show();
                 }
             });
@@ -526,7 +537,8 @@ public class MyPlan extends AppCompatActivity {
 
                     Log.d("myplan>>", response);
                     myPlansBeen = myPlansModel.getMy_plans();
-                    myPlanRecycler.setAdapter(new CustomAdapter(MyPlan.this));
+                    customAdapter = new CustomAdapter(MyPlan.this);
+                    myPlanRecycler.setAdapter(customAdapter);
                     //post json stored g\here
 
                 } else {
@@ -549,6 +561,97 @@ public class MyPlan extends AppCompatActivity {
         }
 
     }
+
+
+    private void deleteActivity(String activity_id) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("id", activity_id);
+
+            Log.d("rollBack?>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.ACTIVITY_DELETE, requestParams,
+                new DeleteActivity(activity_id));
+    }
+
+    class DeleteActivity extends AsyncHttpResponseHandler {
+
+        String activity_id;
+
+        public DeleteActivity(String activity_id) {
+            this.activity_id = activity_id;
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            AppConstants.showProgressDialog(MyPlan.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            AppConstants.dismissDialog();
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                Log.d("rollBack?>>", "success" + response);
+
+                if (jsonObject.getBoolean("success")) {
+
+
+                    for(MyPlansModel.MyPlansBean myPlansBean : myPlansBeen){
+                        if(String.valueOf(myPlansBean.getId()).equals(activity_id)){
+                            myPlansBeen.remove(myPlansBean);
+                            break;
+                        }
+                    }
+
+                    customAdapter.notifyDataSetChanged();
+
+
+                } else {
+
+
+                }
+                Log.d("rollBack?>>", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("rollBack?>>", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            AppConstants.dismissDialog();
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
+
 
     @Override
     public void onBackPressed() {

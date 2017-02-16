@@ -91,9 +91,11 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="@dimen/value_5"
                         android:clickable="true"
+
                         android:src="@drawable/ic_more_vert_black_18dp"/>
 
                     <TextView
+
                         android:id="@+id/tvExpired"
                         android:background="@drawable/expired_bg_shape"
                         android:layout_width="wrap_content"

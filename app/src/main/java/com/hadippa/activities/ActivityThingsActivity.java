@@ -37,6 +37,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
     //Demo Github
     RecyclerView myRecycler;
     ImageView imageBack;
+    CustomTextView tvTitleName;
     List<UserProfile.ActivityBeanX> activityBeanX;
 
     @Override
@@ -54,10 +55,14 @@ public class ActivityThingsActivity extends AppCompatActivity {
             }
         });
 
+        tvTitleName = (CustomTextView)findViewById(R.id.tvTitleName);
+
         Gson gson = new Gson();
         UserProfile userProfile = gson.fromJson(getIntent().getExtras().getString("data"),UserProfile.class);
 
         if(userProfile.getActivity()!=null) {
+
+            tvTitleName.setText("Activity of "+ userProfile.getUser().getFirst_name()+" "+userProfile.getUser().getLast_name());
             activityBeanX = userProfile.getActivity();
 
             myRecycler = (RecyclerView) findViewById(R.id.myRecycler);
@@ -118,6 +123,11 @@ public class ActivityThingsActivity extends AppCompatActivity {
                 viewHolder.recyclerView.setAdapter(new Approved(myPlansBean.getPeople_going()));
             }
 
+            if(getIntent().getExtras().getString("profile").equals("other")){
+                viewHolder.ivMore.setVisibility(View.INVISIBLE);
+            }else{
+                viewHolder.ivMore.setVisibility(View.VISIBLE);
+            }
 
             Log.v(TAG,"LLGoing  " + myPlansBean.getPeople_going_count());
             if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0) {
@@ -156,42 +166,15 @@ public class ActivityThingsActivity extends AppCompatActivity {
 
             viewHolder.activityname.setText(myPlansBean.getActivity_details().getActivity_name());
             viewHolder.tvAddress.setText(myPlansBean.getActivity_location());
-            viewHolder.tvActivityDate.setText(myPlansBean.getActivity_date());
-            viewHolder.tvActivityTime.setText(convertDate(myPlansBean.getActivity_time()));
+            viewHolder.tvActivityDate.setText(convertDate(myPlansBean.getActivity_date()));
+            viewHolder.tvActivityTime.setText(AppConstants.formatDate(myPlansBean.getActivity_time(), "HH:mm", "hh:mm a"));
             viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size()+"");
-          /*  if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0){
-                viewHolder.tvCount.setText(myPlansBean.getPeople_going_count().size()+"");
-
-                String text = "";
-                if(myPlansBean.getPeople_going().size()>2) {
-
-
-                    text = "You are going with " + myPlansBean.getPeople_going().get(0).getUser().getFirst_name()
-                            + " " + myPlansBean.getPeople_going().get(0).getUser().getLast_name() + " and "+
-                            (myPlansBean.getPeople_going().size()-2) +" people";
-                }else{
-
-                    text = "You are going with " + myPlansBean.getPeople_going().get(0).getUser().getFirst_name()
-                            + " " + myPlansBean.getPeople_going().get(0).getUser().getLast_name();
-
-                }
-
-                viewHolder.goingWith.setText(text);
-                viewHolder.goingWith.setVisibility(View.VISIBLE);
-
-
-            }
-            else{
-                viewHolder.goingWith.setVisibility(View.GONE);
-                viewHolder.tvCount.setText("0");
-            }*/
 
 
 
 
             if(myPlansBean.getUser().getProfile_photo().isEmpty() ||
                     myPlansBean.getUser().getProfile_photo().equals("") ){
-
                 viewHolder.profileImage.setImageResource(R.drawable.place_holder);
             }else{
 
@@ -228,6 +211,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
         return stringDate;
 
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
@@ -236,7 +220,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
         private  LinearLayout llGoing;
         CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount,tvApprovedPeople,goingWith;
         RoundedImageView profileImage;
-
+        ImageView ivMore;
         public ViewHolder(final View v) {
             super(v);
 
@@ -248,7 +232,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
             });
 
             llGoing = (LinearLayout) v.findViewById(R.id.llGoing);
-
+            ivMore = (ImageView) v.findViewById(R.id.ivMore);
             vSep = (View) v.findViewById(R.id.vSep);
             activityname = (CustomTextView)v.findViewById(R.id.activityname);
             tvAddress = (CustomTextView)v.findViewById(R.id.tvAddress);
