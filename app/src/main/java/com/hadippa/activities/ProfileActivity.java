@@ -575,8 +575,9 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
 
             Glide.with(ProfileActivity.this)
+
                     .load(horizontalList.get(position).getImages().getStandard_resolution().getUrl())
-                    .placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(holder.iv_photo);
+                    .centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(holder.iv_photo);
 
         }
 
