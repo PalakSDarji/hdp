@@ -432,7 +432,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
 
         if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
-            connectInstagram.setVisibility(View.VISIBLE);
+            connectInstagram.setVisibility(View.GONE);
             llFollowUnfollow.setVisibility(View.GONE);
             rvMutualFriend.setVisibility(View.GONE);
             tvRecentInstagram.setVisibility(View.GONE);
@@ -675,7 +675,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                         }
                         }else{
                             tvRecentInstagram.setVisibility(View.GONE);
-                            connectInstagram.setVisibility(View.GONE);
+                            connectInstagram.setVisibility(View.VISIBLE);
                         }
 
                     } else {
@@ -694,7 +694,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
                                 connectInstagram.setVisibility(View.GONE);
                                 rvRecentInstagram.setVisibility(View.VISIBLE);
-                                InstagramAdapter instaAdapter = new InstagramAdapter(userProfile.getInstagram_images().getData());
+                                InstagramAdapter instaAdapter = new
+                                        InstagramAdapter(userProfile.getInstagram_images().getData());
                                 rvRecentInstagram.setAdapter(instaAdapter);
                                 //  if(userBean.getGender().equals("male")){
                                 tvRecentInstagram.setText("Instagram photos");

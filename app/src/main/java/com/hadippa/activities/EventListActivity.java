@@ -579,7 +579,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
             try {
                 String response = new String(responseBody, "UTF-8");
-
+                Log.d("restaurantsBeanList", "FIRST >> " + response);
                 JSONObject obj = new JSONObject(response);
                 Gson gson = new Gson();
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);

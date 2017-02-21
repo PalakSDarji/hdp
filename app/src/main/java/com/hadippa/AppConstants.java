@@ -192,7 +192,7 @@ public class AppConstants {
     public static final int API_ACTIVITY_ID_OUTDOOR = 14;
     public static final int API_ACTIVITY_ID_AVD_SPORTS = 15;
     public static final int API_ACTIVITY_ID_HOBBY = 20;
-    public static final int API_ACTIVITY_ID_FESTIVAL = 9;
+    public static final int API_ACTIVITY_ID_FESTIVAL = 99;
     public static final int API_ACTIVITY_ID_OTHER = 25;
 
     public static final String MESSAGE_TYPE_TEXT = "1";

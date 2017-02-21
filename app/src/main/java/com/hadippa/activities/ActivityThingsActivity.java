@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -159,6 +161,17 @@ public class ActivityThingsActivity extends AppCompatActivity {
 
             }
 
+            try{
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date strDate = sdf.parse(myPlansBean.getActivity_date());
+            if (new Date().after(strDate)) {
+                viewHolder.tvExpired.setVisibility(View.VISIBLE);
+            }else{
+                viewHolder.tvExpired.setVisibility(View.INVISIBLE);
+            }
+            }catch (Exception e){
+                viewHolder.tvExpired.setText("Error");
+            }
             Log.v(TAG,"LLGoing  " + myPlansBean.getPeople_going_count());
             if(myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0) {
 
@@ -226,6 +239,82 @@ public class ActivityThingsActivity extends AppCompatActivity {
         }
     }
 
+
+    void setDrawable(int actiivty_type,ImageView view){
+        switch (actiivty_type){
+            case AppConstants.API_ACTIVITY_ID_MOVIE:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_THEATER:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_EVENT:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_NIGHTCLUB:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_LOUNGE:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_PARTY:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_STAND_UP_COMEDY:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_FLIGHT:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_TRAIN:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_BUS:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_COFFEE:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_INDOOR:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_OUTDOOR:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_AVD_SPORTS:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_HOBBY:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_FESTIVAL:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_OTHER:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+
+
+        }
+    }
+
     String convertDate(String dateInputString) {
 
         String stringDate = null;
@@ -253,6 +342,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
         CustomTextView activityname,tvAddress,tvActivityDate,tvActivityTime,tvGoing,tvCount,tvApprovedPeople,goingWith;
         RoundedImageView profileImage;
         ImageView ivMore;
+        TextView tvExpired;
         public ViewHolder(final View v) {
             super(v);
 
@@ -263,6 +353,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
                 }
             });
 
+            tvExpired = (TextView)v.findViewById(R.id.tvExpired);
             llGoing = (LinearLayout) v.findViewById(R.id.llGoing);
             ivMore = (ImageView) v.findViewById(R.id.ivMore);
             vSep = (View) v.findViewById(R.id.vSep);
