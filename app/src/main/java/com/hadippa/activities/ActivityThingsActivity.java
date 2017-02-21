@@ -4,6 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,13 +27,20 @@ import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.model.MyPlansModel;
 import com.hadippa.model.UserProfile;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.makeramen.roundedimageview.RoundedImageView;
+
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import cz.msebera.android.httpclient.Header;
 
 public class ActivityThingsActivity extends AppCompatActivity {
 
@@ -40,6 +50,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
     CustomTextView tvTitleName;
     List<UserProfile.ActivityBeanX> activityBeanX;
 
+    CustomAdapter customAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +80,8 @@ public class ActivityThingsActivity extends AppCompatActivity {
             final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
             mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             myRecycler.setLayoutManager(mLayoutManager);
-
-            myRecycler.setAdapter(new CustomAdapter());
+            customAdapter = new CustomAdapter();
+            myRecycler.setAdapter(customAdapter);
         }}
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -127,6 +138,25 @@ public class ActivityThingsActivity extends AppCompatActivity {
                 viewHolder.ivMore.setVisibility(View.INVISIBLE);
             }else{
                 viewHolder.ivMore.setVisibility(View.VISIBLE);
+                viewHolder.ivMore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(ActivityThingsActivity.this);
+                        View sheetView = LayoutInflater.from(ActivityThingsActivity.this).inflate(R.layout.item_remove_activity, null);
+                        mBottomSheetDialog.setContentView(sheetView);
+
+                        sheetView.findViewById(R.id.tvDeleteActivity).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                mBottomSheetDialog.dismiss();
+                                deleteActivity(String.valueOf(myPlansBean.getId()));
+                            }
+                        });
+
+                        mBottomSheetDialog.show();
+                    }
+                });
+
             }
 
             Log.v(TAG,"LLGoing  " + myPlansBean.getPeople_going_count());
@@ -184,6 +214,8 @@ public class ActivityThingsActivity extends AppCompatActivity {
                         .placeholder(R.drawable.place_holder)
                         .into(viewHolder.profileImage);
             }
+
+
 
         }
 
@@ -345,5 +377,95 @@ public class ActivityThingsActivity extends AppCompatActivity {
 
     }
 
+
+    private void deleteActivity(String activity_id) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        RequestParams requestParams = new RequestParams();
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(ActivityThingsActivity.this);
+        try {
+
+            requestParams.add("access_token", sp.getString("access_token", ""));
+            requestParams.add("id", activity_id);
+
+            Log.d("rollBack?>>", requestParams.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.ACTIVITY_DELETE, requestParams,
+                new DeleteActivity(activity_id));
+    }
+
+    class DeleteActivity extends AsyncHttpResponseHandler {
+
+        String activity_id;
+
+        public DeleteActivity(String activity_id) {
+            this.activity_id = activity_id;
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            AppConstants.showProgressDialog(ActivityThingsActivity.this, "Please Wait");
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            AppConstants.dismissDialog();
+        }
+
+        @Override
+        public void onProgress(long bytesWritten, long totalSize) {
+            super.onProgress(bytesWritten, totalSize);
+
+        }
+
+
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            AppConstants.dismissDialog();
+            try {
+                String response = new String(responseBody, "UTF-8");
+                JSONObject jsonObject = new JSONObject(response);
+                Log.d("rollBack?>>", "success" + response);
+
+                if (jsonObject.getBoolean("success")) {
+
+
+                    for(UserProfile.ActivityBeanX myPlansBean : activityBeanX){
+                        if(String.valueOf(myPlansBean.getId()).equals(activity_id)){
+                            activityBeanX.remove(myPlansBean);
+                            break;
+                        }
+                    }
+
+                    customAdapter.notifyDataSetChanged();
+
+
+                } else {
+
+
+                }
+                Log.d("rollBack?>>", "success" + response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("rollBack?>>", "success exc  >>" + e.toString());
+            }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            AppConstants.dismissDialog();
+            //  AppConstants.showSnackBar(mainRel,"Try again!");
+        }
+
+    }
 
 }

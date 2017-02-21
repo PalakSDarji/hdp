@@ -268,6 +268,9 @@ public class ShowCardsNew extends Fragment {
                 viewHolder.tvAddress.setText(dataModel.getActivity_location());
                 viewHolder.tvGoing.setText(String.valueOf(dataModel.getPeople_going_count().size()) + " Going");
                 viewHolder.tvCount.setText(String.valueOf(dataModel.getId()));
+                viewHolder.tvDistance.setText(""+distance(posts.get(position).getActivity_location_lat(),
+                        posts.get(position).getActivity_location_lon(),Double.parseDouble(sp.getString("app_lat","0.0"))
+                        ,Double.parseDouble(sp.getString("app_long","0.0")))+" kms");
 
                 if (dataModel.getActivity().getActivity_category().getId() == 1 || dataModel.getActivity().getActivity_category().getId() == 2) {
                     if (dataModel.getCut_off_time().equals("0000-00-00 00:00:00")) {
@@ -337,6 +340,26 @@ public class ShowCardsNew extends Fragment {
         }
     }
 
+    private int distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1))
+                * Math.sin(deg2rad(lat2))
+                + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2))
+                * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        return (int)(dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
     String convertDate(String dateInputString) {
 
         String stringDate = null;

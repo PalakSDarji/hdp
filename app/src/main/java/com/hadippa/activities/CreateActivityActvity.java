@@ -398,6 +398,7 @@ public class CreateActivityActvity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CreateActivityActvity.this, InviteToJoinActivity.class);
                 intent.putExtra("selectedId", selectedList);
+                intent.putExtra("otherId", customList);
                 startActivityForResult(intent, 551);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -523,6 +524,7 @@ public class CreateActivityActvity extends AppCompatActivity {
                 //setRadios(3);
                 Intent intent = new Intent(CreateActivityActvity.this, CustomSelectPeople.class);
                 intent.putExtra("selectedId",customList);
+                intent.putExtra("otherId", selectedList);
                 startActivityForResult(intent,666);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -585,7 +587,8 @@ public class CreateActivityActvity extends AppCompatActivity {
 
 
                 autocompleteFragment.setText(place.getAttributions());
-
+                etAddress.setText(place.getAttributions()+"");
+                stand_up_place = String.valueOf(place.getAttributions());
             }
 
             @Override
@@ -597,6 +600,8 @@ public class CreateActivityActvity extends AppCompatActivity {
 
 
     }
+
+    String stand_up_place = "";
     private void loadSpinner() {
 
         spnAvail.setVisibility(View.VISIBLE);
@@ -737,15 +742,13 @@ public class CreateActivityActvity extends AppCompatActivity {
 
                 String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
-                /*if(strHrsToShow.length()==1){
+                if(strHrsToShow.length()==1){
                     strHrsToShow = "0"+strHrsToShow;
                 }
-*/
                 String min = String.valueOf(selectedMinute);
-  /*              if(String.valueOf(selectedMinute).length() == 1){
+                if(String.valueOf(selectedMinute).length() == 1){
                     min = "0"+String.valueOf(selectedMinute);
                 }
-*/
 
                 tvVisitingTime.setText(strHrsToShow+":"+min+" "+am_pm);
 
@@ -769,14 +772,13 @@ public class CreateActivityActvity extends AppCompatActivity {
 
                 String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
-                /*if(strHrsToShow.length()==1){
+                if(strHrsToShow.length()==1){
                     strHrsToShow = "0"+strHrsToShow;
-                }*/
+                }
                 String min = String.valueOf(selectedMinute);
-               /* if(String.valueOf(selectedMinute).length() == 1){
+                if(String.valueOf(selectedMinute).length() == 1){
                     min = "0"+String.valueOf(selectedMinute);
                 }
-*/
 
                 tvAvailableTill.setText(strHrsToShow+ ":"+min+" "+am_pm);
             }
@@ -796,14 +798,40 @@ public class CreateActivityActvity extends AppCompatActivity {
 
             requestParams.add("access_token", sharedPreferences.getString("access_token", ""));
             requestParams.add("activity_type", String.valueOf(getIntent().getExtras().getInt("activity_id")));
-            requestParams.add("activity_name", name.getText().toString());
+
             requestParams.add("activity_date",selectedDate + " " + convertTime12TO24(tvVisitingTime.getText().toString().trim()));
             //requestParams.add("activity_date", );
-            requestParams.add("activity_location", address.getText().toString());
+
             if (activityKey == AppConstants.ACTIVITY_TRAVEL_SCHEDULE) {
                 requestParams.add("activity_name", tvFrom.getText().toString()+" to "+tvTo.getText().toString());
                 requestParams.add("from", tvFrom.getText().toString());
                 requestParams.add("to", tvTo.getText().toString());
+                requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
+                requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
+                requestParams.add("activity_id", String.valueOf(getIntent().getExtras().getString("activity_id")));
+                requestParams.add("activity_location", getIntent().getExtras().getString("activity_location"));
+            }else  if (activityKey == AppConstants.ACTIVITY_FROM_COFFEE ||
+                    activityKey == AppConstants.ACTIVITY_LOUNGE ||
+                    activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
+
+                requestParams.add("activity_id", String.valueOf(restaurantsBean.getRestaurant().getId()));
+                requestParams.add("activity_name", name.getText().toString());
+                requestParams.add("activity_location_lat", restaurantsBean.getRestaurant().getLocation().getLatitude());
+                requestParams.add("activity_location", address.getText().toString());
+                requestParams.add("activity_location_lon", restaurantsBean.getRestaurant().getLocation().getLongitude());
+
+            }  else  if (activityKey == AppConstants.ACTIVITY_STANDUP_COMEDY ) {
+                requestParams.add("activity_id", "0");
+                requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
+                requestParams.add("activity_location", ((EditText) autocompleteFragment.getView()
+                        .findViewById(R.id.place_autocomplete_search_input)).getText().toString());
+                requestParams.add("activity_name", etActivityName.getText().toString().trim() );
+                requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
+            }else {
+                requestParams.add("activity_id", "0");
+                requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
+                requestParams.add("activity_location", etAddress.getText().toString());
+                requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
             }
 
             if (getIntent().getExtras().getInt("activity_id") == 1 || getIntent().getExtras().getInt("activity_id") == 2) {
@@ -817,19 +845,7 @@ public class CreateActivityActvity extends AppCompatActivity {
                 requestParams.add("available_till", selectedDate + " " + convertTime12TO24(tvAvailableTill.getText().toString().trim()));
             }
 
-            if (activityKey == AppConstants.ACTIVITY_FROM_COFFEE ||
-                    activityKey == AppConstants.ACTIVITY_LOUNGE ||
-                    activityKey == AppConstants.ACTIVITY_NIGHTCLUB) {
-                requestParams.add("activity_id", String.valueOf(restaurantsBean.getRestaurant().getId()));
 
-                requestParams.add("activity_location_lat", restaurantsBean.getRestaurant().getLocation().getLatitude());
-                requestParams.add("activity_location_lon", restaurantsBean.getRestaurant().getLocation().getLongitude());
-
-            } else {
-                requestParams.add("activity_id", "0");
-                requestParams.add("activity_location_lat", getIntent().getExtras().getString("latitude"));
-                requestParams.add("activity_location_lon", getIntent().getExtras().getString("longitude"));
-            }
             requestParams.add("notification", notification);
             if(customList.size()>0){
                 requestParams.add("hide_from",customList.toString().replace("[", "").replace("]", ""));

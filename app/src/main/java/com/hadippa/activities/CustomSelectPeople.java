@@ -6,10 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -71,6 +74,7 @@ public class CustomSelectPeople extends AppCompatActivity {
     public CustomAdapter customAdapter;
 
     ArrayList<String> selectedList = new ArrayList<>();
+    ArrayList<String> otherList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +141,7 @@ public class CustomSelectPeople extends AppCompatActivity {
         editor = sp.edit();
 
         selectedList = getIntent().getStringArrayListExtra("selectedId");
-
+        otherList = getIntent().getStringArrayListExtra("otherId");
         rcSelectedItems = (RecyclerView) findViewById(R.id.rcSelectedItems);
         myRecycler = (RecyclerView) findViewById(R.id.myRecycler);
 
@@ -324,6 +328,7 @@ public class CustomSelectPeople extends AppCompatActivity {
             return new ViewHolder(v);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             //Log.d(TAG, "Element " + position + " set.");
@@ -405,6 +410,23 @@ public class CustomSelectPeople extends AppCompatActivity {
                 }
 
             }
+
+            boolean found = false;
+
+            for(String id : otherList){
+                if(id.equals(String.valueOf(followersFollowings.get(position).getFollowed_id()))){
+                    viewHolder.rlContainer.setForeground(getResources().getDrawable(R.drawable.disable));
+                    viewHolder.itemView.setEnabled(false);
+
+                    found = true;
+                }
+            }
+
+            if(!found){
+                viewHolder.rlContainer.setForeground(null);
+                viewHolder.itemView.setEnabled(true);
+            }
+
 
             viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -552,6 +574,7 @@ public class CustomSelectPeople extends AppCompatActivity {
         RelativeLayout rlContainer;
         ImageView rbButton;
         TextView tvName;
+        View viewOverLay;
 
         public ViewHolder(final View v) {
             super(v);
@@ -561,6 +584,7 @@ public class CustomSelectPeople extends AppCompatActivity {
             tvName = (TextView) v.findViewById(R.id.tvName);
             rlContainer = (RelativeLayout) v.findViewById(R.id.rlContainer);
             rbButton = (ImageView) v.findViewById(R.id.rbButton);
+            viewOverLay = (View)v.findViewById(R.id.viewOverLay);
         }
     }
 

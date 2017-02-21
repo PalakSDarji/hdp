@@ -287,6 +287,7 @@ public class TravelActivity extends AppCompatActivity implements LocationListene
                     intent.putExtra(AppConstants.TRAVEL_BY_KEY,etSelectFlight.getText().toString().trim());
                     intent.putExtra(AppConstants.ACTIVITY_KEY,AppConstants.ACTIVITY_TRAVEL_SCHEDULE);
                     intent.putExtra("activity_id",getIntent().getExtras().getInt("activity_id"));
+                    intent.putExtra("activity_location",etSelectFlight.getText().toString());
                     intent.putExtra("latitude",latitude);
                     intent.putExtra("longitude",longitude);
                     startActivity(intent);

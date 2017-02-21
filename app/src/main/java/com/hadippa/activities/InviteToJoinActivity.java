@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -72,6 +74,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     RelativeLayout relMain;
 
+    ArrayList<String> otherList = new ArrayList<>();
     public CustomAdapter customAdapter;
 
     ArrayList<String> selectedList = new ArrayList<>();
@@ -86,21 +89,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
         }
 
         selectedModels = new ArrayList<>();
-        // peopleModels = new ArrayList<>();
-     /*   peopleModels.add(new PeopleModel("1","Palak Darji"));
-        peopleModels.add(new PeopleModel("2","Kat Middleton"));
-        peopleModels.add(new PeopleModel("3","Kareena Kapoor"));
-        peopleModels.add(new PeopleModel("4","Kartick Mistry"));
-        peopleModels.add(new PeopleModel("5","Angelina Joly"));
-        peopleModels.add(new PeopleModel("6","Sania Mirza"));
-        peopleModels.add(new PeopleModel("7","David Backham"));
-        peopleModels.add(new PeopleModel("8","Shreya Ghosal"));
-        peopleModels.add(new PeopleModel("9","Shilpa Shetty"));
-        peopleModels.add(new PeopleModel("10","Tina Gupta"));
-        peopleModels.add(new PeopleModel("11","Katrina Kaif"));
-        peopleModels.add(new PeopleModel("12","Lonewolf Sniper"));
-        peopleModels.add(new PeopleModel("13","CarryMinati"));
-*/
+
         etSearch = (EditText) findViewById(R.id.etSearch);
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -118,6 +107,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
             }
         });
+
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -155,6 +145,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
         editor = sp.edit();
 
         selectedList = getIntent().getStringArrayListExtra("selectedId");
+        otherList = getIntent().getStringArrayListExtra("otherId");
 
         rcSelectedItems = (RecyclerView) findViewById(R.id.rcSelectedItems);
         myRecycler = (RecyclerView) findViewById(R.id.myRecycler);
@@ -205,7 +196,8 @@ public class InviteToJoinActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION + AppConstants.CONNECTION_FOLLOWING, requestParams,
+        asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.API_VERSION +
+                AppConstants.CONNECTION_FOLLOWING, requestParams,
                 new GetFollowers());
 
     }
@@ -216,7 +208,6 @@ public class InviteToJoinActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            //  progressBar.setVisibility(View.VISIBLE);
             AppConstants.showProgressDialog(InviteToJoinActivity.this, "Please Wait");
 
         }
@@ -342,69 +333,12 @@ public class InviteToJoinActivity extends AppCompatActivity {
             return new ViewHolder(v);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             //Log.d(TAG, "Element " + position + " set.");
             final FollowingModel.FollowingBean followers_following = followersFollowings.get(position);
 
-            //  final PeopleModel peopleModel = filteredData.get(position);
-         /*   Log.d(TAG, "Element " + position + " set." + peopleModel.isChecked());
-
-            if(peopleModel.isChecked()){
-                viewHolder.rbButton.setSelected(true);
-            }
-            else{
-                viewHolder.rbButton.setSelected(false);
-            }*/
-
-          /*  viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    for(int i=0;i<filteredData.size();i++){
-                        if(filteredData.get(i).getId().
-                                equalsIgnoreCase(filteredData.get(position).getId())){
-                            PeopleModel people = filteredData.get(i);
-                            if(people.isChecked()){
-                                people.setChecked(false);
-                                removeSelectedItemFromList(people);
-                            }
-                            else{
-                                people.setChecked(true);
-                                addSelectedItemToList(people);
-                            }
-
-
-                        }
-                    }
-                    notifyDataSetChanged();
-                }
-            });*/
-
-          /*  viewHolder.rbButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    for(int i=0;i<filteredData.size();i++){
-                        if(filteredData.get(i).getId().
-                                equalsIgnoreCase(filteredData.get(position).getId())){
-                            PeopleModel people = filteredData.get(i);
-                            if(people.isChecked()){
-                                people.setChecked(false);
-                                removeSelectedItemFromList(people);
-                            }
-                            else{
-                                people.setChecked(true);
-                                addSelectedItemToList(people);
-                            }
-                        }
-                    }
-
-                    notifyDataSetChanged();
-                }
-            });*/
-
-            //  viewHolder.tvName.setText(""+ peopleModel.getFirst_name());
             if (followers_following != null && followers_following.getFollowed() != null) {
                 viewHolder.tvName.setText(followers_following.getFollowed().getFirst_name() + " " +
                         followers_following.getFollowed().getLast_name());
@@ -424,18 +358,32 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
             }
 
+
+            boolean found = false;
+
+            for(String id : otherList){
+                if(id.equals(String.valueOf(followersFollowings.get(position).getFollowed_id()))){
+                    viewHolder.rlContainer.setForeground(getResources().getDrawable(R.drawable.disable));
+                    viewHolder.itemView.setEnabled(false);
+
+                    found = true;
+                }
+            }
+
+            if(!found){
+                viewHolder.rlContainer.setForeground(null);
+                viewHolder.itemView.setEnabled(true);
+            }
+
             viewHolder.rlContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                   /* boolean found = false;
-                    for (int i = 0; i < selectedList.size(); i++) {
-*/
                     try {
                         if (selectedList.contains(String.valueOf(followersFollowings.get(position).getFollowed_id()))) {
                             selectedList.remove(String.valueOf(followersFollowings.get(position).getFollowed_id()));
                             selectedModels.remove(followersFollowings.get(position));
-                            // removeSelectedItemFromList(followersFollowings.get(position));
+
                         } else {
                             selectedList.add(String.valueOf(followersFollowings.get(position).getFollowed_id()));
                             selectedModels.add(followersFollowings.get(position));
@@ -570,10 +518,11 @@ public class InviteToJoinActivity extends AppCompatActivity {
         RelativeLayout rlContainer;
         ImageView rbButton;
         TextView tvName;
+        View viewOverLay;
 
         public ViewHolder(final View v) {
             super(v);
-
+            viewOverLay = (View)v.findViewById(R.id.viewOverLay);
             name = (CustomTextView) v.findViewById(R.id.text_view);
             image_view = (RoundedImageView) v.findViewById(R.id.image_view);
             tvName = (TextView) v.findViewById(R.id.tvName);

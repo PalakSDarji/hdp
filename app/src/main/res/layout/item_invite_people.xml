@@ -12,6 +12,12 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
+    <View
+        android:visibility="gone"
+        android:id="@+id/viewOverLay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#90000000"></View>
     <ImageView
         android:id="@+id/rbButton"
         android:layout_width="@dimen/value_w50"

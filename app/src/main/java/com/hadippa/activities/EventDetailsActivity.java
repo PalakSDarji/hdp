@@ -332,6 +332,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(EventDetailsActivity.this, InviteToJoinActivity.class);
                 intent.putExtra("selectedId",selectedList);
+                intent.putExtra("otherId", customList);
                 startActivityForResult(intent,555);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -477,7 +478,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                 radio3.setSelected(true);
 
                 Intent intent = new Intent(EventDetailsActivity.this, CustomSelectPeople.class);
-                intent.putExtra("selectedId",customList);
+                intent.putExtra("selectedId",customList);intent.putExtra("otherId", selectedList);
                 startActivityForResult(intent,555);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -609,9 +610,9 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                 String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
-                if(strHrsToShow.length()==1){
+              /*  if(strHrsToShow.length()==1){
                     strHrsToShow = "0"+strHrsToShow;
-                }
+                }*/
                 String min = String.valueOf(selectedMinute);
                 if(String.valueOf(selectedMinute).length() == 1){
                     min = "0"+String.valueOf(selectedMinute);
@@ -640,14 +641,13 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                 String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
-                if(strHrsToShow.length()==1){
+             /*   if(strHrsToShow.length()==1){
                     strHrsToShow = "0"+strHrsToShow;
-                }
+                }*/
                 String min = String.valueOf(selectedMinute);
                 if(String.valueOf(selectedMinute).length() == 1){
                     min = "0"+String.valueOf(selectedMinute);
                 }
-
 
                 tvAvailableTill.setText(strHrsToShow + ":" + min+" "+am_pm);
             }
