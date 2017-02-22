@@ -48,6 +48,7 @@ import com.hadippa.R;
 import com.hadippa.fragments.search.SearchCity;
 import com.hadippa.model.NightCLubModel;
 import com.hadippa.model.SearchModel;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -825,7 +826,31 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
     SharedPreferences sp;
 
+    public KProgressHUD hud;
 
+    public void showProgressDialog(Context context, String message) {
+        // PROGRESS_DIALOG.show();
+
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.back_progress))
+
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(true)
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
+    }
+
+    public void dismissDialog() {
+
+        if (hud != null) hud.dismiss();
+
+    }
+    
     private void prepareZomato(String searchFor, String lat, String lon, String radius, String start) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
@@ -862,7 +887,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             if(swipeRefreshLayout.isRefreshing()){
 
             }else{
-            new AppConstants().showProgressDialog(CoffeeActivity.this, "Please Wait");
+            showProgressDialog(CoffeeActivity.this, "Please Wait");
             Log.d("<<prepareZomato>>", "success exc  >> start");
         }}
 
@@ -873,7 +898,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             if(swipeRefreshLayout.isRefreshing()){
                 swipeRefreshLayout.setRefreshing(false);
             }
-            AppConstants.dismissDialog();
+            dismissDialog();
             Log.d("<<prepareZomato>>", "success exc  >> finish");
         }
 
@@ -891,7 +916,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
 
             try {
                 String response = new String(responseBody, "UTF-8");
-                AppConstants.dismissDialog();
+                dismissDialog();
                 JSONObject obj = new JSONObject(response);
                 Gson gson = new Gson();
                 NightCLubModel nightCLubModel = gson.fromJson(obj.toString(), NightCLubModel.class);
@@ -928,7 +953,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             Log.d("prepareZomato>>", "success exc  >>" + error.toString());
             //  AppConstants.showSnackBar(mainRel,"Try again!");
 
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
     }

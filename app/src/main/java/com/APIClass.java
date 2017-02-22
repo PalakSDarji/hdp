@@ -1,5 +1,10 @@
+
 package com;
 
+public class APIClass {
+}
+
+/*
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -24,9 +29,11 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
+*/
 /**
  * Created by HP on 03-08-2016.
- */
+ *//*
+
 
 public class APIClass {
 
@@ -59,14 +66,14 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+            
         }
 
         @Override
@@ -141,14 +148,14 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+            
         }
 
         @Override
@@ -218,14 +225,14 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+
         }
 
         @Override
@@ -296,7 +303,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -374,7 +381,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -452,7 +459,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -529,7 +536,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -610,7 +617,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -693,7 +700,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -778,7 +785,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -854,7 +861,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -930,7 +937,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1007,7 +1014,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1085,7 +1092,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1162,7 +1169,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1241,7 +1248,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1321,7 +1328,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1399,7 +1406,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1452,7 +1459,8 @@ public class APIClass {
 
 
 
-    //*************************** CHAT API ..........................................
+    /*/
+/*************************** CHAT API ..........................................
     private void MyChat() {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
@@ -1479,7 +1487,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1556,7 +1564,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1637,7 +1645,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1719,7 +1727,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1801,7 +1809,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1883,7 +1891,7 @@ public class APIClass {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  
 
         }
 
@@ -1936,3 +1944,4 @@ public class APIClass {
 
 }
 
+*/

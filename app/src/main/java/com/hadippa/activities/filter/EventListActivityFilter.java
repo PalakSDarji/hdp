@@ -45,6 +45,7 @@ import com.hadippa.R;
 import com.hadippa.activities.BaseActionsActivity;
 import com.hadippa.activities.EventDetailsActivity;
 import com.hadippa.model.MeraEventPartyModel;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -503,20 +504,46 @@ public class EventListActivityFilter extends BaseActionsActivity implements Loca
                 new CallMeraEvents());
     }
 
+    public KProgressHUD hud;
+
+    public void showProgressDialog(Context context, String message) {
+        // PROGRESS_DIALOG.show();
+
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.back_progress))
+
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(true)
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
+    }
+
+    public void dismissDialog() {
+
+        if (hud != null) hud.dismiss();
+
+
+    }
+
     class CallMeraEvents extends AsyncHttpResponseHandler {
 
         @Override
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(EventListActivityFilter.this, "Please Wait");
+            showProgressDialog(EventListActivityFilter.this, "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override

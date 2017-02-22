@@ -43,6 +43,7 @@ import com.hadippa.model.FollowingModel;
 import com.hadippa.model.NotificationModel;
 import com.hadippa.model.PeopleModel;
 import com.hadippa.model.SearchModel;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -162,7 +163,7 @@ public class NotificationActivity extends AppCompatActivity {
             if(swipeRefreshLayout.isRefreshing()){
 
             }else {
-                new AppConstants().showProgressDialog(NotificationActivity.this, "Please Wait");
+                showProgressDialog(NotificationActivity.this, "Please Wait");
             }
         }
 
@@ -173,7 +174,7 @@ public class NotificationActivity extends AppCompatActivity {
             if(swipeRefreshLayout.isRefreshing()){
                 swipeRefreshLayout.setRefreshing(false);
             }
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override
@@ -507,14 +508,14 @@ public class NotificationActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
+            //  showProgressDialog(Preference.this, "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override
@@ -601,14 +602,14 @@ public class NotificationActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
+            //  showProgressDialog(Preference.this, "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override
@@ -702,14 +703,14 @@ public class NotificationActivity extends AppCompatActivity {
             super.onStart();
 
             //  dataScroll.setVisibility(View.GONE);
-            //   new AppConstants().showProgressDialog(getActivity(), "Please Wait");
+            //   showProgressDialog(getActivity(), "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            //  AppConstants.dismissDialog();
+            //  dismissDialog();
         }
 
         @Override
@@ -773,6 +774,31 @@ public class NotificationActivity extends AppCompatActivity {
                 new Follow_Unfollow(position));
     }
 
+    public KProgressHUD hud;
+
+    public void showProgressDialog(Context context, String message) {
+        // PROGRESS_DIALOG.show();
+
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.back_progress))
+
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(true)
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
+    }
+
+    public void dismissDialog() {
+
+        if (hud != null) hud.dismiss();
+
+    }
+
     class Follow_Unfollow extends AsyncHttpResponseHandler {
 
 
@@ -787,14 +813,14 @@ public class NotificationActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            // new AppConstants().showProgressDialog(getActivity(), "Please Wait");
+            // showProgressDialog(getActivity(), "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            // AppConstants.dismissDialog();
+            // dismissDialog();
         }
 
         @Override

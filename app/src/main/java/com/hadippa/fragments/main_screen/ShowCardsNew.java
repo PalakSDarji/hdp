@@ -45,7 +45,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.APIClass;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.daprlabs.cardstack.SwipeDeck;
@@ -1289,7 +1288,7 @@ public class ShowCardsNew extends Fragment {
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+
         }
 
         @Override
@@ -1377,7 +1376,7 @@ public class ShowCardsNew extends Fragment {
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+
         }
 
         @Override

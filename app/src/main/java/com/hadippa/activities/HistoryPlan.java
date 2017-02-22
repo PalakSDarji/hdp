@@ -28,6 +28,7 @@ import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.model.MyPlansModel;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -446,7 +447,7 @@ public class HistoryPlan extends AppCompatActivity {
             if(swipeRefreshLayout.isRefreshing()){
 
             }else {
-                new AppConstants().showProgressDialog(HistoryPlan.this, "Please Wait");
+                showProgressDialog(HistoryPlan.this, "Please Wait");
             }
         }
 
@@ -457,7 +458,7 @@ public class HistoryPlan extends AppCompatActivity {
             if(swipeRefreshLayout.isRefreshing()){
                 swipeRefreshLayout.setRefreshing(false);
             }
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override
@@ -539,6 +540,32 @@ public class HistoryPlan extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
+    public KProgressHUD hud;
+
+    public void showProgressDialog(Context context, String message) {
+        // PROGRESS_DIALOG.show();
+
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.back_progress))
+
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(true)
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
+    }
+
+    public void dismissDialog() {
+
+        if (hud != null) hud.dismiss();
+
+
+    }
+
     private void deleteActivity(String activity_id) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 
@@ -570,14 +597,14 @@ public class HistoryPlan extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-              new AppConstants().showProgressDialog(HistoryPlan.this, "Please Wait");
+              showProgressDialog(HistoryPlan.this, "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override
@@ -590,7 +617,7 @@ public class HistoryPlan extends AppCompatActivity {
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-            AppConstants.dismissDialog();
+            dismissDialog();
             try {
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
@@ -622,7 +649,7 @@ public class HistoryPlan extends AppCompatActivity {
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-            AppConstants.dismissDialog();
+            dismissDialog();
             //  AppConstants.showSnackBar(mainRel,"Try again!");
         }
 

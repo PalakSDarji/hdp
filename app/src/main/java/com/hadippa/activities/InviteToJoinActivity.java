@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hadippa.utils.Utils;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -202,20 +203,45 @@ public class InviteToJoinActivity extends AppCompatActivity {
 
     }
 
+    public KProgressHUD hud;
+
+    public void showProgressDialog(Context context, String message) {
+        // PROGRESS_DIALOG.show();
+
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.back_progress))
+
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(true)
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
+    }
+
+    public void dismissDialog() {
+
+        if (hud != null) hud.dismiss();
+
+
+    }
     class GetFollowers extends AsyncHttpResponseHandler {
 
         @Override
         public void onStart() {
             super.onStart();
 
-            new AppConstants().showProgressDialog(InviteToJoinActivity.this, "Please Wait");
+            showProgressDialog(InviteToJoinActivity.this, "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+            dismissDialog();
             // progressBar.setVisibility(View.GONE);
         }
 

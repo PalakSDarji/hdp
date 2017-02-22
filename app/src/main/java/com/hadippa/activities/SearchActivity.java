@@ -46,6 +46,7 @@ import com.hadippa.fragments.search.SearchTag;
 import com.hadippa.model.CityModel;
 import com.hadippa.model.PeopleModel;
 import com.hadippa.model.SearchModel;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.klinker.android.peekview.PeekViewActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -259,6 +260,31 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
     }
 
+    public KProgressHUD hud;
+
+    public void showProgressDialog(Context context, String message) {
+        // PROGRESS_DIALOG.show();
+
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.back_progress))
+
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(true)
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
+    }
+
+    public void dismissDialog() {
+
+        if (hud != null) hud.dismiss();
+
+
+    }
     public class GetCity extends AsyncHttpResponseHandler {
 
         @Override
@@ -271,14 +297,14 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
             }else {
                 searchPeople.progressBar.setVisibility(View.VISIBLE);
-            }// new AppConstants().showProgressDialog(getActivity(), "Please Wait");
+            }// showProgressDialog(getActivity(), "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            //   AppConstants.dismissDialog();
+            //   dismissDialog();
             if(searchPeople.swipeRefreshLayout.isRefreshing()){
                 searchPeople.swipeRefreshLayout.setRefreshing(false);
             }

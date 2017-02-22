@@ -236,7 +236,7 @@ public class AppConstants {
                 .show();
 
     }
-
+/*
     public static KProgressHUD hud;
 
     public static void showProgressDialog(Context context, String message) {
@@ -264,7 +264,7 @@ public class AppConstants {
         if (hud != null) hud.dismiss();
 
 
-    }
+    }*/
 
     public final static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();

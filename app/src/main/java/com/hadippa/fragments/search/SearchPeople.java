@@ -419,7 +419,7 @@ public class SearchPeople extends Fragment {
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+
         }
 
         @Override

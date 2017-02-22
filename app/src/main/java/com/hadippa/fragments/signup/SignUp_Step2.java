@@ -29,6 +29,7 @@ import com.commonclasses.receivers.IncomingSmsReceiver;
 import com.hadippa.AppConstants;
 import com.hadippa.R;
 import com.hadippa.activities.SignUp;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -220,6 +221,32 @@ public class SignUp_Step2 extends Fragment  {
     }
     }
 
+    public KProgressHUD hud;
+
+    public void showProgressDialog(Context context, String message) {
+        // PROGRESS_DIALOG.show();
+
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.back_progress))
+
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(true)
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
+    }
+
+    public void dismissDialog() {
+
+        if (hud != null) hud.dismiss();
+
+
+    }
+
     class ReceiveOTP extends AsyncHttpResponseHandler
     {
 
@@ -229,7 +256,7 @@ public class SignUp_Step2 extends Fragment  {
             super.onStart();
 
             //  dataScroll.setVisibility(View.GONE);
-            AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -237,7 +264,7 @@ public class SignUp_Step2 extends Fragment  {
         @Override
         public void onFinish()
         {
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override
@@ -297,7 +324,7 @@ public class SignUp_Step2 extends Fragment  {
             super.onStart();
 
             //  dataScroll.setVisibility(View.GONE);
-            AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -305,7 +332,7 @@ public class SignUp_Step2 extends Fragment  {
         @Override
         public void onFinish()
         {
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override

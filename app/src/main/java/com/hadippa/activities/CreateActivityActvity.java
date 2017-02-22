@@ -46,6 +46,7 @@ import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
 import com.hadippa.model.NightCLubModel;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -862,20 +863,44 @@ public class CreateActivityActvity extends AppCompatActivity {
                 new Post());
     }
 
+    public KProgressHUD hud;
+
+    public void showProgressDialog(Context context, String message) {
+        // PROGRESS_DIALOG.show();
+
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.back_progress))
+
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(true)
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
+    }
+
+    public void dismissDialog() {
+
+        if (hud != null) hud.dismiss();
+    }
+    
     class Post extends AsyncHttpResponseHandler {
 
         @Override
         public void onStart() {
             super.onStart();
 
-            new AppConstants().showProgressDialog(CreateActivityActvity.this, "Please Wait");
+            showProgressDialog(CreateActivityActvity.this, "Please Wait");
 
         }
 
 
         @Override
         public void onFinish() {
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override
@@ -891,13 +916,13 @@ public class CreateActivityActvity extends AppCompatActivity {
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
             try {
-                AppConstants.dismissDialog();
+                dismissDialog();
 
                 String response = new String(responseBody, "UTF-8");
                 JSONObject jsonObject = new JSONObject(response);
 
                 if (jsonObject.getBoolean("success")) {
-                    AppConstants.dismissDialog();
+                    dismissDialog();
                   /*  if(jsonObject.getJSONArray("similar_posts").length()==0){
                     Toast.makeText(getApplicationContext(), "Post created", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), HomeScreen.class);

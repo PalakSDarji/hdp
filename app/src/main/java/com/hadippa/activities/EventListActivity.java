@@ -57,6 +57,7 @@ import com.hadippa.R;
 import com.hadippa.model.MeraEventPartyModel;
 import com.hadippa.model.NightCLubModel;
 import com.hadippa.model.SearchModel;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -544,6 +545,32 @@ public class EventListActivity extends AppCompatActivity implements LocationList
                 new CallMeraEvents());
     }
 
+    public KProgressHUD hud;
+
+    public void showProgressDialog(Context context, String message) {
+        // PROGRESS_DIALOG.show();
+
+        hud = KProgressHUD.create(context)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setWindowColor(context.getResources().getColor(R.color.back_progress))
+
+                .setLabel(message)
+                .setDimAmount(0.5f)
+                .setCancellable(true)
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
+    }
+
+    public void dismissDialog() {
+
+        if (hud != null) hud.dismiss();
+
+
+    }
+    
     class CallMeraEvents extends AsyncHttpResponseHandler {
 
         @Override
@@ -554,7 +581,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             if(swipeRefreshLayout.isRefreshing()){
 
             }else {
-                AppConstants.showProgressDialog(EventListActivity.this, "Please Wait");
+                showProgressDialog(EventListActivity.this, "Please Wait");
             }
         }
 
@@ -565,7 +592,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             if(swipeRefreshLayout.isRefreshing()){
                 swipeRefreshLayout.setRefreshing(false);
             }
-            AppConstants.dismissDialog();
+            dismissDialog();
         }
 
         @Override
@@ -622,7 +649,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-            AppConstants.dismissDialog();
+            dismissDialog();
             Log.d("async", "success exc  >>" + error.toString());
             //  AppConstants.showSnackBar(mainRel,"Try again!");
         }
