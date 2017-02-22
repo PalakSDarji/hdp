@@ -222,7 +222,7 @@ public class ChatActivity extends AppCompatActivity {
             super.onStart();
 
             alMessages.clear();
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
 
         }
 
@@ -333,7 +333,7 @@ public class ChatActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
 
         }
 
@@ -580,7 +580,7 @@ public class ChatActivity extends AppCompatActivity {
         @Override
         public void onStart() {
             super.onStart();
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
 
         }
 

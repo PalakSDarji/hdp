@@ -868,7 +868,7 @@ public class CreateActivityActvity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(CreateActivityActvity.this, "Please Wait");
+            new AppConstants().showProgressDialog(CreateActivityActvity.this, "Please Wait");
 
         }
 

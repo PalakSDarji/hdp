@@ -657,7 +657,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
             //  if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
-            AppConstants.showProgressDialog(EditProfilePicsActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(EditProfilePicsActivity.this, "Please Wait");
             //    }
         }
 
@@ -782,7 +782,7 @@ public class EditProfilePicsActivity extends AppCompatActivity {
 
             //  if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
-            AppConstants.showProgressDialog(EditProfilePicsActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(EditProfilePicsActivity.this, "Please Wait");
             //    }
         }
 

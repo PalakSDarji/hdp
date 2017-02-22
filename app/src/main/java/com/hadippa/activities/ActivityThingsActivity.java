@@ -501,7 +501,7 @@ public class ActivityThingsActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(ActivityThingsActivity.this, "Please Wait");
+           new AppConstants().showProgressDialog(ActivityThingsActivity.this, "Please Wait");
 
         }
 

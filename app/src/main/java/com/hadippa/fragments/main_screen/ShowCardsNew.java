@@ -1212,7 +1212,7 @@ public class ShowCardsNew extends Fragment {
             super.onStart();
 
             //  dataScroll.setVisibility(View.GONE);
-            //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            //   new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -1282,7 +1282,7 @@ public class ShowCardsNew extends Fragment {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
 
         }
 
@@ -1370,7 +1370,7 @@ public class ShowCardsNew extends Fragment {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
 
         }
 
@@ -1463,7 +1463,7 @@ public class ShowCardsNew extends Fragment {
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            //    AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            //    new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -1554,7 +1554,7 @@ public class ShowCardsNew extends Fragment {
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            //    AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            //    new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -1646,7 +1646,7 @@ public class ShowCardsNew extends Fragment {
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            //    AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            //    new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 

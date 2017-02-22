@@ -303,7 +303,7 @@ public class PeopleJoinActivity extends AppCompatActivity {
             super.onStart();
 
             //  dataScroll.setVisibility(View.GONE);
-            AppConstants.showProgressDialog(PeopleJoinActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(PeopleJoinActivity.this, "Please Wait");
 
         }
 

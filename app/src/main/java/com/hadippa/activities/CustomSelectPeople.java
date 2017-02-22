@@ -203,7 +203,7 @@ public class CustomSelectPeople extends AppCompatActivity {
             super.onStart();
 
             //  progressBar.setVisibility(View.VISIBLE);
-            AppConstants.showProgressDialog(CustomSelectPeople.this, "Please Wait");
+            new AppConstants().showProgressDialog(CustomSelectPeople.this, "Please Wait");
 
         }
 

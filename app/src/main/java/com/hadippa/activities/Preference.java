@@ -186,7 +186,7 @@ public class Preference extends Activity implements View.OnClickListener {
         {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
 
         }
 

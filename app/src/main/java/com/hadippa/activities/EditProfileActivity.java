@@ -433,7 +433,7 @@ public class EditProfileActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(EditProfileActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(EditProfileActivity.this, "Please Wait");
 
         }
 

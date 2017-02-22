@@ -407,7 +407,7 @@ public class SearchTag extends Fragment {
             super.onStart();
 
             progressBar.setVisibility(View.VISIBLE);
-            // AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            // new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -511,7 +511,7 @@ public class SearchTag extends Fragment {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
 
         }
 

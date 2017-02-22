@@ -208,7 +208,7 @@ public class InviteToJoinActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(InviteToJoinActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(InviteToJoinActivity.this, "Please Wait");
 
         }
 

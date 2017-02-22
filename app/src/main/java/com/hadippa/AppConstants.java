@@ -242,6 +242,9 @@ public class AppConstants {
     public static void showProgressDialog(Context context, String message) {
         // PROGRESS_DIALOG.show();
 
+        if(hud != null){
+            hud = null;
+        }
         hud = KProgressHUD.create(context)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setWindowColor(context.getResources().getColor(R.color.back_progress))
@@ -249,8 +252,11 @@ public class AppConstants {
                  .setLabel(message)
                 .setDimAmount(0.5f)
                 .setCancellable(true)
-                .setAnimationSpeed(2)
-                .show();
+                .setAnimationSpeed(2);
+
+        if(hud!=null){
+            hud.show();
+        }
     }
 
     public static void dismissDialog() {

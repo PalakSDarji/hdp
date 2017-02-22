@@ -862,7 +862,7 @@ public class CoffeeActivity extends AppCompatActivity implements LocationListene
             if(swipeRefreshLayout.isRefreshing()){
 
             }else{
-            AppConstants.showProgressDialog(CoffeeActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(CoffeeActivity.this, "Please Wait");
             Log.d("<<prepareZomato>>", "success exc  >> start");
         }}
 

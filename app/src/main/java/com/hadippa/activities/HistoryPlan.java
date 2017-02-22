@@ -446,7 +446,7 @@ public class HistoryPlan extends AppCompatActivity {
             if(swipeRefreshLayout.isRefreshing()){
 
             }else {
-                AppConstants.showProgressDialog(HistoryPlan.this, "Please Wait");
+                new AppConstants().showProgressDialog(HistoryPlan.this, "Please Wait");
             }
         }
 
@@ -570,7 +570,7 @@ public class HistoryPlan extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-              AppConstants.showProgressDialog(HistoryPlan.this, "Please Wait");
+              new AppConstants().showProgressDialog(HistoryPlan.this, "Please Wait");
 
         }
 

@@ -247,22 +247,22 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             if(AppConstants.calculateDays(dataBean.getStartDate(),dataBean.getEndDate()) == 0){
 
-                tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")
+                tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-MM-dd hh:mm:ss","hh.mm a")
                         +
                         " - "
                         +
-                        AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")+"\n"
-                +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy"));
+                        AppConstants.formatDate(dataBean.getEndDate(),"yyyy-MM-dd hh:mm:ss","hh.mm a")+"\n"
+                +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-MM-dd hh:mm:ss","dd MMM yy"));
 
             }else{
 
-                tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")
+                tvTime.setText(AppConstants.formatDate(dataBean.getStartDate(),"yyyy-MM-dd hh:mm:ss","hh.mm a")
                         +
                         " - "
                         +
-                        AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","hh:mm a")+"\n"
-                        +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy") +" to "
-                        +AppConstants.formatDate(dataBean.getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy"));
+                        AppConstants.formatDate(dataBean.getEndDate(),"yyyy-MM-dd hh:mm:ss","hh.mm a")+"\n"
+                        +AppConstants.formatDate(dataBean.getStartDate(),"yyyy-MM-dd hh:mm:ss","dd MMM yy") +" to "
+                        +AppConstants.formatDate(dataBean.getEndDate(),"yyyy-MM-dd hh:mm:ss","dd MMM yy"));
 
             }
             tvKm.setText(AppConstants.distanceMeasure(Double.parseDouble(getIntent().getExtras().getString("latitude")),

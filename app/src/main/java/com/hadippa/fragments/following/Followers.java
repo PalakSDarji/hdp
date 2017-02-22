@@ -283,7 +283,7 @@ public class Followers extends Fragment {
 
             }else {
                 progressBar.setVisibility(View.VISIBLE);
-            }// AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            }// new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -423,7 +423,7 @@ public class Followers extends Fragment {
         public void onStart() {
             super.onStart();
 
-           //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
+           //   new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 

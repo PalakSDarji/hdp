@@ -162,7 +162,7 @@ public class NotificationActivity extends AppCompatActivity {
             if(swipeRefreshLayout.isRefreshing()){
 
             }else {
-                AppConstants.showProgressDialog(NotificationActivity.this, "Please Wait");
+                new AppConstants().showProgressDialog(NotificationActivity.this, "Please Wait");
             }
         }
 
@@ -507,7 +507,7 @@ public class NotificationActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
 
         }
 
@@ -601,7 +601,7 @@ public class NotificationActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            //  AppConstants.showProgressDialog(Preference.this, "Please Wait");
+            //  new AppConstants().showProgressDialog(Preference.this, "Please Wait");
 
         }
 
@@ -702,7 +702,7 @@ public class NotificationActivity extends AppCompatActivity {
             super.onStart();
 
             //  dataScroll.setVisibility(View.GONE);
-            //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            //   new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -787,7 +787,7 @@ public class NotificationActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            // AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            // new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 

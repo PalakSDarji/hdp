@@ -271,7 +271,7 @@ public class SearchActivity extends PeekViewActivity implements View.OnClickList
 
             }else {
                 searchPeople.progressBar.setVisibility(View.VISIBLE);
-            }// AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            }// new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 

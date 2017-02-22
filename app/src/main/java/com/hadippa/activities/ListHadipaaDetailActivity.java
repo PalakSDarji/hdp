@@ -134,7 +134,7 @@ public class ListHadipaaDetailActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(ListHadipaaDetailActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(ListHadipaaDetailActivity.this, "Please Wait");
 
         }
 

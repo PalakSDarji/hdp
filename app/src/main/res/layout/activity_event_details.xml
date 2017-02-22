@@ -387,6 +387,7 @@
                         android:layout_toLeftOf="@+id/rlCal"
                         android:layout_toRightOf="@+id/ivCal"
                         android:text="Wed, 12 Nov"
+                        android:visibility="gone"
                         android:textColor="#585858"
                         android:textSize="@dimen/values_txt_14"
                         app:customFont="@string/proxima_reg"/>
@@ -395,9 +396,7 @@
                         android:id="@+id/tvTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvDate"
                         android:layout_marginLeft="@dimen/value_10"
-                        android:layout_marginTop="@dimen/value_5"
                         android:layout_toLeftOf="@+id/rlCal"
                         android:layout_toRightOf="@+id/ivCal"
                         android:text="6 Pm to 12 Am"

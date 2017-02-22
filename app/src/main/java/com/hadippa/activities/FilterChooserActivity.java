@@ -131,7 +131,7 @@ public class FilterChooserActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(FilterChooserActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(FilterChooserActivity.this, "Please Wait");
 
         }
 
@@ -304,7 +304,7 @@ public class FilterChooserActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(FilterChooserActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(FilterChooserActivity.this, "Please Wait");
 
         }
 

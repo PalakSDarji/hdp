@@ -373,7 +373,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         public void onStart() {
             super.onStart();
 
-            //   AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            //   new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 
@@ -616,7 +616,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
             if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
-                AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+                new AppConstants().showProgressDialog(ProfileActivity.this, "Please Wait");
             }
         }
 
@@ -923,7 +923,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
           //  if (!getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
 
-                AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+                new AppConstants().showProgressDialog(ProfileActivity.this, "Please Wait");
           //  }
         }
 
@@ -1069,7 +1069,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         public void onStart() {
             super.onStart();
 
-              AppConstants.showProgressDialog(ProfileActivity.this, "Please Wait");
+              new AppConstants().showProgressDialog(ProfileActivity.this, "Please Wait");
 
         }
 

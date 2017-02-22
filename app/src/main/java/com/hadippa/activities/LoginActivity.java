@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            AppConstants.showProgressDialog(LoginActivity.this,"Loading...");
+           new AppConstants().showProgressDialog(LoginActivity.this,"Loading...");
         }
 
         @Override
@@ -526,7 +526,7 @@ public class LoginActivity extends AppCompatActivity {
         {
             super.onStart();
 
-            AppConstants.showProgressDialog(LoginActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(LoginActivity.this, "Please Wait");
 
         }
 
@@ -599,7 +599,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }else{
 
-                    AppConstants.showSnackBar(mainRel,"Invalid username or password");
+                    new AppConstants().showSnackBar(mainRel,"Invalid username or password");
 
                 }
                     Log.d("async>>city","success"+jsonObject.getString("city"));
@@ -612,7 +612,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
             Log.d("async>>","success exc  >>"+ error.toString());
-            AppConstants.showSnackBar(mainRel,"Try again!");
+            new AppConstants().showSnackBar(mainRel,"Try again!");
         }
 
     }
@@ -641,7 +641,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onStart() {
             super.onStart();
 
-            AppConstants.showProgressDialog(LoginActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(LoginActivity.this, "Please Wait");
 
         }
 

@@ -432,7 +432,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            //    AppConstants.showProgressDialog(getActivity(), "Please Wait");
+            //    new AppConstants().showProgressDialog(getActivity(), "Please Wait");
 
         }
 

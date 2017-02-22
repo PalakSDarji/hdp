@@ -274,7 +274,7 @@ public class ChatPlusActivity extends AppCompatActivity {
             super.onStart();
 
             //  progressBar.setVisibility(View.VISIBLE);
-            AppConstants.showProgressDialog(ChatPlusActivity.this, "Please Wait");
+            new AppConstants().showProgressDialog(ChatPlusActivity.this, "Please Wait");
 
         }
 

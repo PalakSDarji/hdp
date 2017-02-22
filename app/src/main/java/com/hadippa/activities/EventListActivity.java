@@ -539,6 +539,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             e.printStackTrace();
         }
 
+        asyncHttpClient.setTimeout(40*1000);
         asyncHttpClient.post(AppConstants.BASE_URL + AppConstants.MERAEVENTS + searchFor, requestParams,
                 new CallMeraEvents());
     }
@@ -549,7 +550,7 @@ public class EventListActivity extends AppCompatActivity implements LocationList
         public void onStart() {
             super.onStart();
 
-            postBeanList.clear();
+
             if(swipeRefreshLayout.isRefreshing()){
 
             }else {
@@ -579,12 +580,10 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
             try {
                 String response = new String(responseBody, "UTF-8");
-                Log.d("restaurantsBeanList", "FIRST >> " + response);
+                Log.d("prepareMeraEvents", "FIRST >> " + response);
                 JSONObject obj = new JSONObject(response);
                 Gson gson = new Gson();
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("data", response);
-                clipboard.setPrimaryClip(clip);
+
                 Log.d("prepareMeraEvents", "Size >> " + response);
                 MeraEventPartyModel meraEventPartyModel = gson.fromJson(obj.toString(), MeraEventPartyModel.class);
                 if (meraEventPartyModel.isSuccess()) {
@@ -611,17 +610,20 @@ public class EventListActivity extends AppCompatActivity implements LocationList
 
                         Toast.makeText(EventListActivity.this,"No data",Toast.LENGTH_SHORT).show();
                     }
+                }else{
+                    Toast.makeText(EventListActivity.this,"FALSE",Toast.LENGTH_SHORT).show();
                 }
-                Log.d("restaurantsBeanList", "Size >> " + response);
+                Log.d("prepareMeraEvents", "Size >> " + response);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.d("async", "success exc  >>" + e.toString());
+                Log.d("prepareMeraEvents", "success exc  >>" + e.toString());
             }
         }
 
         @Override
         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
             AppConstants.dismissDialog();
+            Log.d("async", "success exc  >>" + error.toString());
             //  AppConstants.showSnackBar(mainRel,"Try again!");
         }
 
@@ -671,11 +673,34 @@ public class EventListActivity extends AppCompatActivity implements LocationList
             holder.tvPrice.setText(filterList.get(position).getTicket_currencyCode()+" "+filterList.get(position).getTicket_price());
             holder.tvEventName.setText(filterList.get(position).getTitle());
             holder.tvAddress.setText(filterList.get(position).getAddress1()+" "+filterList.get(position).getCityName()+" "+filterList.get(position).getStateName());
-            holder.timings.setText(AppConstants.formatDate(filterList.get(position).getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a")
+          /*  holder.timings.setText(AppConstants.formatDate(filterList.get(position).getStartDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a")
                     +
                     " - "
                     +
                     AppConstants.formatDate(filterList.get(position).getEndDate(),"yyyy-mm-dd hh:mm:ss","dd MMM yy hh:mm a"));
+            */
+
+            if(AppConstants.calculateDays(filterList.get(position).getStartDate(),filterList.get(position).getEndDate()) == 0){
+
+                holder.timings.setText(AppConstants.formatDate(filterList.get(position).getStartDate(),"yyyy-MM-dd hh:mm:ss","hh.mm a")
+                        +
+                        " - "
+                        +
+                        AppConstants.formatDate(filterList.get(position).getEndDate(),"yyyy-MM-dd hh:mm:ss","hh.mm a")+"\n"
+                        +AppConstants.formatDate(filterList.get(position).getStartDate(),"yyyy-MM-dd hh:mm:ss","dd MMM yy"));
+
+            }else{
+
+                holder.timings.setText(AppConstants.formatDate(filterList.get(position).getStartDate(),"yyyy-MM-dd hh:mm:ss","hh.mm a")
+                        +
+                        " - "
+                        +
+                        AppConstants.formatDate(filterList.get(position).getEndDate(),"yyyy-MM-dd hh:mm:ss","hh.mm a")+"\n"
+                        +AppConstants.formatDate(filterList.get(position).getStartDate(),"yyyy-MM-dd hh:mm:ss","dd MMM yy") +" to "
+                        +AppConstants.formatDate(filterList.get(position).getEndDate(),"yyyy-MM-dd hh:mm:ss","dd MMM yy"));
+
+            }
+            
             holder.tvDistance.setText(AppConstants.distanceMeasure(Double.parseDouble(latitude),
                     Double.parseDouble(longitude),
                     (filterList.get(position).getLatitude()),
