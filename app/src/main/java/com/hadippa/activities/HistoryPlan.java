@@ -220,6 +220,9 @@ public class HistoryPlan extends AppCompatActivity {
             viewHolder.tvActivityDate.setText(convertDate(myPlansBean.getActivity_date()));
             viewHolder.tvActivityTime.setText(AppConstants.formatDate(myPlansBean.getActivity_time(), "HH:mm", "hh:mm a"));
             viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size() + "");
+
+            setDrawable(myPlansBean.getActivity().getActivity_category().getId(),viewHolder.ivActivityIcon);
+
             if (myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0) {
                 viewHolder.tvCount.setText(myPlansBean.getPeople_going_count().size() + "");
 
@@ -286,6 +289,80 @@ public class HistoryPlan extends AppCompatActivity {
         }
     }
 
+    void setDrawable(int actiivty_type,ImageView view){
+        switch (actiivty_type){
+            case AppConstants.API_ACTIVITY_ID_MOVIE:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+            case AppConstants.API_ACTIVITY_ID_THEATER:
+
+                view.setImageResource(R.drawable.ic_theaterplay);
+                break;
+            case AppConstants.API_ACTIVITY_ID_EVENT:
+
+                view.setImageResource(R.drawable.ic_event);
+                break;
+            case AppConstants.API_ACTIVITY_ID_NIGHTCLUB:
+
+                view.setImageResource(R.drawable.ic_nightclub);
+                break;
+            case AppConstants.API_ACTIVITY_ID_LOUNGE:
+
+                view.setImageResource(R.drawable.ic_lounge);
+                break;
+            case AppConstants.API_ACTIVITY_ID_PARTY:
+
+                view.setImageResource(R.drawable.ic_party);
+                break;
+            case AppConstants.API_ACTIVITY_ID_STAND_UP_COMEDY:
+
+                view.setImageResource(R.drawable.ic_standup_comedy);
+                break;
+            case AppConstants.API_ACTIVITY_ID_FLIGHT:
+
+                view.setImageResource(R.drawable.ic_plane);
+                break;
+            case AppConstants.API_ACTIVITY_ID_TRAIN:
+
+                view.setImageResource(R.drawable.ic_train);
+                break;
+            case AppConstants.API_ACTIVITY_ID_BUS:
+
+                view.setImageResource(R.drawable.ic_bus);
+                break;
+            case AppConstants.API_ACTIVITY_ID_COFFEE:
+
+                view.setImageResource(R.drawable.ic_coffee);
+                break;
+            case AppConstants.API_ACTIVITY_ID_INDOOR:
+
+                view.setImageResource(R.drawable.ic_sports);
+                break;
+            case AppConstants.API_ACTIVITY_ID_OUTDOOR:
+
+                view.setImageResource(R.drawable.ic_outdoorsports);
+                break;
+            case AppConstants.API_ACTIVITY_ID_AVD_SPORTS:
+
+                view.setImageResource(R.drawable.ic_adventuresports);
+                break;
+            case AppConstants.API_ACTIVITY_ID_HOBBY:
+
+                view.setImageResource(R.drawable.ic_hobby);
+                break;
+            case AppConstants.API_ACTIVITY_ID_FESTIVAL:
+
+                view.setImageResource(R.drawable.ic_festival);
+                break;
+            case AppConstants.API_ACTIVITY_ID_OTHER:
+
+                view.setImageResource(R.drawable.ic_movies);
+                break;
+
+
+        }
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -294,7 +371,7 @@ public class HistoryPlan extends AppCompatActivity {
         private final LinearLayout llGoing;
         CustomTextView tvPersonName, activityname, tvAddress, tvActivityDate, tvActivityTime, tvGoing, tvCount, tvApprovedPeople, goingWith;
         RoundedImageView profileImage;
-        ImageView ivMore, ivChat;
+        ImageView ivMore, ivChat,ivActivityIcon;
         SwitchCompat switchCompat;
         public ViewHolder(final View v) {
             super(v);
@@ -304,6 +381,7 @@ public class HistoryPlan extends AppCompatActivity {
 
             ivMore = (ImageView) v.findViewById(R.id.ivMore);
             ivChat = (ImageView) v.findViewById(R.id.ivChat);
+            ivActivityIcon = (ImageView) v.findViewById(R.id.ivActivityIcon);
 
             vSep = (View) v.findViewById(R.id.vSep);
             recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
