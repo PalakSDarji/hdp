@@ -224,6 +224,7 @@ public class MyPlan extends AppCompatActivity {
             viewHolder.tvActivityTime.setText(AppConstants.formatDate(myPlansBean.getActivity_time(), "HH:mm", "hh:mm a"));
             viewHolder.tvGoing.setText(myPlansBean.getPeople_going().size() + "");
 
+            Log.v(TAG, "myPlansBean.isOpened() 2: "+ myPlansBean.getActivity().getActivity_category().getId());
             setDrawable(myPlansBean.getActivity().getActivity_category().getId(),viewHolder.ivActivityIcon);
 
             if (myPlansBean.getPeople_going_count() != null && myPlansBean.getPeople_going_count().size() > 0) {

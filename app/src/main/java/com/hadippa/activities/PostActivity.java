@@ -456,6 +456,7 @@ public class PostActivity extends AppCompatActivity implements LocationListener 
                 dialog1.dismiss();
                 Intent intent = new Intent(PostActivity.this, EventListActivity.class);
                 intent.putExtra(AppConstants.ACTIVITY_KEY, AppConstants.ACTIVITY_EVENT_FESTIVAL);
+                intent.putExtra("activity_id", AppConstants.API_ACTIVITY_ID_FESTIVAL);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
