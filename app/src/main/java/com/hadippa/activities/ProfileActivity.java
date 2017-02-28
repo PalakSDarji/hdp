@@ -708,6 +708,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                                 tvRecentInstagram.setVisibility(View.GONE);
                             }
                         }else {
+                            connectInstagram.setVisibility(View.VISIBLE);
                             tvRecentInstagram.setVisibility(View.GONE);
                         }
                     }

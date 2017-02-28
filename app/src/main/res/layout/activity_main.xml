@@ -87,7 +87,7 @@
                 android:padding="8dp"
                 >
 
-                <com.hadippa.CustomEditText
+                <com.hadippa.CustomTextView
                     android:id="@+id/edtSearch"
                     android:imeOptions="actionSearch"
                     android:inputType="text"

@@ -73,7 +73,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     ImageView profileImage;
 
     LinearLayout linearNotification, linearPreference, linearHome, linearFeedback;
-    public static EditText edtSearch;
+    public static TextView edtSearch;
     private LinearLayout linearMyPlan;
     @BindView(R.id.rlSearch) RelativeLayout rlSearch;
     @BindView(R.id.ivIcon) ImageView ivIcon;
@@ -126,7 +126,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         imageFilter = (ImageView) findViewById(R.id.imageFilter);
         imageFilter.setOnClickListener(this);
 
-        edtSearch = (EditText)findViewById(R.id.edtSearch);
+        edtSearch = (TextView)findViewById(R.id.edtSearch);
         edtSearch.setOnClickListener(this);
         edtSearch.setText(sp.getString("cityName","Search"));
 
@@ -146,7 +146,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         }
 
 
-        edtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      /*  edtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
@@ -155,6 +155,14 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
                     startActivity(intent1);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
+            }
+        });*/
+        edtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(HomeScreen.this, SearchActivity.class);
+                startActivity(intent1);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
