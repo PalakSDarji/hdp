@@ -226,6 +226,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/value_16"
                 android:text="@string/logout"
+                android:clickable="true"
                 android:textColor="@color/pref_sub_text"
                 android:textSize="@dimen/pref_card_title_size"
                 android:textStyle="bold"

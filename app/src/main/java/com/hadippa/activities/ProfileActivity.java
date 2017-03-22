@@ -142,6 +142,11 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
     Button connectInstagram;
 
+    @BindView(R.id.rlConnectInstagram)
+    RelativeLayout rlConnectInstagram;
+
+    @BindView(R.id.llConnectInstagram)
+    LinearLayout llConnectInstagram;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +161,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
         connectInstagram = (Button) findViewById(R.id.connectInstagram);
 
-        connectInstagram.setOnClickListener(new View.OnClickListener() {
+        rlConnectInstagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -433,7 +438,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
 
         if (getIntent().getExtras().getString(AppConstants.PROFILE_KEY).equals(AppConstants.MY_PROFILE)) {
-            connectInstagram.setVisibility(View.GONE);
+            //llConnectInstagram.setVisibility(View.GONE);
             llFollowUnfollow.setVisibility(View.GONE);
             rvMutualFriend.setVisibility(View.GONE);
             tvRecentInstagram.setVisibility(View.GONE);
@@ -484,7 +489,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         } else {
             llFollowUnfollow.setVisibility(View.VISIBLE);
             ivEdit.setVisibility(View.GONE);
-            connectInstagram.setVisibility(View.GONE);
+            //llConnectInstagram.setVisibility(View.GONE);
         }
 
         fetchProfile();
@@ -662,7 +667,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                             if(new Gson().toJson(userProfile.getInstagram_images()).equals("")){
                             if (userProfile.getInstagram_images().getData().size() > 0) {
 
-                                connectInstagram.setVisibility(View.GONE);
+                               // llConnectInstagram.setVisibility(View.GONE);
                                 rvRecentInstagram.setVisibility(View.VISIBLE);
                                 InstagramAdapter instaAdapter = new InstagramAdapter(userProfile.getInstagram_images().getData());
                                 rvRecentInstagram.setAdapter(instaAdapter);
@@ -676,7 +681,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                         }
                         }else{
                             tvRecentInstagram.setVisibility(View.GONE);
-                            connectInstagram.setVisibility(View.VISIBLE);
+                            //llConnectInstagram.setVisibility(View.VISIBLE);
                         }
 
                     } else {
@@ -693,7 +698,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                         if (userProfile.getInstagram_images() != null) {
                             if (userProfile.getInstagram_images().getData().size() > 0) {
 
-                                connectInstagram.setVisibility(View.GONE);
+                                llConnectInstagram.setVisibility(View.GONE);
                                 rvRecentInstagram.setVisibility(View.VISIBLE);
                                 InstagramAdapter instaAdapter = new
                                         InstagramAdapter(userProfile.getInstagram_images().getData());
@@ -708,7 +713,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                                 tvRecentInstagram.setVisibility(View.GONE);
                             }
                         }else {
-                            connectInstagram.setVisibility(View.VISIBLE);
+                            //llConnectInstagram.setVisibility(View.VISIBLE);
                             tvRecentInstagram.setVisibility(View.GONE);
                         }
                     }

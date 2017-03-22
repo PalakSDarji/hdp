@@ -72,6 +72,7 @@ import com.hadippa.twowaygrid.TwoWayGridView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.Holder;
@@ -80,6 +81,7 @@ import com.orhanobut.dialogplus.OnCancelListener;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.OnItemClickListener;
+import com.skyfishjy.library.RippleBackground;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.json.JSONException;
@@ -95,6 +97,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 import static com.hadippa.activities.HomeScreen.rollBackIds;
@@ -122,6 +125,8 @@ public class ShowCardsNew extends Fragment {
     private ArrayList<DataModel> al;
     private SwipeFlingAdapterView flingContainer;
 
+    @BindView(R.id.centerImage)
+    RoundedImageView centerImage;
 
 
     private OnFragmentInteractionListener mListener;
@@ -131,6 +136,7 @@ public class ShowCardsNew extends Fragment {
     ImageView swipeLeft, swipeRight;
     Dialog dialog1;
     RelativeLayout rlFix;
+    private RippleBackground rippleBackground;
 
     int i = 0;
     // FloatingActionsMenu multiple_actions;
@@ -424,10 +430,28 @@ public class ShowCardsNew extends Fragment {
                 return false;
             }
         });
+
+        rippleBackground=(RippleBackground)view.findViewById(R.id.content);
+        rippleBackground.startRippleAnimation();
+
+        centerImage = (RoundedImageView) view.findViewById(R.id.centerImage);
+
+        try {
+            JSONObject jsonObject = new JSONObject(sp.getString("userData",""));
+
+            Glide.with(this)
+                    .load(jsonObject.getString("profile_photo"))
+                    .into(centerImage);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         flingContainer = (SwipeFlingAdapterView) view.findViewById(R.id.frame);
 
         myAppAdapter = new MyAppAdapter(posts, getActivity());
         flingContainer.setAdapter(myAppAdapter);
+        setPostsVisibility();
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
@@ -444,6 +468,7 @@ public class ShowCardsNew extends Fragment {
                 activityJoinDecline(String.valueOf(posts.get(0).getId()), AppConstants.ACTIVITY_REQUEST_DECLINE);
                 posts.remove(0);
                 myAppAdapter.notifyDataSetChanged();
+                setPostsVisibility();
 
                 // myAppAdapter.notifyDataSetChanged();
                 //Do something on the left!
@@ -458,6 +483,7 @@ public class ShowCardsNew extends Fragment {
                 activityJoinDecline(String.valueOf(posts.get(0).getId()), AppConstants.ACTIVITY_REQUEST_JOIN);
                 posts.remove(0);
                 myAppAdapter.notifyDataSetChanged();
+                setPostsVisibility();
                 /*al.remove(0);
                 myAppAdapter.notifyDataSetChanged();*/
             }
@@ -530,6 +556,17 @@ public class ShowCardsNew extends Fragment {
         });
 
         return view;
+    }
+
+    private void setPostsVisibility(){
+        if(posts != null && !posts.isEmpty()){
+            flingContainer.setVisibility(View.VISIBLE);
+            rippleBackground.setVisibility(View.GONE);
+        }
+        else{
+            flingContainer.setVisibility(View.GONE);
+            rippleBackground.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showBottomPeopleGoing(DataModel dataModel) {
@@ -1400,6 +1437,7 @@ public class ShowCardsNew extends Fragment {
                     Log.d("rollBack?>>", "success  " + posts.size());
 
                     posts.add(0, rollBackIds.get(0));
+                    setPostsVisibility();
 
                     rollBackIds.remove(0);
                     editor.putString("posts", new Gson().toJson(posts));

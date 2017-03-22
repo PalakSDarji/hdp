@@ -13,7 +13,7 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
 
     repositories {
         mavenCentral()
@@ -50,6 +50,7 @@ dependencies {
     compile project(':dialogplus')
     compile project(':library')
     compile files('libs/gson-2.5.jar')
+    compile(name:'core-nightly-release.0.01', ext:'aar')
     // compile files('libs/gcm.jar')
 
     //you can use newer GMS version if you need
@@ -91,13 +92,12 @@ dependencies {
     compile 'com.android.support:customtabs:23.2.0'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile project(':kprogresshud')
-    compile project(':core-nightly-release.0.01')
-    compile project(':microapps-nightly-release.0.01')
 
     //Meraevents
     compile 'com.squareup.duktape:duktape-android:0.9.6'
     compile 'com.google.android.gms:play-services-maps:9.6.1'
     compile 'net.steamcrafted:materialiconlib:1.0.9'
     compile 'com.google.android:flexbox:0.2.5'
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
 }
 apply plugin: 'com.google.gms.google-services'

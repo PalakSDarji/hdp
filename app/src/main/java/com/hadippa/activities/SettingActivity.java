@@ -92,6 +92,8 @@ public class SettingActivity extends AppCompatActivity {
 
     @BindView(R.id.tvPrivacy)
     TextView tvPrivacy;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
     private CustomAdapter customAdapter;
     private List<Blocked_Data.BlockedListBean> blockList = new ArrayList<>();
@@ -103,6 +105,8 @@ public class SettingActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        sp = PreferenceManager.getDefaultSharedPreferences(SettingActivity.this);
+        editor = sp.edit();
 
         tvBlockList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +152,21 @@ public class SettingActivity extends AppCompatActivity {
         rcvBlockList.setLayoutManager(mLayoutManagerHorizontal);
 
 
+        findViewById(R.id.tvLogout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.clear();
+                editor.commit();
+
+                Intent intent =  new Intent(SettingActivity.this,LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(intent);
+                finish();
+            }
+        });
         blockList();
     }
 
