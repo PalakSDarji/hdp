@@ -86,8 +86,8 @@
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:visibility="visible"
                 android:background="@color/c_efefef"
+                android:visibility="visible"
                 />
 
             <LinearLayout
@@ -518,10 +518,10 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvMutualFriend"
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvMutual">
+                android:layout_below="@+id/tvMutual"
+                android:visibility="visible">
 
             </android.support.v7.widget.RecyclerView>
 
@@ -543,60 +543,61 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:padding="@dimen/value_16"
-                    android:weightSum="5"
-                    android:orientation="horizontal">
+                    android:weightSum="5">
 
                     <com.hadippa.CustomTextView
-                        app:customFont="@string/proxima_reg"
+                        android:id="@+id/tvInstaText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:textColor="@color/bel_grey_text"
-                        android:gravity="center"
-                        android:textSize="@dimen/values_txt_13"
-                        android:layout_marginRight="@dimen/value_10"
                         android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/value_10"
+                        android:layout_weight="3"
+                        android:gravity="center"
                         android:text="Share your Instagram photos, too"
-                        android:id="@+id/tvInstaText"/>
+                        android:textColor="@color/bel_grey_text"
+                        android:textSize="@dimen/values_txt_13"
+                        app:customFont="@string/proxima_reg"/>
 
                     <RelativeLayout
                         android:id="@+id/rlConnectInstagram"
-                        android:clickable="true"
-                        android:background="@drawable/rounded_followers_filled"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2">
+                        android:layout_weight="2"
+                        android:background="@drawable/rounded_followers_filled"
+                        android:clickable="true">
 
                         <ImageView
                             android:id="@+id/ivInsta"
                             android:layout_width="@dimen/value_w32"
-                            android:src="@drawable/insta_logo"
+                            android:layout_height="@dimen/value_w32"
                             android:layout_alignParentLeft="true"
                             android:layout_margin="@dimen/value_10"
-                            android:layout_height="@dimen/value_w32"/>
+                            android:src="@drawable/insta_logo"/>
 
                         <com.hadippa.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:textColor="@color/white"
-                            android:text="Connect"
                             android:layout_toRightOf="@+id/ivInsta"
-                            app:customFont="@string/proxima_bold"
                             android:padding="@dimen/value_10"
-                            android:textSize="@dimen/values_txt_14"/>
+                            android:text="Connect"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/values_txt_14"
+                            app:customFont="@string/proxima_bold"/>
 
                     </RelativeLayout>
 
                 </LinearLayout>
+
                 <Button
                     android:id="@+id/connectInstagram"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/vSep3"
-                    android:visibility="gone"
-                    android:text="Connect Instagram"/>
+                    android:text="Connect Instagram"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <com.hadippa.CustomTextView
@@ -604,29 +605,64 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/llConnectInstagram"
-                android:layout_marginBottom="@dimen/value_h10"
                 android:layout_marginLeft="@dimen/value_w24"
                 android:layout_marginRight="@dimen/value_w24"
-                android:layout_marginTop="@dimen/value_h42"
-                android:text="Her Recent Instagram photo"
+                android:layout_marginTop="@dimen/values_10"
+                android:paddingBottom="@dimen/value_h18"
+                android:paddingTop="@dimen/value_h18"
+                android:text="Instagram photo"
                 android:textColor="@color/c_2f2f2f"
                 android:textSize="@dimen/values_txt_16"
                 app:customFont="@string/proxima_bold"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvRecentInstagram"
-                android:layout_width="match_parent"
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvRecentInstagram"
-                android:padding="5dp">
+                android:gravity="right|center_vertical"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_alignBottom="@+id/tvRecentInstagram"
+                app:ci_drawable="@drawable/dot_insta_selected"
+                app:ci_drawable_unselected="@drawable/dot_insta_unselected"
+                android:layout_alignTop="@+id/tvRecentInstagram"
+                android:layout_below="@+id/llConnectInstagram"
+                android:layout_toRightOf="@+id/tvRecentInstagram"/>
 
-            </android.support.v7.widget.RecyclerView>
+            <com.hadippa.WrapContentViewPager
+                android:id="@+id/vpPager"
+                android:layout_below="@+id/tvRecentInstagram"
+                android:layout_width="match_parent"
+                android:padding="@dimen/value_10"
+                android:clipToPadding="false"
+                android:layout_height="wrap_content" />
+
+            <!--
+            <com.hadippa.twowaygrid.TwoWayGridView
+                android:id="@+id/twgRecentInstagram"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_below="@+id/tvRecentInstagram"
+                android:clipToPadding="false"
+                android:paddingLeft="@dimen/value_10"
+                android:paddingRight="@dimen/value_10"
+                app:columnWidth="10dp"
+                app:gravity="center"
+                app:horizontalSpacing="5dp"
+                app:numColumns="3"
+                app:numRows="2"
+                app:rowHeight="110dp"
+                app:scrollDirectionLandscape="horizontal"
+                app:scrollDirectionPortrait="horizontal"
+                app:stretchMode="none"
+                app:verticalSpacing="5dp"/>-->
 
             <View
                 android:id="@+id/vSep4"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_below="@+id/rvRecentInstagram"
+                android:layout_below="@+id/vpPager"
                 android:background="@color/white"/>
 
         </RelativeLayout>

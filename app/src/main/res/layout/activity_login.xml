@@ -47,6 +47,7 @@
                     android:singleLine="true"
                     android:maxLines="1"
                     android:ellipsize="end"
+                    android:text="test@postman.com"
                     android:imeOptions="actionNext"/>
 
                 <com.hadippa.CustomEditText
@@ -62,6 +63,7 @@
                     android:ellipsize="end"
                     android:hint="@string/hint_password"
                     android:imeOptions="actionDone"
+                    android:text="kartik"
                     android:inputType="textPassword"/>
 
                 <com.hadippa.CustomTextView

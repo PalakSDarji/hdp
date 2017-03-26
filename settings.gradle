@@ -1,1 +1,1 @@
-include ':app', ':cardstack', ':dialogplus', ':library', ':kprogresshud', ':core-nightly-release.0.01', ':microapps-nightly-release.0.01'
+include ':app', ':cardstack', ':dialogplus', ':library', ':kprogresshud', ':roundedimageview'

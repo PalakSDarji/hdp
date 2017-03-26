@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -42,6 +43,7 @@ import com.google.gson.Gson;
 import com.hadippa.AppConstants;
 import com.hadippa.CustomTextView;
 import com.hadippa.R;
+import com.hadippa.WrapContentViewPager;
 import com.hadippa.instagram.Cons;
 import com.hadippa.instagram.Insta;
 import com.hadippa.instagram.InstagramRequest;
@@ -49,6 +51,9 @@ import com.hadippa.instagram.InstagramSession;
 import com.hadippa.instagram.InstagramUser;
 import com.hadippa.model.Contact;
 import com.hadippa.model.UserProfile;
+import com.hadippa.twowaygrid.InstagramPicAdapter;
+import com.hadippa.twowaygrid.TwoWayAdapterView;
+import com.hadippa.twowaygrid.TwoWayGridView;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -70,6 +75,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import me.relex.circleindicator.CircleIndicator;
 
 public class ProfileActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener {
 
@@ -77,8 +83,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
     @BindView(R.id.rvMutualFriend)
     RecyclerView rvMutualFriend;
-    @BindView(R.id.rvRecentInstagram)
-    RecyclerView rvRecentInstagram;
+    /*@BindView(R.id.rvRecentInstagram)
+    RecyclerView rvRecentInstagram;*/
     @BindView(R.id.ivEdit)
     ImageView ivEdit;
     @BindView(R.id.tvTitleName)
@@ -126,6 +132,9 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
+    /*private InstagramPicAdapter instaAdapter;
+    @BindView(R.id.twgRecentInstagram)
+    TwoWayGridView twgRecentInstagram;*/
 
     UserProfile.UserBean userBean;
     List<UserProfile.ActivityBeanX> activityBeanX;
@@ -147,6 +156,13 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
     @BindView(R.id.llConnectInstagram)
     LinearLayout llConnectInstagram;
+    private ArrayList<UserProfile.InstagramImagesBean.DataBean> alInstaPics;
+
+    @BindView(R.id.vpPager)
+    WrapContentViewPager instaViewpager;
+    @BindView(R.id.indicator)
+    CircleIndicator instaIndicator;
+    private InstaGridViewPagerAdapter instaGridViewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +174,7 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         editor = sp.edit();
         albumStorageDirFactory = new BaseAlbumDirFactory();
         slider = (SliderLayout) findViewById(R.id.slider);
-
+        alInstaPics = new ArrayList<>();
         connectInstagram = (Button) findViewById(R.id.connectInstagram);
 
         rlConnectInstagram.setOnClickListener(new View.OnClickListener() {
@@ -314,14 +330,32 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
         MutualFriendAdapter adapter = new MutualFriendAdapter(contacts);
         //  rvMutualFriend.setAdapter(adapter);
 
-        GridLayoutManager instagramLayoutManagaer = new GridLayoutManager(ProfileActivity.this, 4);
+        /*GridLayoutManager instagramLayoutManagaer = new GridLayoutManager(ProfileActivity.this, 4);
         rvRecentInstagram.setLayoutManager(instagramLayoutManagaer);
+*/
+
+
+        /*instaAdapter = new InstagramPicAdapter(this, alInstaPics);
+        twgRecentInstagram.setAdapter(instaAdapter);
+
+        twgRecentInstagram.setOnItemClickListener(new TwoWayAdapterView.OnItemClickListener() {
+            public void onItemClick(TwoWayAdapterView parent, View v, int position, long id) {
+                Log.i("Profile", "grid item clicked");
+                *//*Uri uri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);*//*
+            }
+        });
+*/
+
+        instaGridViewPagerAdapter = new InstaGridViewPagerAdapter(this,getSupportFragmentManager(),alInstaPics);
+        instaViewpager.setAdapter(instaGridViewPagerAdapter);
+        instaIndicator.setViewPager(instaViewpager);
+        instaGridViewPagerAdapter.registerDataSetObserver(instaIndicator.getDataSetObserver());
 
         dddd();
 
     }
-
-
 
     String user_relationship_status = "";
 
@@ -443,7 +477,8 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
             rvMutualFriend.setVisibility(View.GONE);
             tvRecentInstagram.setVisibility(View.GONE);
             tvMutual.setVisibility(View.GONE);
-            rvRecentInstagram.setVisibility(View.GONE);
+            instaViewpager.setVisibility(View.GONE);
+            instaIndicator.setVisibility(View.GONE);
             vSep2.setVisibility(View.GONE);
             vSep3.setVisibility(View.GONE);
             llAppr3.setVisibility(View.VISIBLE);
@@ -581,7 +616,6 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
 
 
             Glide.with(ProfileActivity.this)
-
                     .load(horizontalList.get(position).getImages().getStandard_resolution().getUrl())
                     .centerCrop().placeholder(R.drawable.place_holder).error(R.drawable.place_holder).into(holder.iv_photo);
 
@@ -668,9 +702,15 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                             if (userProfile.getInstagram_images().getData().size() > 0) {
 
                                // llConnectInstagram.setVisibility(View.GONE);
-                                rvRecentInstagram.setVisibility(View.VISIBLE);
-                                InstagramAdapter instaAdapter = new InstagramAdapter(userProfile.getInstagram_images().getData());
-                                rvRecentInstagram.setAdapter(instaAdapter);
+                                instaViewpager.setVisibility(View.VISIBLE);
+                                instaIndicator.setVisibility(View.VISIBLE);
+
+                                alInstaPics.clear();
+                                alInstaPics.addAll(userProfile.getInstagram_images().getData());
+                                instaGridViewPagerAdapter.setData(alInstaPics);
+
+                                /*InstagramAdapter instaAdapter = new InstagramAdapter(userProfile.getInstagram_images().getData());
+                                rvRecentInstagram.setAdapter(instaAdapter);*/
                                 if (userBean.getGender().equals("male")) {
                                     tvRecentInstagram.setText("His instagram photos");
                                 } else {
@@ -699,10 +739,16 @@ public class ProfileActivity extends AppCompatActivity implements BaseSliderView
                             if (userProfile.getInstagram_images().getData().size() > 0) {
 
                                 llConnectInstagram.setVisibility(View.GONE);
-                                rvRecentInstagram.setVisibility(View.VISIBLE);
-                                InstagramAdapter instaAdapter = new
+                                instaViewpager.setVisibility(View.VISIBLE);
+                                instaIndicator.setVisibility(View.VISIBLE);
+
+                                alInstaPics.clear();
+                                alInstaPics.addAll(userProfile.getInstagram_images().getData());
+                                instaGridViewPagerAdapter.setData(alInstaPics);
+
+                                /*InstagramAdapter instaAdapter = new
                                         InstagramAdapter(userProfile.getInstagram_images().getData());
-                                rvRecentInstagram.setAdapter(instaAdapter);
+                                rvRecentInstagram.setAdapter(instaAdapter);*/
                                 //  if(userBean.getGender().equals("male")){
                                 tvRecentInstagram.setText("Instagram photos");
                               /*  }else{

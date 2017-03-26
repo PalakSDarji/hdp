@@ -1,8 +1,12 @@
 package com.hadippa.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -1322,7 +1326,7 @@ public class UserProfile implements Serializable {
             }
         }
 
-        public static class DataBean {
+        public static class DataBean implements Parcelable {
             /**
              * attribution : null
              * tags : ["beardedvillains","goodmorningpost","brothers","cutest","myboy","loveforever","gang","😘","nephew","infinitelove"]
@@ -1478,7 +1482,7 @@ public class UserProfile implements Serializable {
                 this.users_in_photo = users_in_photo;
             }
 
-            public static class CommentsBean {
+            public static class CommentsBean implements Parcelable {
                 /**
                  * count : 3
                  */
@@ -1492,9 +1496,36 @@ public class UserProfile implements Serializable {
                 public void setCount(int count) {
                     this.count = count;
                 }
+
+                protected CommentsBean(Parcel in) {
+                    count = in.readInt();
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(count);
+                }
+
+                @SuppressWarnings("unused")
+                public static final Parcelable.Creator<CommentsBean> CREATOR = new Parcelable.Creator<CommentsBean>() {
+                    @Override
+                    public CommentsBean createFromParcel(Parcel in) {
+                        return new CommentsBean(in);
+                    }
+
+                    @Override
+                    public CommentsBean[] newArray(int size) {
+                        return new CommentsBean[size];
+                    }
+                };
             }
 
-            public static class LikesBean {
+            public static class LikesBean implements Parcelable {
                 /**
                  * count : 70
                  */
@@ -1508,9 +1539,36 @@ public class UserProfile implements Serializable {
                 public void setCount(int count) {
                     this.count = count;
                 }
+
+                protected LikesBean(Parcel in) {
+                    count = in.readInt();
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(count);
+                }
+
+                @SuppressWarnings("unused")
+                public static final Parcelable.Creator<LikesBean> CREATOR = new Parcelable.Creator<LikesBean>() {
+                    @Override
+                    public LikesBean createFromParcel(Parcel in) {
+                        return new LikesBean(in);
+                    }
+
+                    @Override
+                    public LikesBean[] newArray(int size) {
+                        return new LikesBean[size];
+                    }
+                };
             }
 
-            public static class ImagesBean {
+            public static class ImagesBean implements Parcelable {
                 /**
                  * low_resolution : {"url":"https://scontent.cdninstagram.com/t51.2885-15/e35/p320x320/15803247_1206394279455730_1553486922184130560_n.jpg?ig_cache_key=MTQyNjU5OTI0NDI4NjgxMjc1MA%3D%3D.2","width":320,"height":400}
                  * thumbnail : {"url":"https://scontent.cdninstagram.com/t51.2885-15/s150x150/e35/c0.97.778.778/15803247_1206394279455730_1553486922184130560_n.jpg?ig_cache_key=MTQyNjU5OTI0NDI4NjgxMjc1MA%3D%3D.2.c","width":150,"height":150}
@@ -1545,7 +1603,7 @@ public class UserProfile implements Serializable {
                     this.standard_resolution = standard_resolution;
                 }
 
-                public static class LowResolutionBean {
+                public static class LowResolutionBean implements Parcelable {
                     /**
                      * url : https://scontent.cdninstagram.com/t51.2885-15/e35/p320x320/15803247_1206394279455730_1553486922184130560_n.jpg?ig_cache_key=MTQyNjU5OTI0NDI4NjgxMjc1MA%3D%3D.2
                      * width : 320
@@ -1579,9 +1637,40 @@ public class UserProfile implements Serializable {
                     public void setHeight(int height) {
                         this.height = height;
                     }
+
+                    protected LowResolutionBean(Parcel in) {
+                        url = in.readString();
+                        width = in.readInt();
+                        height = in.readInt();
+                    }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(url);
+                        dest.writeInt(width);
+                        dest.writeInt(height);
+                    }
+
+                    @SuppressWarnings("unused")
+                    public static final Parcelable.Creator<LowResolutionBean> CREATOR = new Parcelable.Creator<LowResolutionBean>() {
+                        @Override
+                        public LowResolutionBean createFromParcel(Parcel in) {
+                            return new LowResolutionBean(in);
+                        }
+
+                        @Override
+                        public LowResolutionBean[] newArray(int size) {
+                            return new LowResolutionBean[size];
+                        }
+                    };
                 }
 
-                public static class ThumbnailBean {
+                public static class ThumbnailBean implements Parcelable {
                     /**
                      * url : https://scontent.cdninstagram.com/t51.2885-15/s150x150/e35/c0.97.778.778/15803247_1206394279455730_1553486922184130560_n.jpg?ig_cache_key=MTQyNjU5OTI0NDI4NjgxMjc1MA%3D%3D.2.c
                      * width : 150
@@ -1615,9 +1704,40 @@ public class UserProfile implements Serializable {
                     public void setHeight(int height) {
                         this.height = height;
                     }
+
+                    protected ThumbnailBean(Parcel in) {
+                        url = in.readString();
+                        width = in.readInt();
+                        height = in.readInt();
+                    }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(url);
+                        dest.writeInt(width);
+                        dest.writeInt(height);
+                    }
+
+                    @SuppressWarnings("unused")
+                    public static final Parcelable.Creator<ThumbnailBean> CREATOR = new Parcelable.Creator<ThumbnailBean>() {
+                        @Override
+                        public ThumbnailBean createFromParcel(Parcel in) {
+                            return new ThumbnailBean(in);
+                        }
+
+                        @Override
+                        public ThumbnailBean[] newArray(int size) {
+                            return new ThumbnailBean[size];
+                        }
+                    };
                 }
 
-                public static class StandardResolutionBean {
+                public static class StandardResolutionBean implements Parcelable {
                     /**
                      * url : https://scontent.cdninstagram.com/t51.2885-15/sh0.08/e35/p640x640/15803247_1206394279455730_1553486922184130560_n.jpg?ig_cache_key=MTQyNjU5OTI0NDI4NjgxMjc1MA%3D%3D.2
                      * width : 640
@@ -1651,10 +1771,72 @@ public class UserProfile implements Serializable {
                     public void setHeight(int height) {
                         this.height = height;
                     }
+
+                    protected StandardResolutionBean(Parcel in) {
+                        url = in.readString();
+                        width = in.readInt();
+                        height = in.readInt();
+                    }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(url);
+                        dest.writeInt(width);
+                        dest.writeInt(height);
+                    }
+
+                    @SuppressWarnings("unused")
+                    public static final Parcelable.Creator<StandardResolutionBean> CREATOR = new Parcelable.Creator<StandardResolutionBean>() {
+                        @Override
+                        public StandardResolutionBean createFromParcel(Parcel in) {
+                            return new StandardResolutionBean(in);
+                        }
+
+                        @Override
+                        public StandardResolutionBean[] newArray(int size) {
+                            return new StandardResolutionBean[size];
+                        }
+                    };
                 }
+
+                protected ImagesBean(Parcel in) {
+                    low_resolution = (LowResolutionBean) in.readValue(LowResolutionBean.class.getClassLoader());
+                    thumbnail = (ThumbnailBean) in.readValue(ThumbnailBean.class.getClassLoader());
+                    standard_resolution = (StandardResolutionBean) in.readValue(StandardResolutionBean.class.getClassLoader());
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeValue(low_resolution);
+                    dest.writeValue(thumbnail);
+                    dest.writeValue(standard_resolution);
+                }
+
+                @SuppressWarnings("unused")
+                public static final Parcelable.Creator<ImagesBean> CREATOR = new Parcelable.Creator<ImagesBean>() {
+                    @Override
+                    public ImagesBean createFromParcel(Parcel in) {
+                        return new ImagesBean(in);
+                    }
+
+                    @Override
+                    public ImagesBean[] newArray(int size) {
+                        return new ImagesBean[size];
+                    }
+                };
             }
 
-            public static class CaptionBean {
+            public static class CaptionBean implements Parcelable {
                 /**
                  * created_time : 1484283904
                  * text : #goodmorningpost #brothers #nephew #cutest #myboy #beardedvillains #gang #loveforever #infinitelove #😘
@@ -1699,7 +1881,7 @@ public class UserProfile implements Serializable {
                     this.id = id;
                 }
 
-                public static class FromBean {
+                public static class FromBean implements Parcelable {
                     /**
                      * username : sahil_239
                      * profile_picture : https://scontent.cdninstagram.com/t51.2885-19/s150x150/14515720_374514152881065_20633289177956352_a.jpg
@@ -1743,10 +1925,76 @@ public class UserProfile implements Serializable {
                     public void setFull_name(String full_name) {
                         this.full_name = full_name;
                     }
+
+                    protected FromBean(Parcel in) {
+                        username = in.readString();
+                        profile_picture = in.readString();
+                        id = in.readString();
+                        full_name = in.readString();
+                    }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(username);
+                        dest.writeString(profile_picture);
+                        dest.writeString(id);
+                        dest.writeString(full_name);
+                    }
+
+                    @SuppressWarnings("unused")
+                    public static final Parcelable.Creator<FromBean> CREATOR = new Parcelable.Creator<FromBean>() {
+                        @Override
+                        public FromBean createFromParcel(Parcel in) {
+                            return new FromBean(in);
+                        }
+
+                        @Override
+                        public FromBean[] newArray(int size) {
+                            return new FromBean[size];
+                        }
+                    };
                 }
+
+                protected CaptionBean(Parcel in) {
+                    created_time = in.readString();
+                    text = in.readString();
+                    from = (FromBean) in.readValue(FromBean.class.getClassLoader());
+                    id = in.readString();
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(created_time);
+                    dest.writeString(text);
+                    dest.writeValue(from);
+                    dest.writeString(id);
+                }
+
+                @SuppressWarnings("unused")
+                public static final Parcelable.Creator<CaptionBean> CREATOR = new Parcelable.Creator<CaptionBean>() {
+                    @Override
+                    public CaptionBean createFromParcel(Parcel in) {
+                        return new CaptionBean(in);
+                    }
+
+                    @Override
+                    public CaptionBean[] newArray(int size) {
+                        return new CaptionBean[size];
+                    }
+                };
             }
 
-            public static class UserBean {
+            public static class UserBean implements Parcelable {
                 /**
                  * username : sahil_239
                  * profile_picture : https://scontent.cdninstagram.com/t51.2885-19/s150x150/14515720_374514152881065_20633289177956352_a.jpg
@@ -1790,9 +2038,42 @@ public class UserProfile implements Serializable {
                 public void setFull_name(String full_name) {
                     this.full_name = full_name;
                 }
+
+                protected UserBean(Parcel in) {
+                    username = in.readString();
+                    profile_picture = in.readString();
+                    id = in.readString();
+                    full_name = in.readString();
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(username);
+                    dest.writeString(profile_picture);
+                    dest.writeString(id);
+                    dest.writeString(full_name);
+                }
+
+                @SuppressWarnings("unused")
+                public static final Parcelable.Creator<UserBean> CREATOR = new Parcelable.Creator<UserBean>() {
+                    @Override
+                    public UserBean createFromParcel(Parcel in) {
+                        return new UserBean(in);
+                    }
+
+                    @Override
+                    public UserBean[] newArray(int size) {
+                        return new UserBean[size];
+                    }
+                };
             }
 
-            public static class UsersInPhotoBean {
+            public static class UsersInPhotoBean implements Parcelable {
                 /**
                  * position : {"y":0.71456325,"x":0.86558044}
                  * user : {"username":"jaabir_desai","profile_picture":"https://scontent.cdninstagram.com/t51.2885-19/s150x150/15802927_168301830318716_7117537979509243904_a.jpg","id":"1273757113","full_name":"Jaabir Desai"}
@@ -1818,7 +2099,7 @@ public class UserProfile implements Serializable {
                     this.userX = userX;
                 }
 
-                public static class PositionBean {
+                public static class PositionBean implements Parcelable {
                     /**
                      * y : 0.71456325
                      * x : 0.86558044
@@ -1842,9 +2123,38 @@ public class UserProfile implements Serializable {
                     public void setX(double x) {
                         this.x = x;
                     }
+
+                    protected PositionBean(Parcel in) {
+                        y = in.readDouble();
+                        x = in.readDouble();
+                    }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeDouble(y);
+                        dest.writeDouble(x);
+                    }
+
+                    @SuppressWarnings("unused")
+                    public static final Parcelable.Creator<PositionBean> CREATOR = new Parcelable.Creator<PositionBean>() {
+                        @Override
+                        public PositionBean createFromParcel(Parcel in) {
+                            return new PositionBean(in);
+                        }
+
+                        @Override
+                        public PositionBean[] newArray(int size) {
+                            return new PositionBean[size];
+                        }
+                    };
                 }
 
-                public static class UserBeanX {
+                public static class UserBeanX implements Parcelable {
                     /**
                      * username : jaabir_desai
                      * profile_picture : https://scontent.cdninstagram.com/t51.2885-19/s150x150/15802927_168301830318716_7117537979509243904_a.jpg
@@ -1888,8 +2198,144 @@ public class UserProfile implements Serializable {
                     public void setFull_name(String full_name) {
                         this.full_name = full_name;
                     }
+
+                    protected UserBeanX(Parcel in) {
+                        username = in.readString();
+                        profile_picture = in.readString();
+                        id = in.readString();
+                        full_name = in.readString();
+                    }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(username);
+                        dest.writeString(profile_picture);
+                        dest.writeString(id);
+                        dest.writeString(full_name);
+                    }
+
+                    @SuppressWarnings("unused")
+                    public static final Parcelable.Creator<UserBeanX> CREATOR = new Parcelable.Creator<UserBeanX>() {
+                        @Override
+                        public UserBeanX createFromParcel(Parcel in) {
+                            return new UserBeanX(in);
+                        }
+
+                        @Override
+                        public UserBeanX[] newArray(int size) {
+                            return new UserBeanX[size];
+                        }
+                    };
+                }
+
+                protected UsersInPhotoBean(Parcel in) {
+                    position = (PositionBean) in.readValue(PositionBean.class.getClassLoader());
+                    userX = (UserBeanX) in.readValue(UserBeanX.class.getClassLoader());
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeValue(position);
+                    dest.writeValue(userX);
+                }
+
+                @SuppressWarnings("unused")
+                public static final Parcelable.Creator<UsersInPhotoBean> CREATOR = new Parcelable.Creator<UsersInPhotoBean>() {
+                    @Override
+                    public UsersInPhotoBean createFromParcel(Parcel in) {
+                        return new UsersInPhotoBean(in);
+                    }
+
+                    @Override
+                    public UsersInPhotoBean[] newArray(int size) {
+                        return new UsersInPhotoBean[size];
+                    }
+                };
+            }
+            protected DataBean(Parcel in) {
+                attribution = (Object) in.readValue(Object.class.getClassLoader());
+                type = in.readString();
+                location = (Object) in.readValue(Object.class.getClassLoader());
+                comments = (CommentsBean) in.readValue(CommentsBean.class.getClassLoader());
+                filter = in.readString();
+                created_time = in.readString();
+                link = in.readString();
+                likes = (LikesBean) in.readValue(LikesBean.class.getClassLoader());
+                images = (ImagesBean) in.readValue(ImagesBean.class.getClassLoader());
+                caption = (CaptionBean) in.readValue(CaptionBean.class.getClassLoader());
+                user_has_liked = in.readByte() != 0x00;
+                id = in.readString();
+                userX = (UserBean) in.readValue(UserBean.class.getClassLoader());
+                if (in.readByte() == 0x01) {
+                    tags = new ArrayList<String>();
+                    in.readList(tags, String.class.getClassLoader());
+                } else {
+                    tags = null;
+                }
+                if (in.readByte() == 0x01) {
+                    users_in_photo = new ArrayList<UsersInPhotoBean>();
+                    in.readList(users_in_photo, UsersInPhotoBean.class.getClassLoader());
+                } else {
+                    users_in_photo = null;
                 }
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeValue(attribution);
+                dest.writeString(type);
+                dest.writeValue(location);
+                dest.writeValue(comments);
+                dest.writeString(filter);
+                dest.writeString(created_time);
+                dest.writeString(link);
+                dest.writeValue(likes);
+                dest.writeValue(images);
+                dest.writeValue(caption);
+                dest.writeByte((byte) (user_has_liked ? 0x01 : 0x00));
+                dest.writeString(id);
+                dest.writeValue(userX);
+                if (tags == null) {
+                    dest.writeByte((byte) (0x00));
+                } else {
+                    dest.writeByte((byte) (0x01));
+                    dest.writeList(tags);
+                }
+                if (users_in_photo == null) {
+                    dest.writeByte((byte) (0x00));
+                } else {
+                    dest.writeByte((byte) (0x01));
+                    dest.writeList(users_in_photo);
+                }
+            }
+
+            @SuppressWarnings("unused")
+            public static final Parcelable.Creator<DataBean> CREATOR = new Parcelable.Creator<DataBean>() {
+                @Override
+                public DataBean createFromParcel(Parcel in) {
+                    return new DataBean(in);
+                }
+
+                @Override
+                public DataBean[] newArray(int size) {
+                    return new DataBean[size];
+                }
+            };
         }
     }
 }
